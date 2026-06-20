@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QRP2P COLOMBIA MARKETPLACE - Contraentrega Cali, Valle Del Cauca, Colombia</title>
+    <title>QRP2P COLOMBIA MARKETPLACE - Vendedores Verificados</title>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -158,7 +158,7 @@
             color: var(--color-blanco);
         }
         
-        /* Product Grid */
+        /* Product Grid -> Ahora es grid de vendedores */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -172,6 +172,7 @@
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            background: white;
         }
         
         .product-card:hover {
@@ -184,6 +185,10 @@
             width: 100%;
             height: 200px;
             overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .product-image {
@@ -917,6 +922,33 @@
                 font-size: 16px !important;
             }
         }
+        /* Badge de verificado */
+        .verified-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-verde);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+        .seller-stars {
+            color: #f5b342;
+            letter-spacing: 2px;
+            margin: 0.3rem 0;
+        }
+        .seller-since {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -944,17 +976,17 @@
         <!-- Filtros -->
         <div class="filters">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar productos y servicios...">
+                <input type="text" id="searchInput" placeholder="Buscar vendedores verificados...">
             </div>
             <div class="category-filter">
                 <button class="category-btn active" data-category="todo">@nutricionhd</button>
             </div>
         </div>
 
-        <!-- Product Grid -->
+        <!-- Seller Grid (antes productos) -->
         <div class="scroll-container">
             <div class="products-grid" id="productsGrid">
-                <!-- Los productos se cargarán dinámicamente con JavaScript -->
+                <!-- Los vendedores se cargarán dinámicamente con JavaScript -->
             </div>
         </div>
 
@@ -1183,143 +1215,98 @@
     </footer>
 
     <script>
-        // Base de datos de productos (simulada) - SOLO LOS PRIMEROS 10 PRODUCTOS
-        const products = [
+        // Base de datos de VENDEDORES VERIFICADOS (reemplaza productos)
+        const sellers = [
             {
-                "id": 01,
-                "title": "EGO PLANT BOTELLA 200 ML",
-                "price": 12800,
-                "description": "Opción de pago a 6 cuotas de 2.133 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 8192,
-                "productUrl": "nutricionhd-01.html",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 1,
+                name: "Nutrición HD",
+                category: "todo",
+                rating: 5,
+                verified: true,
+                since: "2020",
+                description: "Suplementos deportivos y nutrición de alta calidad.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 143,
-                "title": "OMNILIFE F PLUS",
-                "price": 134750,
-                "description": "Opción de pago a 6 cuotas de 22.458 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 86240,
-                "productUrl": "https://ejemplo.com/productos/omnilife-f-plus",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 2,
+                name: "TecnoStore Cali",
+                category: "todo",
+                rating: 4,
+                verified: true,
+                since: "2019",
+                description: "Electrónica, computadores y accesorios tecnológicos.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 144,
-                "title": "FIBER'N PLUS SUPREME SACHET 450 G",
-                "price": 159550,
-                "description": "Opción de pago a 6 cuotas de 26.592 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 102112,
-                "productUrl": "https://ejemplo.com/productos/fiber-n-plus-supreme",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 3,
+                name: "Moda Express",
+                category: "todo",
+                rating: 5,
+                verified: true,
+                since: "2021",
+                description: "Ropa y accesorios de moda para toda la familia.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 145,
-                "title": "ESTOP PLUS CAJA 30 SACHETS 450G",
-                "price": 251500,
-                "description": "Opción de pago a 6 cuotas de 41.917 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 160960,
-                "productUrl": "https://ejemplo.com/productos/estop-plus",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 4,
+                name: "Hogar y Más",
+                category: "todo",
+                rating: 4,
+                verified: true,
+                since: "2018",
+                description: "Artículos para el hogar, cocina y decoración.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 146,
-                "title": "HOMO PLUS CAJA 30 SACHETS 195 G",
-                "price": 134750,
-                "description": "Opción de pago a 6 cuotas de 22.458 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 86240,
-                "productUrl": "https://ejemplo.com/productos/homo-plus",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 5,
+                name: "Belleza Natural",
+                category: "todo",
+                rating: 5,
+                verified: true,
+                since: "2022",
+                description: "Cosméticos y productos de cuidado personal orgánicos.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 147,
-                "title": "OMNILIFE KOLINA BOTELLA 200 ML",
-                "price": 12800,
-                "description": "Opción de pago a 6 cuotas de 2.133 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 8192,
-                "productUrl": "https://ejemplo.com/productos/omnilife-kolina",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 6,
+                name: "Deportes Élite",
+                category: "todo",
+                rating: 4,
+                verified: true,
+                since: "2020",
+                description: "Equipamiento deportivo y ropa técnica.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 148,
-                "title": "BIOCROS SUPREME CAJA 30 SOBRES 240G",
-                "price": 120050,
-                "description": "Opción de pago a 6 cuotas de 20.008 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 76832,
-                "productUrl": "https://ejemplo.com/productos/biocros-supreme",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 7,
+                name: "Librería Central",
+                category: "todo",
+                rating: 5,
+                verified: true,
+                since: "2017",
+                description: "Libros, material educativo y papelería.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             },
             {
-                "id": 149,
-                "title": "OMNIPLUS FRUTAS EVOLUCION 30 SACHES",
-                "price": 184550,
-                "description": "Opción de pago a 6 cuotas de 30.758 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 118112,
-                "productUrl": "https://ejemplo.com/productos/omniplus-frutas-evolucion",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
-            },
-            {
-                "id": 150,
-                "title": "OMNIPLUS NARANJA SUPREME CAJA 30 SOBRES",
-                "price": 184550,
-                "description": "Opción de pago a 6 cuotas de 30.758 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 118112,
-                "productUrl": "https://ejemplo.com/productos/omniplus-naranja-supreme",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
-            },
-            {
-                "id": 151,
-                "title": "COGNOS EVOLUCION CAJA",
-                "price": 125750,
-                "description": "Opción de pago a 6 cuotas de 20.958 con 0% interés.",
-                "category": "todo",
-                "supplier": "Omnilife Colombia",
-                "warehousePrice": 80480,
-                "productUrl": "https://ejemplo.com/productos/cognos-evolucion",
-                "images": [
-                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-                ]
+                id: 8,
+                name: "Joyas & Relojes",
+                category: "todo",
+                rating: 4,
+                verified: true,
+                since: "2019",
+                description: "Joyería fina, relojes y accesorios de lujo.",
+                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
             }
         ];
 
-        // Función para formatear precios en formato COP
-        function formatPrice(price) {
-            return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        // Función para formatear estrellas
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) stars += '★';
+                else stars += '☆';
+            }
+            return stars;
         }
 
         // Variables globales
@@ -1360,440 +1347,91 @@
         const supplierTableContainer = document.getElementById('supplierTableContainer');
         const supplierTableBody = document.getElementById('supplierTableBody');
 
-        function loadProducts(productsToLoad) {
+        function loadSellers(sellersToLoad) {
             productsGrid.innerHTML = '';
             
-            productsToLoad.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <a href="${product.productUrl}" class="product-link" target="_blank">
-                        <div class="product-image-container">
-                            <img src="${product.images[0]}" alt="${product.title}" class="product-image">
-                        </div>
-                    </a>
+            sellersToLoad.forEach(seller => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image-container" style="position:relative;">
+                        <img src="${seller.image}" alt="${seller.name}" class="product-image">
+                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                    </div>
                     <div class="product-info">
-                        <a href="${product.productUrl}" class="product-link" target="_blank">
-                            <h3 class="product-title">${product.title}</h3>
-                        </a>
-                        <p class="product-price">${formatPrice(product.price)}</p>
-                        <p class="product-description">${product.description}</p>
+                        <h3 class="product-title">${seller.name}</h3>
+                        <div class="seller-stars">${renderStars(seller.rating)}</div>
+                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
+                        <p class="product-description">${seller.description}</p>
                         <div class="product-actions">
-                            <button class="add-to-cart" data-id="${product.id}">
-                                <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                            <button class="add-to-cart" data-id="${seller.id}">
+                                <i class="fas fa-cart-plus"></i> Contactar
                             </button>
-                            <button class="buy-now" data-id="${product.id}">
-                                <i class="fas fa-shopping-bag"></i> Comprar Ahora
+                            <button class="buy-now" data-id="${seller.id}">
+                                <i class="fas fa-shopping-bag"></i> Ver Perfil
                             </button>
                         </div>
                     </div>
                 `;
-                productsGrid.appendChild(productCard);
+                productsGrid.appendChild(card);
             });
             
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const productId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
-                    addToCart(productId);
+                    const sellerId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
+                    showNotification(`Contactando a ${sellers.find(s => s.id === sellerId).name}...`);
                 });
             });
             
             document.querySelectorAll('.buy-now').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const productId = parseInt(e.target.closest('.buy-now').getAttribute('data-id'));
-                    openDirectPurchase(productId);
+                    const sellerId = parseInt(e.target.closest('.buy-now').getAttribute('data-id'));
+                    showNotification(`Perfil de ${sellers.find(s => s.id === sellerId).name}`);
                 });
             });
         }
 
-        function openDirectPurchase(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            
-            currentDirectProduct = product;
-            
-            directPurchaseProduct.innerHTML = `
-                <img src="${product.images[0]}" alt="${product.title}">
-                <div class="direct-purchase-info">
-                    <h3>${product.title}</h3>
-                    <p class="product-price">${formatPrice(product.price)}</p>
-                </div>
-            `;
-            
-            directCustomerName.value = '';
-            directCustomerPhone.value = '';
-            directCustomerAddress.value = '';
-            directCustomerCity.value = '';
-            directWhatsappBtn.disabled = true;
-            
-            document.getElementById('direct-shipping-priority').checked = true;
-            selectedShipping = 0;
-            updateShippingOptions();
-            
-            document.getElementById('direct-payment-contraentrega').checked = true;
-            selectedPayment = "contraentrega";
-            updatePaymentOptions();
-            
-            directPurchaseModal.style.display = 'flex';
-        }
-
-        function filterProducts() {
+        function filterSellers() {
             const searchText = searchInput.value.toLowerCase();
             const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
             
-            const filteredProducts = products.filter(product => {
-                const matchesSearch = product.title.toLowerCase().includes(searchText) || 
-                                     product.description.toLowerCase().includes(searchText);
-                const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
-                
+            const filtered = sellers.filter(seller => {
+                const matchesSearch = seller.name.toLowerCase().includes(searchText) || 
+                                     seller.description.toLowerCase().includes(searchText);
+                const matchesCategory = activeCategory === 'all' || seller.category === activeCategory;
                 return matchesSearch && matchesCategory;
             });
             
-            loadProducts(filteredProducts);
-        }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existingItem = cart.find(item => item.id === productId);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    quantity: 1,
-                    image: product.images[0]
-                });
-            }
-            
-            updateCart();
-            showNotification(`${product.title} agregado al carrito`);
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCart();
-        }
-
-        function updateQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            
-            if (item) {
-                item.quantity += change;
-                
-                if (item.quantity <= 0) {
-                    removeFromCart(productId);
-                } else {
-                    updateCart();
-                }
-            }
-        }
-
-        function updateCart() {
-            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
-            
-            cartItems.innerHTML = '';
-            let subtotal = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-                
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" width="50">
-                    <div class="item-info">
-                        <h4 class="item-title">${item.title}</h4>
-                        <p class="item-price">${formatPrice(item.price)} c/u</p>
-                    </div>
-                    <div class="item-quantity">
-                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                        <span class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></span>
-                    </div>
-                    <div class="item-total">${formatPrice(itemTotal)}</div>
-                `;
-                cartItems.appendChild(cartItem);
-            });
-            
-            const total = subtotal + selectedShipping;
-            cartTotal.textContent = formatPrice(total);
-            
-            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
-                    updateQuantity(id, -1);
-                });
-            });
-            
-            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
-                    updateQuantity(id, 1);
-                });
-            });
-            
-            document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
-                    removeFromCart(id);
-                });
-            });
-            
-            validateCheckoutButton();
-        }
-
-        function updateShippingOptions() {
-            document.querySelectorAll('.shipping-option').forEach(option => {
-                option.classList.remove('selected');
-                const radio = option.querySelector('.shipping-radio');
-                if (radio.checked) {
-                    option.classList.add('selected');
-                    selectedShipping = parseInt(option.getAttribute('data-shipping'));
-                }
-            });
-            
-            updateCart();
-        }
-
-        function updatePaymentOptions() {
-            document.querySelectorAll('.payment-option').forEach(option => {
-                option.classList.remove('selected');
-                const radio = option.querySelector('.payment-radio');
-                if (radio.checked) {
-                    option.classList.add('selected');
-                    selectedPayment = option.getAttribute('data-payment');
-                }
-            });
-        }
-
-        function validateCheckoutButton() {
-            const hasItems = cart.length > 0;
-            const hasName = customerName.value.trim() !== '';
-            const hasPhone = customerPhone.value.trim() !== '';
-            const hasAddress = customerAddress.value.trim() !== '';
-            const hasCity = customerCity.value.trim() !== '';
-            
-            whatsappBtn.disabled = !(hasItems && hasName && hasPhone && hasAddress && hasCity);
-        }
-
-        function validateDirectCheckoutButton() {
-            const hasName = directCustomerName.value.trim() !== '';
-            const hasPhone = directCustomerPhone.value.trim() !== '';
-            const hasAddress = directCustomerAddress.value.trim() !== '';
-            const hasCity = directCustomerCity.value.trim() !== '';
-            
-            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity);
+            loadSellers(filtered);
         }
 
         function showNotification(message) {
             const existingNotification = document.querySelector('.notification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
+            if (existingNotification) existingNotification.remove();
             
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
-            
             document.body.appendChild(notification);
             
             setTimeout(() => {
                 notification.style.opacity = '0';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 500);
+                setTimeout(() => document.body.removeChild(notification), 500);
             }, 3000);
         }
 
-        function generateWhatsAppMessage() {
-            let message = "¡Hola! Quiero realizar la siguiente compra:\n\n";
-            
-            cart.forEach(item => {
-                message += `- ${item.title} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
-            });
-            
-            if (selectedShipping > 0) {
-                message += `- Envío: ${formatPrice(selectedShipping)}\n`;
-            } else {
-                message += `- Envío: Entrega inmediata\n`;
-            }
-            
-            const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + selectedShipping;
-            message += `\nTotal: ${formatPrice(total)}`;
-            
-            if (selectedPayment === "contraentrega") {
-                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
-            } else {
-                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
-            }
-            
-            message += `\n\nMi información de envío es:\n`;
-            message += `Nombre: ${customerName.value}\n`;
-            message += `Teléfono: ${customerPhone.value}\n`;
-            message += `Dirección: ${customerAddress.value}\n`;
-            message += `Ciudad: ${customerCity.value}`;
-            
-            return encodeURIComponent(message);
-        }
-
-        function generateDirectWhatsAppMessage() {
-            let message = "¡Hola! Quiero comprar el siguiente producto:\n\n";
-            
-            message += `- ${currentDirectProduct.title}: ${formatPrice(currentDirectProduct.price)}\n`;
-            
-            if (selectedShipping > 0) {
-                message += `- Envío: ${formatPrice(selectedShipping)}\n`;
-            } else {
-                message += `- Envío: Entrega inmediata\n`;
-            }
-            
-            const total = currentDirectProduct.price + selectedShipping;
-            message += `\nTotal: ${formatPrice(total)}`;
-            
-            if (selectedPayment === "contraentrega") {
-                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
-            } else {
-                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
-            }
-            
-            message += `\n\nMi información de envío es:\n`;
-            message += `Nombre: ${directCustomerName.value}\n`;
-            message += `Teléfono: ${directCustomerPhone.value}\n`;
-            message += `Dirección: ${directCustomerAddress.value}\n`;
-            message += `Ciudad: ${directCustomerCity.value}`;
-            
-            return encodeURIComponent(message);
-        }
-
-        function loadSupplierTable() {
-            supplierTableBody.innerHTML = '';
-            
-            products.forEach(product => {
-                const margin = ((product.price - product.warehousePrice) / product.warehousePrice * 100).toFixed(2);
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td>${product.title}</td>
-                    <td>${product.category}</td>
-                    <td>${formatPrice(product.warehousePrice)}</td>
-                    <td>${formatPrice(product.price)}</td>
-                    <td>${product.supplier}</td>
-                    <td>${margin}%</td>
-                `;
-                supplierTableBody.appendChild(row);
-            });
-            
-            supplierTableContainer.style.display = 'block';
-        }
-
-        // Event Listeners
-        cartIcon.addEventListener('click', () => {
-            cartModal.style.display = 'flex';
-        });
-
-        closeCart.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
-
-        continueShopping.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
-
-        whatsappBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                showNotification('El carrito está vacío');
-                return;
-            }
-            
-            const message = generateWhatsAppMessage();
-            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
-        });
-
-        closeDirectPurchase.addEventListener('click', () => {
-            directPurchaseModal.style.display = 'none';
-        });
-
-        cancelDirectPurchase.addEventListener('click', () => {
-            directPurchaseModal.style.display = 'none';
-        });
-
-        directWhatsappBtn.addEventListener('click', () => {
-            if (!currentDirectProduct) {
-                showNotification('No hay producto seleccionado');
-                return;
-            }
-            
-            const message = generateDirectWhatsAppMessage();
-            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
-        });
-
-        searchInput.addEventListener('input', filterProducts);
-
+        // Event listeners (se mantienen igual pero sin funcionalidad de carrito)
+        searchInput.addEventListener('input', filterSellers);
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 categoryBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                filterProducts();
+                filterSellers();
             });
         });
 
-        document.querySelectorAll('.shipping-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const radio = option.querySelector('.shipping-radio');
-                radio.checked = true;
-                updateShippingOptions();
-            });
-        });
-
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const radio = option.querySelector('.payment-radio');
-                radio.checked = true;
-                updatePaymentOptions();
-            });
-        });
-
-        customerName.addEventListener('input', validateCheckoutButton);
-        customerPhone.addEventListener('input', validateCheckoutButton);
-        customerAddress.addEventListener('input', validateCheckoutButton);
-        customerCity.addEventListener('input', validateCheckoutButton);
-
-        directCustomerName.addEventListener('input', validateDirectCheckoutButton);
-        directCustomerPhone.addEventListener('input', validateDirectCheckoutButton);
-        directCustomerAddress.addEventListener('input', validateDirectCheckoutButton);
-        directCustomerCity.addEventListener('input', validateDirectCheckoutButton);
-
-        adminAccessBtn.addEventListener('click', () => {
-            if (adminKeyInput.value === ADMIN_KEY) {
-                loadSupplierTable();
-                showNotification('Acceso concedido. Tabla de proveedores cargada.');
-            } else {
-                showNotification('Clave incorrecta. Intenta nuevamente.');
-            }
-        });
-
-        adminKeyInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                adminAccessBtn.click();
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                cartModal.style.display = 'none';
-            }
-            if (e.target === directPurchaseModal) {
-                directPurchaseModal.style.display = 'none';
-            }
-        });
-
-        // Inicializar
-        loadProducts(products);
+        // Inicializar con vendedores
+        loadSellers(sellers);
     </script>
 </body>
 </html>
