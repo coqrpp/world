@@ -1,791 +1,813 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contraentrega Ciudad de Panamá - Mapa</title>
-  <style>
-    :root {
-      --primary-color: #1a1a1a;
-      --secondary-color: #333;
-      --accent-color: #0066cc;
-      --text-color: #333;
-      --light-text: #fff;
-      --bg-light: #f8f8f8;
-      --border-radius: 8px;
-      --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      --transition: all 0.3s ease;
-    }
-    
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
-    
-    body { 
-      font-family: 'Roboto', sans-serif; 
-      color: var(--text-color); 
-      line-height: 1.6; 
-      touch-action: manipulation;
-      overflow-x: hidden;
-    }
-    
-    #contenedor-mapa { 
-      height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
-      position: relative;
-    }
-    
-    #barra-superior { 
-      display: flex; 
-      gap: 0.8rem; 
-      padding: 0.8rem; 
-      background: var(--bg-light); 
-      width: 100%;
-      z-index: 1000;
-      justify-content: center;
-    }
-    
-    #buscador { 
-      flex: 1; 
-      max-width: 500px;
-      padding: 0.6rem 1.2rem; 
-      border: 1px solid #ddd; 
-      border-radius: 24px; 
-      appearance: none; 
-      font-size: 16px;
-      transition: var(--transition);
-    }
-    
-    #buscador:focus {
-      outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
-    }
-    
-    .btn { 
-      background: #000000; /* NEGRO */
-      color: #ffffff; /* BLANCO */
-      padding: 0.6rem 1.2rem; 
-      border-radius: 24px; 
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      border: 1px solid #333;
-    }
-    
-    .btn:hover {
-      background: #333333; /* Gris oscuro al pasar el mouse */
-      transform: translateY(-1px);
-    }
-    
-    .btn-centrar {
-      background-color: #000000;
-      color: #ffffff;
-    }
-    
-    .btn-marketplace {
-      background-color: #000000;
-      color: #ffffff;
-    }
-    
-    #mapa { 
-      flex: 1; 
-      background: #f0f0f0; 
-      width: 100%;
-    }
-    
-    .cluster-marcadores { 
-      background: rgba(40,40,40,0.7); 
-      border-radius: 50%; 
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    
-    .whatsapp-icon {
-      width: 16px;
-      height: 16px;
-      filter: invert(1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QRP2P COLOMBIA MARKETPLACE - Vendedores Verificados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-blanco: #ffffff;
+            --color-negro: #000000;
+            --color-gris-claro: #f5f5f5;
+            --color-gris-medio: #e0e0e0;
+            --color-gris-oscuro: #333333;
+            --color-verde: #25D366;
+            --color-rojo: #dc3545;
+        }
 
-    .popup-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .popup-button-row {
-      display: flex;
-      gap: 8px;
-      justify-content: space-between;
-    }
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            line-height: 1.6;
+            font-size: 16px;
+        }
 
-    .sugerencias-busqueda {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border-radius: 0 0 8px 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 1000;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-    }
+        /* Header */
+        header {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .sugerencia-item {
-      padding: 10px 15px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .sugerencia-item:hover {
-      background-color: #f5f5f5;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
 
-    .sugerencia-texto {
-      flex: 1;
-    }
+        .logo-img {
+            height: 40px;
+            width: auto;
+            max-width: 100%;
+        }
 
-    .sugerencia-boton {
-      margin-left: 10px;
-      padding: 5px 10px;
-      background-color: #9b59b6;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-    }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
 
-    .contenedor-buscador {
-      position: relative;
-      flex: 1;
-      max-width: 500px;
-    }
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
 
-    .cargando {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-    }
+        /* Hero Section */
+        .hero {
+            background-color: var(--color-gris-claro);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
 
-    .gm-style .gm-style-iw-c {
-      border-radius: 8px;
-      padding: 10px;
-    }
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
 
-    .gm-style .gm-style-iw-d {
-      overflow: auto !important;
-    }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .gm-ui-hover-effect {
-      top: 8px !important;
-      right: 8px !important;
-    }
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-    .map-type-selector {
-      position: absolute;
-      bottom: 20px;
-      left: 10px;
-      z-index: 1000;
-      background: white;
-      padding: 8px 12px;
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      display: flex;
-      gap: 10px;
-    }
+        /* Filtros */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-    .map-type-btn {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      background: #f1f1f1;
-      transition: background 0.3s;
-    }
+        .search-box {
+            flex-grow: 1;
+            max-width: 500px;
+        }
 
-    .map-type-btn.active {
-      background: #0066cc;
-      color: white;
-    }
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
 
-    @media (max-width: 768px) { 
-      #barra-superior { 
-        flex-direction: column; 
-        gap: 0.6rem;
-      }
-      
-      .popup-button-row {
-        flex-direction: column;
-      }
+        .category-btn {
+            background: none;
+            border: 1px solid var(--color-negro);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
 
-      .sugerencia-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
 
-      .sugerencia-boton {
-        margin-left: 0;
-        margin-top: 5px;
-        align-self: flex-end;
-      }
+        /* Seller Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
 
-      .map-type-selector {
-        bottom: 10px;
-        left: 5px;
-        flex-direction: column;
-        gap: 5px;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+        .product-card {
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .product-description {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            min-height: 2.8rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .buy-now {
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
+
+        .buy-now:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+
+        .verified-badge {
+            display: inline-block;
+            background: var(--color-verde);
+            color: white;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .seller-since {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Admin Access Section */
+        .admin-access {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .admin-form input {
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+
+        .admin-form button {
+            padding: 0.8rem;
+            background-color: var(--color-negro);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .admin-form button:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+
+        /* Admin Private Table */
+        .admin-private-container {
+            display: none;
+            margin: 2rem 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 2px solid var(--color-verde);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-private-container h2 {
+            background: var(--color-verde);
+            color: white;
+            padding: 0.8rem;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .admin-private-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .admin-private-table th,
+        .admin-private-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+
+        .admin-private-table th {
+            background-color: var(--color-gris-claro);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+
+        .admin-private-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-private-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .admin-private-table .private-data {
+            color: var(--color-rojo);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            margin-bottom: 0.5rem;
+            color: var(--color-gris-medio);
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--color-blanco);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-gris-oscuro);
+            color: var(--color-gris-medio);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            border-radius: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .category-filter {
+                justify-content: center;
+            }
+
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .product-card {
+                padding: 1rem 0.8rem;
+            }
+
+            .product-title {
+                font-size: 1rem;
+            }
+
+            .buy-now {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            input,
+            textarea,
+            select {
+                font-size: 16px !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="contenedor-mapa">
-    <div id="barra-superior">
-      <div class="contenedor-buscador">
-        <input type="search" id="buscador" placeholder="BUSCAR EN CIUDAD DE PANAMÁ..." enterkeyhint="search">
-        <div id="sugerencias-busqueda" class="sugerencias-busqueda"></div>
-      </div>
-      <button class="btn btn-centrar" id="centrar-btn">CENTRAR</button>
-      <button class="btn btn-marketplace" id="marketplace-btn" onclick="window.open('https://ciudaddepanama.qrcontraentrega.com', '_blank')">MARKETPLACE</button>
-    </div>
-    <div id="mapa"></div>
-    <div class="map-type-selector">
-      <button class="map-type-btn active" id="map-btn">Mapa</button>
-      <button class="map-type-btn" id="satellite-btn">Satélite</button>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script>
-    // Variables globales
-    let mapa;
-    let userMarker;
-    let marcadoresOriginales = [];
-    let destinoMarker = null;
-    let buscadorTimeout;
-    let googleMapsLayer;
-    let googleSatelliteLayer;
-    let currentLayer;
-
-    // Datos de ubicaciones - Ciudad de Panamá
-    const UBICACIONES = [
-      { 
-        "id": "panama-este",
-        "nombre": "QRContraentrega Panamá Este", 
-        "direccion": "Vía Cincuentenario, Ciudad de Panamá, Panamá", 
-        "latlng": [9.0192, -79.5197], 
-        "url": "https://ciudaddepanama.qrcontraentrega.com/",
-        "telefono": "+50766778899",
-        "horario": "Lunes a Viernes: 8am-7pm, Sábados: 9am-5pm",
-        "servicios": "Almacenes QRContraentrega, Logística",
-        "pais": "Panamá",
-        "tipo": "socio"
-      },
-      { 
-        "id": "panama-oeste",
-        "nombre": "QRContraentrega Panamá Oeste", 
-        "direccion": "Avenida de los Mártires, Ciudad de Panamá, Panamá", 
-        "latlng": [8.9962, -79.5437], 
-        "url": "https://ciudaddepanama.qrcontraentrega.com/",
-        "telefono": "+50762345678",
-        "horario": "Lunes a Domingo: 7am-9pm",
-        "servicios": "Punto de recogida, Entrega inmediata",
-        "pais": "Panamá",
-        "tipo": "socio"
-      },
-      { 
-        "id": "centro-panama",
-        "nombre": "QRContraentrega Centro Panamá", 
-        "direccion": "Calle 50, Ciudad de Panamá, Panamá", 
-        "latlng": [8.9833, -79.5167], 
-        "url": "https://ciudaddepanama.qrcontraentrega.com/",
-        "telefono": "+50765432109",
-        "horario": "24/7 para recogidas urgentes",
-        "servicios": "Centro logístico principal",
-        "pais": "Panamá",
-        "tipo": "socio"
-      }
-    ];
-
-    // Inicializar el mapa cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeMap();
-      
-      // Evento para el botón centrar
-      document.getElementById('centrar-btn').addEventListener('click', centrarMapa);
-      
-      // Eventos para cambiar tipo de mapa
-      document.getElementById('map-btn').addEventListener('click', function() {
-        switchToMapView();
-      });
-      
-      document.getElementById('satellite-btn').addEventListener('click', function() {
-        switchToSatelliteView();
-      });
-      
-      // Eventos para el buscador
-      const searchInput = document.getElementById('buscador');
-      searchInput.addEventListener('input', handleSearchInput);
-      searchInput.addEventListener('keydown', handleSearchKeydown);
-      
-      // Cerrar sugerencias al hacer clic fuera
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.contenedor-buscador')) {
-          document.getElementById('sugerencias-busqueda').style.display = 'none';
-        }
-      });
-    });
-
-    function initializeMap() {
-      // Inicializar mapa con vista centrada en Ciudad de Panamá
-      mapa = L.map('mapa', {
-        center: [8.9833, -79.5167], // Centro de Ciudad de Panamá
-        zoom: 13,
-        zoomControl: false
-      });
-
-      // Añadir control de zoom
-      L.control.zoom({ position: 'bottomright' }).addTo(mapa);
-
-      // Crear capas de Google Maps
-      googleMapsLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com">Google Maps</a>'
-      });
-
-      googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com">Google Maps</a>'
-      });
-
-      // Inicialmente usar la vista de mapa
-      currentLayer = googleMapsLayer;
-      currentLayer.addTo(mapa);
-
-      // Asegurar que el mapa ocupe todo el espacio disponible
-      setTimeout(() => {
-        mapa.invalidateSize();
-      }, 0);
-
-      // Sistema de marcadores
-      const clusters = L.markerClusterGroup({
-        iconCreateFunction: cluster => L.divIcon({
-          html: `<div>${cluster.getChildCount()}</div>`,
-          className: 'cluster-marcadores',
-          iconSize: [40, 40]
-        }),
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        zoomToBoundsOnClick: true
-      });
-
-      // Crear marcadores para Ciudad de Panamá
-      UBICACIONES.forEach(loc => {
-        const marcador = L.marker(loc.latlng, {
-          icon: L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-            iconSize: [32, 32],
-            className: 'marker-icon-orange'
-          })
-        }).bindPopup(`
-          <div style="min-width:220px">
-            <h3 style="margin:0 0 5px 0;color:var(--accent-color)">${loc.nombre}</h3>
-            <p style="margin:0 0 8px 0;font-size:0.9em">${loc.direccion}</p>
-            <p style="margin:0 0 5px 0;font-size:0.9em"><strong>País:</strong> ${loc.pais}</p>
-            ${loc.telefono ? `<p style="margin:0 0 5px 0;font-size:0.9em"><strong>Teléfono:</strong> ${loc.telefono}</p>` : ''}
-            ${loc.horario ? `<p style="margin:0 0 5px 0;font-size:0.9em"><strong>Horario:</strong> ${loc.horario}</p>` : ''}
-            ${loc.servicios ? `<p style="margin:0 0 8px 0;font-size:0.9em"><strong>Servicios:</strong> ${loc.servicios}</p>` : ''}
-            <div class="popup-buttons">
-              <div class="popup-button-row">
-                <button class="btn btn-whatsapp" onclick="abrirWhatsApp('${loc.telefono}', '${loc.nombre}')">
-                  <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" class="whatsapp-icon" alt="WhatsApp">
-                  WhatsApp
-                </button>
-              </div>
-              <div class="popup-button-row">
-                <button class="btn btn-ruta" onclick="abrirGoogleMapsConDireccion('${loc.latlng[0]}', '${loc.latlng[1]}', '${loc.nombre}')">Google Maps</button>
-                <button class="btn btn-info" onclick="window.open('${loc.url}', '_blank')">Marketplace</button>
-              </div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="https://qrp2p.com/img/P2Pblack.png" alt="Logo QRP2P COLOMBIA MARKETPLACE" class="logo-img">
+            </a>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
             </div>
-          </div>
-        `);
-        
-        // Guardar todos los datos de la ubicación en el marcador
-        marcador.datosUbicacion = loc;
-        marcador.datosBusqueda = `${loc.nombre} ${loc.direccion} ${loc.pais} ${loc.telefono || ''} ${loc.servicios || ''}`.toLowerCase();
-        marcadoresOriginales.push(marcador);
-      });
+        </div>
+    </header>
 
-      // Añadir marcadores al mapa
-      clusters.addLayers(marcadoresOriginales);
-      mapa.addLayer(clusters);
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>QRP2P.COM</h1>
+        <p>VENDEDOR VERIFICADO</p>
+    </section>
 
-      // Ajustar vista a los marcadores
-      if(marcadoresOriginales.length > 0) {
-        mapa.fitBounds(clusters.getBounds().pad(0.3));
-      }
-
-      // Solicitar ubicación al cargar la página
-      obtenerUbicacionUsuario();
-    }
-
-    // Función para cambiar a vista de mapa
-    function switchToMapView() {
-      mapa.removeLayer(currentLayer);
-      currentLayer = googleMapsLayer;
-      currentLayer.addTo(mapa);
-      
-      document.getElementById('map-btn').classList.add('active');
-      document.getElementById('satellite-btn').classList.remove('active');
-    }
-
-    // Función para cambiar a vista de satélite
-    function switchToSatelliteView() {
-      mapa.removeLayer(currentLayer);
-      currentLayer = googleSatelliteLayer;
-      currentLayer.addTo(mapa);
-      
-      document.getElementById('satellite-btn').classList.add('active');
-      document.getElementById('map-btn').classList.remove('active');
-    }
-
-    // Función para abrir Google Maps con una dirección específica
-    function abrirGoogleMapsConDireccion(lat, lng, nombre) {
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving&dir_action=navigate`;
-      window.open(url, '_blank');
-    }
-
-    // Función para manejar la búsqueda
-    function handleSearchInput(e) {
-      clearTimeout(buscadorTimeout);
-      const termino = e.target.value.trim();
-      const sugerenciasContainer = document.getElementById('sugerencias-busqueda');
-      
-      if (termino.length < 2) {
-        sugerenciasContainer.style.display = 'none';
-        return;
-      }
-      
-      // Mostrar indicador de carga
-      sugerenciasContainer.innerHTML = '<div class="sugerencia-item">Buscando... <span class="cargando"></span></div>';
-      sugerenciasContainer.style.display = 'block';
-      
-      buscadorTimeout = setTimeout(() => {
-        buscarConGoogle(termino);
-      }, 300);
-    }
-
-    // Función para buscar usando Google Places API (simulación)
-    function buscarConGoogle(consulta) {
-      const sugerenciasContainer = document.getElementById('sugerencias-busqueda');
-      
-      // Primero buscar en puntos locales (Ciudad de Panamá)
-      const resultadosLocales = buscarEnPuntosLocales(consulta);
-      if (resultadosLocales) {
-        return;
-      }
-      
-      // Simular búsqueda en Google Places para Ciudad de Panamá y alrededores
-      setTimeout(() => {
-        sugerenciasContainer.innerHTML = '';
-        
-        // Resultados específicos para Ciudad de Panamá
-        const resultadosSimulados = [
-          {
-            name: "Canal de Panamá",
-            lat: 9.0800,
-            lng: -79.6800,
-            formatted_address: "Panamá, Panamá"
-          },
-          {
-            name: "Casco Antiguo",
-            lat: 8.9519,
-            lng: -79.5342,
-            formatted_address: "San Felipe, Ciudad de Panamá, Panamá"
-          },
-          {
-            name: "Centro Comercial Multiplaza",
-            lat: 8.9967,
-            lng: -79.5269,
-            formatted_address: "Vía Israel, Ciudad de Panamá, Panamá"
-          },
-          {
-            name: "Aeropuerto Internacional Tocumen",
-            lat: 9.0714,
-            lng: -79.3835,
-            formatted_address: "Panamá, Panamá"
-          },
-          {
-            name: "Biomuseo",
-            lat: 8.9308,
-            lng: -79.5394,
-            formatted_address: "Calzada de Amador, Ciudad de Panamá, Panamá"
-          }
-        ];
-        
-        if (resultadosSimulados.length > 0) {
-          resultadosSimulados.forEach(lugar => {
-            const item = document.createElement('div');
-            item.className = 'sugerencia-item';
-            
-            const lat = lugar.lat;
-            const lng = lugar.lng;
-            const nombre = lugar.name;
-            
-            item.innerHTML = `
-              <div class="sugerencia-texto">
-                <strong>📍 ${nombre}</strong><br>
-                <small>${lugar.formatted_address}</small>
-              </div>
-              <button class="sugerencia-boton" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombre}">
-                Ver
-              </button>
-            `;
-            
-            // Agregar evento al botón
-            const boton = item.querySelector('.sugerencia-boton');
-            boton.addEventListener('click', function(e) {
-              e.stopPropagation();
-              const nombre = this.getAttribute('data-nombre');
-              
-              // Redirigir según el lugar seleccionado
-              if (nombre.toLowerCase().includes("canal")) {
-                window.open("https://visitcanaldepanama.com", "_blank");
-              } else if (nombre.toLowerCase().includes("casco antiguo")) {
-                window.open("https://cascoantiguo.gob.pa", "_blank");
-              } else if (nombre.toLowerCase().includes("multiplaza")) {
-                window.open("https://multiplazapanama.com", "_blank");
-              } else if (nombre.toLowerCase().includes("aeropuerto") || nombre.toLowerCase().includes("tocumen")) {
-                window.open("https://www.tocumenpanama.aero", "_blank");
-              } else if (nombre.toLowerCase().includes("biomuseo")) {
-                window.open("https://biomuseo.org", "_blank");
-              } else {
-                // Por defecto, abrir el marketplace de Ciudad de Panamá
-                window.open("https://ciudaddepanama.qrcontraentrega.com", "_blank");
-              }
-              
-              sugerenciasContainer.style.display = "none";
-            });
-            
-            // Agregar evento al item completo
-            item.addEventListener('click', function() {
-              const lat = parseFloat(boton.getAttribute('data-lat'));
-              const lng = parseFloat(boton.getAttribute('data-lng'));
-              const nombre = boton.getAttribute('data-nombre');
-              
-              const latlng = [lat, lng];
-              mapa.setView(latlng, 15);
-              
-              if (destinoMarker) {
-                mapa.removeLayer(destinoMarker);
-              }
-              destinoMarker = L.marker(latlng, {
-                icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                  iconSize: [32, 32],
-                  className: 'marker-icon-red'
-                })
-              }).addTo(mapa)
-                .bindPopup(`<strong>${nombre}</strong><br><button onclick="redirigirSitioWeb('${nombre}')" style="background:#9b59b6;color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-top:5px;">Ver más</button>`);
-              
-              destinoMarker.openPopup();
-              document.getElementById('buscador').value = nombre;
-              sugerenciasContainer.style.display = 'none';
-            });
-            
-            sugerenciasContainer.appendChild(item);
-          });
-          sugerenciasContainer.style.display = 'block';
-        } else {
-          sugerenciasContainer.innerHTML = '<div class="sugerencia-item">No se encontraron resultados para: ' + consulta + '</div>';
-          sugerenciasContainer.style.display = 'block';
-        }
-      }, 500);
-    }
-
-    // Función para redirigir al sitio web basado en el nombre
-    function redirigirSitioWeb(nombre) {
-      if (nombre.toLowerCase().includes("canal")) {
-        window.open("https://visitcanaldepanama.com", "_blank");
-      } else if (nombre.toLowerCase().includes("casco antiguo")) {
-        window.open("https://cascoantiguo.gob.pa", "_blank");
-      } else if (nombre.toLowerCase().includes("multiplaza")) {
-        window.open("https://multiplazapanama.com", "_blank");
-      } else if (nombre.toLowerCase().includes("aeropuerto") || nombre.toLowerCase().includes("tocumen")) {
-        window.open("https://www.tocumenpanama.aero", "_blank");
-      } else if (nombre.toLowerCase().includes("biomuseo")) {
-        window.open("https://biomuseo.org", "_blank");
-      } else {
-        window.open("https://ciudaddepanama.qrcontraentrega.com", "_blank");
-      }
-    }
-
-    // Función para buscar en los puntos locales (Ciudad de Panamá)
-    function buscarEnPuntosLocales(consulta) {
-      const sugerenciasContainer = document.getElementById('sugerencias-busqueda');
-      const termino = consulta.toLowerCase();
-      const resultados = marcadoresOriginales.filter(m => 
-        m.datosBusqueda.includes(termino)
-      );
-      
-      if (resultados.length > 0) {
-        sugerenciasContainer.innerHTML = '';
-        
-        resultados.forEach(marcador => {
-          const loc = marcador.datosUbicacion;
-          const item = document.createElement('div');
-          item.className = 'sugerencia-item';
-          item.innerHTML = `
-            <div class="sugerencia-texto">
-              <strong>📍 ${loc.nombre}</strong><br>
-              <small>${loc.direccion}, ${loc.pais}</small>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filtros -->
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar vendedores verificados...">
             </div>
-            <button class="sugerencia-boton" data-id="${loc.id}">
-              Marketplace
-            </button>
-          `;
-          
-          // Agregar evento al botón "Marketplace"
-          const boton = item.querySelector('.sugerencia-boton');
-          boton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const id = this.getAttribute('data-id');
-            const punto = UBICACIONES.find(p => p.id === id);
-            if (punto && punto.url) {
-              window.open(punto.url, '_blank');
+            <div class="category-filter">
+                <button class="category-btn active" data-category="todo">@nutricionhd</button>
+            </div>
+        </div>
+
+        <!-- Seller Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Los vendedores se cargarán dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Admin Access Section -->
+        <div class="admin-access">
+            <h2>Acceso Administrativo</h2>
+            <div class="admin-form">
+                <input type="password" id="adminKey" placeholder="Ingrese clave de administrador">
+                <button id="adminAccessBtn">Acceder</button>
+            </div>
+        </div>
+
+        <!-- Admin Private Information Table -->
+        <div class="admin-private-container" id="adminPrivateContainer">
+            <h2><i class="fas fa-lock"></i> INFORMACIÓN PRIVADA DE VENDEDORES</h2>
+            <table class="admin-private-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Vendedor</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Comisión</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="adminPrivateBody">
+                    <!-- Los datos privados se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Acerca de Nosotros</h3>
+                <p>Somos Contraentrega. La revolución en logística y comercio electrónico de Colombia. Conectamos vendedores y compradores con una red de entrega confiable y el sistema de pago contraentrega más seguro.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-phone"></i> +57 3215343562</p>
+                <p><i class="fas fa-envelope"></i> calivalle@qrcontraentrega.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Carrera 16 # 9 - 44, Cali, Colombia</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/14T4jNLh1Dw/?mibextid=wwXIfr"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/calivalle_qrcontraentrega"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/573215343562"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="https://qrcontraentrega.com/afiliacion-colombia">Afiliarse</a>
+                <a href="https://qrcontraentrega.com/solicitar-envio-colombia">Logística</a>
+                <a href="https://qrcontraentrega.com/terminos-y-condiciones-colombia">Términos y Condiciones</a>
+                <a href="https://qrcontraentrega.com/calivalle-mapa">Mapa</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; Contraentrega. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de datos de VENDEDORES VERIFICADOS (con información privada)
+        const sellers = [{
+            id: 1,
+            name: "Nutrición HD",
+            category: "todo",
+            since: "2020",
+            description: "Suplementos deportivos y nutrición de alta calidad.",
+            profileUrl: "perfil-nutricion-hd.html",
+            // Información privada (solo visible para admin)
+            private: {
+                phone: "+57 300 123 4567",
+                email: "nutricionhd@email.com",
+                address: "Calle 10 # 5-30, Cali",
+                commission: "12%",
+                status: "Activo"
             }
-            sugerenciasContainer.style.display = 'none';
-          });
-          
-          // Agregar evento al item completo
-          item.addEventListener('click', function() {
-            mapa.setView(marcador.getLatLng(), 15);
-            marcador.openPopup();
-            document.getElementById('buscador').value = loc.nombre;
-            sugerenciasContainer.style.display = 'none';
-          });
-          
-          sugerenciasContainer.appendChild(item);
+        }, {
+            id: 2,
+            name: "TecnoStore Cali",
+            category: "todo",
+            since: "2019",
+            description: "Electrónica, computadores y accesorios tecnológicos.",
+            profileUrl: "perfil-tecnostore.html",
+            private: {
+                phone: "+57 310 987 6543",
+                email: "tecnostore@email.com",
+                address: "Avenida 6N # 23-45, Cali",
+                commission: "15%",
+                status: "Activo"
+            }
+        }, {
+            id: 3,
+            name: "Moda Express",
+            category: "todo",
+            since: "2021",
+            description: "Ropa y accesorios de moda para toda la familia.",
+            profileUrl: "perfil-moda-express.html",
+            private: {
+                phone: "+57 320 456 7890",
+                email: "modaexpress@email.com",
+                address: "Calle 15 # 8-20, Cali",
+                commission: "10%",
+                status: "Activo"
+            }
+        }, {
+            id: 4,
+            name: "Hogar y Más",
+            category: "todo",
+            since: "2018",
+            description: "Artículos para el hogar, cocina y decoración.",
+            profileUrl: "perfil-hogar-y-mas.html",
+            private: {
+                phone: "+57 305 678 9012",
+                email: "hogarymas@email.com",
+                address: "Carrera 25 # 12-10, Cali",
+                commission: "14%",
+                status: "Inactivo"
+            }
+        }, {
+            id: 5,
+            name: "Belleza Natural",
+            category: "todo",
+            since: "2022",
+            description: "Cosméticos y productos de cuidado personal orgánicos.",
+            profileUrl: "perfil-belleza-natural.html",
+            private: {
+                phone: "+57 315 234 5678",
+                email: "bellezanatural@email.com",
+                address: "Calle 20 # 10-15, Cali",
+                commission: "18%",
+                status: "Activo"
+            }
+        }, {
+            id: 6,
+            name: "Deportes Élite",
+            category: "todo",
+            since: "2020",
+            description: "Equipamiento deportivo y ropa técnica.",
+            profileUrl: "perfil-deportes-elite.html",
+            private: {
+                phone: "+57 318 765 4321",
+                email: "deporteselite@email.com",
+                address: "Avenida 4N # 15-30, Cali",
+                commission: "11%",
+                status: "Activo"
+            }
+        }, {
+            id: 7,
+            name: "Librería Central",
+            category: "todo",
+            since: "2017",
+            description: "Libros, material educativo y papelería.",
+            profileUrl: "perfil-libreria-central.html",
+            private: {
+                phone: "+57 313 456 7890",
+                email: "libreriacentral@email.com",
+                address: "Calle 8 # 3-12, Cali",
+                commission: "9%",
+                status: "Activo"
+            }
+        }, {
+            id: 8,
+            name: "Joyas & Relojes",
+            category: "todo",
+            since: "2019",
+            description: "Joyería fina, relojes y accesorios de lujo.",
+            profileUrl: "perfil-joyas-relojes.html",
+            private: {
+                phone: "+57 311 876 5432",
+                email: "joyasrelojes@email.com",
+                address: "Carrera 12 # 7-25, Cali",
+                commission: "20%",
+                status: "Activo"
+            }
+        }];
+
+        // Variables globales
+        const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const adminKeyInput = document.getElementById('adminKey');
+        const adminAccessBtn = document.getElementById('adminAccessBtn');
+        const adminPrivateContainer = document.getElementById('adminPrivateContainer');
+        const adminPrivateBody = document.getElementById('adminPrivateBody');
+        const ADMIN_KEY = "proveedor2024";
+
+        function loadSellers(sellersToLoad) {
+            productsGrid.innerHTML = '';
+
+            sellersToLoad.forEach(seller => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                        <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
+                        <h3 class="product-title">${seller.name}</h3>
+                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
+                        <p class="product-description">${seller.description}</p>
+                        <div class="product-actions">
+                            <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
+                                <i class="fas fa-user"></i> Ver Perfil
+                            </a>
+                        </div>
+                    `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        function filterSellers() {
+            const searchText = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+
+            const filtered = sellers.filter(seller => {
+                const matchesSearch = seller.name.toLowerCase().includes(searchText) ||
+                    seller.description.toLowerCase().includes(searchText);
+                const matchesCategory = activeCategory === 'all' || seller.category === activeCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            loadSellers(filtered);
+        }
+
+        function showNotification(message) {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) existingNotification.remove();
+
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 500);
+            }, 3000);
+        }
+
+        // Cargar información privada de vendedores (solo para admin)
+        function loadPrivateInfo() {
+            adminPrivateBody.innerHTML = '';
+
+            sellers.forEach(seller => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                        <td>${seller.id}</td>
+                        <td><strong>${seller.name}</strong></td>
+                        <td class="private-data">${seller.private.phone}</td>
+                        <td class="private-data">${seller.private.email}</td>
+                        <td class="private-data">${seller.private.address}</td>
+                        <td class="private-data">${seller.private.commission}</td>
+                        <td>
+                            <span style="color: ${seller.private.status === 'Activo' ? 'var(--color-verde)' : 'var(--color-rojo)'}; font-weight: bold;">
+                                ${seller.private.status}
+                            </span>
+                        </td>
+                    `;
+                adminPrivateBody.appendChild(row);
+            });
+
+            adminPrivateContainer.style.display = 'block';
+            // Scroll suave hacia la tabla
+            adminPrivateContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterSellers);
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterSellers();
+            });
         });
-        sugerenciasContainer.style.display = 'block';
-        return true;
-      }
-      return false;
-    }
 
-    // Función para abrir Google Maps con una ubicación específica
-    function abrirGoogleMapsConDireccionUbicacion(idPunto) {
-      const punto = UBICACIONES.find(p => p.id === idPunto);
-      if (!punto) return;
-      
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${punto.latlng[0]},${punto.latlng[1]}&travelmode=driving&dir_action=navigate`;
-      window.open(url, '_blank');
-    }
+        adminAccessBtn.addEventListener('click', () => {
+            if (adminKeyInput.value === ADMIN_KEY) {
+                loadPrivateInfo();
+                showNotification('Acceso concedido. Información privada cargada.');
+                adminKeyInput.value = '';
+            } else {
+                showNotification('Clave incorrecta. Intenta nuevamente.');
+                adminKeyInput.value = '';
+                adminKeyInput.focus();
+            }
+        });
 
-    // Función para manejar teclas en el buscador
-    function handleSearchKeydown(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const termino = document.getElementById('buscador').value.trim();
-        if (termino) {
-          buscarConGoogle(termino);
-        }
-      }
-    }
+        adminKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminAccessBtn.click();
+            }
+        });
 
-    // Función para abrir WhatsApp
-    function abrirWhatsApp(telefono, nombre) {
-      const numeroLimpio = telefono.replace(/\D/g, '');
-      const mensaje = `Hola ${nombre}, me interesa conocer más sobre sus servicios de contraentrega en Ciudad de Panamá.`;
-      window.open(`https://wa.me/${numeroLimpio}?text=${encodeURIComponent(mensaje)}`, '_blank');
-    }
-
-    // Función para centrar el mapa en la ubicación actual
-    function centrarMapa() {
-      if (userMarker) {
-        mapa.setView(userMarker.getLatLng(), 15);
-      } else {
-        obtenerUbicacionUsuario();
-      }
-    }
-
-    // Función para obtener ubicación del usuario
-    function obtenerUbicacionUsuario() {
-      return new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const { latitude, longitude } = position.coords;
-              
-              // Eliminar marcador anterior si existe
-              if (userMarker) {
-                mapa.removeLayer(userMarker);
-              }
-              
-              // Crear nuevo marcador de usuario (azul)
-              userMarker = L.marker([latitude, longitude], {
-                icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-                  iconSize: [32, 32],
-                  className: 'marker-icon-blue'
-                })
-              }).addTo(mapa)
-                .bindPopup('¡Tu ubicación actual!');
-                
-              // Centrar mapa en la ubicación del usuario
-              mapa.setView([latitude, longitude], 15);
-              resolve();
-            },
-            (error) => {
-              console.log(`Error al obtener ubicación: ${error.message}`);
-              // Centrar en Ciudad de Panamá si no se puede obtener ubicación
-              mapa.setView([8.9833, -79.5167], 13);
-              reject();
-            },
-            { enableHighAccuracy: true }
-          );
-        } else {
-          console.log("Tu navegador no soporta geolocalización.");
-          mapa.setView([8.9833, -79.5167], 13);
-          reject();
-        }
-      });
-    }
-  </script>
+        // Inicializar
+        loadSellers(sellers);
+    </script>
 </body>
 </html>
