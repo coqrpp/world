@@ -153,12 +153,13 @@
             font-size: 0.9rem;
         }
         
-        .category-btn:hover, .category-btn.active {
+        .category-btn:hover,
+        .category-btn.active {
             background-color: var(--color-negro);
             color: var(--color-blanco);
         }
         
-        /* Product Grid -> Ahora es grid de vendedores */
+        /* Seller Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -210,13 +211,6 @@
             min-height: 2.8rem;
         }
         
-        .product-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--color-gris-oscuro);
-        }
-        
         .product-description {
             margin-bottom: 1rem;
             font-size: 0.9rem;
@@ -229,7 +223,7 @@
             gap: 0.5rem;
         }
         
-        .add-to-cart, .buy-now {
+        .buy-now {
             padding: 0.7rem;
             border: none;
             border-radius: 4px;
@@ -243,406 +237,42 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        
-        .add-to-cart {
             background-color: var(--color-negro);
-            color: var(--color-blanco);
-        }
-        
-        .add-to-cart:hover {
-            background-color: var(--color-gris-oscuro);
-        }
-        
-        .buy-now {
-            background-color: var(--color-gris-oscuro);
             color: var(--color-blanco);
         }
         
         .buy-now:hover {
-            background-color: var(--color-negro);
-        }
-        
-        /* Enlaces de producto */
-        .product-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .product-link:hover .product-title {
-            text-decoration: underline;
-        }
-        
-        /* Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .cart-content {
-            background-color: var(--color-blanco);
-            width: 90%;
-            max-width: 600px;
-            border-radius: 8px;
-            padding: 2rem;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--color-gris-medio);
-        }
-        
-        .close-cart {
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-        
-        .cart-items {
-            margin-bottom: 1.5rem;
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--color-gris-medio);
-        }
-        
-        .item-info {
-            flex-grow: 1;
-        }
-        
-        .item-title {
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-        
-        .item-price {
-            color: var(--color-gris-oscuro);
-            font-size: 0.9rem;
-        }
-        
-        .item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .quantity-btn {
-            background: none;
-            border: 1px solid var(--color-gris-medio);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .remove-item {
-            color: #ff0000;
-            cursor: pointer;
-            margin-left: 1rem;
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            padding-top: 1rem;
-            border-top: 2px solid var(--color-gris-medio);
-        }
-        
-        /* Payment Options */
-        .payment-options {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background-color: var(--color-gris-claro);
-            border-radius: 8px;
-        }
-        
-        .payment-options h3 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .payment-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem;
-            border: 2px solid var(--color-gris-medio);
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .payment-option:hover {
-            border-color: var(--color-negro);
-        }
-        
-        .payment-option.selected {
-            border-color: var(--color-negro);
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-        
-        .payment-option:last-child {
-            margin-bottom: 0;
-        }
-        
-        .payment-info {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        
-        .payment-name {
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .payment-description {
-            font-size: 0.9rem;
-            color: var(--color-gris-oscuro);
-            margin-top: 0.3rem;
-        }
-        
-        .payment-radio {
-            margin-right: 0.8rem;
-        }
-        
-        /* Shipping Options */
-        .shipping-options {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background-color: var(--color-gris-claro);
-            border-radius: 8px;
-        }
-        
-        .shipping-options h3 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .shipping-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem;
-            border: 2px solid var(--color-gris-medio);
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .shipping-option:hover {
-            border-color: var(--color-negro);
-        }
-        
-        .shipping-option.selected {
-            border-color: var(--color-negro);
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-        
-        .shipping-option:last-child {
-            margin-bottom: 0;
-        }
-        
-        .shipping-info {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        
-        .shipping-name {
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .shipping-description {
-            font-size: 0.9rem;
-            color: var(--color-gris-oscuro);
-            margin-top: 0.3rem;
-        }
-        
-        .shipping-price {
-            font-weight: 700;
-        }
-        
-        .shipping-free {
-            color: var(--color-verde);
-        }
-        
-        .shipping-radio {
-            margin-right: 0.8rem;
-        }
-        
-        /* Customer Info Form */
-        .customer-info {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background-color: var(--color-gris-claro);
-            border-radius: 8px;
-        }
-        
-        .customer-info h3 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--color-gris-medio);
-            border-radius: 4px;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 16px;
-        }
-        
-        .checkout-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .checkout-btn {
-            padding: 1rem;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .whatsapp-btn {
-            background-color: var(--color-verde);
-            color: white;
-        }
-        
-        .whatsapp-btn:hover {
-            background-color: #128C7E;
-        }
-        
-        .whatsapp-btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .continue-shopping {
-            background-color: var(--color-gris-medio);
-            color: var(--color-negro);
-        }
-        
-        .continue-shopping:hover {
             background-color: var(--color-gris-oscuro);
-            color: var(--color-blanco);
         }
         
-        /* Modal para compra directa */
-        .direct-purchase-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+        /* Badge de verificado */
+        .verified-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-verde);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid white;
         }
         
-        .direct-purchase-content {
-            background-color: var(--color-blanco);
-            width: 90%;
-            max-width: 500px;
-            border-radius: 8px;
-            padding: 2rem;
-            max-height: 90vh;
-            overflow-y: auto;
+        .seller-stars {
+            color: #f5b342;
+            letter-spacing: 2px;
+            margin: 0.3rem 0;
         }
         
-        .direct-purchase-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--color-gris-medio);
-        }
-        
-        .close-direct-purchase {
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-        
-        .direct-purchase-product {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--color-gris-medio);
-        }
-        
-        .direct-purchase-product img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 1rem;
-            border-radius: 4px;
-        }
-        
-        .direct-purchase-info h3 {
+        .seller-since {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
             margin-bottom: 0.5rem;
-        }
-        
-        .direct-purchase-info .product-price {
-            margin-bottom: 0;
         }
         
         /* Admin Access Section */
@@ -757,7 +387,8 @@
             font-size: 1.2rem;
         }
         
-        .footer-section p, .footer-section a {
+        .footer-section p,
+        .footer-section a {
             margin-bottom: 0.5rem;
             color: var(--color-gris-medio);
             text-decoration: none;
@@ -784,6 +415,20 @@
             padding-top: 1rem;
             border-top: 1px solid var(--color-gris-oscuro);
             color: var(--color-gris-medio);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            border-radius: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s;
         }
         
         /* Responsive */
@@ -814,30 +459,14 @@
                 font-size: 1rem;
             }
             
-            .product-actions {
-                flex-direction: column;
-            }
-            
-            .cart-content, .direct-purchase-content {
-                width: 95%;
-                padding: 1rem;
-            }
-            
             .footer-content {
                 flex-direction: column;
             }
             
-            input, select, textarea {
+            input,
+            select,
+            textarea {
                 font-size: 16px !important;
-            }
-            
-            .checkout-buttons {
-                gap: 0.5rem;
-            }
-            
-            .checkout-btn {
-                padding: 0.8rem;
-                font-size: 0.9rem;
             }
         }
         
@@ -845,16 +474,6 @@
             .header-container {
                 flex-direction: row;
                 gap: 1rem;
-            }
-            
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-            
-            .item-quantity {
-                align-self: flex-end;
             }
             
             .products-grid {
@@ -870,84 +489,18 @@
                 font-size: 1rem;
             }
             
-            .product-price {
-                font-size: 1.1rem;
-            }
-            
-            .add-to-cart, .buy-now {
+            .buy-now {
                 padding: 0.6rem;
                 font-size: 0.8rem;
             }
         }
         
-        /* Notificación */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--color-negro);
-            color: var(--color-blanco);
-            padding: 10px 20px;
-            border-radius: 4px;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: opacity 0.5s;
-        }
-        
-        /* Scroll horizontal en móviles */
-        .scroll-container {
-            overflow-x: auto;
-            padding-bottom: 1rem;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .scroll-content {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        @media (min-width: 769px) {
-            .scroll-container {
-                overflow-x: visible;
-            }
-            
-            .scroll-content {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
         @media screen and (max-width: 767px) {
-            input, textarea, select {
+            input,
+            textarea,
+            select {
                 font-size: 16px !important;
             }
-        }
-        /* Badge de verificado */
-        .verified-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--color-verde);
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            border: 2px solid white;
-        }
-        .seller-stars {
-            color: #f5b342;
-            letter-spacing: 2px;
-            margin: 0.3rem 0;
-        }
-        .seller-since {
-            font-size: 0.8rem;
-            color: var(--color-gris-oscuro);
-            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -970,7 +523,7 @@
         <h1>QRP2P.COM</h1>
         <p>VENDEDOR VERIFICADO</p>
     </section>
-        
+
     <!-- Main Content -->
     <div class="container">
         <!-- Filtros -->
@@ -983,7 +536,7 @@
             </div>
         </div>
 
-        <!-- Seller Grid (antes productos) -->
+        <!-- Seller Grid -->
         <div class="scroll-container">
             <div class="products-grid" id="productsGrid">
                 <!-- Los vendedores se cargarán dinámicamente con JavaScript -->
@@ -1020,169 +573,6 @@
         </div>
     </div>
 
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>Tu Carrito de Compras</h2>
-                <button class="close-cart" id="closeCart">&times;</button>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Los items del carrito se cargarán dinámicamente -->
-            </div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            
-            <!-- Payment Options -->
-            <div class="payment-options">
-                <h3>Método de Pago</h3>
-                <div class="payment-option" data-payment="contraentrega">
-                    <input type="radio" id="payment-contraentrega" name="payment" class="payment-radio" checked>
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
-                        </span>
-                        <span class="payment-description">Paga cuando recibas tu pedido</span>
-                    </div>
-                </div>
-                <div class="payment-option" data-payment="anticipado">
-                    <input type="radio" id="payment-anticipado" name="payment" class="payment-radio">
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-credit-card"></i> Paga en línea
-                        </span>
-                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Shipping Options -->
-            <div class="shipping-options">
-                <h3>Opción de Envío</h3>
-                <div class="shipping-option" data-shipping="0">
-                    <input type="radio" id="shipping-priority" name="shipping" class="shipping-radio" checked>
-                    <div class="shipping-info">
-                        <span class="shipping-name">
-                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
-                        </span>
-                        <span class="shipping-description">Tu pedido será confirmado por WhatsApp y ahí recibes los detalles y diferentes costos de envío si aplica y/o envío gratis dependiendo el vendedor</span>
-                    </div>
-                    <span class="shipping-price shipping-free">Entrega inmediata</span>
-                </div>
-            </div>
-            
-            <!-- Customer Information Form -->
-            <div class="customer-info">
-                <h3>Información de Envío</h3>
-                <div class="form-group">
-                    <label for="customerName">Nombre Completo *</label>
-                    <input type="text" id="customerName" placeholder="Ingresa tu nombre completo" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerPhone">Teléfono *</label>
-                    <input type="tel" id="customerPhone" placeholder="Ingresa tu número de teléfono" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerAddress">Dirección de Envío *</label>
-                    <input type="text" id="customerAddress" placeholder="Ingresa tu dirección completa" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerCity">Ciudad *</label>
-                    <input type="text" id="customerCity" placeholder="Ingresa tu ciudad" required>
-                </div>
-            </div>
-            
-            <div class="checkout-buttons">
-                <button class="checkout-btn whatsapp-btn" id="whatsappBtn" disabled>
-                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
-                </button>
-                <button class="checkout-btn continue-shopping" id="continueShopping">Seguir comprando</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Direct Purchase Modal -->
-    <div class="direct-purchase-modal" id="directPurchaseModal">
-        <div class="direct-purchase-content">
-            <div class="direct-purchase-header">
-                <h2>Comprar Producto</h2>
-                <button class="close-direct-purchase" id="closeDirectPurchase">&times;</button>
-            </div>
-            
-            <div class="direct-purchase-product" id="directPurchaseProduct">
-                <!-- Información del producto se cargará dinámicamente -->
-            </div>
-            
-            <!-- Payment Options -->
-            <div class="payment-options">
-                <h3>Método de Pago</h3>
-                <div class="payment-option" data-payment="contraentrega">
-                    <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
-                        </span>
-                        <span class="payment-description">Paga cuando recibas tu pedido</span>
-                    </div>
-                </div>
-                <div class="payment-option" data-payment="anticipado">
-                    <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-credit-card"></i> Paga en línea
-                        </span>
-                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Shipping Options -->
-            <div class="shipping-options">
-                <h3>Opción de Envío</h3>
-                <div class="shipping-option" data-shipping="0">
-                    <input type="radio" id="direct-shipping-priority" name="direct-shipping" class="shipping-radio" checked>
-                    <div class="shipping-info">
-                        <span class="shipping-name">
-                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
-                        </span>
-                        <span class="shipping-description">Tu pedido será confirmado por WhatsApp y ahí recibes los detalles y diferentes costos de envío si aplica y/o envío gratis dependiendo el vendedor</span>
-                    </div>
-                    <span class="shipping-price shipping-free">Entrega inmediata</span>
-                </div>
-            </div>
-            
-            <!-- Customer Information Form -->
-            <div class="customer-info">
-                <h3>Información de Envío</h3>
-                <div class="form-group">
-                    <label for="directCustomerName">Nombre Completo *</label>
-                    <input type="text" id="directCustomerName" placeholder="Ingresa tu nombre completo" required>
-                </div>
-                <div class="form-group">
-                    <label for="directCustomerPhone">Teléfono *</label>
-                    <input type="tel" id="directCustomerPhone" placeholder="Ingresa tu número de teléfono" required>
-                </div>
-                <div class="form-group">
-                    <label for="directCustomerAddress">Dirección de Envío *</label>
-                    <input type="text" id="directCustomerAddress" placeholder="Ingresa tu dirección completa" required>
-                </div>
-                <div class="form-group">
-                    <label for="directCustomerCity">Ciudad *</label>
-                    <input type="text" id="directCustomerCity" placeholder="Ingresa tu ciudad" required>
-                </div>
-            </div>
-            
-            <div class="checkout-buttons">
-                <button class="checkout-btn whatsapp-btn" id="directWhatsappBtn" disabled>
-                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
-                </button>
-                <button class="checkout-btn continue-shopping" id="cancelDirectPurchase">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1215,89 +605,88 @@
     </footer>
 
     <script>
-        // Base de datos de VENDEDORES VERIFICADOS (reemplaza productos)
-        const sellers = [
-            {
-                id: 1,
-                name: "Nutrición HD",
-                category: "todo",
-                rating: 5,
-                verified: true,
-                since: "2020",
-                description: "Suplementos deportivos y nutrición de alta calidad.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 2,
-                name: "TecnoStore Cali",
-                category: "todo",
-                rating: 4,
-                verified: true,
-                since: "2019",
-                description: "Electrónica, computadores y accesorios tecnológicos.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 3,
-                name: "Moda Express",
-                category: "todo",
-                rating: 5,
-                verified: true,
-                since: "2021",
-                description: "Ropa y accesorios de moda para toda la familia.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 4,
-                name: "Hogar y Más",
-                category: "todo",
-                rating: 4,
-                verified: true,
-                since: "2018",
-                description: "Artículos para el hogar, cocina y decoración.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 5,
-                name: "Belleza Natural",
-                category: "todo",
-                rating: 5,
-                verified: true,
-                since: "2022",
-                description: "Cosméticos y productos de cuidado personal orgánicos.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 6,
-                name: "Deportes Élite",
-                category: "todo",
-                rating: 4,
-                verified: true,
-                since: "2020",
-                description: "Equipamiento deportivo y ropa técnica.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 7,
-                name: "Librería Central",
-                category: "todo",
-                rating: 5,
-                verified: true,
-                since: "2017",
-                description: "Libros, material educativo y papelería.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            },
-            {
-                id: 8,
-                name: "Joyas & Relojes",
-                category: "todo",
-                rating: 4,
-                verified: true,
-                since: "2019",
-                description: "Joyería fina, relojes y accesorios de lujo.",
-                image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
-            }
-        ];
+        // Base de datos de VENDEDORES VERIFICADOS
+        const sellers = [{
+            id: 1,
+            name: "Nutrición HD",
+            category: "todo",
+            rating: 5,
+            verified: true,
+            since: "2020",
+            description: "Suplementos deportivos y nutrición de alta calidad.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-nutricion-hd.html"
+        }, {
+            id: 2,
+            name: "TecnoStore Cali",
+            category: "todo",
+            rating: 4,
+            verified: true,
+            since: "2019",
+            description: "Electrónica, computadores y accesorios tecnológicos.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-tecnostore.html"
+        }, {
+            id: 3,
+            name: "Moda Express",
+            category: "todo",
+            rating: 5,
+            verified: true,
+            since: "2021",
+            description: "Ropa y accesorios de moda para toda la familia.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-moda-express.html"
+        }, {
+            id: 4,
+            name: "Hogar y Más",
+            category: "todo",
+            rating: 4,
+            verified: true,
+            since: "2018",
+            description: "Artículos para el hogar, cocina y decoración.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-hogar-y-mas.html"
+        }, {
+            id: 5,
+            name: "Belleza Natural",
+            category: "todo",
+            rating: 5,
+            verified: true,
+            since: "2022",
+            description: "Cosméticos y productos de cuidado personal orgánicos.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-belleza-natural.html"
+        }, {
+            id: 6,
+            name: "Deportes Élite",
+            category: "todo",
+            rating: 4,
+            verified: true,
+            since: "2020",
+            description: "Equipamiento deportivo y ropa técnica.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-deportes-elite.html"
+        }, {
+            id: 7,
+            name: "Librería Central",
+            category: "todo",
+            rating: 5,
+            verified: true,
+            since: "2017",
+            description: "Libros, material educativo y papelería.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-libreria-central.html"
+        }, {
+            id: 8,
+            name: "Joyas & Relojes",
+            category: "todo",
+            rating: 4,
+            verified: true,
+            since: "2019",
+            description: "Joyería fina, relojes y accesorios de lujo.",
+            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
+            profileUrl: "perfil-joyas-relojes.html"
+        }];
 
         // Función para formatear estrellas
         function renderStars(rating) {
@@ -1310,118 +699,106 @@
         }
 
         // Variables globales
-        let cart = [];
-        let currentDirectProduct = null;
-        let selectedShipping = 0;
-        let selectedPayment = "contraentrega";
-        const ADMIN_KEY = "proveedor2024";
-        
-        const cartIcon = document.getElementById('cartIcon');
         const cartCount = document.getElementById('cartCount');
-        const cartModal = document.getElementById('cartModal');
-        const closeCart = document.getElementById('closeCart');
-        const cartItems = document.getElementById('cartItems');
-        const cartTotal = document.getElementById('cartTotal');
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        const continueShopping = document.getElementById('continueShopping');
         const productsGrid = document.getElementById('productsGrid');
         const searchInput = document.getElementById('searchInput');
         const categoryBtns = document.querySelectorAll('.category-btn');
-        const customerName = document.getElementById('customerName');
-        const customerPhone = document.getElementById('customerPhone');
-        const customerAddress = document.getElementById('customerAddress');
-        const customerCity = document.getElementById('customerCity');
-        
-        const directPurchaseModal = document.getElementById('directPurchaseModal');
-        const directPurchaseProduct = document.getElementById('directPurchaseProduct');
-        const closeDirectPurchase = document.getElementById('closeDirectPurchase');
-        const directCustomerName = document.getElementById('directCustomerName');
-        const directCustomerPhone = document.getElementById('directCustomerPhone');
-        const directCustomerAddress = document.getElementById('directCustomerAddress');
-        const directCustomerCity = document.getElementById('directCustomerCity');
-        const directWhatsappBtn = document.getElementById('directWhatsappBtn');
-        const cancelDirectPurchase = document.getElementById('cancelDirectPurchase');
-        
         const adminKeyInput = document.getElementById('adminKey');
         const adminAccessBtn = document.getElementById('adminAccessBtn');
         const supplierTableContainer = document.getElementById('supplierTableContainer');
         const supplierTableBody = document.getElementById('supplierTableBody');
+        const ADMIN_KEY = "proveedor2024";
+
+        // Productos de ejemplo para la tabla de proveedores (usando los sellers)
+        const products = sellers.map((seller, index) => ({
+            id: index + 1,
+            title: seller.name,
+            category: seller.category,
+            warehousePrice: 50000 + (index * 10000),
+            price: 80000 + (index * 15000),
+            supplier: "QRP2P Verified"
+        }));
 
         function loadSellers(sellersToLoad) {
             productsGrid.innerHTML = '';
-            
+
             sellersToLoad.forEach(seller => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-image-container" style="position:relative;">
-                        <img src="${seller.image}" alt="${seller.name}" class="product-image">
-                        <span class="verified-badge"><i class="fas fa-check"></i></span>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${seller.name}</h3>
-                        <div class="seller-stars">${renderStars(seller.rating)}</div>
-                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
-                        <p class="product-description">${seller.description}</p>
-                        <div class="product-actions">
-                            <button class="add-to-cart" data-id="${seller.id}">
-                                <i class="fas fa-cart-plus"></i> Contactar
-                            </button>
-                            <button class="buy-now" data-id="${seller.id}">
-                                <i class="fas fa-shopping-bag"></i> Ver Perfil
-                            </button>
+                        <div class="product-image-container" style="position:relative;">
+                            <img src="${seller.image}" alt="${seller.name}" class="product-image">
+                            <span class="verified-badge"><i class="fas fa-check"></i></span>
                         </div>
-                    </div>
-                `;
+                        <div class="product-info">
+                            <h3 class="product-title">${seller.name}</h3>
+                            <div class="seller-stars">${renderStars(seller.rating)}</div>
+                            <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
+                            <p class="product-description">${seller.description}</p>
+                            <div class="product-actions">
+                                <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
+                                    <i class="fas fa-user"></i> Ver Perfil
+                                </a>
+                            </div>
+                        </div>
+                    `;
                 productsGrid.appendChild(card);
-            });
-            
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const sellerId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
-                    showNotification(`Contactando a ${sellers.find(s => s.id === sellerId).name}...`);
-                });
-            });
-            
-            document.querySelectorAll('.buy-now').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const sellerId = parseInt(e.target.closest('.buy-now').getAttribute('data-id'));
-                    showNotification(`Perfil de ${sellers.find(s => s.id === sellerId).name}`);
-                });
             });
         }
 
         function filterSellers() {
             const searchText = searchInput.value.toLowerCase();
             const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-            
+
             const filtered = sellers.filter(seller => {
-                const matchesSearch = seller.name.toLowerCase().includes(searchText) || 
-                                     seller.description.toLowerCase().includes(searchText);
+                const matchesSearch = seller.name.toLowerCase().includes(searchText) ||
+                    seller.description.toLowerCase().includes(searchText);
                 const matchesCategory = activeCategory === 'all' || seller.category === activeCategory;
                 return matchesSearch && matchesCategory;
             });
-            
+
             loadSellers(filtered);
         }
 
         function showNotification(message) {
             const existingNotification = document.querySelector('.notification');
             if (existingNotification) existingNotification.remove();
-            
+
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
             document.body.appendChild(notification);
-            
+
             setTimeout(() => {
                 notification.style.opacity = '0';
                 setTimeout(() => document.body.removeChild(notification), 500);
             }, 3000);
         }
 
-        // Event listeners (se mantienen igual pero sin funcionalidad de carrito)
+        function loadSupplierTable() {
+            supplierTableBody.innerHTML = '';
+
+            products.forEach(product => {
+                const margin = ((product.price - product.warehousePrice) / product.warehousePrice * 100).toFixed(2);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.title}</td>
+                        <td>${product.category}</td>
+                        <td>COP $${product.warehousePrice.toLocaleString()}</td>
+                        <td>COP $${product.price.toLocaleString()}</td>
+                        <td>${product.supplier}</td>
+                        <td>${margin}%</td>
+                    `;
+                supplierTableBody.appendChild(row);
+            });
+
+            supplierTableContainer.style.display = 'block';
+        }
+
+        // Event Listeners
         searchInput.addEventListener('input', filterSellers);
+
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 categoryBtns.forEach(b => b.classList.remove('active'));
@@ -1430,7 +807,22 @@
             });
         });
 
-        // Inicializar con vendedores
+        adminAccessBtn.addEventListener('click', () => {
+            if (adminKeyInput.value === ADMIN_KEY) {
+                loadSupplierTable();
+                showNotification('Acceso concedido. Tabla de proveedores cargada.');
+            } else {
+                showNotification('Clave incorrecta. Intenta nuevamente.');
+            }
+        });
+
+        adminKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminAccessBtn.click();
+            }
+        });
+
+        // Inicializar
         loadSellers(sellers);
     </script>
 </body>
