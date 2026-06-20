@@ -14,8 +14,6 @@
             --color-gris-medio: #e0e0e0;
             --color-gris-oscuro: #333333;
             --color-verde: #25D366;
-            --color-azul: #007bff;
-            --color-rojo: #dc3545;
         }
         
         * {
@@ -172,8 +170,9 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
             background: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
         }
         
         .product-card:hover {
@@ -181,34 +180,10 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid var(--color-gris-medio);
-            transition: opacity 0.3s;
-        }
-        
-        .product-info {
-            padding: 1rem;
-        }
-        
         .product-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
-            min-height: 2.8rem;
         }
         
         .product-description {
@@ -220,23 +195,22 @@
         
         .product-actions {
             display: flex;
-            gap: 0.5rem;
+            justify-content: center;
         }
         
         .buy-now {
-            padding: 0.7rem;
+            padding: 0.7rem 2rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-family: 'Libre Baskerville', serif;
             font-size: 0.9rem;
             transition: background-color 0.3s;
-            flex: 1;
-            text-align: center;
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             justify-content: center;
             align-items: center;
+            gap: 0.5rem;
             background-color: var(--color-negro);
             color: var(--color-blanco);
         }
@@ -247,26 +221,15 @@
         
         /* Badge de verificado */
         .verified-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            display: inline-block;
             background: var(--color-verde);
             color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            border: 2px solid white;
-        }
-        
-        .seller-stars {
-            color: #f5b342;
-            letter-spacing: 2px;
-            margin: 0.3rem 0;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
         
         .seller-since {
@@ -482,7 +445,7 @@
             }
             
             .product-card {
-                min-width: 160px;
+                padding: 1rem 0.8rem;
             }
             
             .product-title {
@@ -490,7 +453,7 @@
             }
             
             .buy-now {
-                padding: 0.6rem;
+                padding: 0.6rem 1.2rem;
                 font-size: 0.8rem;
             }
         }
@@ -605,101 +568,66 @@
     </footer>
 
     <script>
-        // Base de datos de VENDEDORES VERIFICADOS
+        // Base de datos de VENDEDORES VERIFICADOS (sin rating ni imágenes)
         const sellers = [{
             id: 1,
             name: "Nutrición HD",
             category: "todo",
-            rating: 5,
-            verified: true,
             since: "2020",
             description: "Suplementos deportivos y nutrición de alta calidad.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-nutricion-hd.html"
         }, {
             id: 2,
             name: "TecnoStore Cali",
             category: "todo",
-            rating: 4,
-            verified: true,
             since: "2019",
             description: "Electrónica, computadores y accesorios tecnológicos.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-tecnostore.html"
         }, {
             id: 3,
             name: "Moda Express",
             category: "todo",
-            rating: 5,
-            verified: true,
             since: "2021",
             description: "Ropa y accesorios de moda para toda la familia.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-moda-express.html"
         }, {
             id: 4,
             name: "Hogar y Más",
             category: "todo",
-            rating: 4,
-            verified: true,
             since: "2018",
             description: "Artículos para el hogar, cocina y decoración.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-hogar-y-mas.html"
         }, {
             id: 5,
             name: "Belleza Natural",
             category: "todo",
-            rating: 5,
-            verified: true,
             since: "2022",
             description: "Cosméticos y productos de cuidado personal orgánicos.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-belleza-natural.html"
         }, {
             id: 6,
             name: "Deportes Élite",
             category: "todo",
-            rating: 4,
-            verified: true,
             since: "2020",
             description: "Equipamiento deportivo y ropa técnica.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-deportes-elite.html"
         }, {
             id: 7,
             name: "Librería Central",
             category: "todo",
-            rating: 5,
-            verified: true,
             since: "2017",
             description: "Libros, material educativo y papelería.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-libreria-central.html"
         }, {
             id: 8,
             name: "Joyas & Relojes",
             category: "todo",
-            rating: 4,
-            verified: true,
             since: "2019",
             description: "Joyería fina, relojes y accesorios de lujo.",
-            image: "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000",
             profileUrl: "perfil-joyas-relojes.html"
         }];
 
-        // Función para formatear estrellas
-        function renderStars(rating) {
-            let stars = '';
-            for (let i = 1; i <= 5; i++) {
-                if (i <= rating) stars += '★';
-                else stars += '☆';
-            }
-            return stars;
-        }
-
         // Variables globales
-        const cartCount = document.getElementById('cartCount');
         const productsGrid = document.getElementById('productsGrid');
         const searchInput = document.getElementById('searchInput');
         const categoryBtns = document.querySelectorAll('.category-btn');
@@ -709,7 +637,7 @@
         const supplierTableBody = document.getElementById('supplierTableBody');
         const ADMIN_KEY = "proveedor2024";
 
-        // Productos de ejemplo para la tabla de proveedores (usando los sellers)
+        // Productos de ejemplo para la tabla de proveedores
         const products = sellers.map((seller, index) => ({
             id: index + 1,
             title: seller.name,
@@ -726,20 +654,14 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                        <div class="product-image-container" style="position:relative;">
-                            <img src="${seller.image}" alt="${seller.name}" class="product-image">
-                            <span class="verified-badge"><i class="fas fa-check"></i></span>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">${seller.name}</h3>
-                            <div class="seller-stars">${renderStars(seller.rating)}</div>
-                            <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
-                            <p class="product-description">${seller.description}</p>
-                            <div class="product-actions">
-                                <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
-                                    <i class="fas fa-user"></i> Ver Perfil
-                                </a>
-                            </div>
+                        <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
+                        <h3 class="product-title">${seller.name}</h3>
+                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
+                        <p class="product-description">${seller.description}</p>
+                        <div class="product-actions">
+                            <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
+                                <i class="fas fa-user"></i> Ver Perfil
+                            </a>
                         </div>
                     `;
                 productsGrid.appendChild(card);
