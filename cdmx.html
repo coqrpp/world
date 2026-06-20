@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QRP2P COLOMBIA MARKETPLACE - Vendedores Verificados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-blanco: #ffffff;
+            --color-negro: #000000;
+            --color-gris-claro: #f5f5f5;
+            --color-gris-medio: #e0e0e0;
+            --color-gris-oscuro: #333333;
+            --color-verde: #25D366;
+            --color-rojo: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--color-gris-claro);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Filtros */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: none;
+            border: 1px solid var(--color-negro);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
+
+        /* Seller Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .product-description {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            min-height: 2.8rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .buy-now {
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
+
+        .buy-now:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+
+        .verified-badge {
+            display: inline-block;
+            background: var(--color-verde);
+            color: white;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .seller-since {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Admin Access Section */
+        .admin-access {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .admin-form input {
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+
+        .admin-form button {
+            padding: 0.8rem;
+            background-color: var(--color-negro);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .admin-form button:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+
+        /* Admin Private Table */
+        .admin-private-container {
+            display: none;
+            margin: 2rem 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 2px solid var(--color-verde);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-private-container h2 {
+            background: var(--color-verde);
+            color: white;
+            padding: 0.8rem;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .admin-private-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .admin-private-table th,
+        .admin-private-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+
+        .admin-private-table th {
+            background-color: var(--color-gris-claro);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+
+        .admin-private-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-private-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .admin-private-table .private-data {
+            color: var(--color-rojo);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            margin-bottom: 0.5rem;
+            color: var(--color-gris-medio);
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--color-blanco);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-gris-oscuro);
+            color: var(--color-gris-medio);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            border-radius: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .category-filter {
+                justify-content: center;
+            }
+
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .product-card {
+                padding: 1rem 0.8rem;
+            }
+
+            .product-title {
+                font-size: 1rem;
+            }
+
+            .buy-now {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            input,
+            textarea,
+            select {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="https://qrp2p.com/img/P2Pblack.png" alt="Logo QRP2P COLOMBIA MARKETPLACE" class="logo-img">
+            </a>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>QRP2P.COM</h1>
+        <p>VENDEDOR VERIFICADO</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filtros -->
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar vendedores verificados...">
+            </div>
+            <div class="category-filter">
+                <button class="category-btn active" data-category="todo">@nutricionhd</button>
+            </div>
+        </div>
+
+        <!-- Seller Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Los vendedores se cargarán dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Admin Access Section -->
+        <div class="admin-access">
+            <h2>Acceso Administrativo</h2>
+            <div class="admin-form">
+                <input type="password" id="adminKey" placeholder="Ingrese clave de administrador">
+                <button id="adminAccessBtn">Acceder</button>
+            </div>
+        </div>
+
+        <!-- Admin Private Information Table -->
+        <div class="admin-private-container" id="adminPrivateContainer">
+            <h2><i class="fas fa-lock"></i> INFORMACIÓN PRIVADA DE VENDEDORES</h2>
+            <table class="admin-private-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Vendedor</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Comisión</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="adminPrivateBody">
+                    <!-- Los datos privados se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Acerca de Nosotros</h3>
+                <p>Somos Contraentrega. La revolución en logística y comercio electrónico de Colombia. Conectamos vendedores y compradores con una red de entrega confiable y el sistema de pago contraentrega más seguro.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-phone"></i> +57 3215343562</p>
+                <p><i class="fas fa-envelope"></i> calivalle@qrcontraentrega.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Carrera 16 # 9 - 44, Cali, Colombia</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/14T4jNLh1Dw/?mibextid=wwXIfr"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/calivalle_qrcontraentrega"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/573215343562"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="https://qrcontraentrega.com/afiliacion-colombia">Afiliarse</a>
+                <a href="https://qrcontraentrega.com/solicitar-envio-colombia">Logística</a>
+                <a href="https://qrcontraentrega.com/terminos-y-condiciones-colombia">Términos y Condiciones</a>
+                <a href="https://qrcontraentrega.com/calivalle-mapa">Mapa</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; Contraentrega. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de datos de VENDEDORES VERIFICADOS (con información privada)
+        const sellers = [{
+            id: 1,
+            name: "Nutrición HD",
+            category: "todo",
+            since: "2020",
+            description: "Suplementos deportivos y nutrición de alta calidad.",
+            profileUrl: "perfil-nutricion-hd.html",
+            // Información privada (solo visible para admin)
+            private: {
+                phone: "+57 300 123 4567",
+                email: "nutricionhd@email.com",
+                address: "Calle 10 # 5-30, Cali",
+                commission: "12%",
+                status: "Activo"
+            }
+        }, {
+            id: 2,
+            name: "TecnoStore Cali",
+            category: "todo",
+            since: "2019",
+            description: "Electrónica, computadores y accesorios tecnológicos.",
+            profileUrl: "perfil-tecnostore.html",
+            private: {
+                phone: "+57 310 987 6543",
+                email: "tecnostore@email.com",
+                address: "Avenida 6N # 23-45, Cali",
+                commission: "15%",
+                status: "Activo"
+            }
+        }, {
+            id: 3,
+            name: "Moda Express",
+            category: "todo",
+            since: "2021",
+            description: "Ropa y accesorios de moda para toda la familia.",
+            profileUrl: "perfil-moda-express.html",
+            private: {
+                phone: "+57 320 456 7890",
+                email: "modaexpress@email.com",
+                address: "Calle 15 # 8-20, Cali",
+                commission: "10%",
+                status: "Activo"
+            }
+        }, {
+            id: 4,
+            name: "Hogar y Más",
+            category: "todo",
+            since: "2018",
+            description: "Artículos para el hogar, cocina y decoración.",
+            profileUrl: "perfil-hogar-y-mas.html",
+            private: {
+                phone: "+57 305 678 9012",
+                email: "hogarymas@email.com",
+                address: "Carrera 25 # 12-10, Cali",
+                commission: "14%",
+                status: "Inactivo"
+            }
+        }, {
+            id: 5,
+            name: "Belleza Natural",
+            category: "todo",
+            since: "2022",
+            description: "Cosméticos y productos de cuidado personal orgánicos.",
+            profileUrl: "perfil-belleza-natural.html",
+            private: {
+                phone: "+57 315 234 5678",
+                email: "bellezanatural@email.com",
+                address: "Calle 20 # 10-15, Cali",
+                commission: "18%",
+                status: "Activo"
+            }
+        }, {
+            id: 6,
+            name: "Deportes Élite",
+            category: "todo",
+            since: "2020",
+            description: "Equipamiento deportivo y ropa técnica.",
+            profileUrl: "perfil-deportes-elite.html",
+            private: {
+                phone: "+57 318 765 4321",
+                email: "deporteselite@email.com",
+                address: "Avenida 4N # 15-30, Cali",
+                commission: "11%",
+                status: "Activo"
+            }
+        }, {
+            id: 7,
+            name: "Librería Central",
+            category: "todo",
+            since: "2017",
+            description: "Libros, material educativo y papelería.",
+            profileUrl: "perfil-libreria-central.html",
+            private: {
+                phone: "+57 313 456 7890",
+                email: "libreriacentral@email.com",
+                address: "Calle 8 # 3-12, Cali",
+                commission: "9%",
+                status: "Activo"
+            }
+        }, {
+            id: 8,
+            name: "Joyas & Relojes",
+            category: "todo",
+            since: "2019",
+            description: "Joyería fina, relojes y accesorios de lujo.",
+            profileUrl: "perfil-joyas-relojes.html",
+            private: {
+                phone: "+57 311 876 5432",
+                email: "joyasrelojes@email.com",
+                address: "Carrera 12 # 7-25, Cali",
+                commission: "20%",
+                status: "Activo"
+            }
+        }];
+
+        // Variables globales
+        const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const adminKeyInput = document.getElementById('adminKey');
+        const adminAccessBtn = document.getElementById('adminAccessBtn');
+        const adminPrivateContainer = document.getElementById('adminPrivateContainer');
+        const adminPrivateBody = document.getElementById('adminPrivateBody');
+        const ADMIN_KEY = "proveedor2024";
+
+        function loadSellers(sellersToLoad) {
+            productsGrid.innerHTML = '';
+
+            sellersToLoad.forEach(seller => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                        <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
+                        <h3 class="product-title">${seller.name}</h3>
+                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
+                        <p class="product-description">${seller.description}</p>
+                        <div class="product-actions">
+                            <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
+                                <i class="fas fa-user"></i> Ver Perfil
+                            </a>
+                        </div>
+                    `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        function filterSellers() {
+            const searchText = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+
+            const filtered = sellers.filter(seller => {
+                const matchesSearch = seller.name.toLowerCase().includes(searchText) ||
+                    seller.description.toLowerCase().includes(searchText);
+                const matchesCategory = activeCategory === 'all' || seller.category === activeCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            loadSellers(filtered);
+        }
+
+        function showNotification(message) {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) existingNotification.remove();
+
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 500);
+            }, 3000);
+        }
+
+        // Cargar información privada de vendedores (solo para admin)
+        function loadPrivateInfo() {
+            adminPrivateBody.innerHTML = '';
+
+            sellers.forEach(seller => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                        <td>${seller.id}</td>
+                        <td><strong>${seller.name}</strong></td>
+                        <td class="private-data">${seller.private.phone}</td>
+                        <td class="private-data">${seller.private.email}</td>
+                        <td class="private-data">${seller.private.address}</td>
+                        <td class="private-data">${seller.private.commission}</td>
+                        <td>
+                            <span style="color: ${seller.private.status === 'Activo' ? 'var(--color-verde)' : 'var(--color-rojo)'}; font-weight: bold;">
+                                ${seller.private.status}
+                            </span>
+                        </td>
+                    `;
+                adminPrivateBody.appendChild(row);
+            });
+
+            adminPrivateContainer.style.display = 'block';
+            // Scroll suave hacia la tabla
+            adminPrivateContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterSellers);
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterSellers();
+            });
+        });
+
+        adminAccessBtn.addEventListener('click', () => {
+            if (adminKeyInput.value === ADMIN_KEY) {
+                loadPrivateInfo();
+                showNotification('Acceso concedido. Información privada cargada.');
+                adminKeyInput.value = '';
+            } else {
+                showNotification('Clave incorrecta. Intenta nuevamente.');
+                adminKeyInput.value = '';
+                adminKeyInput.focus();
+            }
+        });
+
+        adminKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminAccessBtn.click();
+            }
+        });
+
+        // Inicializar
+        loadSellers(sellers);
+    </script>
+</body>
+</html>
