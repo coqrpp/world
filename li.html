@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>QRP2P LITHUANIA 🇱🇹 | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSIONS</title>
-  <meta name="description" content="QRP2P Lithuania. Direct marketplace between verified buyer and seller across the country. Find businesses, properties and services in Lithuania. 0% commissions forever.">
-  <meta name="keywords" content="QRP2P, Lithuania, marketplace, buyer, seller, verified, 0% commissions, businesses, properties, Vilnius, Kaunas, Klaipėda">
+  <title>QRP2P LIECHTENSTEIN 🇱🇮 | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSIONS</title>
+  <meta name="description" content="QRP2P Liechtenstein. Direct marketplace between verified buyer and seller across the principality. Find businesses, properties and services in Liechtenstein. 0% commissions forever.">
+  <meta name="keywords" content="QRP2P, Liechtenstein, marketplace, buyer, seller, verified, 0% commissions, businesses, properties, Vaduz, Schaan, Balzers">
   <meta name="author" content="QRP2P">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#000000">
@@ -218,7 +218,7 @@
     <div id="barra-superior">
       <div class="botones-izquierda">
         <div class="contenedor-buscador">
-          <input type="search" id="buscador" placeholder="Search verified businesses in Lithuania..." enterkeyhint="search">
+          <input type="search" id="buscador" placeholder="Search verified businesses in Liechtenstein..." enterkeyhint="search">
           <div id="sugerencias-busqueda" class="sugerencias-busqueda"></div>
         </div>
         <button class="btn-mapa btn-centrar" id="centrar-btn"><i class="fas fa-location-dot"></i><span id="centrar-text">CENTER</span></button>
@@ -236,14 +236,14 @@
     <div id="mapa"></div>
   </div>
 
-  <!-- Modal de Servicios QRP2P Lithuania -->
+  <!-- Modal de Servicios QRP2P Liechtenstein -->
   <div id="servicioModal" class="servicio-modal">
     <div class="servicio-container">
       <div class="servicios-header">
         <h2 id="servicioModalTitle">QRP2P SERVICES <span class="zero-badge" id="zeroBadge">0% COMMISSION</span></h2>
         <button id="closeServicioBtn" style="background:transparent; border:none; font-size:1.8rem; cursor:pointer;">&times;</button>
       </div>
-      <div class="sub-header" id="subHeaderText">LITHUANIA 🇱🇹</div>
+      <div class="sub-header" id="subHeaderText">LIECHTENSTEIN 🇱🇮</div>
       <div id="listaServicios" class="servicios-botones"></div>
     </div>
   </div>
@@ -254,275 +254,259 @@
     let currentLang = 'en';
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
     
-    // SERVICIOS QRP2P LITHUANIA (7 servicios)
+    // SERVICIOS QRP2P LIECHTENSTEIN (7 servicios)
     const serviciosQRP2P = [
       { 
         id: "plan-anual", 
         name_es: "REGISTRAR PLAN ANUAL", 
         name_en: "REGISTER ANNUAL PLAN", 
         icon: "fa-calendar-alt",
-        url: "https://qrp2p.com/plan-anual-lithuania"
+        url: "https://qrp2p.com/plan-anual-liechtenstein"
       },
       { 
         id: "administracion", 
         name_es: "ADMINISTRACIÓN MENSUAL", 
         name_en: "MONTHLY ADMINISTRATION", 
         icon: "fa-building",
-        url: "https://qrp2p.com/administracion-lithuania"
+        url: "https://qrp2p.com/administracion-liechtenstein"
       },
       { 
         id: "marketing", 
         name_es: "MARKETING MENSUAL", 
         name_en: "MONTHLY MARKETING", 
         icon: "fa-chart-line",
-        url: "https://qrp2p.com/marketing-lithuania"
+        url: "https://qrp2p.com/marketing-liechtenstein"
       },
       { 
         id: "logistica", 
         name_es: "LOGÍSTICA", 
         name_en: "LOGISTICS", 
         icon: "fa-truck",
-        url: "https://qrp2p.com/logistica-lithuania"
+        url: "https://qrp2p.com/logistica-liechtenstein"
       },
       { 
         id: "finanzas", 
         name_es: "FINANZAS", 
         name_en: "FINANCE", 
         icon: "fa-coins",
-        url: "https://qrp2p.com/finanzas-lithuania"
+        url: "https://qrp2p.com/finanzas-liechtenstein"
       },
       { 
         id: "contabilidad", 
         name_es: "CONTABILIDAD MENSUAL", 
         name_en: "MONTHLY ACCOUNTING", 
         icon: "fa-calculator",
-        url: "https://qrp2p.com/contabilidad-lithuania"
+        url: "https://qrp2p.com/contabilidad-liechtenstein"
       },
       { 
         id: "mls", 
         name_es: "MLS INMOBILIARIO", 
         name_en: "REAL ESTATE MLS", 
         icon: "fa-graduation-cap",
-        url: "https://qrp2p.com/lt-mls"
+        url: "https://qrp2p.com/li-mls"
       }
     ];
     
-    // NEGOCIOS VERIFICADOS - LITHUANIA (12 ciudades principales)
+    // NEGOCIOS VERIFICADOS - LIECHTENSTEIN (11 comunas)
     const verifiedBusinesses = [
       { 
-        id: "vilnius01", 
-        name_es: "QRP2P VILNIUS", 
-        name_en: "QRP2P VILNIUS", 
-        category_es: "@vilnius", 
-        category_en: "@vilnius", 
-        latlng: [54.6872, 25.2797],
-        address_es: "15, Gedimino Avenue, Vilnius", 
-        address_en: "15, Gedimino Avenue, Vilnius", 
-        description_es: "Sucursal QRP2P Vilnius. Distribución y servicios financieros.", 
-        description_en: "QRP2P Vilnius branch. Distribution and financial services.", 
-        phone: "+37060000001", 
-        email: "vilnius@qrp2p.com", 
-        website: "https://qrp2p.com/vilnius", 
-        whatsapp: "37060000001" 
+        id: "vaduz01", 
+        name_es: "QRP2P VADUZ", 
+        name_en: "QRP2P VADUZ", 
+        category_es: "@vaduz", 
+        category_en: "@vaduz", 
+        latlng: [47.1410, 9.5209],
+        address_es: "15, Städtle, Vaduz", 
+        address_en: "15, Städtle, Vaduz", 
+        description_es: "Sucursal QRP2P Vaduz. Distribución y servicios financieros.", 
+        description_en: "QRP2P Vaduz branch. Distribution and financial services.", 
+        phone: "+42377700001", 
+        email: "vaduz@qrp2p.com", 
+        website: "https://qrp2p.com/vaduz", 
+        whatsapp: "42377700001" 
       },
       { 
-        id: "kaunas01", 
-        name_es: "QRP2P KAUNAS", 
-        name_en: "QRP2P KAUNAS", 
-        category_es: "@kaunas", 
-        category_en: "@kaunas", 
-        latlng: [54.8985, 23.9036],
-        address_es: "22, Laisvės Avenue, Kaunas", 
-        address_en: "22, Laisvės Avenue, Kaunas", 
-        description_es: "Sucursal QRP2P Kaunas. Tecnología y consultoría.", 
-        description_en: "QRP2P Kaunas branch. Technology and consulting.", 
-        phone: "+37060000002", 
-        email: "kaunas@qrp2p.com", 
-        website: "https://qrp2p.com/kaunas", 
-        whatsapp: "37060000002" 
+        id: "schaan01", 
+        name_es: "QRP2P SCHAAN", 
+        name_en: "QRP2P SCHAAN", 
+        category_es: "@schaan", 
+        category_en: "@schaan", 
+        latlng: [47.1640, 9.5080],
+        address_es: "22, Landstrasse, Schaan", 
+        address_en: "22, Landstrasse, Schaan", 
+        description_es: "Sucursal QRP2P Schaan. Tecnología y consultoría.", 
+        description_en: "QRP2P Schaan branch. Technology and consulting.", 
+        phone: "+42377700002", 
+        email: "schaan@qrp2p.com", 
+        website: "https://qrp2p.com/schaan", 
+        whatsapp: "42377700002" 
       },
       { 
-        id: "klaipeda01", 
-        name_es: "DISTRIBUIDORA KLAIPĖDA", 
-        name_en: "KLAIPĖDA DISTRIBUTORS", 
+        id: "balzers01", 
+        name_es: "DISTRIBUIDORA BALZERS", 
+        name_en: "BALZERS DISTRIBUTORS", 
         category_es: "Distribuidora Mayorista", 
         category_en: "Wholesale Distributor", 
-        latlng: [55.7033, 21.1443],
-        address_es: "45, Turgaus Street, Klaipėda", 
-        address_en: "45, Turgaus Street, Klaipėda", 
-        description_es: "Distribución de alimentos en la costa.", 
-        description_en: "Food distribution on the coast.", 
-        phone: "+37060000003", 
-        email: "klaipeda@qrp2p.com", 
-        website: "https://qrp2p.com/klaipeda", 
-        whatsapp: "37060000003" 
+        latlng: [47.0680, 9.5030],
+        address_es: "45, Hauptstrasse, Balzers", 
+        address_en: "45, Hauptstrasse, Balzers", 
+        description_es: "Distribución de alimentos en el sur.", 
+        description_en: "Food distribution in the south.", 
+        phone: "+42377700003", 
+        email: "balzers@qrp2p.com", 
+        website: "https://qrp2p.com/balzers", 
+        whatsapp: "42377700003" 
       },
       { 
-        id: "siauliai01", 
-        name_es: "TECNOLOGÍA ŠIAULIAI", 
-        name_en: "ŠIAULIAI TECH", 
+        id: "triesen01", 
+        name_es: "TECNOLOGÍA TRIESEN", 
+        name_en: "TRIESEN TECH", 
         category_es: "Tecnología", 
         category_en: "Technology", 
-        latlng: [55.9349, 23.3150],
-        address_es: "10, Vilniaus Street, Šiauliai", 
-        address_en: "10, Vilniaus Street, Šiauliai", 
-        description_es: "Distribución de equipos electrónicos en el norte.", 
-        description_en: "Distribution of electronics in the north.", 
-        phone: "+37060000004", 
-        email: "siauliai@qrp2p.com", 
-        website: "https://qrp2p.com/siauliai", 
-        whatsapp: "37060000004" 
+        latlng: [47.0980, 9.5420],
+        address_es: "10, St. Gallerstrasse, Triesen", 
+        address_en: "10, St. Gallerstrasse, Triesen", 
+        description_es: "Distribución de equipos electrónicos en el centro.", 
+        description_en: "Distribution of electronics in the center.", 
+        phone: "+42377700004", 
+        email: "triesen@qrp2p.com", 
+        website: "https://qrp2p.com/triesen", 
+        whatsapp: "42377700004" 
       },
       { 
-        id: "panevezys01", 
-        name_es: "LOGÍSTICA PANEVĖŽYS", 
-        name_en: "PANEVĖŽYS LOGISTICS", 
+        id: "esch01", 
+        name_es: "LOGÍSTICA ESCHEN", 
+        name_en: "ESCHEN LOGISTICS", 
         category_es: "Logística", 
         category_en: "Logistics", 
-        latlng: [55.7333, 24.3500],
-        address_es: "5, Laisvės Square, Panevėžys", 
-        address_en: "5, Laisvės Square, Panevėžys", 
-        description_es: "Soluciones logísticas en el centro-norte.", 
-        description_en: "Logistics solutions in the north-central.", 
-        phone: "+37060000005", 
-        email: "panevezys@qrp2p.com", 
-        website: "https://qrp2p.com/panevezys", 
-        whatsapp: "37060000005" 
+        latlng: [47.2100, 9.5220],
+        address_es: "5, Unterdorf, Eschen", 
+        address_en: "5, Unterdorf, Eschen", 
+        description_es: "Soluciones logísticas en el norte.", 
+        description_en: "Logistics solutions in the north.", 
+        phone: "+42377700005", 
+        email: "eschen@qrp2p.com", 
+        website: "https://qrp2p.com/eschen", 
+        whatsapp: "42377700005" 
       },
       { 
-        id: "alytus01", 
-        name_es: "CONSTRUCCIONES ALYTUS", 
-        name_en: "ALYTUS CONSTRUCTIONS", 
+        id: "mauren01", 
+        name_es: "CONSTRUCCIONES MAUREN", 
+        name_en: "MAUREN CONSTRUCTIONS", 
         category_es: "Construcción", 
         category_en: "Construction", 
-        latlng: [54.4000, 24.0500],
-        address_es: "12, Vilniaus Street, Alytus", 
-        address_en: "12, Vilniaus Street, Alytus", 
-        description_es: "Materiales de construcción en el sur.", 
-        description_en: "Construction materials in the south.", 
-        phone: "+37060000006", 
-        email: "alytus@qrp2p.com", 
-        website: "https://qrp2p.com/alytus", 
-        whatsapp: "37060000006" 
+        latlng: [47.2180, 9.5410],
+        address_es: "12, Kirchstrasse, Mauren", 
+        address_en: "12, Kirchstrasse, Mauren", 
+        description_es: "Materiales de construcción en el norte.", 
+        description_en: "Construction materials in the north.", 
+        phone: "+42377700006", 
+        email: "mauren@qrp2p.com", 
+        website: "https://qrp2p.com/mauren", 
+        whatsapp: "42377700006" 
       },
       { 
-        id: "marijampole01", 
-        name_es: "INVERSIONES MARIJAMPOLĖ", 
-        name_en: "MARIJAMPOLĖ INVESTMENTS", 
+        id: "triesenberg01", 
+        name_es: "INVERSIONES TRIESENBERG", 
+        name_en: "TRIESENBERG INVESTMENTS", 
         category_es: "Finanzas", 
         category_en: "Finance", 
-        latlng: [54.5500, 23.3500],
-        address_es: "8, J. Basanavičiaus Street, Marijampolė", 
-        address_en: "8, J. Basanavičiaus Street, Marijampolė", 
-        description_es: "Asesoría financiera en el suroeste.", 
-        description_en: "Financial advisory in the southwest.", 
-        phone: "+37060000007", 
-        email: "marijampole@qrp2p.com", 
-        website: "https://qrp2p.com/marijampole", 
-        whatsapp: "37060000007" 
+        latlng: [47.1180, 9.5420],
+        address_es: "8, Bergstrasse, Triesenberg", 
+        address_en: "8, Bergstrasse, Triesenberg", 
+        description_es: "Asesoría financiera en el centro.", 
+        description_en: "Financial advisory in the center.", 
+        phone: "+42377700007", 
+        email: "triesenberg@qrp2p.com", 
+        website: "https://qrp2p.com/triesenberg", 
+        whatsapp: "42377700007" 
       },
       { 
-        id: "mažeikiai01", 
-        name_es: "AGRONEGOCIOS MAŽEIKIAI", 
-        name_en: "MAŽEIKIAI AGRIBUSINESS", 
+        id: "ruggell01", 
+        name_es: "AGRONEGOCIOS RUGGELL", 
+        name_en: "RUGGELL AGRIBUSINESS", 
         category_es: "Agroindustria", 
         category_en: "Agribusiness", 
-        latlng: [56.3167, 22.3333],
-        address_es: "20, Gamyklos Street, Mažeikiai", 
-        address_en: "20, Gamyklos Street, Mažeikiai", 
-        description_es: "Distribución de insumos agrícolas en el noroeste.", 
-        description_en: "Distribution of agricultural inputs in the northwest.", 
-        phone: "+37060000008", 
-        email: "mazeikiai@qrp2p.com", 
-        website: "https://qrp2p.com/mazeikiai", 
-        whatsapp: "37060000008" 
+        latlng: [47.2400, 9.5270],
+        address_es: "20, Rietstrasse, Ruggell", 
+        address_en: "20, Rietstrasse, Ruggell", 
+        description_es: "Distribución de insumos agrícolas en el norte.", 
+        description_en: "Distribution of agricultural inputs in the north.", 
+        phone: "+42377700008", 
+        email: "ruggell@qrp2p.com", 
+        website: "https://qrp2p.com/ruggell", 
+        whatsapp: "42377700008" 
       },
       { 
-        id: "jonava01", 
-        name_es: "AUTOPARTES JONAVA", 
-        name_en: "JONAVA AUTO PARTS", 
+        id: "gamprin01", 
+        name_es: "AUTOPARTES GAMPRIN", 
+        name_en: "GAMPRIN AUTO PARTS", 
         category_es: "Autopartes", 
         category_en: "Auto Parts", 
-        latlng: [55.0833, 24.2833],
-        address_es: "3, Kauno Street, Jonava", 
-        address_en: "3, Kauno Street, Jonava", 
-        description_es: "Repuestos para vehículos en el centro.", 
-        description_en: "Vehicle spare parts in the center.", 
-        phone: "+37060000009", 
-        email: "jonava@qrp2p.com", 
-        website: "https://qrp2p.com/jonava", 
-        whatsapp: "37060000009" 
+        latlng: [47.2200, 9.5080],
+        address_es: "3, Dorfstrasse, Gamprin", 
+        address_en: "3, Dorfstrasse, Gamprin", 
+        description_es: "Repuestos para vehículos en el noroeste.", 
+        description_en: "Vehicle spare parts in the northwest.", 
+        phone: "+42377700009", 
+        email: "gamprin@qrp2p.com", 
+        website: "https://qrp2p.com/gamprin", 
+        whatsapp: "42377700009" 
       },
       { 
-        id: "utenas01", 
-        name_es: "ENERGÍA UTENA", 
-        name_en: "UTENA ENERGY", 
+        id: "planken01", 
+        name_es: "ENERGÍA PLANKEN", 
+        name_en: "PLANKEN ENERGY", 
         category_es: "Energía", 
         category_en: "Energy", 
-        latlng: [55.5000, 25.6000],
-        address_es: "7, Vaišvilkas Street, Utena", 
-        address_en: "7, Vaišvilkas Street, Utena", 
-        description_es: "Distribución de equipos energéticos en el noreste.", 
-        description_en: "Distribution of energy equipment in the northeast.", 
-        phone: "+37060000010", 
-        email: "utenas@qrp2p.com", 
-        website: "https://qrp2p.com/utenas", 
-        whatsapp: "37060000010" 
+        latlng: [47.1850, 9.5330],
+        address_es: "7, Planken, Liechtenstein", 
+        address_en: "7, Planken, Liechtenstein", 
+        description_es: "Distribución de equipos energéticos en el centro.", 
+        description_en: "Distribution of energy equipment in the center.", 
+        phone: "+42377700010", 
+        email: "planken@qrp2p.com", 
+        website: "https://qrp2p.com/planken", 
+        whatsapp: "42377700010" 
       },
       { 
-        id: "kėdainiai01", 
-        name_es: "TEXTILES KĖDAINIAI", 
-        name_en: "KĖDAINIAI TEXTILES", 
+        id: "schellenberg01", 
+        name_es: "TEXTILES SCHELLENBERG", 
+        name_en: "SCHELLENBERG TEXTILES", 
         category_es: "Textiles", 
         category_en: "Textiles", 
-        latlng: [55.2833, 23.9667],
-        address_es: "15, Senoji Street, Kėdainiai", 
-        address_en: "15, Senoji Street, Kėdainiai", 
-        description_es: "Distribución de telas en el centro.", 
-        description_en: "Distribution of fabrics in the center.", 
-        phone: "+37060000011", 
-        email: "kedainiai@qrp2p.com", 
-        website: "https://qrp2p.com/kedainiai", 
-        whatsapp: "37060000011" 
-      },
-      { 
-        id: "telsiai01", 
-        name_es: "EDUCACIÓN TELŠIAI", 
-        name_en: "TELŠIAI EDUCATION", 
-        category_es: "Educación", 
-        category_en: "Education", 
-        latlng: [55.9833, 22.2500],
-        address_es: "2, Muziejaus Street, Telšiai", 
-        address_en: "2, Muziejaus Street, Telšiai", 
-        description_es: "Materiales educativos en el noroeste.", 
-        description_en: "Educational materials in the northwest.", 
-        phone: "+37060000012", 
-        email: "telsiai@qrp2p.com", 
-        website: "https://qrp2p.com/telsiai", 
-        whatsapp: "37060000012" 
+        latlng: [47.2300, 9.5450],
+        address_es: "15, Schellenberg, Liechtenstein", 
+        address_en: "15, Schellenberg, Liechtenstein", 
+        description_es: "Distribución de telas en el norte.", 
+        description_en: "Distribution of fabrics in the north.", 
+        phone: "+42377700011", 
+        email: "schellenberg@qrp2p.com", 
+        website: "https://qrp2p.com/schellenberg", 
+        whatsapp: "42377700011" 
       }
     ];
     
     const translations = { 
       en: { 
-        buscar_placeholder: "Search verified businesses in Lithuania...", 
+        buscar_placeholder: "Search verified businesses in Liechtenstein...", 
         centrar: "CENTER", 
         servicios: "QRP2P SERVICES", 
         mapa: "Map", 
         satelite: "Satellite", 
         view_store: "VIEW STORE",
-        sub_header: "LITHUANIA 🇱🇹",
+        sub_header: "LIECHTENSTEIN 🇱🇮",
         zero_commission: "0% COMMISSION",
         modal_title: "QRP2P SERVICES"
       },
       es: { 
-        buscar_placeholder: "Buscar negocios verificados en Lituania...", 
+        buscar_placeholder: "Buscar negocios verificados en Liechtenstein...", 
         centrar: "CENTRAR", 
         servicios: "SERVICIOS QRP2P", 
         mapa: "Mapa", 
         satelite: "Satélite", 
         view_store: "VER TIENDA",
-        sub_header: "LITUANIA 🇱🇹",
+        sub_header: "LIECHTENSTEIN 🇱🇮",
         zero_commission: "0% COMISIÓN",
         modal_title: "SERVICIOS QRP2P"
       }
@@ -549,8 +533,8 @@
       const googleMapsLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
       const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
       
-      // Centro de Lituania
-      mapa = L.map('mapa', { center: [55.1694, 23.8813], zoom: 7, zoomControl: false });
+      // Centro de Liechtenstein
+      mapa = L.map('mapa', { center: [47.1410, 9.5209], zoom: 11, zoomControl: false });
       currentLayer = googleMapsLayer;
       currentLayer.addTo(mapa);
       
@@ -597,9 +581,9 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>GETTING...</span>';
         navigator.geolocation.getCurrentPosition(
           pos => { const { latitude, longitude } = pos.coords; if (userMarker) mapa.removeLayer(userMarker); userMarker = L.marker([latitude, longitude], { icon: L.divIcon({ className: 'user-location-marker', html: '📍', iconSize: [28, 28] }) }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); mapa.setView([latitude, longitude], 12); btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; },
-          err => { btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; mapa.setView([55.1694, 23.8813], 7); alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando Lituania.' : 'Could not get your location. Showing Lithuania.'); }
+          err => { btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; mapa.setView([47.1410, 9.5209], 11); alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando Liechtenstein.' : 'Could not get your location. Showing Liechtenstein.'); }
         );
-      } else { mapa.setView([55.1694, 23.8813], 7); }
+      } else { mapa.setView([47.1410, 9.5209], 11); }
     }
     
     function updateUILanguage() {
@@ -652,7 +636,7 @@
             item.querySelector('.sugerencia-boton').addEventListener('click', () => { m.openPopup(); mapa.setView(m.getLatLng(), 12); sugDiv.style.display = 'none'; }); 
             sugDiv.appendChild(item); 
           }); 
-          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ No results found in Lithuania</div>`; 
+          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ No results found in Liechtenstein</div>`; 
         }, 300); 
       }); 
       document.addEventListener('click', (e) => { if(!e.target.closest('.contenedor-buscador')) document.getElementById('sugerencias-busqueda').style.display = 'none'; });
