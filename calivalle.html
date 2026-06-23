@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QRP2P COLOMBIA MARKETPLACE - Vendedores Verificados</title>
+    <title>QRP2P COLOMBIA MARKETPLACE - Contraentrega Cali, Valle Del Cauca, Colombia</title>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,15 +14,16 @@
             --color-gris-medio: #e0e0e0;
             --color-gris-oscuro: #333333;
             --color-verde: #25D366;
+            --color-azul: #007bff;
             --color-rojo: #dc3545;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Libre Baskerville', serif;
             background-color: var(--color-blanco);
@@ -30,7 +31,7 @@
             line-height: 1.6;
             font-size: 16px;
         }
-
+        
         /* Header */
         header {
             background-color: var(--color-negro);
@@ -41,7 +42,7 @@
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
+        
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -49,27 +50,27 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
         }
-
+        
         .logo-img {
             height: 40px;
             width: auto;
             max-width: 100%;
         }
-
+        
         .cart-icon {
             position: relative;
             cursor: pointer;
             font-size: 1.5rem;
             color: white;
         }
-
+        
         .cart-count {
             position: absolute;
             top: -10px;
@@ -85,7 +86,7 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
-
+        
         /* Hero Section */
         .hero {
             background-color: var(--color-gris-claro);
@@ -93,25 +94,25 @@
             padding: 2rem 1rem;
             margin-bottom: 2rem;
         }
-
+        
         .hero h1 {
             font-size: 2rem;
             margin-bottom: 1rem;
         }
-
+        
         .hero p {
             font-size: 1.1rem;
             max-width: 800px;
             margin: 0 auto;
         }
-
+        
         /* Main Content */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
-
+        
         /* Filtros */
         .filters {
             display: flex;
@@ -120,12 +121,12 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
+        
         .search-box {
             flex-grow: 1;
             max-width: 500px;
         }
-
+        
         .search-box input {
             width: 100%;
             padding: 0.8rem;
@@ -134,13 +135,13 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 16px;
         }
-
+        
         .category-filter {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-
+        
         .category-btn {
             background: none;
             border: 1px solid var(--color-negro);
@@ -151,93 +152,494 @@
             border-radius: 4px;
             font-size: 0.9rem;
         }
-
-        .category-btn:hover,
-        .category-btn.active {
+        
+        .category-btn:hover, .category-btn.active {
             background-color: var(--color-negro);
             color: var(--color-blanco);
         }
-
-        /* Seller Grid */
+        
+        /* Product Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
-
+        
         .product-card {
             border: 1px solid var(--color-gris-medio);
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
-            background: white;
-            padding: 1.5rem 1rem;
-            text-align: center;
+            position: relative;
         }
-
+        
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid var(--color-gris-medio);
+            transition: opacity 0.3s;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
         .product-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            min-height: 2.8rem;
         }
-
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-gris-oscuro);
+        }
+        
         .product-description {
             margin-bottom: 1rem;
             font-size: 0.9rem;
             color: var(--color-gris-oscuro);
             min-height: 2.8rem;
         }
-
+        
         .product-actions {
             display: flex;
-            justify-content: center;
+            gap: 0.5rem;
         }
-
-        .buy-now {
-            padding: 0.7rem 2rem;
+        
+        .add-to-cart, .buy-now {
+            padding: 0.7rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-family: 'Libre Baskerville', serif;
             font-size: 0.9rem;
             transition: background-color 0.3s;
+            flex: 1;
+            text-align: center;
             text-decoration: none;
-            display: inline-flex;
+            display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
+        }
+        
+        .add-to-cart {
             background-color: var(--color-negro);
             color: var(--color-blanco);
         }
-
-        .buy-now:hover {
+        
+        .add-to-cart:hover {
             background-color: var(--color-gris-oscuro);
         }
-
-        .verified-badge {
-            display: inline-block;
-            background: var(--color-verde);
-            color: white;
-            border-radius: 20px;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+        
+        .buy-now {
+            background-color: var(--color-gris-oscuro);
+            color: var(--color-blanco);
         }
-
-        .seller-since {
-            font-size: 0.8rem;
+        
+        .buy-now:hover {
+            background-color: var(--color-negro);
+        }
+        
+        /* Enlaces de producto */
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .product-link:hover .product-title {
+            text-decoration: underline;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: var(--color-blanco);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .close-cart {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .item-info {
+            flex-grow: 1;
+        }
+        
+        .item-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .item-price {
             color: var(--color-gris-oscuro);
+            font-size: 0.9rem;
+        }
+        
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: 1px solid var(--color-gris-medio);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .remove-item {
+            color: #ff0000;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--color-gris-medio);
+        }
+        
+        /* Payment Options */
+        .payment-options {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .payment-options h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .payment-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--color-negro);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--color-negro);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .payment-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .payment-name {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .payment-description {
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.3rem;
+        }
+        
+        .payment-radio {
+            margin-right: 0.8rem;
+        }
+        
+        /* Shipping Options */
+        .shipping-options {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .shipping-options h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .shipping-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .shipping-option:hover {
+            border-color: var(--color-negro);
+        }
+        
+        .shipping-option.selected {
+            border-color: var(--color-negro);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .shipping-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .shipping-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .shipping-name {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .shipping-description {
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.3rem;
+        }
+        
+        .shipping-price {
+            font-weight: 700;
+        }
+        
+        .shipping-free {
+            color: var(--color-verde);
+        }
+        
+        .shipping-radio {
+            margin-right: 0.8rem;
+        }
+        
+        /* Customer Info Form */
+        .customer-info {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .customer-info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+        
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .checkout-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .whatsapp-btn {
+            background-color: var(--color-verde);
+            color: white;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        
+        .whatsapp-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .continue-shopping {
+            background-color: var(--color-gris-medio);
+            color: var(--color-negro);
+        }
+        
+        .continue-shopping:hover {
+            background-color: var(--color-gris-oscuro);
+            color: var(--color-blanco);
+        }
+        
+        /* Modal para compra directa */
+        .direct-purchase-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .direct-purchase-content {
+            background-color: var(--color-blanco);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .direct-purchase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .close-direct-purchase {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .direct-purchase-product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .direct-purchase-product img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 1rem;
+            border-radius: 4px;
+        }
+        
+        .direct-purchase-info h3 {
             margin-bottom: 0.5rem;
         }
-
+        
+        .direct-purchase-info .product-price {
+            margin-bottom: 0;
+        }
+        
         /* Admin Access Section */
         .admin-access {
             margin: 2rem 0;
@@ -246,7 +648,12 @@
             border-radius: 8px;
             text-align: center;
         }
-
+        
+        .admin-access h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
         .admin-form {
             display: flex;
             flex-direction: column;
@@ -254,7 +661,7 @@
             max-width: 400px;
             margin: 0 auto;
         }
-
+        
         .admin-form input {
             padding: 0.8rem;
             border: 1px solid var(--color-gris-medio);
@@ -262,7 +669,7 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 16px;
         }
-
+        
         .admin-form button {
             padding: 0.8rem;
             background-color: var(--color-negro);
@@ -274,64 +681,50 @@
             font-size: 1rem;
             transition: background-color 0.3s;
         }
-
+        
         .admin-form button:hover {
             background-color: var(--color-gris-oscuro);
         }
-
-        /* Admin Private Table */
-        .admin-private-container {
+        
+        /* Supplier Table */
+        .supplier-table-container {
             display: none;
             margin: 2rem 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            border: 2px solid var(--color-verde);
+            border: 1px solid var(--color-gris-medio);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .admin-private-container h2 {
-            background: var(--color-verde);
-            color: white;
-            padding: 0.8rem;
-            margin: 0;
-            font-size: 1.2rem;
-            text-align: center;
-        }
-
-        .admin-private-table {
+        
+        .supplier-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 700px;
+            min-width: 800px;
         }
-
-        .admin-private-table th,
-        .admin-private-table td {
+        
+        .supplier-table th,
+        .supplier-table td {
             padding: 0.8rem;
             text-align: left;
             border-bottom: 1px solid var(--color-gris-medio);
         }
-
-        .admin-private-table th {
+        
+        .supplier-table th {
             background-color: var(--color-gris-claro);
             font-weight: 700;
             position: sticky;
             top: 0;
         }
-
-        .admin-private-table tr:last-child td {
+        
+        .supplier-table tr:last-child td {
             border-bottom: none;
         }
-
-        .admin-private-table tr:hover {
+        
+        .supplier-table tr:hover {
             background-color: rgba(0, 0, 0, 0.02);
         }
-
-        .admin-private-table .private-data {
-            color: var(--color-rojo);
-            font-weight: bold;
-        }
-
+        
         /* Footer */
         footer {
             background-color: var(--color-negro);
@@ -339,7 +732,7 @@
             padding: 2rem 1rem;
             margin-top: 3rem;
         }
-
+        
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -348,39 +741,38 @@
             justify-content: space-between;
             gap: 2rem;
         }
-
+        
         .footer-section {
             flex: 1;
             min-width: 250px;
         }
-
+        
         .footer-section h3 {
             margin-bottom: 1rem;
             font-size: 1.2rem;
         }
-
-        .footer-section p,
-        .footer-section a {
+        
+        .footer-section p, .footer-section a {
             margin-bottom: 0.5rem;
             color: var(--color-gris-medio);
             text-decoration: none;
             display: block;
         }
-
+        
         .footer-section a:hover {
             color: var(--color-blanco);
         }
-
+        
         .social-icons {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
-
+        
         .social-icons a {
             font-size: 1.5rem;
         }
-
+        
         .copyright {
             text-align: center;
             margin-top: 2rem;
@@ -388,7 +780,102 @@
             border-top: 1px solid var(--color-gris-oscuro);
             color: var(--color-gris-medio);
         }
-
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+            
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .cart-content, .direct-purchase-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            
+            .checkout-buttons {
+                gap: 0.5rem;
+            }
+            
+            .checkout-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .item-quantity {
+                align-self: flex-end;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .product-card {
+                min-width: 160px;
+            }
+            
+            .product-title {
+                font-size: 1rem;
+            }
+            
+            .product-price {
+                font-size: 1.1rem;
+            }
+            
+            .add-to-cart, .buy-now {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Notificación */
         .notification {
             position: fixed;
             bottom: 20px;
@@ -398,77 +885,35 @@
             padding: 10px 20px;
             border-radius: 4px;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: opacity 0.5s;
         }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+        
+        /* Scroll horizontal en móviles */
+        .scroll-container {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .scroll-content {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 769px) {
+            .scroll-container {
+                overflow-x: visible;
             }
-
-            .filters {
-                flex-direction: column;
-            }
-
-            .category-filter {
-                justify-content: center;
-            }
-
-            .category-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-            }
-
-            input,
-            select,
-            textarea {
-                font-size: 16px !important;
+            
+            .scroll-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
-
-        @media (max-width: 480px) {
-            .header-container {
-                flex-direction: row;
-                gap: 1rem;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.8rem;
-            }
-
-            .product-card {
-                padding: 1rem 0.8rem;
-            }
-
-            .product-title {
-                font-size: 1rem;
-            }
-
-            .buy-now {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.8rem;
-            }
-        }
-
+        
         @media screen and (max-width: 767px) {
-            input,
-            textarea,
-            select {
+            input, textarea, select {
                 font-size: 16px !important;
             }
         }
@@ -493,52 +938,216 @@
         <h1>QRP2P.COM</h1>
         <p>VENDEDOR VERIFICADO</p>
     </section>
-
+        
     <!-- Main Content -->
     <div class="container">
         <!-- Filtros -->
         <div class="filters">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar vendedores verificados...">
+                <input type="text" id="searchInput" placeholder="Buscar productos y servicios...">
             </div>
             <div class="category-filter">
                 <button class="category-btn active" data-category="todo">@nutricionhd</button>
             </div>
         </div>
 
-        <!-- Seller Grid -->
-        <div class="products-grid" id="productsGrid">
-            <!-- Los vendedores se cargarán dinámicamente con JavaScript -->
+        <!-- Product Grid -->
+        <div class="scroll-container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargarán dinámicamente con JavaScript -->
+            </div>
         </div>
 
         <!-- Admin Access Section -->
         <div class="admin-access">
-            <h2>Acceso Administrativo</h2>
+            <h2></h2>
             <div class="admin-form">
-                <input type="password" id="adminKey" placeholder="Ingrese clave de administrador">
+                <input type="password" id="adminKey" placeholder="Ingreso de afiliados">
                 <button id="adminAccessBtn">Acceder</button>
             </div>
         </div>
 
-        <!-- Admin Private Information Table -->
-        <div class="admin-private-container" id="adminPrivateContainer">
-            <h2><i class="fas fa-lock"></i> INFORMACIÓN PRIVADA DE VENDEDORES</h2>
-            <table class="admin-private-table">
+        <!-- Supplier Table -->
+        <div class="supplier-table-container" id="supplierTableContainer">
+            <table class="supplier-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Vendedor</th>
-                        <th>Teléfono</th>
-                        <th>Email</th>
-                        <th>Dirección</th>
-                        <th>Comisión</th>
-                        <th>Estado</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio Proveedor</th>
+                        <th>Precio Venta</th>
+                        <th>Proveedor</th>
+                        <th>Margen</th>
                     </tr>
                 </thead>
-                <tbody id="adminPrivateBody">
-                    <!-- Los datos privados se cargarán dinámicamente -->
+                <tbody id="supplierTableBody">
+                    <!-- Los datos se cargarán dinámicamente -->
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Tu Carrito de Compras</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Los items del carrito se cargarán dinámicamente -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            
+            <!-- Payment Options -->
+            <div class="payment-options">
+                <h3>Método de Pago</h3>
+                <div class="payment-option" data-payment="contraentrega">
+                    <input type="radio" id="payment-contraentrega" name="payment" class="payment-radio" checked>
+                    <div class="payment-info">
+                        <span class="payment-name">
+                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                        </span>
+                        <span class="payment-description">Paga cuando recibas tu pedido</span>
+                    </div>
+                </div>
+                <div class="payment-option" data-payment="anticipado">
+                    <input type="radio" id="payment-anticipado" name="payment" class="payment-radio">
+                    <div class="payment-info">
+                        <span class="payment-name">
+                            <i class="fas fa-credit-card"></i> Paga en línea
+                        </span>
+                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Options -->
+            <div class="shipping-options">
+                <h3>Opción de Envío</h3>
+                <div class="shipping-option" data-shipping="0">
+                    <input type="radio" id="shipping-priority" name="shipping" class="shipping-radio" checked>
+                    <div class="shipping-info">
+                        <span class="shipping-name">
+                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
+                        </span>
+                        <span class="shipping-description">Tu pedido será confirmado por WhatsApp y ahí recibes los detalles y diferentes costos de envío si aplica y/o envío gratis dependiendo el vendedor</span>
+                    </div>
+                    <span class="shipping-price shipping-free">Entrega inmediata</span>
+                </div>
+            </div>
+            
+            <!-- Customer Information Form -->
+            <div class="customer-info">
+                <h3>Información de Envío</h3>
+                <div class="form-group">
+                    <label for="customerName">Nombre Completo *</label>
+                    <input type="text" id="customerName" placeholder="Ingresa tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Teléfono *</label>
+                    <input type="tel" id="customerPhone" placeholder="Ingresa tu número de teléfono" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress">Dirección de Envío *</label>
+                    <input type="text" id="customerAddress" placeholder="Ingresa tu dirección completa" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerCity">Ciudad *</label>
+                    <input type="text" id="customerCity" placeholder="Ingresa tu ciudad" required>
+                </div>
+            </div>
+            
+            <div class="checkout-buttons">
+                <button class="checkout-btn whatsapp-btn" id="whatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
+                </button>
+                <button class="checkout-btn continue-shopping" id="continueShopping">Seguir comprando</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direct Purchase Modal -->
+    <div class="direct-purchase-modal" id="directPurchaseModal">
+        <div class="direct-purchase-content">
+            <div class="direct-purchase-header">
+                <h2>Comprar Producto</h2>
+                <button class="close-direct-purchase" id="closeDirectPurchase">&times;</button>
+            </div>
+            
+            <div class="direct-purchase-product" id="directPurchaseProduct">
+                <!-- Información del producto se cargará dinámicamente -->
+            </div>
+            
+            <!-- Payment Options -->
+            <div class="payment-options">
+                <h3>Método de Pago</h3>
+                <div class="payment-option" data-payment="contraentrega">
+                    <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
+                    <div class="payment-info">
+                        <span class="payment-name">
+                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                        </span>
+                        <span class="payment-description">Paga cuando recibas tu pedido</span>
+                    </div>
+                </div>
+                <div class="payment-option" data-payment="anticipado">
+                    <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
+                    <div class="payment-info">
+                        <span class="payment-name">
+                            <i class="fas fa-credit-card"></i> Paga en línea
+                        </span>
+                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Options -->
+            <div class="shipping-options">
+                <h3>Opción de Envío</h3>
+                <div class="shipping-option" data-shipping="0">
+                    <input type="radio" id="direct-shipping-priority" name="direct-shipping" class="shipping-radio" checked>
+                    <div class="shipping-info">
+                        <span class="shipping-name">
+                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
+                        </span>
+                        <span class="shipping-description">Tu pedido será confirmado por WhatsApp y ahí recibes los detalles y diferentes costos de envío si aplica y/o envío gratis dependiendo el vendedor</span>
+                    </div>
+                    <span class="shipping-price shipping-free">Entrega inmediata</span>
+                </div>
+            </div>
+            
+            <!-- Customer Information Form -->
+            <div class="customer-info">
+                <h3>Información de Envío</h3>
+                <div class="form-group">
+                    <label for="directCustomerName">Nombre Completo *</label>
+                    <input type="text" id="directCustomerName" placeholder="Ingresa tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerPhone">Teléfono *</label>
+                    <input type="tel" id="directCustomerPhone" placeholder="Ingresa tu número de teléfono" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerAddress">Dirección de Envío *</label>
+                    <input type="text" id="directCustomerAddress" placeholder="Ingresa tu dirección completa" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerCity">Ciudad *</label>
+                    <input type="text" id="directCustomerCity" placeholder="Ingresa tu ciudad" required>
+                </div>
+            </div>
+            
+            <div class="checkout-buttons">
+                <button class="checkout-btn whatsapp-btn" id="directWhatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
+                </button>
+                <button class="checkout-btn continue-shopping" id="cancelDirectPurchase">Cancelar</button>
+            </div>
         </div>
     </div>
 
@@ -574,229 +1183,597 @@
     </footer>
 
     <script>
-        // Base de datos de VENDEDORES VERIFICADOS (con información privada)
-        const sellers = [{
-            id: 1,
-            name: "NUTRICIÓN HD CALI",
-            category: "todo",
-            since: "2026",
-            description: "Distribuidor oficial de Omnilife y Seytú en Cali.",
-            profileUrl: "nutricionhdcali.html",
-            // Información privada (solo visible para admin)
-            private: {
-                phone: "+573041146297",
-                email: "nutricionhd@email.com",
-                address: "Calle 10 # 5-30, Cali",
-                commission: "40%",
-                status: "Omnilife"
+        // Base de datos de productos (simulada) - SOLO LOS PRIMEROS 10 PRODUCTOS
+        const products = [
+            {
+                "id": 01,
+                "title": "EGO PLANT BOTELLA 200 ML",
+                "price": 12800,
+                "description": "Opción de pago a 6 cuotas de 2.133 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 8192,
+                "productUrl": "nutricionhd-01.html",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 143,
+                "title": "OMNILIFE F PLUS",
+                "price": 134750,
+                "description": "Opción de pago a 6 cuotas de 22.458 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 86240,
+                "productUrl": "https://ejemplo.com/productos/omnilife-f-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 144,
+                "title": "FIBER'N PLUS SUPREME SACHET 450 G",
+                "price": 159550,
+                "description": "Opción de pago a 6 cuotas de 26.592 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 102112,
+                "productUrl": "https://ejemplo.com/productos/fiber-n-plus-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 145,
+                "title": "ESTOP PLUS CAJA 30 SACHETS 450G",
+                "price": 251500,
+                "description": "Opción de pago a 6 cuotas de 41.917 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 160960,
+                "productUrl": "https://ejemplo.com/productos/estop-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 146,
+                "title": "HOMO PLUS CAJA 30 SACHETS 195 G",
+                "price": 134750,
+                "description": "Opción de pago a 6 cuotas de 22.458 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 86240,
+                "productUrl": "https://ejemplo.com/productos/homo-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 147,
+                "title": "OMNILIFE KOLINA BOTELLA 200 ML",
+                "price": 12800,
+                "description": "Opción de pago a 6 cuotas de 2.133 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 8192,
+                "productUrl": "https://ejemplo.com/productos/omnilife-kolina",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 148,
+                "title": "BIOCROS SUPREME CAJA 30 SOBRES 240G",
+                "price": 120050,
+                "description": "Opción de pago a 6 cuotas de 20.008 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 76832,
+                "productUrl": "https://ejemplo.com/productos/biocros-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 149,
+                "title": "OMNIPLUS FRUTAS EVOLUCION 30 SACHES",
+                "price": 184550,
+                "description": "Opción de pago a 6 cuotas de 30.758 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 118112,
+                "productUrl": "https://ejemplo.com/productos/omniplus-frutas-evolucion",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 150,
+                "title": "OMNIPLUS NARANJA SUPREME CAJA 30 SOBRES",
+                "price": 184550,
+                "description": "Opción de pago a 6 cuotas de 30.758 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 118112,
+                "productUrl": "https://ejemplo.com/productos/omniplus-naranja-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
+            },
+            {
+                "id": 151,
+                "title": "COGNOS EVOLUCION CAJA",
+                "price": 125750,
+                "description": "Opción de pago a 6 cuotas de 20.958 con 0% interés.",
+                "category": "todo",
+                "supplier": "Omnilife Colombia",
+                "warehousePrice": 80480,
+                "productUrl": "https://ejemplo.com/productos/cognos-evolucion",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ]
             }
-        }, {
-            id: 2,
-            name: "DISTRIBUIDORA GRACOL",
-            category: "todo",
-            since: "2026",
-            description: "Electrónica, computadores y accesorios tecnológicos.",
-            profileUrl: "distribuidoragracol.html",
-            private: {
-                phone: "+57 310 987 6543",
-                email: "tecnostore@email.com",
-                address: "Avenida 6N # 23-45, Cali",
-                commission: "50%",
-                status: "Gilsa aristi"
-            }
-        }, {
-            id: 3,
-            name: "Moda Express",
-            category: "todo",
-            since: "2021",
-            description: "Ropa y accesorios de moda para toda la familia.",
-            profileUrl: "impodistribuidorajpcali.html",
-            private: {
-                phone: "+57 320 456 7890",
-                email: "modaexpress@email.com",
-                address: "Calle 15 # 8-20, Cali",
-                commission: "50%",
-                status: "Hobbycity"
-            }
-        }, {
-            id: 4,
-            name: "Hogar y Más",
-            category: "todo",
-            since: "2018",
-            description: "Artículos para el hogar, cocina y decoración.",
-            profileUrl: "perfil-hogar-y-mas.html",
-            private: {
-                phone: "+57 305 678 9012",
-                email: "hogarymas@email.com",
-                address: "Carrera 25 # 12-10, Cali",
-                commission: "14%",
-                status: "Inactivo"
-            }
-        }, {
-            id: 5,
-            name: "Belleza Natural",
-            category: "todo",
-            since: "2022",
-            description: "Cosméticos y productos de cuidado personal orgánicos.",
-            profileUrl: "perfil-belleza-natural.html",
-            private: {
-                phone: "+57 315 234 5678",
-                email: "bellezanatural@email.com",
-                address: "Calle 20 # 10-15, Cali",
-                commission: "18%",
-                status: "Activo"
-            }
-        }, {
-            id: 6,
-            name: "Deportes Élite",
-            category: "todo",
-            since: "2020",
-            description: "Equipamiento deportivo y ropa técnica.",
-            profileUrl: "perfil-deportes-elite.html",
-            private: {
-                phone: "+57 318 765 4321",
-                email: "deporteselite@email.com",
-                address: "Avenida 4N # 15-30, Cali",
-                commission: "11%",
-                status: "Activo"
-            }
-        }, {
-            id: 7,
-            name: "Librería Central",
-            category: "todo",
-            since: "2017",
-            description: "Libros, material educativo y papelería.",
-            profileUrl: "perfil-libreria-central.html",
-            private: {
-                phone: "+57 313 456 7890",
-                email: "libreriacentral@email.com",
-                address: "Calle 8 # 3-12, Cali",
-                commission: "9%",
-                status: "Activo"
-            }
-        }, {
-            id: 8,
-            name: "Joyas & Relojes",
-            category: "todo",
-            since: "2019",
-            description: "Joyería fina, relojes y accesorios de lujo.",
-            profileUrl: "perfil-joyas-relojes.html",
-            private: {
-                phone: "+57 311 876 5432",
-                email: "joyasrelojes@email.com",
-                address: "Carrera 12 # 7-25, Cali",
-                commission: "20%",
-                status: "Activo"
-            }
-        }];
+        ];
+
+        // Función para formatear precios en formato COP
+        function formatPrice(price) {
+            return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
 
         // Variables globales
+        let cart = [];
+        let currentDirectProduct = null;
+        let selectedShipping = 0;
+        let selectedPayment = "contraentrega";
+        const ADMIN_KEY = "proveedor2024";
+        
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const continueShopping = document.getElementById('continueShopping');
         const productsGrid = document.getElementById('productsGrid');
         const searchInput = document.getElementById('searchInput');
         const categoryBtns = document.querySelectorAll('.category-btn');
+        const customerName = document.getElementById('customerName');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+        const customerCity = document.getElementById('customerCity');
+        
+        const directPurchaseModal = document.getElementById('directPurchaseModal');
+        const directPurchaseProduct = document.getElementById('directPurchaseProduct');
+        const closeDirectPurchase = document.getElementById('closeDirectPurchase');
+        const directCustomerName = document.getElementById('directCustomerName');
+        const directCustomerPhone = document.getElementById('directCustomerPhone');
+        const directCustomerAddress = document.getElementById('directCustomerAddress');
+        const directCustomerCity = document.getElementById('directCustomerCity');
+        const directWhatsappBtn = document.getElementById('directWhatsappBtn');
+        const cancelDirectPurchase = document.getElementById('cancelDirectPurchase');
+        
         const adminKeyInput = document.getElementById('adminKey');
         const adminAccessBtn = document.getElementById('adminAccessBtn');
-        const adminPrivateContainer = document.getElementById('adminPrivateContainer');
-        const adminPrivateBody = document.getElementById('adminPrivateBody');
-        const ADMIN_KEY = "proveedor2024";
+        const supplierTableContainer = document.getElementById('supplierTableContainer');
+        const supplierTableBody = document.getElementById('supplierTableBody');
 
-        function loadSellers(sellersToLoad) {
+        function loadProducts(productsToLoad) {
             productsGrid.innerHTML = '';
-
-            sellersToLoad.forEach(seller => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                        <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
-                        <h3 class="product-title">${seller.name}</h3>
-                        <div class="seller-since"><i class="far fa-calendar-alt"></i> Desde ${seller.since}</div>
-                        <p class="product-description">${seller.description}</p>
-                        <div class="product-actions">
-                            <a href="${seller.profileUrl}" class="buy-now" data-id="${seller.id}">
-                                <i class="fas fa-user"></i> Ver Perfil
-                            </a>
+            
+            productsToLoad.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <a href="${product.productUrl}" class="product-link" target="_blank">
+                        <div class="product-image-container">
+                            <img src="${product.images[0]}" alt="${product.title}" class="product-image">
                         </div>
-                    `;
-                productsGrid.appendChild(card);
+                    </a>
+                    <div class="product-info">
+                        <a href="${product.productUrl}" class="product-link" target="_blank">
+                            <h3 class="product-title">${product.title}</h3>
+                        </a>
+                        <p class="product-price">${formatPrice(product.price)}</p>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                            </button>
+                            <button class="buy-now" data-id="${product.id}">
+                                <i class="fas fa-shopping-bag"></i> Comprar Ahora
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+            
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+            
+            document.querySelectorAll('.buy-now').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.closest('.buy-now').getAttribute('data-id'));
+                    openDirectPurchase(productId);
+                });
             });
         }
 
-        function filterSellers() {
+        function openDirectPurchase(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentDirectProduct = product;
+            
+            directPurchaseProduct.innerHTML = `
+                <img src="${product.images[0]}" alt="${product.title}">
+                <div class="direct-purchase-info">
+                    <h3>${product.title}</h3>
+                    <p class="product-price">${formatPrice(product.price)}</p>
+                </div>
+            `;
+            
+            directCustomerName.value = '';
+            directCustomerPhone.value = '';
+            directCustomerAddress.value = '';
+            directCustomerCity.value = '';
+            directWhatsappBtn.disabled = true;
+            
+            document.getElementById('direct-shipping-priority').checked = true;
+            selectedShipping = 0;
+            updateShippingOptions();
+            
+            document.getElementById('direct-payment-contraentrega').checked = true;
+            selectedPayment = "contraentrega";
+            updatePaymentOptions();
+            
+            directPurchaseModal.style.display = 'flex';
+        }
+
+        function filterProducts() {
             const searchText = searchInput.value.toLowerCase();
             const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-
-            const filtered = sellers.filter(seller => {
-                const matchesSearch = seller.name.toLowerCase().includes(searchText) ||
-                    seller.description.toLowerCase().includes(searchText);
-                const matchesCategory = activeCategory === 'all' || seller.category === activeCategory;
+            
+            const filteredProducts = products.filter(product => {
+                const matchesSearch = product.title.toLowerCase().includes(searchText) || 
+                                     product.description.toLowerCase().includes(searchText);
+                const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+                
                 return matchesSearch && matchesCategory;
             });
+            
+            loadProducts(filteredProducts);
+        }
 
-            loadSellers(filtered);
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    quantity: 1,
+                    image: product.images[0]
+                });
+            }
+            
+            updateCart();
+            showNotification(`${product.title} agregado al carrito`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" width="50">
+                    <div class="item-info">
+                        <h4 class="item-title">${item.title}</h4>
+                        <p class="item-price">${formatPrice(item.price)} c/u</p>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <span class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></span>
+                    </div>
+                    <div class="item-total">${formatPrice(itemTotal)}</div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            const total = subtotal + selectedShipping;
+            cartTotal.textContent = formatPrice(total);
+            
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+            
+            validateCheckoutButton();
+        }
+
+        function updateShippingOptions() {
+            document.querySelectorAll('.shipping-option').forEach(option => {
+                option.classList.remove('selected');
+                const radio = option.querySelector('.shipping-radio');
+                if (radio.checked) {
+                    option.classList.add('selected');
+                    selectedShipping = parseInt(option.getAttribute('data-shipping'));
+                }
+            });
+            
+            updateCart();
+        }
+
+        function updatePaymentOptions() {
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+                const radio = option.querySelector('.payment-radio');
+                if (radio.checked) {
+                    option.classList.add('selected');
+                    selectedPayment = option.getAttribute('data-payment');
+                }
+            });
+        }
+
+        function validateCheckoutButton() {
+            const hasItems = cart.length > 0;
+            const hasName = customerName.value.trim() !== '';
+            const hasPhone = customerPhone.value.trim() !== '';
+            const hasAddress = customerAddress.value.trim() !== '';
+            const hasCity = customerCity.value.trim() !== '';
+            
+            whatsappBtn.disabled = !(hasItems && hasName && hasPhone && hasAddress && hasCity);
+        }
+
+        function validateDirectCheckoutButton() {
+            const hasName = directCustomerName.value.trim() !== '';
+            const hasPhone = directCustomerPhone.value.trim() !== '';
+            const hasAddress = directCustomerAddress.value.trim() !== '';
+            const hasCity = directCustomerCity.value.trim() !== '';
+            
+            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity);
         }
 
         function showNotification(message) {
             const existingNotification = document.querySelector('.notification');
-            if (existingNotification) existingNotification.remove();
-
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = message;
+            
             document.body.appendChild(notification);
-
+            
             setTimeout(() => {
                 notification.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(notification), 500);
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
             }, 3000);
         }
 
-        // Cargar información privada de vendedores (solo para admin)
-        function loadPrivateInfo() {
-            adminPrivateBody.innerHTML = '';
+        function generateWhatsAppMessage() {
+            let message = "¡Hola! Quiero realizar la siguiente compra:\n\n";
+            
+            cart.forEach(item => {
+                message += `- ${item.title} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
+            });
+            
+            if (selectedShipping > 0) {
+                message += `- Envío: ${formatPrice(selectedShipping)}\n`;
+            } else {
+                message += `- Envío: Entrega inmediata\n`;
+            }
+            
+            const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + selectedShipping;
+            message += `\nTotal: ${formatPrice(total)}`;
+            
+            if (selectedPayment === "contraentrega") {
+                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            } else {
+                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
+            }
+            
+            message += `\n\nMi información de envío es:\n`;
+            message += `Nombre: ${customerName.value}\n`;
+            message += `Teléfono: ${customerPhone.value}\n`;
+            message += `Dirección: ${customerAddress.value}\n`;
+            message += `Ciudad: ${customerCity.value}`;
+            
+            return encodeURIComponent(message);
+        }
 
-            sellers.forEach(seller => {
+        function generateDirectWhatsAppMessage() {
+            let message = "¡Hola! Quiero comprar el siguiente producto:\n\n";
+            
+            message += `- ${currentDirectProduct.title}: ${formatPrice(currentDirectProduct.price)}\n`;
+            
+            if (selectedShipping > 0) {
+                message += `- Envío: ${formatPrice(selectedShipping)}\n`;
+            } else {
+                message += `- Envío: Entrega inmediata\n`;
+            }
+            
+            const total = currentDirectProduct.price + selectedShipping;
+            message += `\nTotal: ${formatPrice(total)}`;
+            
+            if (selectedPayment === "contraentrega") {
+                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            } else {
+                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
+            }
+            
+            message += `\n\nMi información de envío es:\n`;
+            message += `Nombre: ${directCustomerName.value}\n`;
+            message += `Teléfono: ${directCustomerPhone.value}\n`;
+            message += `Dirección: ${directCustomerAddress.value}\n`;
+            message += `Ciudad: ${directCustomerCity.value}`;
+            
+            return encodeURIComponent(message);
+        }
+
+        function loadSupplierTable() {
+            supplierTableBody.innerHTML = '';
+            
+            products.forEach(product => {
+                const margin = ((product.price - product.warehousePrice) / product.warehousePrice * 100).toFixed(2);
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                        <td>${seller.id}</td>
-                        <td><strong>${seller.name}</strong></td>
-                        <td class="private-data">${seller.private.phone}</td>
-                        <td class="private-data">${seller.private.email}</td>
-                        <td class="private-data">${seller.private.address}</td>
-                        <td class="private-data">${seller.private.commission}</td>
-                        <td>
-                            <span style="color: ${seller.private.status === 'Activo' ? 'var(--color-verde)' : 'var(--color-rojo)'}; font-weight: bold;">
-                                ${seller.private.status}
-                            </span>
-                        </td>
-                    `;
-                adminPrivateBody.appendChild(row);
+                    <td>${product.id}</td>
+                    <td>${product.title}</td>
+                    <td>${product.category}</td>
+                    <td>${formatPrice(product.warehousePrice)}</td>
+                    <td>${formatPrice(product.price)}</td>
+                    <td>${product.supplier}</td>
+                    <td>${margin}%</td>
+                `;
+                supplierTableBody.appendChild(row);
             });
-
-            adminPrivateContainer.style.display = 'block';
-            // Scroll suave hacia la tabla
-            adminPrivateContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            supplierTableContainer.style.display = 'block';
         }
 
         // Event Listeners
-        searchInput.addEventListener('input', filterSellers);
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        continueShopping.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        whatsappBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showNotification('El carrito está vacío');
+                return;
+            }
+            
+            const message = generateWhatsAppMessage();
+            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
+        });
+
+        closeDirectPurchase.addEventListener('click', () => {
+            directPurchaseModal.style.display = 'none';
+        });
+
+        cancelDirectPurchase.addEventListener('click', () => {
+            directPurchaseModal.style.display = 'none';
+        });
+
+        directWhatsappBtn.addEventListener('click', () => {
+            if (!currentDirectProduct) {
+                showNotification('No hay producto seleccionado');
+                return;
+            }
+            
+            const message = generateDirectWhatsAppMessage();
+            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
+        });
+
+        searchInput.addEventListener('input', filterProducts);
 
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 categoryBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                filterSellers();
+                filterProducts();
             });
         });
 
+        document.querySelectorAll('.shipping-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const radio = option.querySelector('.shipping-radio');
+                radio.checked = true;
+                updateShippingOptions();
+            });
+        });
+
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const radio = option.querySelector('.payment-radio');
+                radio.checked = true;
+                updatePaymentOptions();
+            });
+        });
+
+        customerName.addEventListener('input', validateCheckoutButton);
+        customerPhone.addEventListener('input', validateCheckoutButton);
+        customerAddress.addEventListener('input', validateCheckoutButton);
+        customerCity.addEventListener('input', validateCheckoutButton);
+
+        directCustomerName.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerPhone.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerAddress.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerCity.addEventListener('input', validateDirectCheckoutButton);
+
         adminAccessBtn.addEventListener('click', () => {
             if (adminKeyInput.value === ADMIN_KEY) {
-                loadPrivateInfo();
-                showNotification('Acceso concedido. Información privada cargada.');
-                adminKeyInput.value = '';
+                loadSupplierTable();
+                showNotification('Acceso concedido. Tabla de proveedores cargada.');
             } else {
                 showNotification('Clave incorrecta. Intenta nuevamente.');
-                adminKeyInput.value = '';
-                adminKeyInput.focus();
             }
         });
 
@@ -806,8 +1783,17 @@
             }
         });
 
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (e.target === directPurchaseModal) {
+                directPurchaseModal.style.display = 'none';
+            }
+        });
+
         // Inicializar
-        loadSellers(sellers);
+        loadProducts(products);
     </script>
 </body>
 </html>
