@@ -370,20 +370,20 @@
             border-top: 2px solid var(--color-gris-medio);
         }
         
-        /* Payment Options */
-        .payment-options {
+        /* Distribuye, Despacha y Cubre (antes Payment Options) */
+        .distribuye-section {
             margin-bottom: 1.5rem;
             padding: 1rem;
             background-color: var(--color-gris-claro);
             border-radius: 8px;
         }
         
-        .payment-options h3 {
+        .distribuye-section h3 {
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
         
-        .payment-option {
+        .distribuye-option {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -395,39 +395,39 @@
             transition: all 0.3s;
         }
         
-        .payment-option:hover {
+        .distribuye-option:hover {
             border-color: var(--color-negro);
         }
         
-        .payment-option.selected {
+        .distribuye-option.selected {
             border-color: var(--color-negro);
             background-color: rgba(0, 0, 0, 0.05);
         }
         
-        .payment-option:last-child {
+        .distribuye-option:last-child {
             margin-bottom: 0;
         }
         
-        .payment-info {
+        .distribuye-info {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         
-        .payment-name {
+        .distribuye-name {
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
         
-        .payment-description {
+        .distribuye-description {
             font-size: 0.9rem;
             color: var(--color-gris-oscuro);
             margin-top: 0.3rem;
         }
         
-        .payment-radio {
+        .distribuye-radio {
             margin-right: 0.8rem;
         }
         
@@ -1003,25 +1003,25 @@
                 <span id="cartTotal">$0.00</span>
             </div>
             
-            <!-- Payment Options -->
-            <div class="payment-options">
-                <h3>Método de Pago</h3>
-                <div class="payment-option" data-payment="contraentrega">
-                    <input type="radio" id="payment-contraentrega" name="payment" class="payment-radio" checked>
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+            <!-- Distribuye, Despacha y Cubre -->
+            <div class="distribuye-section">
+                <h3><i class="fas fa-truck"></i> Distribuye, Despacha y Cubre</h3>
+                <div class="distribuye-option" data-distribuye="contraentrega">
+                    <input type="radio" id="distribuye-contraentrega" name="distribuye" class="distribuye-radio" checked>
+                    <div class="distribuye-info">
+                        <span class="distribuye-name">
+                            <i class="fas fa-store"></i> @nutricionhd
                         </span>
-                        <span class="payment-description">Paga cuando recibas tu pedido</span>
+                        <span class="distribuye-description">Distribuye, despacha y cubre este producto</span>
                     </div>
                 </div>
-                <div class="payment-option" data-payment="anticipado">
-                    <input type="radio" id="payment-anticipado" name="payment" class="payment-radio">
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-credit-card"></i> Paga en línea
+                <div class="distribuye-option" data-distribuye="anticipado">
+                    <input type="radio" id="distribuye-anticipado" name="distribuye" class="distribuye-radio">
+                    <div class="distribuye-info">
+                        <span class="distribuye-name">
+                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
                         </span>
-                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
+                        <span class="distribuye-description">Distribuye, despacha y cubre este producto</span>
                     </div>
                 </div>
             </div>
@@ -1083,25 +1083,25 @@
                 <!-- Información del producto se cargará dinámicamente -->
             </div>
             
-            <!-- Payment Options -->
-            <div class="payment-options">
-                <h3>Método de Pago</h3>
-                <div class="payment-option" data-payment="contraentrega">
-                    <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+            <!-- Distribuye, Despacha y Cubre (Direct) -->
+            <div class="distribuye-section">
+                <h3><i class="fas fa-truck"></i> Distribuye, Despacha y Cubre</h3>
+                <div class="distribuye-option" data-distribuye="contraentrega">
+                    <input type="radio" id="direct-distribuye-contraentrega" name="direct-distribuye" class="distribuye-radio" checked>
+                    <div class="distribuye-info">
+                        <span class="distribuye-name">
+                            <i class="fas fa-store"></i> @nutricionhd
                         </span>
-                        <span class="payment-description">Paga cuando recibas tu pedido</span>
+                        <span class="distribuye-description">Distribuye, despacha y cubre este producto</span>
                     </div>
                 </div>
-                <div class="payment-option" data-payment="anticipado">
-                    <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-credit-card"></i> Paga en línea
+                <div class="distribuye-option" data-distribuye="anticipado">
+                    <input type="radio" id="direct-distribuye-anticipado" name="direct-distribuye" class="distribuye-radio">
+                    <div class="distribuye-info">
+                        <span class="distribuye-name">
+                            <i class="fas fa-shipping-fast"></i> QRP2P Logística
                         </span>
-                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
+                        <span class="distribuye-description">Distribuye, despacha y cubre este producto</span>
                     </div>
                 </div>
             </div>
@@ -1326,7 +1326,7 @@
         let cart = [];
         let currentDirectProduct = null;
         let selectedShipping = 0;
-        let selectedPayment = "contraentrega";
+        let selectedDistribuye = "contraentrega";
         const ADMIN_KEY = "proveedor2024";
         
         const cartIcon = document.getElementById('cartIcon');
@@ -1430,9 +1430,9 @@
             selectedShipping = 0;
             updateShippingOptions();
             
-            document.getElementById('direct-payment-contraentrega').checked = true;
-            selectedPayment = "contraentrega";
-            updatePaymentOptions();
+            document.getElementById('direct-distribuye-contraentrega').checked = true;
+            selectedDistribuye = "contraentrega";
+            updateDistribuyeOptions();
             
             directPurchaseModal.style.display = 'flex';
         }
@@ -1560,13 +1560,13 @@
             updateCart();
         }
 
-        function updatePaymentOptions() {
-            document.querySelectorAll('.payment-option').forEach(option => {
+        function updateDistribuyeOptions() {
+            document.querySelectorAll('.distribuye-option').forEach(option => {
                 option.classList.remove('selected');
-                const radio = option.querySelector('.payment-radio');
+                const radio = option.querySelector('.distribuye-radio');
                 if (radio.checked) {
                     option.classList.add('selected');
-                    selectedPayment = option.getAttribute('data-payment');
+                    selectedDistribuye = option.getAttribute('data-distribuye');
                 }
             });
         }
@@ -1626,11 +1626,13 @@
             const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + selectedShipping;
             message += `\nTotal: ${formatPrice(total)}`;
             
-            if (selectedPayment === "contraentrega") {
-                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            if (selectedDistribuye === "contraentrega") {
+                message += `\n\nDistribuye: @nutricionhd`;
             } else {
-                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
+                message += `\n\nDistribuye: QRP2P Logística`;
             }
+            message += `\nDespacha: ${selectedDistribuye === "contraentrega" ? '@nutricionhd' : 'QRP2P Logística'}`;
+            message += `\nCubre: ${selectedDistribuye === "contraentrega" ? '@nutricionhd' : 'QRP2P Logística'}`;
             
             message += `\n\nMi información de envío es:\n`;
             message += `Nombre: ${customerName.value}\n`;
@@ -1655,11 +1657,13 @@
             const total = currentDirectProduct.price + selectedShipping;
             message += `\nTotal: ${formatPrice(total)}`;
             
-            if (selectedPayment === "contraentrega") {
-                message += `\n\nMétodo de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            if (selectedDistribuye === "contraentrega") {
+                message += `\n\nDistribuye: @nutricionhd`;
             } else {
-                message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses)`;
+                message += `\n\nDistribuye: QRP2P Logística`;
             }
+            message += `\nDespacha: ${selectedDistribuye === "contraentrega" ? '@nutricionhd' : 'QRP2P Logística'}`;
+            message += `\nCubre: ${selectedDistribuye === "contraentrega" ? '@nutricionhd' : 'QRP2P Logística'}`;
             
             message += `\n\nMi información de envío es:\n`;
             message += `Nombre: ${directCustomerName.value}\n`;
@@ -1750,11 +1754,11 @@
             });
         });
 
-        document.querySelectorAll('.payment-option').forEach(option => {
+        document.querySelectorAll('.distribuye-option').forEach(option => {
             option.addEventListener('click', (e) => {
-                const radio = option.querySelector('.payment-radio');
+                const radio = option.querySelector('.distribuye-radio');
                 radio.checked = true;
-                updatePaymentOptions();
+                updateDistribuyeOptions();
             });
         });
 
