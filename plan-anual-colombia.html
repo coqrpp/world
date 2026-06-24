@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>QRP2P Colombia | Plan Anual Catálogos Express - $200.000/año | Marketplace P2P</title>
-    <meta name="description" content="Plan Anual para vendedores por solo $200.000 COP/año. Catálogo profesional en el marketplace, gestión por WhatsApp, 0% comisión. Subimos tus productos por ti. Servicios adicionales disponibles.">
-    <meta name="keywords" content="QRP2P Colombia, plan anual vendedor, catálogo marketplace, pedidos WhatsApp, sin comisión, visibilidad mundial">
+    <title>QRP2P Colombia | Plan Anual Catálogos Express - $200.000/año | Marketplace P2P Global</title>
+    <meta name="description" content="Plan Anual para vendedores por solo $200.000 COP/año. Tienda en línea profesional con carrito de compras, 0% comisión, visible en más de 190 países. Subimos tus productos por ti.">
+    <meta name="keywords" content="QRP2P Colombia, plan anual vendedor, tienda en línea, carrito de compras, marketplace global, 0% comisión, reservas, hostales, hoteles, alquileres, turismo">
     <meta name="author" content="QRP2P Colombia">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="QRP2P Colombia | Plan Anual Catálogos Express - $200.000/año">
-    <meta property="og:description" content="Plan Anual. Sin dominio, sin complicaciones. Nosotros subimos tus productos. Servicios adicionales: gestión de WhatsApp, recaudo, logística e inventario.">
+    <meta property="og:description" content="Plan Anual. Tienda en línea profesional con carrito. Subimos tus productos por ti. 0% comisión. Visible en 190+ países.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:locale" content="es_CO">
     
@@ -21,7 +21,7 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "Plan Anual Catálogos Express QRP2P Colombia",
-        "description": "Plan Anual de $200.000 COP con gestión por WhatsApp. Subimos hasta 100 productos por ti. Servicios adicionales disponibles.",
+        "description": "Plan Anual de $200.000 COP con tienda en línea profesional, carrito de compras, 0% comisión. Subimos hasta 100 productos por ti. Servicios adicionales disponibles.",
         "brand": { "@type": "Brand", "name": "QRP2P" },
         "offers": {
             "@type": "Offer",
@@ -42,6 +42,7 @@
             --color-gris-medio: #cccccc;
             --color-gris-oscuro: #333333;
             --color-gris-muy-oscuro: #111111;
+            --color-whatsapp: #25D366;
         }
         
         * {
@@ -144,6 +145,18 @@
             background: var(--color-negro);
             border-color: var(--color-blanco);
             transform: translateY(-2px);
+        }
+        
+        .btn-whatsapp {
+            background: var(--color-whatsapp);
+            border-color: var(--color-whatsapp);
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            border-color: #128C7E;
+            color: white;
         }
         
         .hero {
@@ -277,14 +290,14 @@
             list-style: none;
             margin: 1.5rem 0;
             text-align: left;
-            max-width: 600px;
+            max-width: 700px;
             margin: 1.5rem auto;
         }
         
         .feature-list li {
             margin: 0.8rem 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.8rem;
             text-align: left;
         }
@@ -293,6 +306,7 @@
             color: var(--color-blanco);
             width: 24px;
             flex-shrink: 0;
+            margin-top: 4px;
         }
         
         .how-it-works {
@@ -483,6 +497,101 @@
             margin-top: 1rem;
         }
         
+        /* ===== FORMULARIO ===== */
+        .form-section {
+            background: var(--color-blanco);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 2px solid var(--color-negro);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-section .subtitle {
+            text-align: center;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 10px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            transition: border 0.3s;
+            background: var(--color-gris-claro);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-negro);
+            background: var(--color-blanco);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-submit {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .form-submit .btn-primary {
+            background: var(--color-whatsapp);
+            border-color: var(--color-whatsapp);
+            font-size: 1.2rem;
+            padding: 1rem 3rem;
+        }
+        
+        .form-submit .btn-primary:hover {
+            background: #128C7E;
+            border-color: #128C7E;
+            color: white;
+        }
+        
+        .form-note {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--color-gris-oscuro);
+        }
+        
         footer {
             background: var(--color-negro);
             color: var(--color-blanco);
@@ -553,6 +662,8 @@
             .price { font-size: 2.5rem; }
             .steps { flex-direction: column; }
             .services-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-row-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -560,8 +671,8 @@
     <header>
         <div class="header-container">
             <div class="logo-text">QRP2P COLOMBIA <small>Catálogos Express</small></div>
-            <a href="https://checkout.bold.co/payment/LNK_Y3OYY3OW3K" class="btn-primary" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-user-plus"></i> PLAN ANUAL $200.000
+            <a href="#formulario" class="btn-primary">
+                <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $200.000
             </a>
         </div>
     </header>
@@ -570,9 +681,9 @@
         <div class="price-badge-hero">
             <i class="fas fa-tag"></i> Plan Anual desde $200.000 COP / año
         </div>
-        <h1>Tu catálogo en el marketplace <span>sin complicaciones</span></h1>
-        <p>No necesitas web, ni dominio, ni administrar nada. <strong>Nosotros subimos tus productos por ti.</strong> Los clientes te contactan directo a tu WhatsApp. <strong>0% comisión en ventas.</strong></p>
-        <a href="https://checkout.bold.co/payment/LNK_Y3OYY3OW3K" class="btn-primary btn-primary-large" target="_blank" rel="noopener noreferrer">
+        <h1>Tu tienda en línea profesional <span>sin complicaciones</span></h1>
+        <p><strong>Tienda 100% funcional con carrito de compras</strong> para productos físicos, reservas de hostales, hoteles, alquiler de vehículos, agencias de turismo, servicios digitales, inmuebles y más. <strong>0% comisión</strong> para el marketplace. Los clientes te contactan directo a WhatsApp.</p>
+        <a href="#formulario" class="btn-primary btn-primary-large">
             <i class="fab fa-whatsapp"></i> ACTIVAR MI PLAN ANUAL
         </a>
     </section>
@@ -585,11 +696,15 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number">100</div>
-                <div class="stat-label">Productos incluidos</div>
+                <div class="stat-label">Productos incluidos (solo al inicio)</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Visibilidad mundial</div>
+                <div class="stat-number">190+</div>
+                <div class="stat-label">Países con visibilidad</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50B+</div>
+                <div class="stat-label">Audiencia potencial global</div>
             </div>
         </div>
 
@@ -597,20 +712,111 @@
         <div class="price-card">
             <h2>Plan Anual · Vendedor Verificado</h2>
             <div class="price">$200.000 <small>COP</small></div>
-            <p>Pago único anual • Sin comisiones • Gestión por WhatsApp incluida</p>
+            <p>Pago único anual • 0% comisión • Tienda profesional con carrito de compras</p>
             <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> <strong>Hasta 100 productos</strong> en tu catálogo profesional</li>
-                <li><i class="fab fa-whatsapp"></i> <strong>Pedidos directos al WhatsApp</strong> del vendedor</li>
-                <li><i class="fas fa-map-marked-alt"></i> <strong>Visibilidad en los mapas QRP2P</strong> (clientes cerca y todo el mundo)</li>
-                <li><i class="fas fa-headset"></i> <strong>Asesor sube tus productos</strong> por WhatsApp (solo envías fotos y precios)</li>
-                <li><i class="fas fa-clock"></i> Sin necesidad de aprender herramientas técnicas</li>
-                <li><i class="fas fa-link"></i> Link público de tu catálogo para compartir en redes</li>
-                <li><i class="fas fa-chart-line"></i> Publicidad anual + visibilidad constante en el marketplace P2P</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Tienda en línea profesional</strong> con carrito de compras para todo tipo de negocio: productos físicos, digitales, reservas (hoteles, hostales, vehículos, turismo), inmuebles y más.</li>
+                <li><i class="fas fa-mobile-alt"></i> <strong>Adaptable a cualquier industria:</strong> tu catálogo se ajusta a productos con o sin envío, servicios, reservas y alquileres.</li>
+                <li><i class="fab fa-whatsapp"></i> <strong>Pedidos directos al WhatsApp</strong> del vendedor. El cliente te contacta y tú vendes sin intermediarios.</li>
+                <li><i class="fas fa-globe-americas"></i> <strong>Visibilidad global:</strong> presencia en más de 190 países con acceso a una audiencia potencial de más de 50 mil millones de personas.</li>
+                <li><i class="fas fa-qrcode"></i> <strong>QR dinámico:</strong> los productos no caducan, solo hay que mantener el QR activo con la renovación anual.</li>
+                <li><i class="fas fa-headset"></i> <strong>Asesor sube tus productos</strong> por WhatsApp (solo envías fotos, precios y descripciones).</li>
+                <li><i class="fas fa-link"></i> <strong>Link público de tu tienda</strong> para compartir en redes, WhatsApp y todos tus canales.</li>
+                <li><i class="fas fa-users"></i> <strong>Comunidad global P2P</strong> de vendedores verificados con cultura emprendedora y red de apoyo.</li>
             </ul>
-            <a href="https://buy.stripe.com/7sYeVcacd46M6TP706aZi0n" class="btn-primary" target="_blank" rel="noopener noreferrer">
+            <a href="#formulario" class="btn-primary">
                 <i class="fas fa-user-check"></i> CONTRATAR PLAN ANUAL
             </a>
         </div>
+
+        <!-- ===== FORMULARIO ===== -->
+        <div id="formulario" class="form-section">
+            <h2><i class="fas fa-clipboard-list"></i> Activa tu Plan Anual</h2>
+            <p class="subtitle">Completa el formulario y envíanoslo por WhatsApp. Nosotros te contactamos para finalizar el proceso.</p>
+            
+            <form id="formWhatsApp" onsubmit="enviarWhatsApp(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombres"><i class="fas fa-user"></i> Nombres completos del representante legal</label>
+                        <input type="text" id="nombres" name="nombres" placeholder="Ej: María José Pérez Rodríguez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos"><i class="fas fa-user"></i> Apellidos completos</label>
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez Rodríguez" required>
+                    </div>
+                </div>
+                
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="tipo_id"><i class="fas fa-id-card"></i> Tipo de identificación</label>
+                        <select id="tipo_id" name="tipo_id" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                            <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="NIT">NIT</option>
+                            <option value="RUT">RUT</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="num_id"><i class="fas fa-hashtag"></i> Número de identificación</label>
+                        <input type="text" id="num_id" name="num_id" placeholder="Ej: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad"><i class="fas fa-city"></i> Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Bogotá" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="direccion"><i class="fas fa-map-pin"></i> Dirección física del negocio</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Ej: Cra 10 # 20-30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="barrio"><i class="fas fa-location-dot"></i> Barrio / Localidad</label>
+                        <input type="text" id="barrio" name="barrio" placeholder="Ej: Chapinero" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefono"><i class="fas fa-phone"></i> Teléfono del negocio</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6012345678" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp"><i class="fab fa-whatsapp"></i> Número de WhatsApp del negocio</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 573148304504" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre_comercial"><i class="fas fa-store"></i> Nombre comercial del negocio</label>
+                        <input type="text" id="nombre_comercial" name="nombre_comercial" placeholder="Ej: Tienda de Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="Ej: tienda@correo.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion"><i class="fas fa-pen"></i> Breve descripción de tu negocio o productos</label>
+                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos qué vendes o qué servicios ofreces (ej: ropa, reservas, alquileres, etc.)"></textarea>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> ENVIAR POR WHATSAPP
+                    </button>
+                </div>
+                <p class="form-note">
+                    <i class="fas fa-info-circle"></i> Al enviar este formulario, nuestros asesores te contactarán por WhatsApp para continuar con el proceso de activación y darte las instrucciones de pago.
+                </p>
+            </form>
+        </div>
+        <!-- FIN FORMULARIO -->
 
         <!-- ¿CÓMO FUNCIONA? -->
         <div class="how-it-works">
@@ -618,31 +824,31 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <i class="fas fa-credit-card"></i>
-                    <h3>Pagas el Plan Anual</h3>
-                    <p>$200.000 COP por Stripe o transferencia</p>
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Envías el formulario</h3>
+                    <p>Completa tus datos comerciales y envíanoslo por WhatsApp</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <i class="fab fa-whatsapp"></i>
-                    <h3>Envías por WhatsApp</h3>
-                    <p>Fotos, precios y descripciones de tus productos (hasta 100)</p>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Te damos instrucciones de pago</h3>
+                    <p>Te enviamos los datos para pagar los $200.000 COP del Plan Anual</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <i class="fas fa-upload"></i>
-                    <h3>Asesor sube tu catálogo</h3>
-                    <p>Tu página de vendedor queda lista en menos de 48 horas</p>
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Envías tus productos</h3>
+                    <p>Fotos, precios y descripciones de hasta 100 productos (solo al inicio)</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Clientes te contactan</h3>
-                    <p>Cada producto tiene botón "Pedir por WhatsApp" a tu número</p>
+                    <i class="fas fa-upload"></i>
+                    <h3>Tu tienda está lista</h3>
+                    <p>Tu catálogo profesional queda publicado con carrito de compras y QR</p>
                 </div>
             </div>
             <div class="whatsapp-note">
-                <i class="fab fa-whatsapp"></i> <strong>¿Ya pagaste tu Plan Anual?</strong> Después del pago, un asesor te contacta por WhatsApp para comenzar a subir tus productos.
+                <i class="fab fa-whatsapp"></i> <strong>Importante:</strong> Al enviar el formulario, verificamos tu negocio previamente al pago. Luego te enviamos las instrucciones para completar tu activación.
             </div>
         </div>
 
@@ -654,45 +860,45 @@
                 <p>El cliente paga directo a tu cuenta. QRP2P nunca toca tu dinero. Tú decides el método de pago.</p>
             </div>
             <div class="benefit-card">
-                <i class="fas fa-map-marked-alt"></i>
-                <h3>Visibilidad mundial</h3>
-                <p>Tu catálogo aparece en los mapas del marketplace. Compradores de todo el mundo te encuentran fácil.</p>
+                <i class="fas fa-globe-americas"></i>
+                <h3>Visibilidad global</h3>
+                <p>Tu tienda aparece en aplicaciones móviles, mapas del marketplace y medios digitales en más de 190 países.</p>
             </div>
             <div class="benefit-card">
-                <i class="fas fa-user-clock"></i>
-                <h3>Olvídate de la tecnología</h3>
-                <p>No necesitas WordPress, hosting ni plugins. Nosotros administramos todo por ti.</p>
+                <i class="fas fa-cart-shopping"></i>
+                <h3>Carrito de compras</h3>
+                <p>Los clientes pueden agregar productos al carrito y contactarte por WhatsApp para finalizar la compra.</p>
             </div>
             <div class="benefit-card">
-                <i class="fab fa-whatsapp"></i>
-                <h3>Pedidos directos</h3>
-                <p>Cada producto tiene un botón que abre chat de WhatsApp con tu número. El cliente escribe, tú vendes.</p>
+                <i class="fas fa-building"></i>
+                <h3>Adaptable a todo negocio</h3>
+                <p>Productos físicos, digitales, reservas de hoteles/hostales, alquiler de vehículos, inmuebles, turismo y más.</p>
             </div>
             <div class="benefit-card">
                 <i class="fas fa-boxes"></i>
-                <h3>Hasta 100 productos</h3>
-                <p>El Plan Anual incluye la subida inicial de hasta 100 referencias sin costo adicional.</p>
+                <h3>Hasta 100 productos (solo al inicio)</h3>
+                <p>El Plan Anual incluye la subida inicial de hasta 100 referencias. Después, cada modificación tiene un costo de $1.000 COP por producto.</p>
             </div>
             <div class="benefit-card">
-                <i class="fas fa-chart-simple"></i>
-                <h3>Catálogo profesional</h3>
-                <p>Diseño limpio, responsive y optimizado para celulares, tablets y computadoras.</p>
+                <i class="fas fa-qrcode"></i>
+                <h3>Productos sin caducidad</h3>
+                <p>Tus productos no caducan. Solo debes mantener el QR activo renovando tu plan cada año.</p>
             </div>
         </div>
 
-        <!-- PAQUETE ÚNICO DE MODIFICACIÓN -->
+        <!-- PAQUETE DE MODIFICACIÓN -->
         <div class="packages-section">
-            <h2><i class="fas fa-sync-alt"></i> ¿Necesitas modificar tu catálogo después?</h2>
-            <p style="margin-bottom: 1rem;">Solo pagas cuando quieras agregar, editar o eliminar productos. Un asesor lo hace por ti vía WhatsApp.</p>
+            <h2><i class="fas fa-sync-alt"></i> Gestión de productos por WhatsApp</h2>
+            <p style="margin-bottom: 1rem;">Cada vez que quieras <strong>subir, editar o eliminar</strong> productos, solo envías un mensaje a la agencia de QRP2P encargada de tu catálogo.</p>
             <div class="single-package">
-                <i class="fas fa-box"></i>
-                <span class="package-price">$10.000 COP</span>
-                <p style="margin-top: 0.5rem;">Modifica desde 1 hasta 10 productos<br>(subir, editar o eliminar)</p>
+                <i class="fas fa-pen-to-square"></i>
+                <span class="package-price">$1.000 COP</span>
+                <p style="margin-top: 0.5rem;">Por producto modificado (subir, editar o eliminar)<br>Desde 1 producto en adelante</p>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> El Plan Anual incluye la subida inicial de hasta 100 productos sin costo extra. Este paquete es SOLO para cambios posteriores a la publicación inicial.</p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> <strong>Importante:</strong> El Plan Anual incluye la subida inicial de <strong>hasta 100 productos sin costo extra</strong> al momento del alta. Si al iniciar tienes menos de 100, los productos no subidos se pierden. Este paquete de $1.000 COP es SOLO para gestiones posteriores a la publicación inicial.</p>
             <div style="margin-top: 1.5rem;">
-                <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20contratar%20el%20paquete%20de%20%2410.000%20para%20modificar%20mi%20cat%C3%A1logo%20QRP2P" class="btn-primary" target="_blank" style="background: var(--color-negro); border-color: var(--color-negro);">
-                    <i class="fab fa-whatsapp"></i> SOLICITAR MODIFICACIÓN
+                <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20gestionar%20productos%20de%20mi%20cat%C3%A1logo%20QRP2P%20(editar%2Fsubir%2Feliminar)" class="btn-primary" target="_blank" style="background: var(--color-negro); border-color: var(--color-negro);">
+                    <i class="fab fa-whatsapp"></i> GESTIONAR PRODUCTOS POR WHATSAPP
                 </a>
             </div>
         </div>
@@ -700,66 +906,66 @@
         <!-- SERVICIOS ADICIONALES -->
         <div class="services-section">
             <h2 style="text-align: center;"><i class="fas fa-concierge-bell"></i> Servicios adicionales para vendedores</h2>
-            <p style="text-align: center; margin-bottom: 1rem;">¿No tienes WhatsApp? ¿No tienes internet? ¿Quieres que nosotros hagamos todo? Estos servicios son para ti.</p>
+            <p style="text-align: center; margin-bottom: 1rem;">Si quieres un negocio más automatizado, QRP2P ofrece servicios profesionales mensuales.</p>
             
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fab fa-whatsapp"></i>
-                    <h3>Gestión de conversaciones</h3>
+                    <h3>Administración y Atención al Cliente</h3>
                     <div class="price-tag">Desde $30.000 COP/mes</div>
-                    <p>El marketplace atiende a tus clientes por WhatsApp, responde preguntas, envía información y filtra pedidos. Ideal para vendedores que no pueden estar pendientes del celular o no tienen acceso constante a internet.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20GESTI%C3%93N%20DE%20CONVERSACIONES" class="btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Cotizar este servicio
+                    <p>Nosotros atendemos a tus clientes por WhatsApp, respondemos preguntas, gestionamos pedidos, filtramos consultas y manejamos el servicio al cliente. Tú solo vendes.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ADMINISTRACI%C3%93N%20Y%20ATENCI%C3%93N%20AL%20CLIENTE" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
                 
                 <div class="service-card">
                     <i class="fas fa-hand-holding-usd"></i>
-                    <h3>Recaudo y transferencia</h3>
+                    <h3>Recaudo y Desembolso</h3>
                     <div class="price-tag">5% del valor de la venta</div>
-                    <p>Nosotros recibimos el pago del cliente (Nequi, Daviplata, bancos, efectivo) y te transferimos a tu cuenta. Tú no tocas el dinero. Perfecto para vendedores en zonas sin internet o negocios móviles.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20RECAUDO%20Y%20TRANSFERENCIA" class="btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Cotizar este servicio
+                    <p>Recibimos el pago del cliente (Nequi, Daviplata, bancos, efectivo) y te transferimos a tu cuenta. Tú no tocas el dinero. Perfecto para vendedores sin internet.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20RECAUDO%20Y%20DESEMBOLSO" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
                 
                 <div class="service-card">
                     <i class="fas fa-boxes"></i>
-                    <h3>Gestión de inventario y almacenamiento</h3>
+                    <h3>Almacenamiento y Logística</h3>
                     <div class="price-tag">Desde $50.000 COP/mes</div>
-                    <p>Guardamos tus productos en nuestro centro de operaciones. Llevamos control de inventario, organizamos existencias y preparamos pedidos. Tú solo te preocupas por vender.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20INVENTARIO%20Y%20ALMACENAMIENTO" class="btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Cotizar este servicio
+                    <p>Guardamos tus productos en nuestro centro de operaciones. Llevamos control de inventario, gestión de garantías, devoluciones y preparamos pedidos.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ALMACENAMIENTO%20Y%20LOG%C3%8DSTICA" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
                 
                 <div class="service-card">
                     <i class="fas fa-truck"></i>
-                    <h3>Logística y entrega</h3>
+                    <h3>Envíos y Guías</h3>
                     <div class="price-tag">Según zona / $8.000 - $25.000 por envío</div>
-                    <p>Nos encargamos de recoger, empacar y entregar los pedidos. Coordinamos con mensajeros locales y nacionales. Tú no mueves un solo paquete.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20LOG%C3%8DSTICA%20Y%20ENTREGA" class="btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Cotizar este servicio
+                    <p>Generación de guías, coordinación con mensajeros locales y nacionales. Recogemos, empacamos y entregamos los pedidos.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ENV%C3%8DOS%20Y%20GU%C3%8DAS" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
                 
                 <div class="service-card">
                     <i class="fas fa-crown"></i>
-                    <h3>Paquete completo · Todo incluido</h3>
+                    <h3>Paquete Completo · Todo incluido</h3>
                     <div class="price-tag">Desde $150.000 COP/mes</div>
-                    <p>Gestionamos: atención por WhatsApp, recaudo de pagos, inventario, almacenamiento y logística. Tú solo cobras tus ventas mensuales sin hacer nada. Ideal para automatizar tu negocio.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20PAQUETE%20COMPLETO" class="btn-primary" target="_blank" style="background: var(--color-negro); border-color: var(--color-negro);">
-                        <i class="fab fa-whatsapp"></i> Cotizar paquete completo
+                    <p>Gestionamos: atención por WhatsApp, recaudo de pagos, inventario, almacenamiento, garantías y logística. Tú solo cobras tus ventas mensuales.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20PAQUETE%20COMPLETO" class="btn-primary" target="_blank" style="background: var(--color-negro); border-color: var(--color-negro);">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
                 
                 <div class="service-card">
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>Inventario en tu local</h3>
-                    <div class="price-tag">Desde $40.000 COP/visita</div>
-                    <p>Enviamos un auxiliar a tu negocio físico para conteo de inventario, organización de productos y actualización del catálogo. Ideal para vendedores con muchas referencias.</p>
-                    <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20INVENTARIO%20EN%20MI%20LOCAL" class="btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Cotizar este servicio
+                    <i class="fas fa-calculator"></i>
+                    <h3>Contabilidad e Impuestos</h3>
+                    <div class="price-tag">Consulta</div>
+                    <p>Asesoría contable, gestión de facturación, declaración de impuestos y cumplimiento fiscal para tu negocio.</p>
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20CONTABILIDAD%20E%20IMPUESTOS" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
             </div>
@@ -769,24 +975,24 @@
         <div class="testimonial-section">
             <div class="testimonial-card">
                 <i class="fas fa-quote-left"></i>
-                <p>"Antes vendía solo por Instagram y nadie veía mis productos. Con el Plan Anual de QRP2P Catálogos Express, en una semana ya tenía 30 productos publicados. El asesor me ayudó con todo. Los clientes me escriben directo a WhatsApp y vendo sin pagar comisión. Lo mejor es que no tuve que aprender nada de tecnología."</p>
-                <p style="margin-top: 1rem; font-weight: bold;">— Carolina M., Vendedora de artesanías</p>
+                <p>"Con QRP2P tengo mi tienda en línea con carrito de compras y mis productos aparecen en toda Colombia y el mundo. El asesor me ayudó con todo, solo envié fotos y precios. Lo mejor es que no pago comisión y los clientes me contactan directo a WhatsApp. Ya he vendido a varias ciudades sin moverme de mi local."</p>
+                <p style="margin-top: 1rem; font-weight: bold;">— Carlos R., Emprendedor de productos naturales</p>
             </div>
         </div>
 
         <!-- CTA FINAL -->
         <div class="mid-section">
-            <h2>¿Listo para empezar a vender sin límites?</h2>
-            <p style="margin-bottom: 1.5rem;">Únete a la red P2P que realmente conecta vendedores con compradores verificados. Sin dominio, sin correo, sin complicaciones. Solo pagas el Plan Anual y nosotros hacemos el resto.</p>
+            <h2>¿Listo para vender en todo el mundo?</h2>
+            <p style="margin-bottom: 1.5rem;">Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Sin dominio, sin correo, sin complicaciones. Solo pagas el Plan Anual y nosotros hacemos el resto.</p>
             <div class="button-group">
-                <a href="https://checkout.bold.co/payment/LNK_Y3OYY3OW3K" class="btn-primary btn-primary-large" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-user-plus"></i> CONTRATAR PLAN ANUAL · $200.000
+                <a href="#formulario" class="btn-primary btn-primary-large">
+                    <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $200.000
                 </a>
-                <a href="https://wa.me/573215343562?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20adicionales%20del%20Plan%20Anual%20de%20QRP2P" class="btn-secondary" target="_blank">
+                <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20adicionales%20del%20Plan%20Anual%20de%20QRP2P" class="btn-secondary" target="_blank">
                     <i class="fab fa-whatsapp"></i> CONSULTAR SERVICIOS ADICIONALES
                 </a>
             </div>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">💬 Después del pago, un asesor te contacta por WhatsApp para comenzar a subir tus productos.</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">💬 Después de enviar el formulario, un asesor te contacta por WhatsApp para verificar el negocio y darte las instrucciones de pago.</p>
         </div>
     </div>
 
@@ -794,11 +1000,11 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>QRP2P Colombia</h3>
-                <p>Marketplace descentralizado P2P con vendedores verificados. Plan Anual Catálogos Express: $200.000/año, gestión por WhatsApp, 0% comisión.</p>
+                <p>Marketplace descentralizado P2P con presencia en más de 190 países. Tiendas en línea profesionales con carrito de compras, 0% comisión, gestión por WhatsApp.</p>
             </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
-                <p><i class="fab fa-whatsapp"></i> +57 3215343562</p>
+                <p><i class="fab fa-whatsapp"></i> +57 3148304504</p>
                 <p><i class="fas fa-envelope"></i> plananual@qrp2p.com</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -815,15 +1021,80 @@
         </div>
         
         <div class="footer-register">
-            <a href="https://checkout.bold.co/payment/LNK_Y3OYY3OW3K" class="btn-primary" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-user-check"></i> CONTRATAR PLAN ANUAL · $200.000
+            <a href="#formulario" class="btn-primary">
+                <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $200.000
             </a>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">Plan Anual $200.000 COP • Hasta 100 productos • 0% comisión • Gestión por WhatsApp</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">Plan Anual $200.000 COP • Hasta 100 productos al inicio • 0% comisión • Gestión por WhatsApp</p>
         </div>
         
         <div class="copyright">
-            <p>&copy; QRP2P Colombia - Marketplace Descentralizado P2P | Plan Anual Catálogos Express | Sin comisiones | Gestión por WhatsApp</p>
+            <p>&copy; QRP2P Colombia - Marketplace Descentralizado Global | Plan Anual Catálogos Express | Sin comisiones | Gestión por WhatsApp</p>
         </div>
     </footer>
+
+    <script>
+        function enviarWhatsApp(e) {
+            e.preventDefault();
+            
+            // Obtener todos los valores del formulario
+            const nombres = document.getElementById('nombres').value.trim();
+            const apellidos = document.getElementById('apellidos').value.trim();
+            const tipo_id = document.getElementById('tipo_id').value;
+            const num_id = document.getElementById('num_id').value.trim();
+            const ciudad = document.getElementById('ciudad').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const barrio = document.getElementById('barrio').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const nombre_comercial = document.getElementById('nombre_comercial').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            
+            // Validar campos obligatorios
+            if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !whatsapp || !nombre_comercial || !email) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+            
+            // Validar formato de WhatsApp (debe tener 10 dígitos para Colombia)
+            const whatsappLimpio = whatsapp.replace(/\s/g, '');
+            if (!/^57\d{10}$/.test(whatsappLimpio) && !/^\d{10}$/.test(whatsappLimpio)) {
+                alert('El número de WhatsApp debe tener 10 dígitos (ej: 3148304504) o 12 con 57 al inicio (ej: 573148304504).');
+                return;
+            }
+            
+            // Construir mensaje para WhatsApp
+            const mensaje = 
+                `*📋 NUEVA SOLICITUD PLAN ANUAL QRP2P*%0A%0A` +
+                `*👤 Representante Legal:*%0A` +
+                `Nombres: ${nombres}%0A` +
+                `Apellidos: ${apellidos}%0A` +
+                `Tipo ID: ${tipo_id}%0A` +
+                `Número ID: ${num_id}%0A%0A` +
+                `*🏢 Datos del Negocio:*%0A` +
+                `Nombre Comercial: ${nombre_comercial}%0A` +
+                `Dirección: ${direccion}%0A` +
+                `Barrio: ${barrio}%0A` +
+                `Ciudad: ${ciudad}%0A` +
+                `Teléfono: ${telefono}%0A` +
+                `WhatsApp: ${whatsapp}%0A` +
+                `Correo: ${email}%0A%0A` +
+                `*📝 Descripción:*%0A${descripcion || 'No especificada'}%0A%0A` +
+                `*✅ Verificar negocio y enviar instrucciones de pago.*`;
+            
+            // Número de WhatsApp destino (el que proporcionaste)
+            const numeroDestino = '573148304504';
+            
+            // Abrir WhatsApp con el mensaje
+            const url = `https://wa.me/${numeroDestino}?text=${mensaje}`;
+            window.open(url, '_blank');
+            
+            // Mostrar mensaje de confirmación
+            alert('✅ ¡Formulario enviado! Un asesor te contactará por WhatsApp para verificar tu negocio y darte las instrucciones de pago.');
+            
+            // Resetear formulario
+            document.getElementById('formWhatsApp').reset();
+        }
+    </script>
 </body>
 </html>
