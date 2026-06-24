@@ -5,27 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <title>Omnilife F Plus | QRP2P Colombia Marketplace - Envío a todo Colombia</title>
-    <meta name="description" content="Omnilife F Plus - Suplemento nutricional de alta calidad. Precio: COP $134.750. Paga contraentrega o en línea. Envío gratis a Cali, Bogotá, Medellín y todo Colombia. ¡Compra seguro!">
-    <meta name="keywords" content="Omnilife, Omnilife F Plus, suplementos Colombia, comprar Omnilife, nutrición, bienestar, QRP2P, marketplace Colombia">
-    <meta name="author" content="QRP2P Colombia Marketplace">
+    <title>Omnilife F Plus | QRP2P Cali - El Marketplace de Cali</title>
+    <meta name="description" content="Omnilife F Plus - Suplemento nutricional de alta calidad. Precio: COP $134.750. Paga contraentrega o en línea. Envío a Cali, Bogotá, Medellín y todo Colombia. ¡Compra seguro en QRP2P Cali!">
+    <meta name="keywords" content="Omnilife, Omnilife F Plus, suplementos Cali, comprar Omnilife, nutrición, bienestar, QRP2P Cali, marketplace Cali, contraentrega Cali">
+    <meta name="author" content="QRP2P Cali - El Marketplace de Cali">
     <meta name="robots" content="index, follow">
     <meta name="language" content="Spanish">
-    <meta name="geo.region" content="CO">
+    <meta name="geo.region" content="CO-VAC">
     <meta name="geo.placename" content="Cali, Valle del Cauca">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://qrp2p.com/producto/omnilife-f-plus">
+    <link rel="canonical" href="https://qrcontraentrega.com/calivalle/producto/omnilife-f-plus">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="product">
-    <meta property="og:title" content="Omnilife F Plus - Suplemento Nutricional">
-    <meta property="og:description" content="Omnilife F Plus - Nutrición celular avanzada. Paga contraentrega o en línea. Envío a toda Colombia.">
+    <meta property="og:title" content="Omnilife F Plus - Suplemento Nutricional | QRP2P Cali">
+    <meta property="og:description" content="Omnilife F Plus - Nutrición celular avanzada. Paga contraentrega o en línea. Envío a toda Colombia con QRP2P Cali.">
     <meta property="og:image" content="https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000">
     <meta property="og:image:width" content="1000">
     <meta property="og:image:height" content="1000">
-    <meta property="og:url" content="https://qrp2p.com/producto/omnilife-f-plus">
-    <meta property="og:site_name" content="QRP2P Colombia Marketplace">
+    <meta property="og:url" content="https://qrcontraentrega.com/calivalle/producto/omnilife-f-plus">
+    <meta property="og:site_name" content="QRP2P Cali - El Marketplace de Cali">
     <meta property="og:locale" content="es_CO">
     <meta property="product:price:amount" content="134750">
     <meta property="product:price:currency" content="COP">
@@ -33,7 +33,7 @@
     
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="product">
-    <meta name="twitter:title" content="Omnilife F Plus - Suplemento Nutricional">
+    <meta name="twitter:title" content="Omnilife F Plus - Suplemento Nutricional | QRP2P Cali">
     <meta name="twitter:description" content="Omnilife F Plus - Nutrición celular avanzada. Envío a toda Colombia.">
     <meta name="twitter:image" content="https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000">
     <meta name="twitter:label1" content="Precio">
@@ -401,15 +401,15 @@
             width: 20px;
         }
         
-        /* Shipping info */
-        .shipping-info {
+        /* Shipping info - producto */
+        .shipping-info-product {
             background-color: var(--color-gris-claro);
             padding: 1rem;
             border-radius: 8px;
             margin-top: 0.5rem;
         }
         
-        .shipping-info p {
+        .shipping-info-product p {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -517,20 +517,20 @@
             border-top: 2px solid var(--color-gris-medio);
         }
         
-        /* Payment Options */
-        .payment-options, .shipping-options {
+        /* Payment Options - ORIGINAL */
+        .payment-options {
             margin-bottom: 1.5rem;
             padding: 1rem;
             background-color: var(--color-gris-claro);
             border-radius: 8px;
         }
         
-        .payment-options h3, .shipping-options h3 {
+        .payment-options h3 {
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
         
-        .payment-option, .shipping-option {
+        .payment-option {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -542,44 +542,104 @@
             transition: all 0.3s;
         }
         
-        .payment-option:hover, .shipping-option:hover {
+        .payment-option:hover {
             border-color: var(--color-negro);
         }
         
-        .payment-option.selected, .shipping-option.selected {
+        .payment-option.selected {
             border-color: var(--color-negro);
             background-color: rgba(0, 0, 0, 0.05);
         }
         
-        .payment-info, .shipping-info-detail {
+        .payment-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .payment-info {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         
-        .payment-name, .shipping-name {
+        .payment-name {
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
         
-        .payment-description, .shipping-description {
+        .payment-description {
             font-size: 0.9rem;
             color: var(--color-gris-oscuro);
             margin-top: 0.3rem;
         }
         
-        .payment-radio, .shipping-radio {
+        .payment-radio {
             margin-right: 0.8rem;
         }
         
-        .shipping-price {
+        /* Shipping Options - CON UBICACIÓN Y COSTO DINÁMICO */
+        .shipping-options {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .shipping-options h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .shipping-location {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .shipping-location select {
+            padding: 0.8rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+            background-color: var(--color-blanco);
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .shipping-location select:focus {
+            border-color: var(--color-negro);
+            outline: none;
+        }
+        
+        .shipping-info-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+        
+        .shipping-info-box .label {
             font-weight: 700;
         }
         
-        .shipping-free {
-            color: var(--color-verde);
+        .shipping-info-box .price {
+            font-weight: 700;
+            color: var(--color-negro);
+        }
+        
+        .shipping-delivery-date {
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: var(--color-blanco);
+            border-radius: 4px;
+            border-left: 4px solid var(--color-verde);
         }
         
         /* Customer Info Form */
@@ -795,8 +855,8 @@
 <header>
     <div class="header-container">
         <a href="#" class="logo">
-            <img src="https://qrcontraentrega.com/img/c.jpg" alt="QRP2P Colombia Marketplace" class="logo-img">
-            <span class="logo-text">QRP2P</span>
+            <img src="https://qrp2p.com/img/P2Pblack.png" alt="QRP2P Cali - El Marketplace de Cali" class="logo-img">
+            <span class="logo-text">QRP2P Cali</span>
         </a>
         <a href="#" class="back-link" id="backLink">
             <i class="fas fa-arrow-left"></i>
@@ -831,7 +891,7 @@
         <!-- Galería de imágenes -->
         <div class="product-gallery">
             <div class="main-image-container" id="mainImageContainer">
-                <img class="main-image" id="mainImage" src="https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000" alt="Omnilife F Plus - Suplemento Nutricional" itemprop="image">
+                <img class="main-image" id="mainImage" src="https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000" alt="Omnilife F Plus - QRP2P Cali" itemprop="image">
                 <button class="nav-arrow prev" id="prevImage" aria-label="Imagen anterior"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next" id="nextImage" aria-label="Imagen siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
@@ -849,13 +909,13 @@
                 <meta itemprop="price" content="134750">
                 <meta itemprop="availability" content="https://schema.org/InStock">
                 <meta itemprop="priceValidUntil" content="2025-12-31">
-                <link itemprop="url" href="https://qrp2p.com/producto/omnilife-f-plus">
+                <link itemprop="url" href="https://qrcontraentrega.com/calivalle/producto/omnilife-f-plus">
                 
                 <div class="product-price" id="productPrice">COP $134.750</div>
-                <div class="product-installments">Opción de pago a 6 cuotas de $22.458 con 0% interés</div>
+                <div class="product-installments">Distribuye: Nutrición HD — Despacha: QRP2P Cali</div>
             </div>
             
-            <!-- BOTÓN DE COMPRAR - VA DE PRIMERO -->
+            <!-- BOTÓN DE COMPRAR -->
             <button class="buy-button" id="buyNowBtn">
                 <i class="fas fa-shopping-bag"></i>
                 Comprar Ahora
@@ -874,18 +934,18 @@
                     <li><i class="fas fa-check-circle"></i> Apoya la nutrición celular</li>
                     <li><i class="fas fa-check-circle"></i> Fórmula de alta calidad</li>
                     <li><i class="fas fa-check-circle"></i> Producto original Omnilife Colombia</li>
-                    <li><i class="fas fa-check-circle"></i> Pago contraentrega seguro</li>
+                    <li><i class="fas fa-check-circle"></i> Pago contraentrega seguro con QRP2P Cali</li>
                 </ul>
             </div>
             
             <!-- Información de envío -->
-            <div class="shipping-info">
+            <div class="shipping-info-product">
                 <p><i class="fas fa-truck"></i> <strong>QRP2P Logística</strong> - Entrega inmediata</p>
-                <p><i class="fab fa-whatsapp"></i> Confirmamos tu pedido por WhatsApp con los detalles de envío, costos aplicables o envío gratis según el vendedor</p>
-                <p><i class="fas fa-map-marker-alt"></i> Envíos a todo Colombia</p>
+                <p><i class="fab fa-whatsapp"></i> Confirmamos tu pedido por WhatsApp con los detalles de envío</p>
+                <p><i class="fas fa-map-marker-alt"></i> Envíos a Cali y todo Colombia</p>
             </div>
             
-            <!-- TikTok Video - VA DE ÚLTIMO -->
+            <!-- TikTok Video -->
             <div class="tiktok-video">
                 <iframe src="https://www.tiktok.com/embed/v2/1234567890123456789" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -901,46 +961,59 @@
 <div class="cart-modal" id="cartModal">
     <div class="cart-content">
         <div class="cart-header">
-            <h2>Completar tu compra</h2>
+            <h2>Tu Carrito - QRP2P Cali</h2>
             <button class="close-cart" id="closeCart">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- Items del carrito -->
+            <!-- Los items del carrito se cargarán dinámicamente -->
         </div>
         <div class="cart-total">
             <span>Total:</span>
             <span id="cartTotal">$0.00</span>
         </div>
         
-        <!-- Payment Options -->
+        <!-- Payment Options - ORIGINAL -->
         <div class="payment-options">
             <h3>Método de Pago</h3>
             <div class="payment-option" data-payment="contraentrega">
                 <input type="radio" id="payment-contraentrega" name="payment" class="payment-radio" checked>
                 <div class="payment-info">
-                    <span class="payment-name"><i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo</span>
-                    <span class="payment-description">Paga cuando recibas tu pedido</span>
+                    <span class="payment-name">
+                        <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                    </span>
+                    <span class="payment-description">Paga cuando recibas tu pedido en Cali o tu ciudad</span>
                 </div>
             </div>
             <div class="payment-option" data-payment="anticipado">
                 <input type="radio" id="payment-anticipado" name="payment" class="payment-radio">
                 <div class="payment-info">
-                    <span class="payment-name"><i class="fas fa-credit-card"></i> Paga en línea</span>
-                    <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, llave bre B, Nequi, Bancolombia, cuotas sin intereses</span>
+                    <span class="payment-name">
+                        <i class="fas fa-credit-card"></i> Paga en línea
+                    </span>
+                    <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia</span>
                 </div>
             </div>
         </div>
         
-        <!-- Shipping Options -->
+        <!-- Shipping Options - CON UBICACIÓN Y COSTO DINÁMICO -->
         <div class="shipping-options">
-            <h3>Opción de Envío</h3>
-            <div class="shipping-option" data-shipping="0">
-                <input type="radio" id="shipping-priority" name="shipping" class="shipping-radio" checked>
-                <div class="shipping-info-detail">
-                    <span class="shipping-name"><i class="fas fa-shipping-fast"></i> QRP2P Logística</span>
-                    <span class="shipping-description">Confirmamos tu pedido por WhatsApp con los detalles de envío, costos aplicables o envío gratis según el vendedor</span>
+            <h3><i class="fas fa-map-pin"></i> Logística y Envío - QRP2P Cali</h3>
+            <div class="shipping-location">
+                <label for="shippingLocation">Selecciona tu ubicación:</label>
+                <select id="shippingLocation">
+                    <option value="cali">📍 Cali, Valle del Cauca</option>
+                    <option value="colombia">🇨🇴 Colombia (fuera de Cali)</option>
+                    <option value="internacional">🌎 Fuera de Colombia</option>
+                </select>
+                
+                <div class="shipping-info-box">
+                    <span class="label">Costo de envío:</span>
+                    <span class="price" id="shippingPriceDisplay">$10.000</span>
                 </div>
-                <span class="shipping-price shipping-free">Entrega inmediata</span>
+                
+                <div class="shipping-delivery-date" id="deliveryDateDisplay">
+                    <i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>Hoy mismo</strong>
+                </div>
             </div>
         </div>
         
@@ -977,15 +1050,15 @@
 <!-- Zoom Overlay -->
 <div class="zoom-overlay" id="zoomOverlay">
     <button class="close-zoom" id="closeZoom">&times;</button>
-    <img class="zoom-image" id="zoomImage" src="" alt="Zoom de imagen">
+    <img class="zoom-image" id="zoomImage" src="" alt="Zoom de imagen - QRP2P Cali">
 </div>
 
 <!-- Footer -->
 <footer>
     <div class="footer-content">
         <div class="footer-section">
-            <h3>QRP2P Colombia Marketplace</h3>
-            <p>La revolución en logística y comercio electrónico de Colombia. Conectamos vendedores y compradores con una red de entrega confiable.</p>
+            <h3>QRP2P Cali - El Marketplace de Cali</h3>
+            <p>QRP2P Cali es el marketplace líder en Cali, Valle del Cauca, Colombia. Conectamos vendedores y compradores con entrega contraentrega, envíos rápidos y el sistema de pago más seguro de la región.</p>
         </div>
         <div class="footer-section">
             <h3>Contacto</h3>
@@ -993,26 +1066,26 @@
             <p><i class="fas fa-envelope"></i> calivalle@qrcontraentrega.com</p>
             <p><i class="fas fa-map-marker-alt"></i> Carrera 16 # 9 - 44, Cali, Colombia</p>
             <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="Facebook QRP2P Cali"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram QRP2P Cali"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp QRP2P Cali"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
         <div class="footer-section">
             <h3>Enlaces Rápidos</h3>
-            <a href="#">Afiliarse</a>
-            <a href="#">Logística</a>
+            <a href="#">Afiliarse a QRP2P Cali</a>
+            <a href="#">Logística QRP2P Cali</a>
             <a href="#">Términos y Condiciones</a>
             <a href="#">Mapa del sitio</a>
         </div>
     </div>
     <div class="copyright">
-        <p>&copy; 2024 QRP2P Colombia Marketplace. Todos los derechos reservados.</p>
+        <p>&copy; QRP2P Cali - El Marketplace de Cali, Valle del Cauca, Colombia. Todos los derechos reservados.</p>
     </div>
 </footer>
 
 <script>
-    // Datos del producto con múltiples imágenes
+    // Datos del producto
     const product = {
         id: 143,
         title: "OMNILIFE F PLUS",
@@ -1027,7 +1100,6 @@
     
     let currentImageIndex = 0;
     let cart = [];
-    let selectedShipping = 0;
     let selectedPayment = "contraentrega";
     
     // Elementos DOM
@@ -1049,12 +1121,34 @@
     const customerAddress = document.getElementById('customerAddress');
     const customerCity = document.getElementById('customerCity');
     const backLink = document.getElementById('backLink');
+    const shippingLocation = document.getElementById('shippingLocation');
+    const shippingPriceDisplay = document.getElementById('shippingPriceDisplay');
+    const deliveryDateDisplay = document.getElementById('deliveryDateDisplay');
     
     // Zoom elements
     const zoomOverlay = document.getElementById('zoomOverlay');
     const zoomImage = document.getElementById('zoomImage');
     const closeZoom = document.getElementById('closeZoom');
     const mainImageContainer = document.getElementById('mainImageContainer');
+    
+    // Función para calcular envío y fecha
+    function getShippingInfo(location) {
+        const info = {
+            'cali': { price: 10000, date: 'Hoy mismo', label: 'Cali' },
+            'colombia': { price: 25000, date: '1 a 3 días hábiles', label: 'Colombia' },
+            'internacional': { price: 200000, date: '5 a 10 días hábiles', label: 'Internacional' }
+        };
+        return info[location] || info['cali'];
+    }
+    
+    // Actualizar información de envío
+    function updateShippingInfo() {
+        const location = shippingLocation.value;
+        const info = getShippingInfo(location);
+        shippingPriceDisplay.textContent = formatPrice(info.price);
+        deliveryDateDisplay.innerHTML = `<i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>${info.date}</strong>`;
+        updateCart();
+    }
     
     // Formatear precio
     function formatPrice(price) {
@@ -1086,7 +1180,7 @@
         });
     }
     
-    // Flechas: solo cambian la imagen
+    // Flechas
     function nextImage(e) {
         e.stopPropagation();
         currentImageIndex = (currentImageIndex + 1) % product.images.length;
@@ -1099,7 +1193,7 @@
         updateMainImage();
     }
     
-    // Zoom: solo al hacer clic en la imagen (no en las flechas)
+    // Zoom
     function openZoom(e) {
         if (e.target === prevBtn || e.target === nextBtn || prevBtn.contains(e.target) || nextBtn.contains(e.target)) {
             return;
@@ -1112,17 +1206,22 @@
         zoomOverlay.classList.remove('active');
     }
     
-    // Agregar al carrito (compra directa)
+    // Agregar al carrito
     function addToCart() {
-        cart = [{
-            id: product.id,
-            title: product.title,
-            price: product.price,
-            quantity: 1,
-            image: product.images[0]
-        }];
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                quantity: 1,
+                image: product.images[0]
+            });
+        }
         updateCart();
-        showNotification(`${product.title} agregado al carrito`);
+        showNotification(`${product.title} agregado al carrito de QRP2P Cali`);
     }
     
     function updateCart() {
@@ -1154,7 +1253,11 @@
             cartItems.appendChild(cartItem);
         });
         
-        const total = subtotal + selectedShipping;
+        const location = shippingLocation.value;
+        const info = getShippingInfo(location);
+        const shippingCost = info.price;
+        
+        const total = subtotal + shippingCost;
         cartTotal.textContent = formatPrice(total);
         
         document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
@@ -1200,18 +1303,6 @@
         }
     }
     
-    function updateShippingOptions() {
-        document.querySelectorAll('.shipping-option').forEach(option => {
-            option.classList.remove('selected');
-            const radio = option.querySelector('.shipping-radio');
-            if (radio.checked) {
-                option.classList.add('selected');
-                selectedShipping = parseInt(option.getAttribute('data-shipping'));
-            }
-        });
-        updateCart();
-    }
-    
     function updatePaymentOptions() {
         document.querySelectorAll('.payment-option').forEach(option => {
             option.classList.remove('selected');
@@ -1248,21 +1339,28 @@
     }
     
     function generateWhatsAppMessage() {
-        let message = "¡Hola! Quiero realizar la siguiente compra:\n\n";
+        const location = shippingLocation.value;
+        const info = getShippingInfo(location);
+        let message = "¡Hola! Quiero realizar la siguiente compra en QRP2P Cali:\n\n";
+        
         cart.forEach(item => {
             message += `- ${item.title} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
         });
-        message += `- Envío: Entrega inmediata\n`;
-        const total = cart.reduce((t, i) => t + (i.price * i.quantity), 0) + selectedShipping;
-        message += `\nTotal: ${formatPrice(total)}`;
+        
+        message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
+        message += `\n📅 Entrega estimada: ${info.date}`;
+        
+        const total = cart.reduce((t, i) => t + (i.price * i.quantity), 0) + info.price;
+        message += `\n\n💰 Total: ${formatPrice(total)}`;
         
         if (selectedPayment === "contraentrega") {
-            message += `\n\nMétodo de pago: Paga en persona con efectivo`;
+            message += `\n\n💳 Método de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
         } else {
-            message += `\n\nMétodo de pago: Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)`;
+            message += `\n\n💳 Método de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia)`;
         }
         
-        message += `\n\nMi información de envío:\n`;
+        message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
+        message += `\n\nMi información de envío es:\n`;
         message += `Nombre: ${customerName.value}\n`;
         message += `Teléfono: ${customerPhone.value}\n`;
         message += `Dirección: ${customerAddress.value}\n`;
@@ -1311,13 +1409,10 @@
         window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
     });
     
-    document.querySelectorAll('.shipping-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-            opt.querySelector('.shipping-radio').checked = true;
-            updateShippingOptions();
-        });
-    });
+    // Evento de cambio de ubicación
+    shippingLocation.addEventListener('change', updateShippingInfo);
     
+    // Payment options
     document.querySelectorAll('.payment-option').forEach(opt => {
         opt.addEventListener('click', () => {
             opt.querySelector('.payment-radio').checked = true;
@@ -1337,6 +1432,7 @@
     // Inicializar
     loadThumbnails();
     updateMainImage();
+    updateShippingInfo();
 </script>
 
 </body>
