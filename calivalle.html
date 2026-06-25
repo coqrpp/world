@@ -634,7 +634,7 @@
             margin-top: 0.3rem;
         }
 
-        /* Agendar Visita Previa (para inmuebles) */
+        /* Agendar Visita Previa (para inmuebles y carros) */
         .visit-schedule {
             margin: 1rem 0;
             padding: 1rem;
@@ -1207,6 +1207,9 @@
             </div>
             <div class="category-filter">
                 <button class="category-btn active" data-category="todo">@calivalle</button>
+                <button class="category-btn" data-category="carros">🚗 Carros</button>
+                <button class="category-btn" data-category="inmuebles">🏠 Inmuebles</button>
+                <button class="category-btn" data-category="reservas">📅 Reservas</button>
             </div>
         </div>
 
@@ -1409,9 +1412,9 @@
                 </div>
             </div>
 
-            <!-- Agendar Visita Previa (para inmuebles) -->
+            <!-- Agendar Visita Previa (para inmuebles y carros) -->
             <div class="visit-schedule" id="visitScheduleContainer" style="display:none;">
-                <h4><i class="fas fa-home"></i> ¿Deseas agendar una visita previa?</h4>
+                <h4><i class="fas fa-calendar-check"></i> ¿Deseas agendar una visita previa?</h4>
                 <div class="visit-options">
                     <div class="visit-option">
                         <input type="radio" name="visitOption" id="visitNo" value="no" checked>
@@ -1509,7 +1512,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 143,
@@ -1526,7 +1530,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 144,
@@ -1543,7 +1548,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 145,
@@ -1560,7 +1566,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 146,
@@ -1577,7 +1584,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 147,
@@ -1594,7 +1602,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 148,
@@ -1611,7 +1620,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 149,
@@ -1628,7 +1638,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 150,
@@ -1645,7 +1656,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             {
                 "id": 151,
@@ -1662,7 +1674,8 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": true,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             // Producto de reserva (no físico)
             {
@@ -1670,7 +1683,7 @@
                 "title": "CASA DE CAMPO - RESERVA EXCLUSIVA",
                 "price": 450000,
                 "description": "Disfruta de una estadía única en nuestra casa de campo",
-                "category": "todo",
+                "category": "reservas",
                 "supplier": "Turismo Cali",
                 "warehousePrice": 350000,
                 "productUrl": "https://ejemplo.com/reserva-casa-campo",
@@ -1680,7 +1693,8 @@
                 "isReserva": true,
                 "isPhysical": false,
                 "hasLogistics": false,
-                "isInmueble": false
+                "isInmueble": false,
+                "isCarro": false
             },
             // Inmueble en venta (físico SIN logística, CON cita previa)
             {
@@ -1688,7 +1702,7 @@
                 "title": "APARTAMENTO EN VENTA - NORTE DE CALI",
                 "price": 450000000,
                 "description": "Hermoso apartamento de 120m² en el norte de Cali. 3 habitaciones, 2 baños, garaje y zona social.",
-                "category": "todo",
+                "category": "inmuebles",
                 "supplier": "Inmobiliaria Cali",
                 "warehousePrice": 400000000,
                 "productUrl": "https://ejemplo.com/inmueble/apartamento-norte-cali",
@@ -1698,7 +1712,27 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": false,
-                "isInmueble": true
+                "isInmueble": true,
+                "isCarro": false
+            },
+            // Toyota Sequoia - Carro en venta
+            {
+                "id": 400,
+                "title": "TOYOTA SEQUOIA 2024 - FULL EQUIPO",
+                "price": 380000000,
+                "description": "Toyota Sequoia 2024, motor V8 5.7L, 4x4, 7 pasajeros, asientos de cuero, pantalla táctil, cámara 360°, sunroof, excelentes condiciones.",
+                "category": "carros",
+                "supplier": "Autos Premium Cali",
+                "warehousePrice": 350000000,
+                "productUrl": "https://ejemplo.com/carros/toyota-sequoia-2024",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": false,
+                "isInmueble": false,
+                "isCarro": true
             }
         ];
 
@@ -1838,9 +1872,15 @@
                 let buyText = 'Comprar';
                 if (product.isReserva) {
                     buyText = 'Reservar';
-                } else if (product.isInmueble) {
+                } else if (product.isInmueble || product.isCarro) {
                     buyText = 'Adquirir';
                 }
+                
+                // Ícono para la categoría
+                let categoryIcon = '';
+                if (product.isCarro) categoryIcon = '🚗 ';
+                else if (product.isInmueble) categoryIcon = '🏠 ';
+                else if (product.isReserva) categoryIcon = '📅 ';
                 
                 // Construir información de proveedor y logística
                 let supplierHtml = '';
@@ -1866,7 +1906,7 @@
                     </a>
                     <div class="product-info">
                         <a href="${product.productUrl}" class="product-link" target="_blank">
-                            <h3 class="product-title">${product.title}</h3>
+                            <h3 class="product-title">${categoryIcon}${product.title}</h3>
                         </a>
                         <p class="product-price">${formatPrice(product.price)}</p>
                         <p class="product-description">${product.description}</p>
@@ -1911,7 +1951,7 @@
             let buyText = 'Comprar';
             if (product.isReserva) {
                 buyText = 'Reservar';
-            } else if (product.isInmueble) {
+            } else if (product.isInmueble || product.isCarro) {
                 buyText = 'Adquirir';
             }
             directPurchaseTitle.textContent = `${buyText} en QRP2P Cali`;
@@ -1955,8 +1995,8 @@
                 bookingDatesContainer.style.display = 'none';
             }
 
-            // Mostrar/ocultar agendar visita para inmuebles
-            if (product.isInmueble) {
+            // Mostrar/ocultar agendar visita para inmuebles y carros
+            if (product.isInmueble || product.isCarro) {
                 visitScheduleContainer.style.display = 'block';
                 visitDateTime.classList.remove('active');
                 visitNo.checked = true;
@@ -1988,7 +2028,19 @@
             const filteredProducts = products.filter(product => {
                 const matchesSearch = product.title.toLowerCase().includes(searchText) || 
                                      product.description.toLowerCase().includes(searchText);
-                const matchesCategory = activeCategory === 'todo' || product.category === activeCategory;
+                
+                let matchesCategory = false;
+                if (activeCategory === 'todo') {
+                    matchesCategory = true;
+                } else if (activeCategory === 'carros') {
+                    matchesCategory = product.isCarro === true;
+                } else if (activeCategory === 'inmuebles') {
+                    matchesCategory = product.isInmueble === true;
+                } else if (activeCategory === 'reservas') {
+                    matchesCategory = product.isReserva === true;
+                } else {
+                    matchesCategory = product.category === activeCategory;
+                }
                 
                 return matchesSearch && matchesCategory;
             });
@@ -2013,7 +2065,8 @@
                     isReserva: product.isReserva || false,
                     isPhysical: product.isPhysical !== undefined ? product.isPhysical : true,
                     hasLogistics: product.hasLogistics !== undefined ? product.hasLogistics : true,
-                    isInmueble: product.isInmueble || false
+                    isInmueble: product.isInmueble || false,
+                    isCarro: product.isCarro || false
                 });
             }
             
@@ -2050,6 +2103,11 @@
                 const itemTotal = item.price * item.quantity;
                 subtotal += itemTotal;
                 
+                let itemBadge = '';
+                if (item.isReserva) itemBadge = '📅 Reserva';
+                else if (item.isCarro) itemBadge = '🚗 Carro';
+                else if (item.isInmueble) itemBadge = '🏠 Inmueble';
+                
                 const cartItem = document.createElement('div');
                 cartItem.className = 'cart-item';
                 cartItem.innerHTML = `
@@ -2057,8 +2115,7 @@
                     <div class="item-info">
                         <h4 class="item-title">${item.title}</h4>
                         <p class="item-price">${formatPrice(item.price)} c/u</p>
-                        ${item.isReserva ? '<p style="font-size:0.7rem;color:var(--color-azul);">📅 Reserva</p>' : ''}
-                        ${item.isInmueble ? '<p style="font-size:0.7rem;color:var(--color-azul);">🏠 Inmueble</p>' : ''}
+                        ${itemBadge ? `<p style="font-size:0.7rem;color:var(--color-azul);">${itemBadge}</p>` : ''}
                     </div>
                     <div class="item-quantity">
                         <button class="quantity-btn minus" data-id="${item.id}">-</button>
@@ -2137,9 +2194,9 @@
                 datesValid = checkin !== '' && checkout !== '';
             }
 
-            // Si es inmueble con visita, verificar que si quiere visita tenga fecha
+            // Si es inmueble o carro con visita, verificar que si quiere visita tenga fecha
             let visitValid = true;
-            if (currentDirectProduct && currentDirectProduct.isInmueble) {
+            if (currentDirectProduct && (currentDirectProduct.isInmueble || currentDirectProduct.isCarro)) {
                 if (visitYes.checked) {
                     visitValid = visitDateTimeInput.value !== '';
                 }
@@ -2174,9 +2231,11 @@
             let message = "¡Hola! Quiero realizar la siguiente compra en QRP2P Cali:\n\n";
             
             cart.forEach(item => {
-                const itemType = item.isReserva ? ' (Reserva)' : '';
-                const inmueble = item.isInmueble ? ' (Inmueble)' : '';
-                message += `- ${item.title}${itemType}${inmueble} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
+                let itemType = '';
+                if (item.isReserva) itemType = ' (Reserva)';
+                else if (item.isCarro) itemType = ' (Carro)';
+                else if (item.isInmueble) itemType = ' (Inmueble)';
+                message += `- ${item.title}${itemType} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
             });
             
             message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
@@ -2207,8 +2266,9 @@
             const product = currentDirectProduct;
             const isReserva = product && product.isReserva;
             const isInmueble = product && product.isInmueble;
+            const isCarro = product && product.isCarro;
             
-            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (isInmueble ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
+            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (isInmueble || isCarro ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
             
             message += `- ${product.title}: ${formatPrice(product.price)}\n`;
             
@@ -2224,12 +2284,12 @@
                 }
             }
 
-            // Si es inmueble con visita
-            if (isInmueble && visitYes.checked) {
+            // Si es inmueble o carro con visita
+            if ((isInmueble || isCarro) && visitYes.checked) {
                 const visitDate = visitDateTimeInput.value;
                 if (visitDate) {
                     const visitFormatted = new Date(visitDate).toLocaleString('es-CO');
-                    message += `\n🏠 Visita previa agendada: ${visitFormatted}`;
+                    message += `\n📅 Visita previa agendada: ${visitFormatted}`;
                 }
             }
             
@@ -2267,10 +2327,15 @@
             
             products.forEach(product => {
                 const margin = ((product.price - product.warehousePrice) / product.warehousePrice * 100).toFixed(2);
+                let typeLabel = '';
+                if (product.isReserva) typeLabel = ' (Reserva)';
+                else if (product.isCarro) typeLabel = ' (Carro)';
+                else if (product.isInmueble) typeLabel = ' (Inmueble)';
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.id}</td>
-                    <td>${product.title}${product.isReserva ? ' (Reserva)' : ''}${product.isInmueble ? ' (Inmueble)' : ''}</td>
+                    <td>${product.title}${typeLabel}</td>
                     <td>${product.category}</td>
                     <td>${formatPrice(product.warehousePrice)}</td>
                     <td>${formatPrice(product.price)}</td>
