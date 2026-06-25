@@ -83,7 +83,22 @@
             max-width: 100%;
         }
 
-        /* Nuevo menú de navegación */
+        /* Botón menú hamburguesa */
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            padding: 0.3rem;
+        }
+
+        .menu-toggle:hover {
+            color: #cccccc;
+        }
+
+        /* Menú de navegación */
         .nav-menu {
             display: flex;
             align-items: center;
@@ -272,7 +287,7 @@
         }
         
         .product-description {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             font-size: 0.85rem;
             color: var(--color-gris-oscuro);
             min-height: 2.8rem;
@@ -282,10 +297,11 @@
         .product-supplier {
             font-size: 0.8rem;
             color: var(--color-gris-oscuro);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             display: flex;
             flex-wrap: wrap;
             gap: 0.3rem 0.8rem;
+            align-items: center;
         }
 
         .product-supplier a {
@@ -300,8 +316,18 @@
             text-decoration: underline;
         }
 
-        .product-supplier .supplier-label {
+        .product-supplier .label {
             font-weight: 400;
+        }
+
+        .product-supplier .reserva-badge {
+            background-color: var(--color-azul);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 0.3rem;
         }
         
         .product-actions {
@@ -953,16 +979,29 @@
                 font-size: 0.9rem;
             }
 
+            .menu-toggle {
+                display: block;
+            }
+
             .nav-menu {
-                gap: 0.8rem;
-                order: 3;
+                display: none;
                 width: 100%;
-                justify-content: center;
-                margin-top: 0.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                margin-top: 0.8rem;
+            }
+
+            .nav-menu.open {
+                display: flex;
             }
 
             .nav-menu a {
-                font-size: 0.75rem;
+                font-size: 0.9rem;
+                padding: 0.3rem 0;
+                width: 100%;
             }
 
             .header-container {
@@ -1012,12 +1051,8 @@
                 font-size: 0.8rem;
             }
 
-            .nav-menu {
-                gap: 0.5rem;
-            }
-
             .nav-menu a {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
             }
         }
         
@@ -1072,8 +1107,12 @@
             <a href="#" class="logo">
                 <img src="https://qrp2p.com/img/P2Pblack.png" alt="QRP2P Cali - Marketplace de Cali" class="logo-img">
             </a>
-            <!-- Nuevo menú -->
-            <nav class="nav-menu">
+            <!-- Botón menú hamburguesa -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Menú de navegación -->
+            <nav class="nav-menu" id="navMenu">
                 <a href="#"><i class="fas fa-clipboard-list"></i> Registrar Plan Anual</a>
                 <a href="#"><i class="fas fa-user-cog"></i> Administración Mensual</a>
                 <a href="#"><i class="fas fa-bullhorn"></i> Marketing Mensual</a>
@@ -1272,8 +1311,8 @@
                 </div>
             </div>
             
-            <!-- Shipping Options -->
-            <div class="shipping-options">
+            <!-- Shipping Options - Solo para productos físicos -->
+            <div class="shipping-options" id="directShippingOptions">
                 <h3><i class="fas fa-map-pin"></i> Logística y Envío - QRP2P Cali</h3>
                 <div class="shipping-location">
                     <label for="directShippingLocation">Selecciona tu ubicación:</label>
@@ -1528,7 +1567,7 @@
                 "id": 200,
                 "title": "CASA DE CAMPO - RESERVA EXCLUSIVA",
                 "price": 450000,
-                "description": "Distribuye: Turismo Cali — Reserva tu estadía",
+                "description": "Disfruta de una estadía única en nuestra casa de campo",
                 "category": "todo",
                 "supplier": "Turismo Cali",
                 "warehousePrice": 350000,
@@ -1586,6 +1625,7 @@
         const directShippingLocation = document.getElementById('directShippingLocation');
         const directShippingPriceDisplay = document.getElementById('directShippingPriceDisplay');
         const directDeliveryDateDisplay = document.getElementById('directDeliveryDateDisplay');
+        const directShippingOptions = document.getElementById('directShippingOptions');
         
         const bookingDatesContainer = document.getElementById('bookingDatesContainer');
         const checkinDate = document.getElementById('checkinDate');
@@ -1595,6 +1635,28 @@
         const adminAccessBtn = document.getElementById('adminAccessBtn');
         const supplierTableContainer = document.getElementById('supplierTableContainer');
         const supplierTableBody = document.getElementById('supplierTableBody');
+        
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        // Toggle menú móvil
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('open')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Cerrar menú al hacer clic en un enlace (móvil)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
 
         // Función para calcular envío y fecha
         function getShippingInfo(location) {
@@ -1637,15 +1699,16 @@
                 let supplierHtml = '';
                 if (product.isPhysical) {
                     supplierHtml = `
-                        <span class="supplier-label">Distribuye:</span>
-                        <a href="/calivalle.html" class="supplier-link">${product.supplier}</a>
-                        <span class="supplier-label">— Despacha:</span>
-                        <a href="/calivalle.html" class="supplier-link">QRP2P Cali</a>
+                        <span class="label">Vendedor:</span>
+                        <a href="/calivalle.html">${product.supplier}</a>
+                        <span class="label">Logística:</span>
+                        <a href="/calivalle.html">QRP2P Cali</a>
                     `;
                 } else {
                     supplierHtml = `
-                        <span class="supplier-label">Vendedor:</span>
-                        <a href="/calivalle.html" class="supplier-link">${product.supplier}</a>
+                        <span class="label">Vendedor:</span>
+                        <a href="/calivalle.html">${product.supplier}</a>
+                        <span class="reserva-badge">Reserva</span>
                     `;
                 }
                 
@@ -1702,20 +1765,38 @@
             const buyText = product.isReserva ? 'Reservar' : 'Comprar';
             directPurchaseTitle.textContent = `${buyText} en QRP2P Cali`;
             
+            // Construir información de proveedor y logística en el modal
+            let supplierInfoHtml = '';
+            if (product.isPhysical) {
+                supplierInfoHtml = `
+                    <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
+                    <span style="margin-left:0.8rem;">Logística: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">QRP2P Cali</a></span>
+                `;
+            } else {
+                supplierInfoHtml = `
+                    <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
+                    <span class="reserva-badge" style="background-color:var(--color-azul);color:white;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.7rem;font-weight:700;margin-left:0.5rem;">Reserva</span>
+                `;
+            }
+            
             directPurchaseProduct.innerHTML = `
                 <img src="${product.images[0]}" alt="${product.title} - QRP2P Cali">
                 <div class="direct-purchase-info">
                     <h3>${product.title}</h3>
                     <p class="product-price">${formatPrice(product.price)}</p>
                     <p style="font-size:0.85rem;color:var(--color-gris-oscuro);margin-top:0.3rem;">${product.description}</p>
-                    <div style="font-size:0.8rem;margin-top:0.5rem;color:var(--color-gris-oscuro);">
-                        ${product.isPhysical ? 
-                            `<span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a> — Logística: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">QRP2P Cali</a></span>` :
-                            `<span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>`
-                        }
+                    <div style="font-size:0.8rem;margin-top:0.5rem;color:var(--color-gris-oscuro);display:flex;flex-wrap:wrap;gap:0.3rem 0.8rem;">
+                        ${supplierInfoHtml}
                     </div>
                 </div>
             `;
+            
+            // Mostrar/ocultar sección de envío según si es físico o reserva
+            if (product.isPhysical) {
+                directShippingOptions.style.display = 'block';
+            } else {
+                directShippingOptions.style.display = 'none';
+            }
             
             // Mostrar/ocultar fechas de reserva
             if (product.isReserva) {
@@ -1970,11 +2051,15 @@
                 }
             }
             
-            message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
-            message += `\n📅 Entrega estimada: ${info.date}`;
-            
-            const total = product.price + info.price;
-            message += `\n\n💰 Total: ${formatPrice(total)}`;
+            // Solo agregar envío si es físico
+            if (product.isPhysical) {
+                message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
+                message += `\n📅 Entrega estimada: ${info.date}`;
+                const total = product.price + info.price;
+                message += `\n\n💰 Total: ${formatPrice(total)}`;
+            } else {
+                message += `\n\n💰 Total: ${formatPrice(product.price)}`;
+            }
             
             if (selectedPayment === "contraentrega") {
                 message += `\n\n💳 Método de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
@@ -1982,7 +2067,10 @@
                 message += `\n\n💳 Método de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia)`;
             }
             
-            message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
+            if (product.isPhysical) {
+                message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
+            }
+            
             message += `\n\nMi información de envío es:\n`;
             message += `Nombre: ${directCustomerName.value}\n`;
             message += `Teléfono: ${directCustomerPhone.value}\n`;
