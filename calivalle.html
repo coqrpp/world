@@ -214,6 +214,7 @@
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
+            align-items: center;
         }
         
         .category-btn {
@@ -1207,9 +1208,6 @@
             </div>
             <div class="category-filter">
                 <button class="category-btn active" data-category="todo">@calivalle</button>
-                <button class="category-btn" data-category="carros">🚗 Carros</button>
-                <button class="category-btn" data-category="inmuebles">🏠 Inmuebles</button>
-                <button class="category-btn" data-category="reservas">📅 Reservas</button>
             </div>
         </div>
 
@@ -2029,18 +2027,8 @@
                 const matchesSearch = product.title.toLowerCase().includes(searchText) || 
                                      product.description.toLowerCase().includes(searchText);
                 
-                let matchesCategory = false;
-                if (activeCategory === 'todo') {
-                    matchesCategory = true;
-                } else if (activeCategory === 'carros') {
-                    matchesCategory = product.isCarro === true;
-                } else if (activeCategory === 'inmuebles') {
-                    matchesCategory = product.isInmueble === true;
-                } else if (activeCategory === 'reservas') {
-                    matchesCategory = product.isReserva === true;
-                } else {
-                    matchesCategory = product.category === activeCategory;
-                }
+                // Solo mostrar todos los productos cuando la categoría es "todo"
+                let matchesCategory = activeCategory === 'todo';
                 
                 return matchesSearch && matchesCategory;
             });
