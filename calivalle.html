@@ -319,6 +319,16 @@
         .product-supplier .label {
             font-weight: 400;
         }
+
+        .product-badge {
+            background-color: var(--color-azul);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-left: 0.3rem;
+        }
         
         .product-actions {
             display: flex;
@@ -626,6 +636,77 @@
         }
 
         .booking-dates .date-group input {
+            padding: 0.5rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+            margin-top: 0.3rem;
+        }
+
+        /* Agendar Visita Previa (para inmuebles) */
+        .visit-schedule {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+
+        .visit-schedule h4 {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .visit-schedule .visit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .visit-schedule .visit-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .visit-schedule .visit-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .visit-schedule .visit-option label {
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .visit-schedule .visit-date-time {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 6px;
+        }
+
+        .visit-schedule .visit-date-time.active {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .visit-schedule .visit-date-time label {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 140px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .visit-schedule .visit-date-time input {
             padding: 0.5rem;
             border: 1px solid var(--color-gris-medio);
             border-radius: 4px;
@@ -1103,13 +1184,13 @@
             </button>
             <!-- Menú de navegación -->
             <nav class="nav-menu" id="navMenu">
-                <a href="/plan-anual-colombia.html"><i class="fas fa-clipboard-list"></i> Registrar Plan Anual</a>
-                <a href="/administracion-colombia.html"><i class="fas fa-user-cog"></i> Administración Mensual</a>
-                <a href="/marketing-colombia.html"><i class="fas fa-bullhorn"></i> Marketing Mensual</a>
-                <a href="/logistica-colombia.html"><i class="fas fa-truck"></i> Logística</a>
-                <a href="/finanzas-colombia.html"><i class="fas fa-chart-line"></i> Finanzas</a>
-                <a href="/contabilidad-colombia.html"><i class="fas fa-book"></i> Contabilidad Mensual</a>
-                <a href="/mls.html"><i class="fas fa-university-cap"></i>MLS</a>
+                <a href="#"><i class="fas fa-clipboard-list"></i> Registrar Plan Anual</a>
+                <a href="#"><i class="fas fa-user-cog"></i> Administración Mensual</a>
+                <a href="#"><i class="fas fa-bullhorn"></i> Marketing Mensual</a>
+                <a href="#"><i class="fas fa-truck"></i> Logística</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Finanzas</a>
+                <a href="#"><i class="fas fa-book"></i> Contabilidad Mensual</a>
+                <a href="#"><i class="fas fa-graduation-cap"></i> Academia QRP2P</a>
             </nav>
             <div class="header-right">
                 <div class="cart-icon" id="cartIcon">
@@ -1301,7 +1382,7 @@
                 </div>
             </div>
             
-            <!-- Shipping Options - Solo para productos físicos -->
+            <!-- Shipping Options - Solo para productos físicos con logística -->
             <div class="shipping-options" id="directShippingOptions">
                 <h3><i class="fas fa-map-pin"></i> Logística y Envío - QRP2P Cali</h3>
                 <div class="shipping-location">
@@ -1337,10 +1418,31 @@
                     </label>
                 </div>
             </div>
+
+            <!-- Agendar Visita Previa (para inmuebles) -->
+            <div class="visit-schedule" id="visitScheduleContainer" style="display:none;">
+                <h4><i class="fas fa-home"></i> ¿Deseas agendar una visita previa?</h4>
+                <div class="visit-options">
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitNo" value="no" checked>
+                        <label for="visitNo">No, deseo comprar directamente</label>
+                    </div>
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitYes" value="yes">
+                        <label for="visitYes">Sí, quiero agendar una visita</label>
+                    </div>
+                    <div class="visit-date-time" id="visitDateTime">
+                        <label>
+                            Fecha y hora de visita
+                            <input type="datetime-local" id="visitDateTimeInput">
+                        </label>
+                    </div>
+                </div>
+            </div>
             
             <!-- Customer Information Form -->
             <div class="customer-info">
-                <h3>Información de Envío</h3>
+                <h3>Información de Contacto</h3>
                 <div class="form-group">
                     <label for="directCustomerName">Nombre Completo *</label>
                     <input type="text" id="directCustomerName" placeholder="Ingresa tu nombre completo" required>
@@ -1350,8 +1452,8 @@
                     <input type="tel" id="directCustomerPhone" placeholder="Ingresa tu número de teléfono" required>
                 </div>
                 <div class="form-group">
-                    <label for="directCustomerAddress">Dirección de Envío *</label>
-                    <input type="text" id="directCustomerAddress" placeholder="Ingresa tu dirección completa" required>
+                    <label for="directCustomerAddress">Dirección *</label>
+                    <input type="text" id="directCustomerAddress" placeholder="Ingresa tu dirección" required>
                 </div>
                 <div class="form-group">
                     <label for="directCustomerCity">Ciudad *</label>
@@ -1415,7 +1517,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 143,
@@ -1430,7 +1533,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 144,
@@ -1445,7 +1549,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 145,
@@ -1460,7 +1565,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 146,
@@ -1475,7 +1581,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 147,
@@ -1490,7 +1597,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 148,
@@ -1505,7 +1613,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 149,
@@ -1520,7 +1629,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 150,
@@ -1535,7 +1645,8 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
             {
                 "id": 151,
@@ -1550,9 +1661,10 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": false,
-                "isPhysical": true
+                "isPhysical": true,
+                "hasLogistics": true
             },
-            // Producto de ejemplo para reservas (no físico)
+            // Producto de reserva (no físico)
             {
                 "id": 200,
                 "title": "CASA DE CAMPO - RESERVA EXCLUSIVA",
@@ -1566,12 +1678,34 @@
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
                 ],
                 "isReserva": true,
-                "isPhysical": false
+                "isPhysical": false,
+                "hasLogistics": false
+            },
+            // Producto físico SIN logística (inmueble en venta)
+            {
+                "id": 300,
+                "title": "APARTAMENTO EN VENTA - NORTE DE CALI",
+                "price": 450000000,
+                "description": "Hermoso apartamento de 120m² en el norte de Cali. 3 habitaciones, 2 baños, garaje y zona social.",
+                "category": "todo",
+                "supplier": "Inmobiliaria Cali",
+                "warehousePrice": 400000000,
+                "productUrl": "https://ejemplo.com/inmueble/apartamento-norte-cali",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": false,
+                "needsVisit": true
             }
         ];
 
         // Función para formatear precios en formato COP
         function formatPrice(price) {
+            if (price >= 1000000) {
+                return 'COP $' + (price / 1000000).toFixed(0) + 'M';
+            }
             return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
@@ -1620,6 +1754,12 @@
         const bookingDatesContainer = document.getElementById('bookingDatesContainer');
         const checkinDate = document.getElementById('checkinDate');
         const checkoutDate = document.getElementById('checkoutDate');
+
+        const visitScheduleContainer = document.getElementById('visitScheduleContainer');
+        const visitNo = document.getElementById('visitNo');
+        const visitYes = document.getElementById('visitYes');
+        const visitDateTime = document.getElementById('visitDateTime');
+        const visitDateTimeInput = document.getElementById('visitDateTimeInput');
         
         const adminKeyInput = document.getElementById('adminKey');
         const adminAccessBtn = document.getElementById('adminAccessBtn');
@@ -1675,6 +1815,15 @@
             directDeliveryDateDisplay.innerHTML = `<i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>${info.date}</strong>`;
         }
 
+        // Eventos para mostrar/ocultar fecha de visita
+        visitNo.addEventListener('change', () => {
+            visitDateTime.classList.remove('active');
+        });
+
+        visitYes.addEventListener('change', () => {
+            visitDateTime.classList.add('active');
+        });
+
         function loadProducts(productsToLoad) {
             productsGrid.innerHTML = '';
             
@@ -1683,16 +1832,28 @@
                 productCard.className = 'product-card';
                 
                 // Determinar si es reserva para cambiar el texto del botón
-                const buyText = product.isReserva ? 'Reservar' : 'Comprar';
+                let buyText = 'Comprar';
+                let badgeHtml = '';
+                if (product.isReserva) {
+                    buyText = 'Reservar';
+                    badgeHtml = `<span class="product-badge">Reserva</span>`;
+                } else if (!product.hasLogistics && product.isPhysical) {
+                    badgeHtml = `<span class="product-badge" style="background-color:#28a745;">Sin envío</span>`;
+                }
                 
                 // Construir información de proveedor y logística
                 let supplierHtml = '';
-                if (product.isPhysical) {
+                if (product.isPhysical && product.hasLogistics) {
                     supplierHtml = `
                         <span class="label">Vendedor:</span>
                         <a href="/calivalle.html">${product.supplier}</a>
                         <span class="label">Logística:</span>
                         <a href="/calivalle.html">QRP2P Cali</a>
+                    `;
+                } else if (product.isPhysical && !product.hasLogistics) {
+                    supplierHtml = `
+                        <span class="label">Vendedor:</span>
+                        <a href="/calivalle.html">${product.supplier}</a>
                     `;
                 } else {
                     supplierHtml = `
@@ -1709,7 +1870,7 @@
                     </a>
                     <div class="product-info">
                         <a href="${product.productUrl}" class="product-link" target="_blank">
-                            <h3 class="product-title">${product.title}</h3>
+                            <h3 class="product-title">${product.title} ${badgeHtml}</h3>
                         </a>
                         <p class="product-price">${formatPrice(product.price)}</p>
                         <p class="product-description">${product.description}</p>
@@ -1750,13 +1911,18 @@
             
             currentDirectProduct = product;
             
-            // Cambiar título del modal según si es reserva o compra
-            const buyText = product.isReserva ? 'Reservar' : 'Comprar';
+            // Cambiar título del modal según el tipo de producto
+            let buyText = 'Comprar';
+            if (product.isReserva) {
+                buyText = 'Reservar';
+            } else if (!product.hasLogistics && product.isPhysical) {
+                buyText = 'Adquirir';
+            }
             directPurchaseTitle.textContent = `${buyText} en QRP2P Cali`;
             
             // Construir información de proveedor y logística en el modal
             let supplierInfoHtml = '';
-            if (product.isPhysical) {
+            if (product.isPhysical && product.hasLogistics) {
                 supplierInfoHtml = `
                     <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
                     <span style="margin-left:0.8rem;">Logística: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">QRP2P Cali</a></span>
@@ -1779,8 +1945,8 @@
                 </div>
             `;
             
-            // Mostrar/ocultar sección de envío según si es físico o reserva
-            if (product.isPhysical) {
+            // Mostrar/ocultar sección de envío según si es físico con logística
+            if (product.isPhysical && product.hasLogistics) {
                 directShippingOptions.style.display = 'block';
             } else {
                 directShippingOptions.style.display = 'none';
@@ -1791,6 +1957,16 @@
                 bookingDatesContainer.style.display = 'block';
             } else {
                 bookingDatesContainer.style.display = 'none';
+            }
+
+            // Mostrar/ocultar agendar visita para inmuebles
+            if (product.needsVisit && product.isPhysical && !product.hasLogistics) {
+                visitScheduleContainer.style.display = 'block';
+                visitDateTime.classList.remove('active');
+                visitNo.checked = true;
+                visitDateTimeInput.value = '';
+            } else {
+                visitScheduleContainer.style.display = 'none';
             }
             
             directCustomerName.value = '';
@@ -1839,7 +2015,9 @@
                     image: product.images[0],
                     description: product.description,
                     isReserva: product.isReserva || false,
-                    isPhysical: product.isPhysical !== undefined ? product.isPhysical : true
+                    isPhysical: product.isPhysical !== undefined ? product.isPhysical : true,
+                    hasLogistics: product.hasLogistics !== undefined ? product.hasLogistics : true,
+                    needsVisit: product.needsVisit || false
                 });
             }
             
@@ -1884,6 +2062,7 @@
                         <h4 class="item-title">${item.title}</h4>
                         <p class="item-price">${formatPrice(item.price)} c/u</p>
                         ${item.isReserva ? '<p style="font-size:0.7rem;color:var(--color-azul);">📅 Reserva</p>' : ''}
+                        ${!item.hasLogistics && item.isPhysical ? '<p style="font-size:0.7rem;color:#28a745;">🏠 Sin envío</p>' : ''}
                     </div>
                     <div class="item-quantity">
                         <button class="quantity-btn minus" data-id="${item.id}">-</button>
@@ -1961,8 +2140,16 @@
                 const checkout = checkoutDate.value;
                 datesValid = checkin !== '' && checkout !== '';
             }
+
+            // Si es inmueble con visita, verificar que si quiere visita tenga fecha
+            let visitValid = true;
+            if (currentDirectProduct && currentDirectProduct.needsVisit) {
+                if (visitYes.checked) {
+                    visitValid = visitDateTimeInput.value !== '';
+                }
+            }
             
-            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity && datesValid);
+            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity && datesValid && visitValid);
         }
 
         function showNotification(message) {
@@ -1992,7 +2179,8 @@
             
             cart.forEach(item => {
                 const itemType = item.isReserva ? ' (Reserva)' : '';
-                message += `- ${item.title}${itemType} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
+                const noLogistics = (!item.hasLogistics && item.isPhysical) ? ' (Sin envío)' : '';
+                message += `- ${item.title}${itemType}${noLogistics} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
             });
             
             message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
@@ -2022,8 +2210,9 @@
             const info = getShippingInfo(location);
             const product = currentDirectProduct;
             const isReserva = product && product.isReserva;
+            const needsVisit = product && product.needsVisit;
             
-            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : 'comprar'} el siguiente producto en QRP2P Cali:\n\n`;
+            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (needsVisit ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
             
             message += `- ${product.title}: ${formatPrice(product.price)}\n`;
             
@@ -2038,9 +2227,18 @@
                     message += `\n📅 Check-out: ${checkoutFormatted}`;
                 }
             }
+
+            // Si es inmueble con visita
+            if (needsVisit && visitYes.checked) {
+                const visitDate = visitDateTimeInput.value;
+                if (visitDate) {
+                    const visitFormatted = new Date(visitDate).toLocaleString('es-CO');
+                    message += `\n🏠 Visita previa agendada: ${visitFormatted}`;
+                }
+            }
             
-            // Solo agregar envío si es físico
-            if (product.isPhysical) {
+            // Solo agregar envío si es físico con logística
+            if (product.isPhysical && product.hasLogistics) {
                 message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
                 message += `\n📅 Entrega estimada: ${info.date}`;
                 const total = product.price + info.price;
@@ -2055,11 +2253,11 @@
                 message += `\n\n💳 Método de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia)`;
             }
             
-            if (product.isPhysical) {
+            if (product.isPhysical && product.hasLogistics) {
                 message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
             }
             
-            message += `\n\nMi información de envío es:\n`;
+            message += `\n\nMi información de contacto es:\n`;
             message += `Nombre: ${directCustomerName.value}\n`;
             message += `Teléfono: ${directCustomerPhone.value}\n`;
             message += `Dirección: ${directCustomerAddress.value}\n`;
@@ -2076,7 +2274,7 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.id}</td>
-                    <td>${product.title}${product.isReserva ? ' (Reserva)' : ''}</td>
+                    <td>${product.title}${product.isReserva ? ' (Reserva)' : ''}${!product.hasLogistics && product.isPhysical ? ' (Sin envío)' : ''}</td>
                     <td>${product.category}</td>
                     <td>${formatPrice(product.warehousePrice)}</td>
                     <td>${formatPrice(product.price)}</td>
@@ -2146,6 +2344,11 @@
         // Event listeners para fechas de reserva
         checkinDate.addEventListener('change', validateDirectCheckoutButton);
         checkoutDate.addEventListener('change', validateDirectCheckoutButton);
+
+        // Event listeners para visita
+        visitNo.addEventListener('change', validateDirectCheckoutButton);
+        visitYes.addEventListener('change', validateDirectCheckoutButton);
+        visitDateTimeInput.addEventListener('change', validateDirectCheckoutButton);
 
         document.querySelectorAll('.payment-option').forEach(option => {
             option.addEventListener('click', (e) => {
