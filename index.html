@@ -1,1480 +1,343 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <meta name="description" content="QRP2P — Marketplace P2P verificado. Compra y vende directamente entre comprador y vendedor. 0% comisiones de por vida.">
-    <meta name="keywords" content="QRP2P, marketplace, comprador, vendedor, verificado, P2P, peer-to-peer, cero comisiones, bienes raíces, inmuebles, global, 196 países">
-    <meta name="author" content="QRP2P Marketplace">
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="QRP2P">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/icon-192.png">
-    <title>QRP2P | Marketplace directo comprador-vendedor | 0% comisiones de por vida</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>QRP2P GLOBAL | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSION</title>
+  <meta name="description" content="QRP2P Global. Direct marketplace between verified buyers and sellers around the world. Find businesses, properties and services. 0% lifetime commission.">
+  <meta name="keywords" content="QRP2P, global, worldwide, marketplace, buyer, seller, verified, 0% commission, businesses, properties">
+  <meta name="author" content="QRP2P">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#000000">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Libre Baskerville', serif; background-color: #ffffff; color: #111111; line-height: 1.5; font-size: 16px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
+    #contenedor-mapa { width: 100%; height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    #barra-superior { display: flex; gap: 0.8rem; padding: 0.8rem; background: #ffffff; width: 100%; z-index: 1000; justify-content: space-between; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eaeaea; flex-shrink: 0; }
+    .contenedor-buscador { position: relative; flex: 1; max-width: 400px; }
+    #buscador { width: 100%; padding: 0.6rem 1.2rem; border: 1.5px solid #e0e0e0; border-radius: 50px; font-size: 16px; font-family: 'Libre Baskerville', serif; transition: all 0.3s ease; background: #ffffff; user-select: text; }
+    #buscador:focus { outline: none; border-color: #000000; }
+    .btn-mapa { background: #000000; color: #ffffff; padding: 0.6rem 1.2rem; border-radius: 40px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; display: flex; gap: 5px; font-family: 'Libre Baskerville', serif; transition: all 0.2s ease; }
+    .btn-mapa:hover { background: #333333; }
+    .btn-centrar { background-color: #000000; }
+    .botones-izquierda { display: flex; gap: 0.8rem; align-items: center; }
+    .botones-derecha { display: flex; gap: 0.5rem; background: #f0f0f0; padding: 0.3rem; border-radius: 50px; }
+    .map-type-btn { padding: 0.5rem 1rem; border: none; border-radius: 40px; cursor: pointer; background: transparent; font-family: 'Libre Baskerville', serif; font-weight: 600; }
+    .map-type-btn.active { background: #000000; color: white; }
+    .lang-selector { display: flex; gap: 0.3rem; margin-left: 0.5rem; }
+    .lang-btn { background: transparent; border: 1px solid #ccc; border-radius: 20px; padding: 0.4rem 0.8rem; cursor: pointer; font-family: 'Libre Baskerville', serif; font-weight: 600; font-size: 0.8rem; }
+    .lang-btn.active { background: #000000; color: white; border-color: #000000; }
+    #mapa { flex: 1; background: #f0f0f0; width: 100%; min-height: 0; }
+    .leaflet-control-zoom { display: none !important; }
+    .sugerencias-busqueda { position: absolute; top: 100%; left: 0; right: 0; background: white; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000; max-height: 200px; overflow-y: auto; display: none; }
+    .sugerencia-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .sugerencia-item:hover { background-color: #f5f5f5; }
+    .sugerencia-texto { flex: 1; }
+    .sugerencia-boton { margin-left: 10px; padding: 6px 12px; background-color: #000000; color: white; border: none; border-radius: 20px; cursor: pointer; }
+    .cluster-marcadores { background: rgba(0,0,0,0.7); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .negocio-marker { background: transparent; border: none; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .user-location-marker { background: transparent; border: none; font-size: 28px; display: flex; align-items: center; justify-content: center; }
     
-    <meta property="og:title" content="QRP2P — Marketplace directo entre comprador y vendedor verificado">
-    <meta property="og:description" content="Selecciona tu país. 0% comisiones de por vida. Transacciones directas y seguras en 196 países.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://qrp2p.com">
-    <meta property="og:image" content="/icon-512.png">
+    .popup-business-card {
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      width: 340px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .popup-business-header {
+      background: #000000;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .popup-business-header h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+    .popup-business-category {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      background: rgba(255,255,255,0.2);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 50px;
+    }
+    .popup-business-info {
+      padding: 1rem;
+    }
+    .popup-business-description {
+      font-size: 0.75rem;
+      color: #555;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+    .popup-business-address {
+      font-size: 0.7rem;
+      color: #333;
+      margin-bottom: 0.8rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .popup-business-address i {
+      margin-top: 0.2rem;
+      color: #000;
+    }
+    .popup-business-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 0.8rem;
+    }
+    .contact-link {
+      font-size: 0.7rem;
+      background: #f5f5f5;
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 600;
+    }
+    .contact-link i { font-size: 0.7rem; }
+    .btn-view-store {
+      display: block;
+      background: #000000;
+      color: white;
+      text-align: center;
+      padding: 0.7rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      transition: all 0.2s ease;
+    }
+    .btn-view-store:hover { background: #333333; transform: scale(0.98); }
     
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="QRP2P | 0% comisiones">
-    <meta name="twitter:description" content="Marketplace directo entre comprador y vendedor verificado. Sin intermediarios.">
-    <meta name="twitter:image" content="/icon-512.png">
-    
-    <style>
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        input, textarea, [contenteditable="true"] {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-        
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            font-family: 'Libre Baskerville', 'Times New Roman', Georgia, 'Baskerville', serif;
-            font-weight: 400;
-            line-height: 1.4;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            -webkit-touch-callout: none;
-            overflow-x: hidden;
-        }
-        
-        html {
-            touch-action: pan-x pan-y;
-            overflow-x: hidden;
-        }
-        
-        img, a, button {
-            -webkit-user-drag: none;
-            user-drag: none;
-        }
-        
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-            overflow-x: hidden;
-        }
-
-        .language-bar {
-            position: absolute;
-            top: 1.8rem;
-            right: 2rem;
-            display: flex;
-            gap: 0.75rem;
-            z-index: 10;
-        }
-
-        .lang-btn {
-            background: none;
-            border: none;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: #3a3a3a;
-            cursor: pointer;
-            padding: 0.25rem 0.5rem;
-            transition: all 0.2s ease;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .lang-btn.active {
-            color: #000000;
-            font-weight: 700;
-            border-bottom: 1.5px solid #000000;
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: #000000;
-            background-color: #f5f5f5;
-        }
-
-        .brand {
-            margin-bottom: 2rem;
-            margin-top: 0.5rem;
-        }
-
-        .logo {
-            font-size: 2.8rem;
-            letter-spacing: -0.02em;
-            font-weight: 700;
-            text-transform: lowercase;
-            color: #000000;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            display: inline-block;
-            padding-bottom: 0.2rem;
-        }
-
-        .tagline {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 1rem;
-            color: #3a3a3a;
-            font-weight: 400;
-        }
-
-        .zero-commission {
-            background: #000000;
-            color: #ffffff;
-            font-size: 0.7rem;
-            display: inline-block;
-            padding: 0.2rem 1rem;
-            margin-top: 0.6rem;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        .hero {
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            line-height: 1.3;
-            margin-bottom: 0.75rem;
-            color: #000000;
-            letter-spacing: -0.3px;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            color: #2c2c2c;
-            max-width: 580px;
-            margin: 0 auto;
-            font-weight: 350;
-        }
-
-        .search-section {
-            max-width: 480px;
-            width: 100%;
-            margin: 1.8rem auto 2rem;
-            position: relative;
-        }
-
-        .search-input-wrapper {
-            position: relative;
-            width: 100%;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1rem;
-            color: #8a8a8a;
-            pointer-events: none;
-            font-weight: 400;
-            z-index: 2;
-        }
-
-        .search-icon::before {
-            content: "🔍";
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.9rem 3rem 0.9rem 2.8rem;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 0.95rem;
-            background: #ffffff;
-            border: 1.5px solid #e0e0e0;
-            color: #000000;
-            border-radius: 0px;
-            transition: all 0.25s ease;
-            outline: none;
-            letter-spacing: -0.2px;
-            box-shadow: none;
-        }
-
-        .search-input:focus {
-            border-color: #000000;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
-        }
-
-        .search-input::placeholder {
-            color: #b0b0b0;
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        .search-clear {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #9a9a9a;
-            padding: 0 6px;
-            display: none;
-            font-family: monospace;
-            z-index: 2;
-            transition: color 0.2s;
-        }
-
-        .search-clear:hover {
-            color: #000000;
-        }
-
-        .results-count {
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 0.65rem;
-            color: #5a5a5a;
-            letter-spacing: 0.3px;
-            font-style: italic;
-        }
-
-        .country-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0 2.5rem;
-            transition: all 0.2s;
-        }
-
-        .country-card {
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 2rem 1.5rem;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            color: #000000;
-            display: block;
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .country-card.hidden-card {
-            display: none;
-        }
-
-        .country-card:hover {
-            border-color: #000000;
-            background-color: #fafafa;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .country-card:active {
-            transform: translateY(1px);
-        }
-
-        .country-flag {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .country-name {
-            font-size: 1.7rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .country-sub {
-            font-size: 0.8rem;
-            color: #4a4a4a;
-            font-style: normal;
-            border-top: 1px solid #efefef;
-            display: inline-block;
-            padding-top: 0.6rem;
-            margin-top: 0.6rem;
-            letter-spacing: 1px;
-        }
-
-        .country-domain {
-            font-size: 0.7rem;
-            color: #8a8a8a;
-            margin-top: 0.5rem;
-            font-family: monospace;
-        }
-
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: #d4d4d4;
-            margin: 1rem auto;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #6c6c6c;
-            font-style: italic;
-            font-size: 0.9rem;
-            border-top: 1px solid #f0f0f0;
-            margin-top: 1rem;
-        }
-
-        .install-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000000;
-            color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: none;
-            align-items: center;
-            gap: 16px;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            font-family: 'Libre Baskerville', serif;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .install-banner:hover {
-            background: #1a1a1a;
-            transform: translateX(-50%) translateY(-2px);
-        }
-
-        .install-banner button {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .footer {
-            margin-top: 3rem;
-            font-size: 0.7rem;
-            color: #6c6c6c;
-            letter-spacing: 0.5px;
-            border-top: 1px solid #ececec;
-            padding-top: 2rem;
-        }
-
-        .footer p {
-            margin-bottom: 0.2rem;
-        }
-
-        .commission-badge {
-            font-weight: 700;
-            color: #000000;
-            background: #f5f5f5;
-            display: inline-block;
-            padding: 0.1rem 0.4rem;
-            margin: 0 0.2rem;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #f0f0f0;
-            border-top: 2px solid #000000;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 2rem auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1.5rem;
-            }
-            .language-bar {
-                position: relative;
-                top: 0;
-                right: 0;
-                justify-content: center;
-                margin-bottom: 1rem;
-            }
-            .logo {
-                font-size: 2rem;
-            }
-            .hero h1 {
-                font-size: 1.4rem;
-            }
-            .country-name {
-                font-size: 1.4rem;
-            }
-            .country-selector {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .search-section {
-                max-width: 360px;
-                margin: 1.2rem auto;
-            }
-            .search-input {
-                padding: 0.8rem 2.8rem 0.8rem 2.5rem;
-                font-size: 0.88rem;
-            }
-            .install-banner {
-                width: 90%;
-                text-align: center;
-                flex-direction: column;
-                padding: 12px;
-            }
-        }
-
-        .country-card:focus-visible {
-            outline: 2px solid #000000;
-            outline-offset: 4px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
-    </style>
+    @media (max-width: 680px) { .popup-business-card { width: 280px; } }
+  </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="language-bar">
-        <button class="lang-btn active" id="lang-es" data-lang="es">ES</button>
-        <button class="lang-btn" id="lang-en" data-lang="en">EN</button>
-    </div>
-
-    <div class="brand">
-        <span class="logo">QRP2P.COM</span>
-        <div class="tagline" data-i18n="tagline">marketplace directo entre comprador y vendedor verificado</div>
-        <div class="zero-commission">0% COMISIONES DE POR VIDA</div>
-    </div>
-
-    <div class="hero">
-        <h1 data-i18n="title">SELECCIONAR PAÍS<br></h1>
-        <div class="divider"></div>
-        <p data-i18n="subtitle">Compra, vende e invierte directamente entre propietarios verificados. <span class="commission-badge">0% comisiones</span> · transacciones seguras.</p>
-    </div>
-
-    <div class="search-section">
-        <div class="search-input-wrapper">
-            <span class="search-icon"></span>
-            <input type="text" id="countrySearch" class="search-input" placeholder="Buscar país..." autocomplete="off" spellcheck="false" aria-label="Buscar país">
-            <button id="clearSearch" class="search-clear" aria-label="Limpiar búsqueda">✕</button>
+  <div id="contenedor-mapa">
+    <div id="barra-superior">
+      <div class="botones-izquierda">
+        <div class="contenedor-buscador">
+          <input type="search" id="buscador" placeholder="Search businesses around the world..." enterkeyhint="search">
+          <div id="sugerencias-busqueda" class="sugerencias-busqueda"></div>
         </div>
-        <div id="resultsCount" class="results-count"></div>
+        <button class="btn-mapa btn-centrar" id="centrar-btn"><i class="fas fa-location-dot"></i><span id="centrar-text">CENTER</span></button>
+      </div>
+      <div class="botones-derecha">
+        <button class="map-type-btn active" id="map-btn"><span id="map-text">Map</span></button>
+        <button class="map-type-btn" id="satellite-btn"><span id="satellite-text">Satellite</span></button>
+        <div class="lang-selector">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+      </div>
     </div>
+    <div id="mapa"></div>
+  </div>
 
-    <div id="countriesContainer" class="country-selector"></div>
-
-    <div class="footer">
-        <p data-i18n="footer_copyright">© QRP2P.COM — Marketplace directo entre comprador y vendedor verificado</p>
-        <p data-i18n="footer_tagline">Propiedades Directas · 0% Comisiones · Verificación Garantizada</p>
-        <p style="margin-top: 0.5rem; font-size: 0.65rem;">v2.0.0 · 196 países</p>
-    </div>
-</div>
-
-<div id="installBanner" class="install-banner">
-    <span data-i18n="install_text">📱 Instalar QRP2P App</span>
-    <button id="installBtn" data-i18n="install_btn">Instalar</button>
-</div>
-
-<script>
-    // --------------------------------------------------------------
-    // 1. BLOQUEO DE INTERACCIONES
-    // --------------------------------------------------------------
-    (function() {
-        const blockEvents = ['copy', 'cut', 'paste', 'contextmenu', 'dragstart', 'selectstart'];
-        blockEvents.forEach(eventType => {
-            document.addEventListener(eventType, function(e) {
-                const isSearchInput = e.target.id === 'countrySearch' || e.target.closest('#countrySearch');
-                if (!isSearchInput) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-                return true;
-            });
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            const isSearchInputFocused = document.activeElement && document.activeElement.id === 'countrySearch';
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'a')) {
-                if (!isSearchInputFocused) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-        });
-        
-        let lastTouchEnd = 0;
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) e.preventDefault();
-        }, { passive: false });
-        
-        document.addEventListener('touchend', function(e) {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) e.preventDefault();
-            lastTouchEnd = now;
-        }, false);
-    })();
-
-    // --------------------------------------------------------------
-    // 2. DATOS DE PAÍSES (196 PAÍSES) - AHORA RUTA EN LA URL (qrp2p.com/co)
-    // --------------------------------------------------------------
-    const countriesData = [
-        { id: 'afganistan', path: 'af', flag: '🇦🇫', nameKey: 'afganistan_name', subKey: 'afganistan_sub', domain: 'qrp2p.com/af', searchTerms: ['afganistan', 'afghanistan', 'afganistán', 'kabul', 'af'] },
-        { id: 'albania', path: 'al', flag: '🇦🇱', nameKey: 'albania_name', subKey: 'albania_sub', domain: 'qrp2p.com/al', searchTerms: ['albania', 'albanie', 'tirana', 'al'] },
-        { id: 'alemania', path: 'de', flag: '🇩🇪', nameKey: 'alemania_name', subKey: 'alemania_sub', domain: 'qrp2p.com/de', searchTerms: ['alemania', 'germany', 'deutschland', 'berlin', 'aleman', 'de'] },
-        { id: 'andorra', path: 'ad', flag: '🇦🇩', nameKey: 'andorra_name', subKey: 'andorra_sub', domain: 'qrp2p.com/ad', searchTerms: ['andorra', 'andorre', 'ad'] },
-        { id: 'angola', path: 'ao', flag: '🇦🇴', nameKey: 'angola_name', subKey: 'angola_sub', domain: 'qrp2p.com/ao', searchTerms: ['angola', 'luanda', 'ao'] },
-        { id: 'anguila', path: 'ai', flag: '🇦🇮', nameKey: 'anguila_name', subKey: 'anguila_sub', domain: 'qrp2p.com/ai', searchTerms: ['anguila', 'anguilla', 'ai'] },
-        { id: 'antigua_barbuda', path: 'ag', flag: '🇦🇬', nameKey: 'antigua_barbuda_name', subKey: 'antigua_barbuda_sub', domain: 'qrp2p.com/ag', searchTerms: ['antigua', 'barbuda', 'antigua y barbuda', 'ag'] },
-        { id: 'arabia_saudita', path: 'sa', flag: '🇸🇦', nameKey: 'arabia_saudita_name', subKey: 'arabia_saudita_sub', domain: 'qrp2p.com/sa', searchTerms: ['arabia', 'saudi', 'arabia saudita', 'saudi arabia', 'riad', 'riyadh', 'sa'] },
-        { id: 'argelia', path: 'dz', flag: '🇩🇿', nameKey: 'argelia_name', subKey: 'argelia_sub', domain: 'qrp2p.com/dz', searchTerms: ['argelia', 'algeria', 'algerie', 'argel', 'dz'] },
-        { id: 'argentina', path: 'ar', flag: '🇦🇷', nameKey: 'argentina_name', subKey: 'argentina_sub', domain: 'qrp2p.com/ar', searchTerms: ['argentina', 'buenos aires', 'bs as', 'arg', 'ar'] },
-        { id: 'armenia', path: 'am', flag: '🇦🇲', nameKey: 'armenia_name', subKey: 'armenia_sub', domain: 'qrp2p.com/am', searchTerms: ['armenia', 'armenie', 'erevan', 'yerevan', 'am'] },
-        { id: 'aruba', path: 'aw', flag: '🇦🇼', nameKey: 'aruba_name', subKey: 'aruba_sub', domain: 'qrp2p.com/aw', searchTerms: ['aruba', 'aw'] },
-        { id: 'australia', path: 'au', flag: '🇦🇺', nameKey: 'australia_name', subKey: 'australia_sub', domain: 'qrp2p.com/au', searchTerms: ['australia', 'aussie', 'sidney', 'sydney', 'melbourne', 'canberra', 'au'] },
-        { id: 'austria', path: 'at', flag: '🇦🇹', nameKey: 'austria_name', subKey: 'austria_sub', domain: 'qrp2p.com/at', searchTerms: ['austria', 'österreich', 'viena', 'vienna', 'at'] },
-        { id: 'azerbaiyan', path: 'az', flag: '🇦🇿', nameKey: 'azerbaiyan_name', subKey: 'azerbaiyan_sub', domain: 'qrp2p.com/az', searchTerms: ['azerbaiyan', 'azerbaijan', 'azerbaidjan', 'baku', 'az'] },
-        { id: 'bahamas', path: 'bs', flag: '🇧🇸', nameKey: 'bahamas_name', subKey: 'bahamas_sub', domain: 'qrp2p.com/bs', searchTerms: ['bahamas', 'nassau', 'bs'] },
-        { id: 'bahrein', path: 'bh', flag: '🇧🇭', nameKey: 'bahrein_name', subKey: 'bahrein_sub', domain: 'qrp2p.com/bh', searchTerms: ['bahrein', 'bahrain', 'manama', 'bh'] },
-        { id: 'bangladesh', path: 'bd', flag: '🇧🇩', nameKey: 'bangladesh_name', subKey: 'bangladesh_sub', domain: 'qrp2p.com/bd', searchTerms: ['bangladesh', 'banglades', 'daca', 'dhaka', 'bd'] },
-        { id: 'barbados', path: 'bb', flag: '🇧🇧', nameKey: 'barbados_name', subKey: 'barbados_sub', domain: 'qrp2p.com/bb', searchTerms: ['barbados', 'bridgetown', 'bb'] },
-        { id: 'belgica', path: 'be', flag: '🇧🇪', nameKey: 'belgica_name', subKey: 'belgica_sub', domain: 'qrp2p.com/be', searchTerms: ['belgica', 'belgium', 'belgique', 'belgie', 'bruselas', 'brussels', 'be'] },
-        { id: 'belice', path: 'bz', flag: '🇧🇿', nameKey: 'belice_name', subKey: 'belice_sub', domain: 'qrp2p.com/bz', searchTerms: ['belice', 'belize', 'belmopan', 'bz'] },
-        { id: 'benin', path: 'bj', flag: '🇧🇯', nameKey: 'benin_name', subKey: 'benin_sub', domain: 'qrp2p.com/bj', searchTerms: ['benin', 'bénin', 'porto novo', 'cotonou', 'bj'] },
-        { id: 'bermudas', path: 'bm', flag: '🇧🇲', nameKey: 'bermudas_name', subKey: 'bermudas_sub', domain: 'qrp2p.com/bm', searchTerms: ['bermudas', 'bermuda', 'hamilton', 'bm'] },
-        { id: 'bielorrusia', path: 'by', flag: '🇧🇾', nameKey: 'bielorrusia_name', subKey: 'bielorrusia_sub', domain: 'qrp2p.com/by', searchTerms: ['bielorrusia', 'belarus', 'bielorrusie', 'minsk', 'by'] },
-        { id: 'birmania', path: 'mm', flag: '🇲🇲', nameKey: 'birmania_name', subKey: 'birmania_sub', domain: 'qrp2p.com/mm', searchTerms: ['birmania', 'myanmar', 'burma', 'naypyido', 'rangun', 'mm'] },
-        { id: 'bolivia', path: 'bo', flag: '🇧🇴', nameKey: 'bolivia_name', subKey: 'bolivia_sub', domain: 'qrp2p.com/bo', searchTerms: ['bolivia', 'la paz', 'sucre', 'santa cruz', 'bo'] },
-        { id: 'bosnia_herzegovina', path: 'ba', flag: '🇧🇦', nameKey: 'bosnia_herzegovina_name', subKey: 'bosnia_herzegovina_sub', domain: 'qrp2p.com/ba', searchTerms: ['bosnia', 'herzegovina', 'bosnia y herzegovina', 'sarajevo', 'ba'] },
-        { id: 'botsuana', path: 'bw', flag: '🇧🇼', nameKey: 'botsuana_name', subKey: 'botsuana_sub', domain: 'qrp2p.com/bw', searchTerms: ['botsuana', 'botswana', 'gaborone', 'bw'] },
-        { id: 'brasil', path: 'br', flag: '🇧🇷', nameKey: 'brasil_name', subKey: 'brasil_sub', domain: 'qrp2p.com/br', searchTerms: ['brasil', 'brazil', 'brésil', 'brasilia', 'rio', 'sao paulo', 'são paulo', 'br'] },
-        { id: 'brunei', path: 'bn', flag: '🇧🇳', nameKey: 'brunei_name', subKey: 'brunei_sub', domain: 'qrp2p.com/bn', searchTerms: ['brunei', 'bandar seri begawan', 'bn'] },
-        { id: 'bulgaria', path: 'bg', flag: '🇧🇬', nameKey: 'bulgaria_name', subKey: 'bulgaria_sub', domain: 'qrp2p.com/bg', searchTerms: ['bulgaria', 'bulgarie', 'sofia', 'sofía', 'bg'] },
-        { id: 'burkina_faso', path: 'bf', flag: '🇧🇫', nameKey: 'burkina_faso_name', subKey: 'burkina_faso_sub', domain: 'qrp2p.com/bf', searchTerms: ['burkina', 'faso', 'burkina faso', 'uagadugu', 'bf'] },
-        { id: 'burundi', path: 'bi', flag: '🇧🇮', nameKey: 'burundi_name', subKey: 'burundi_sub', domain: 'qrp2p.com/bi', searchTerms: ['burundi', 'buyumbura', 'bujumbura', 'bi'] },
-        { id: 'butan', path: 'bt', flag: '🇧🇹', nameKey: 'butan_name', subKey: 'butan_sub', domain: 'qrp2p.com/bt', searchTerms: ['butan', 'bhutan', 'bhoutan', 'timbu', 'thimphu', 'bt'] },
-        { id: 'cabo_verde', path: 'cv', flag: '🇨🇻', nameKey: 'cabo_verde_name', subKey: 'cabo_verde_sub', domain: 'qrp2p.com/cv', searchTerms: ['cabo verde', 'cape verde', 'praia', 'cv'] },
-        { id: 'camboya', path: 'kh', flag: '🇰🇭', nameKey: 'camboya_name', subKey: 'camboya_sub', domain: 'qrp2p.com/kh', searchTerms: ['camboya', 'cambodia', 'cambodge', 'phnom penh', 'nom pen', 'kh'] },
-        { id: 'camerun', path: 'cm', flag: '🇨🇲', nameKey: 'camerun_name', subKey: 'camerun_sub', domain: 'qrp2p.com/cm', searchTerms: ['camerun', 'cameroun', 'cameroon', 'yaunde', 'yaounde', 'douala', 'cm'] },
-        { id: 'canada', path: 'ca', flag: '🇨🇦', nameKey: 'canada_name', subKey: 'canada_sub', domain: 'qrp2p.com/ca', searchTerms: ['canada', 'canadá', 'ottawa', 'toronto', 'vancouver', 'montreal', 'quebec', 'ca'] },
-        { id: 'catar', path: 'qa', flag: '🇶🇦', nameKey: 'catar_name', subKey: 'catar_sub', domain: 'qrp2p.com/qa', searchTerms: ['catar', 'qatar', 'doha', 'qa'] },
-        { id: 'chad', path: 'td', flag: '🇹🇩', nameKey: 'chad_name', subKey: 'chad_sub', domain: 'qrp2p.com/td', searchTerms: ['chad', 'tchad', 'yamena', 'n djamena', 'td'] },
-        { id: 'chile', path: 'cl', flag: '🇨🇱', nameKey: 'chile_name', subKey: 'chile_sub', domain: 'qrp2p.com/cl', searchTerms: ['chile', 'santiago', 'valparaiso', 'valparaíso', 'cl'] },
-        { id: 'china', path: 'cn', flag: '🇨🇳', nameKey: 'china_name', subKey: 'china_sub', domain: 'qrp2p.com/cn', searchTerms: ['china', 'chine', 'beijing', 'pekin', 'shanghai', 'shanghái', 'cn'] },
-        { id: 'chipre', path: 'cy', flag: '🇨🇾', nameKey: 'chipre_name', subKey: 'chipre_sub', domain: 'qrp2p.com/cy', searchTerms: ['chipre', 'cyprus', 'chypre', 'nicosia', 'cy'] },
-        { id: 'colombia', path: 'co', flag: '🇨🇴', nameKey: 'colombia_name', subKey: 'colombia_sub', domain: 'qrp2p.com/co', searchTerms: ['colombia', 'colombie', 'columbia', 'col', 'co', 'colombiano', 'bogota', 'medellin', 'cali', 'cartagena', 'barranquilla'] },
-        { id: 'comoras', path: 'km', flag: '🇰🇲', nameKey: 'comoras_name', subKey: 'comoras_sub', domain: 'qrp2p.com/km', searchTerms: ['comoras', 'comoros', 'comores', 'moroni', 'km'] },
-        { id: 'corea_norte', path: 'kp', flag: '🇰🇵', nameKey: 'corea_norte_name', subKey: 'corea_norte_sub', domain: 'qrp2p.com/kp', searchTerms: ['corea del norte', 'north korea', 'coree du nord', 'pyongyang', 'pionyang', 'kp'] },
-        { id: 'corea_sur', path: 'kr', flag: '🇰🇷', nameKey: 'corea_sur_name', subKey: 'corea_sur_sub', domain: 'qrp2p.com/kr', searchTerms: ['corea del sur', 'south korea', 'coree du sud', 'seul', 'seoul', 'seúl', 'kr'] },
-        { id: 'costa_marfil', path: 'ci', flag: '🇨🇮', nameKey: 'costa_marfil_name', subKey: 'costa_marfil_sub', domain: 'qrp2p.com/ci', searchTerms: ['costa de marfil', 'cote ivoire', 'côte ivoire', 'abiyan', 'abidjan', 'yamusukro', 'ci'] },
-        { id: 'costa_rica', path: 'cr', flag: '🇨🇷', nameKey: 'costa_rica_name', subKey: 'costa_rica_sub', domain: 'qrp2p.com/cr', searchTerms: ['costa rica', 'san jose', 'san josé', 'cr'] },
-        { id: 'croacia', path: 'hr', flag: '🇭🇷', nameKey: 'croacia_name', subKey: 'croacia_sub', domain: 'qrp2p.com/hr', searchTerms: ['croacia', 'croatia', 'croatie', 'zagreb', 'hr'] },
-        { id: 'cuba', path: 'cu', flag: '🇨🇺', nameKey: 'cuba_name', subKey: 'cuba_sub', domain: 'qrp2p.com/cu', searchTerms: ['cuba', 'la habana', 'habana', 'cu'] },
-        { id: 'dinamarca', path: 'dk', flag: '🇩🇰', nameKey: 'dinamarca_name', subKey: 'dinamarca_sub', domain: 'qrp2p.com/dk', searchTerms: ['dinamarca', 'denmark', 'danmark', 'copenhague', 'copenhagen', 'kobenhavn', 'dk'] },
-        { id: 'dominica', path: 'dm', flag: '🇩🇲', nameKey: 'dominica_name', subKey: 'dominica_sub', domain: 'qrp2p.com/dm', searchTerms: ['dominica', 'roseau', 'dm'] },
-        { id: 'ecuador', path: 'ec', flag: '🇪🇨', nameKey: 'ecuador_name', subKey: 'ecuador_sub', domain: 'qrp2p.com/ec', searchTerms: ['ecuador', 'equateur', 'quito', 'guayaquil', 'ec'] },
-        { id: 'egipto', path: 'eg', flag: '🇪🇬', nameKey: 'egipto_name', subKey: 'egipto_sub', domain: 'qrp2p.com/eg', searchTerms: ['egipto', 'egypt', 'egipte', 'el cairo', 'cairo', 'alejandria', 'eg'] },
-        { id: 'el_salvador', path: 'sv', flag: '🇸🇻', nameKey: 'el_salvador_name', subKey: 'el_salvador_sub', domain: 'qrp2p.com/sv', searchTerms: ['el salvador', 'salvador', 'san salvador', 'sv'] },
-        { id: 'emiratos_arabes', path: 'ae', flag: '🇦🇪', nameKey: 'emiratos_arabes_name', subKey: 'emiratos_arabes_sub', domain: 'qrp2p.com/ae', searchTerms: ['emiratos', 'emiratos arabes', 'emiratos árabes', 'uae', 'dubai', 'dubái', 'abu dhabi', 'ae'] },
-        { id: 'eritrea', path: 'er', flag: '🇪🇷', nameKey: 'eritrea_name', subKey: 'eritrea_sub', domain: 'qrp2p.com/er', searchTerms: ['eritrea', 'erithree', 'asmara', 'er'] },
-        { id: 'eslovaquia', path: 'sk', flag: '🇸🇰', nameKey: 'eslovaquia_name', subKey: 'eslovaquia_sub', domain: 'qrp2p.com/sk', searchTerms: ['eslovaquia', 'slovakia', 'slovaquie', 'bratislava', 'sk'] },
-        { id: 'eslovenia', path: 'si', flag: '🇸🇮', nameKey: 'eslovenia_name', subKey: 'eslovenia_sub', domain: 'qrp2p.com/si', searchTerms: ['eslovenia', 'slovenia', 'slovenie', 'liubliana', 'ljubljana', 'si'] },
-        { id: 'espana', path: 'es', flag: '🇪🇸', nameKey: 'espana_name', subKey: 'espana_sub', domain: 'qrp2p.com/es', searchTerms: ['españa', 'espana', 'spain', 'espagne', 'madrid', 'barcelona', 'valencia', 'sevilla', 'es'] },
-        { id: 'estados_unidos', path: 'us', flag: '🇺🇸', nameKey: 'estados_unidos_name', subKey: 'estados_unidos_sub', domain: 'qrp2p.com/us', searchTerms: ['usa', 'united states', 'estados unidos', 'eeuu', 'america', 'us', 'ee.uu.', 'north america', 'new york', 'miami', 'california', 'texas', 'florida', 'los angeles', 'chicago'] },
-        { id: 'estonia', path: 'ee', flag: '🇪🇪', nameKey: 'estonia_name', subKey: 'estonia_sub', domain: 'qrp2p.com/ee', searchTerms: ['estonia', 'estonie', 'tallin', 'tallinn', 'ee'] },
-        { id: 'esuatini', path: 'sz', flag: '🇸🇿', nameKey: 'esuatini_name', subKey: 'esuatini_sub', domain: 'qrp2p.com/sz', searchTerms: ['esuatini', 'eswatini', 'suazilandia', 'swaziland', 'mbabane', 'sz'] },
-        { id: 'etiopia', path: 'et', flag: '🇪🇹', nameKey: 'etiopia_name', subKey: 'etiopia_sub', domain: 'qrp2p.com/et', searchTerms: ['etiopia', 'etiopía', 'ethiopia', 'ethiopie', 'adis abeba', 'addis ababa', 'et'] },
-        { id: 'fiji', path: 'fj', flag: '🇫🇯', nameKey: 'fiji_name', subKey: 'fiji_sub', domain: 'qrp2p.com/fj', searchTerms: ['fiji', 'fidji', 'suva', 'fj'] },
-        { id: 'filipinas', path: 'ph', flag: '🇵🇭', nameKey: 'filipinas_name', subKey: 'filipinas_sub', domain: 'qrp2p.com/ph', searchTerms: ['filipinas', 'philippines', 'manila', 'quezon', 'ph'] },
-        { id: 'finlandia', path: 'fi', flag: '🇫🇮', nameKey: 'finlandia_name', subKey: 'finlandia_sub', domain: 'qrp2p.com/fi', searchTerms: ['finlandia', 'finland', 'finlande', 'helsinki', 'fi'] },
-        { id: 'francia', path: 'fr', flag: '🇫🇷', nameKey: 'francia_name', subKey: 'francia_sub', domain: 'qrp2p.com/fr', searchTerms: ['francia', 'france', 'paris', 'parís', 'marsella', 'lyon', 'niza', 'fr'] },
-        { id: 'gabon', path: 'ga', flag: '🇬🇦', nameKey: 'gabon_name', subKey: 'gabon_sub', domain: 'qrp2p.com/ga', searchTerms: ['gabon', 'gabón', 'libreville', 'ga'] },
-        { id: 'gambia', path: 'gm', flag: '🇬🇲', nameKey: 'gambia_name', subKey: 'gambia_sub', domain: 'qrp2p.com/gm', searchTerms: ['gambia', 'gambie', 'banjul', 'gm'] },
-        { id: 'georgia', path: 'ge', flag: '🇬🇪', nameKey: 'georgia_name', subKey: 'georgia_sub', domain: 'qrp2p.com/ge', searchTerms: ['georgia', 'georgie', 'tiflis', 'tbilisi', 'ge'] },
-        { id: 'ghana', path: 'gh', flag: '🇬🇭', nameKey: 'ghana_name', subKey: 'ghana_sub', domain: 'qrp2p.com/gh', searchTerms: ['ghana', 'acra', 'accra', 'gh'] },
-        { id: 'granada', path: 'gd', flag: '🇬🇩', nameKey: 'granada_name', subKey: 'granada_sub', domain: 'qrp2p.com/gd', searchTerms: ['granada', 'grenada', 'grenade', 'saint george', 'gd'] },
-        { id: 'grecia', path: 'gr', flag: '🇬🇷', nameKey: 'grecia_name', subKey: 'grecia_sub', domain: 'qrp2p.com/gr', searchTerms: ['grecia', 'greece', 'grece', 'atenas', 'athens', 'gr'] },
-        { id: 'groenlandia', path: 'gl', flag: '🇬🇱', nameKey: 'groenlandia_name', subKey: 'groenlandia_sub', domain: 'qrp2p.com/gl', searchTerms: ['groenlandia', 'greenland', 'nuuk', 'gl'] },
-        { id: 'guadalupe', path: 'gp', flag: '🇬🇵', nameKey: 'guadalupe_name', subKey: 'guadalupe_sub', domain: 'qrp2p.com/gp', searchTerms: ['guadalupe', 'guadeloupe', 'basse terre', 'gp'] },
-        { id: 'guam', path: 'gu', flag: '🇬🇺', nameKey: 'guam_name', subKey: 'guam_sub', domain: 'qrp2p.com/gu', searchTerms: ['guam', 'hagatna', 'hagåtña', 'gu'] },
-        { id: 'guatemala', path: 'gt', flag: '🇬🇹', nameKey: 'guatemala_name', subKey: 'guatemala_sub', domain: 'qrp2p.com/gt', searchTerms: ['guatemala', 'ciudad de guatemala', 'gt'] },
-        { id: 'guayana_francesa', path: 'gf', flag: '🇬🇫', nameKey: 'guayana_francesa_name', subKey: 'guayana_francesa_sub', domain: 'qrp2p.com/gf', searchTerms: ['guayana francesa', 'guyane', 'cayena', 'cayenne', 'gf'] },
-        { id: 'guernsey', path: 'gg', flag: '🇬🇬', nameKey: 'guernsey_name', subKey: 'guernsey_sub', domain: 'qrp2p.com/gg', searchTerms: ['guernsey', 'saint peter port', 'gg'] },
-        { id: 'guinea', path: 'gn', flag: '🇬🇳', nameKey: 'guinea_name', subKey: 'guinea_sub', domain: 'qrp2p.com/gn', searchTerms: ['guinea', 'guinee', 'guinée', 'conakry', 'conakri', 'gn'] },
-        { id: 'guinea_bisau', path: 'gw', flag: '🇬🇼', nameKey: 'guinea_bisau_name', subKey: 'guinea_bisau_sub', domain: 'qrp2p.com/gw', searchTerms: ['guinea bisau', 'guinea bissau', 'bissau', 'bisau', 'gw'] },
-        { id: 'guinea_ecuatorial', path: 'gq', flag: '🇬🇶', nameKey: 'guinea_ecuatorial_name', subKey: 'guinea_ecuatorial_sub', domain: 'qrp2p.com/gq', searchTerms: ['guinea ecuatorial', 'equatorial guinea', 'malabo', 'gq'] },
-        { id: 'guyana', path: 'gy', flag: '🇬🇾', nameKey: 'guyana_name', subKey: 'guyana_sub', domain: 'qrp2p.com/gy', searchTerms: ['guyana', 'georgetown', 'gy'] },
-        { id: 'haiti', path: 'ht', flag: '🇭🇹', nameKey: 'haiti_name', subKey: 'haiti_sub', domain: 'qrp2p.com/ht', searchTerms: ['haiti', 'haití', 'puerto principe', 'port au prince', 'ht'] },
-        { id: 'honduras', path: 'hn', flag: '🇭🇳', nameKey: 'honduras_name', subKey: 'honduras_sub', domain: 'qrp2p.com/hn', searchTerms: ['honduras', 'tegucigalpa', 'san pedro sula', 'hn'] },
-        { id: 'hong_kong', path: 'hk', flag: '🇭🇰', nameKey: 'hong_kong_name', subKey: 'hong_kong_sub', domain: 'qrp2p.com/hk', searchTerms: ['hong kong', 'hk'] },
-        { id: 'hungria', path: 'hu', flag: '🇭🇺', nameKey: 'hungria_name', subKey: 'hungria_sub', domain: 'qrp2p.com/hu', searchTerms: ['hungria', 'hungría', 'hungary', 'hongrie', 'budapest', 'hu'] },
-        { id: 'india', path: 'in', flag: '🇮🇳', nameKey: 'india_name', subKey: 'india_sub', domain: 'qrp2p.com/in', searchTerms: ['india', 'inde', 'nueva delhi', 'new delhi', 'mumbai', 'bombay', 'bangalore', 'in'] },
-        { id: 'indonesia', path: 'id', flag: '🇮🇩', nameKey: 'indonesia_name', subKey: 'indonesia_sub', domain: 'qrp2p.com/id', searchTerms: ['indonesia', 'indonesie', 'indonésie', 'jakarta', 'yacarta', 'bali', 'id'] },
-        { id: 'irak', path: 'iq', flag: '🇮🇶', nameKey: 'irak_name', subKey: 'irak_sub', domain: 'qrp2p.com/iq', searchTerms: ['irak', 'iraq', 'bagdad', 'baghdad', 'iq'] },
-        { id: 'iran', path: 'ir', flag: '🇮🇷', nameKey: 'iran_name', subKey: 'iran_sub', domain: 'qrp2p.com/ir', searchTerms: ['iran', 'irán', 'teheran', 'teherán', 'tehran', 'ir'] },
-        { id: 'irlanda', path: 'ie', flag: '🇮🇪', nameKey: 'irlanda_name', subKey: 'irlanda_sub', domain: 'qrp2p.com/ie', searchTerms: ['irlanda', 'ireland', 'irlande', 'dublin', 'dublín', 'ie'] },
-        { id: 'isla_man', path: 'im', flag: '🇮🇲', nameKey: 'isla_man_name', subKey: 'isla_man_sub', domain: 'qrp2p.com/im', searchTerms: ['isla de man', 'isle of man', 'douglas', 'im'] },
-        { id: 'islandia', path: 'is', flag: '🇮🇸', nameKey: 'islandia_name', subKey: 'islandia_sub', domain: 'qrp2p.com/is', searchTerms: ['islandia', 'iceland', 'islande', 'reikiavik', 'reykjavik', 'is'] },
-        { id: 'islas_caiman', path: 'ky', flag: '🇰🇾', nameKey: 'islas_caiman_name', subKey: 'islas_caiman_sub', domain: 'qrp2p.com/ky', searchTerms: ['islas caiman', 'cayman', 'george town', 'ky'] },
-        { id: 'islas_cook', path: 'ck', flag: '🇨🇰', nameKey: 'islas_cook_name', subKey: 'islas_cook_sub', domain: 'qrp2p.com/ck', searchTerms: ['islas cook', 'cook islands', 'avarua', 'ck'] },
-        { id: 'islas_feroe', path: 'fo', flag: '🇫🇴', nameKey: 'islas_feroe_name', subKey: 'islas_feroe_sub', domain: 'qrp2p.com/fo', searchTerms: ['islas feroe', 'faroe', 'torshavn', 'fo'] },
-        { id: 'islas_malvinas', path: 'fk', flag: '🇫🇰', nameKey: 'islas_malvinas_name', subKey: 'islas_malvinas_sub', domain: 'qrp2p.com/fk', searchTerms: ['islas malvinas', 'falkland', 'stanley', 'fk'] },
-        { id: 'islas_marshall', path: 'mh', flag: '🇲🇭', nameKey: 'islas_marshall_name', subKey: 'islas_marshall_sub', domain: 'qrp2p.com/mh', searchTerms: ['islas marshall', 'marshall islands', 'majuro', 'mh'] },
-        { id: 'islas_salomon', path: 'sb', flag: '🇸🇧', nameKey: 'islas_salomon_name', subKey: 'islas_salomon_sub', domain: 'qrp2p.com/sb', searchTerms: ['islas salomon', 'solomon', 'honiara', 'sb'] },
-        { id: 'islas_turcas_caicos', path: 'tc', flag: '🇹🇨', nameKey: 'islas_turcas_caicos_name', subKey: 'islas_turcas_caicos_sub', domain: 'qrp2p.com/tc', searchTerms: ['islas turcas', 'turcas y caicos', 'turks and caicos', 'tc'] },
-        { id: 'islas_virgenes_britanicas', path: 'vg', flag: '🇻🇬', nameKey: 'islas_virgenes_britanicas_name', subKey: 'islas_virgenes_britanicas_sub', domain: 'qrp2p.com/vg', searchTerms: ['islas virgenes britanicas', 'british virgin islands', 'tortola', 'road town', 'vg'] },
-        { id: 'islas_virgenes_eeuu', path: 'vi', flag: '🇻🇮', nameKey: 'islas_virgenes_eeuu_name', subKey: 'islas_virgenes_eeuu_sub', domain: 'qrp2p.com/vi', searchTerms: ['islas virgenes eeuu', 'us virgin islands', 'charlotte amalie', 'vi'] },
-        { id: 'israel', path: 'il', flag: '🇮🇱', nameKey: 'israel_name', subKey: 'israel_sub', domain: 'qrp2p.com/il', searchTerms: ['israel', 'israël', 'jerusalen', 'jerusalem', 'tel aviv', 'il'] },
-        { id: 'italia', path: 'it', flag: '🇮🇹', nameKey: 'italia_name', subKey: 'italia_sub', domain: 'qrp2p.com/it', searchTerms: ['italia', 'italy', 'italie', 'roma', 'rome', 'milan', 'milano', 'napoles', 'florencia', 'it'] },
-        { id: 'jamaica', path: 'jm', flag: '🇯🇲', nameKey: 'jamaica_name', subKey: 'jamaica_sub', domain: 'qrp2p.com/jm', searchTerms: ['jamaica', 'jamaique', 'kingston', 'jm'] },
-        { id: 'japon', path: 'jp', flag: '🇯🇵', nameKey: 'japon_name', subKey: 'japon_sub', domain: 'qrp2p.com/jp', searchTerms: ['japon', 'japón', 'japan', 'tokio', 'tokyo', 'osaka', 'kioto', 'jp'] },
-        { id: 'jersey', path: 'je', flag: '🇯🇪', nameKey: 'jersey_name', subKey: 'jersey_sub', domain: 'qrp2p.com/je', searchTerms: ['jersey', 'saint helier', 'je'] },
-        { id: 'jordania', path: 'jo', flag: '🇯🇴', nameKey: 'jordania_name', subKey: 'jordania_sub', domain: 'qrp2p.com/jo', searchTerms: ['jordania', 'jordan', 'jordanie', 'amman', 'amán', 'jo'] },
-        { id: 'kazajistan', path: 'kz', flag: '🇰🇿', nameKey: 'kazajistan_name', subKey: 'kazajistan_sub', domain: 'qrp2p.com/kz', searchTerms: ['kazajistan', 'kazajistán', 'kazakhstan', 'nursultan', 'astana', 'almaty', 'kz'] },
-        { id: 'kenia', path: 'ke', flag: '🇰🇪', nameKey: 'kenia_name', subKey: 'kenia_sub', domain: 'qrp2p.com/ke', searchTerms: ['kenia', 'kenya', 'nairobi', 'ke'] },
-        { id: 'kirguistan', path: 'kg', flag: '🇰🇬', nameKey: 'kirguistan_name', subKey: 'kirguistan_sub', domain: 'qrp2p.com/kg', searchTerms: ['kirguistan', 'kirguistán', 'kyrgyzstan', 'bishkek', 'kg'] },
-        { id: 'kiribati', path: 'ki', flag: '🇰🇮', nameKey: 'kiribati_name', subKey: 'kiribati_sub', domain: 'qrp2p.com/ki', searchTerms: ['kiribati', 'tarawa', 'ki'] },
-        { id: 'kuwait', path: 'kw', flag: '🇰🇼', nameKey: 'kuwait_name', subKey: 'kuwait_sub', domain: 'qrp2p.com/kw', searchTerms: ['kuwait', 'koweit', 'ciudad de kuwait', 'kw'] },
-        { id: 'laos', path: 'la', flag: '🇱🇦', nameKey: 'laos_name', subKey: 'laos_sub', domain: 'qrp2p.com/la', searchTerms: ['laos', 'vientian', 'vientiane', 'la'] },
-        { id: 'lesoto', path: 'ls', flag: '🇱🇸', nameKey: 'lesoto_name', subKey: 'lesoto_sub', domain: 'qrp2p.com/ls', searchTerms: ['lesoto', 'lesotho', 'maseru', 'ls'] },
-        { id: 'letonia', path: 'lv', flag: '🇱🇻', nameKey: 'letonia_name', subKey: 'letonia_sub', domain: 'qrp2p.com/lv', searchTerms: ['letonia', 'latvia', 'lettonie', 'riga', 'lv'] },
-        { id: 'libano', path: 'lb', flag: '🇱🇧', nameKey: 'libano_name', subKey: 'libano_sub', domain: 'qrp2p.com/lb', searchTerms: ['libano', 'líbano', 'lebanon', 'liban', 'beirut', 'lb'] },
-        { id: 'liberia', path: 'lr', flag: '🇱🇷', nameKey: 'liberia_name', subKey: 'liberia_sub', domain: 'qrp2p.com/lr', searchTerms: ['liberia', 'monrovia', 'lr'] },
-        { id: 'libia', path: 'ly', flag: '🇱🇾', nameKey: 'libia_name', subKey: 'libia_sub', domain: 'qrp2p.com/ly', searchTerms: ['libia', 'libya', 'libye', 'tripoli', 'trípoli', 'ly'] },
-        { id: 'liechtenstein', path: 'li', flag: '🇱🇮', nameKey: 'liechtenstein_name', subKey: 'liechtenstein_sub', domain: 'qrp2p.com/li', searchTerms: ['liechtenstein', 'vaduz', 'li'] },
-        { id: 'lituania', path: 'lt', flag: '🇱🇹', nameKey: 'lituania_name', subKey: 'lituania_sub', domain: 'qrp2p.com/lt', searchTerms: ['lituania', 'lithuania', 'lituanie', 'vilnius', 'vilna', 'lt'] },
-        { id: 'luxemburgo', path: 'lu', flag: '🇱🇺', nameKey: 'luxemburgo_name', subKey: 'luxemburgo_sub', domain: 'qrp2p.com/lu', searchTerms: ['luxemburgo', 'luxembourg', 'lu'] },
-        { id: 'macao', path: 'mo', flag: '🇲🇴', nameKey: 'macao_name', subKey: 'macao_sub', domain: 'qrp2p.com/mo', searchTerms: ['macao', 'macau', 'mo'] },
-        { id: 'macedonia_norte', path: 'mk', flag: '🇲🇰', nameKey: 'macedonia_norte_name', subKey: 'macedonia_norte_sub', domain: 'qrp2p.com/mk', searchTerms: ['macedonia', 'macedonia del norte', 'north macedonia', 'skopie', 'skopje', 'mk'] },
-        { id: 'madagascar', path: 'mg', flag: '🇲🇬', nameKey: 'madagascar_name', subKey: 'madagascar_sub', domain: 'qrp2p.com/mg', searchTerms: ['madagascar', 'antananarivo', 'mg'] },
-        { id: 'malasia', path: 'my', flag: '🇲🇾', nameKey: 'malasia_name', subKey: 'malasia_sub', domain: 'qrp2p.com/my', searchTerms: ['malasia', 'malaysia', 'malaisie', 'kuala lumpur', 'my'] },
-        { id: 'malaui', path: 'mw', flag: '🇲🇼', nameKey: 'malaui_name', subKey: 'malaui_sub', domain: 'qrp2p.com/mw', searchTerms: ['malaui', 'malawi', 'lilongwe', 'lilongüe', 'mw'] },
-        { id: 'maldivas', path: 'mv', flag: '🇲🇻', nameKey: 'maldivas_name', subKey: 'maldivas_sub', domain: 'qrp2p.com/mv', searchTerms: ['maldivas', 'maldives', 'male', 'malé', 'mv'] },
-        { id: 'mali', path: 'ml', flag: '🇲🇱', nameKey: 'mali_name', subKey: 'mali_sub', domain: 'qrp2p.com/ml', searchTerms: ['mali', 'malí', 'bamako', 'ml'] },
-        { id: 'malta', path: 'mt', flag: '🇲🇹', nameKey: 'malta_name', subKey: 'malta_sub', domain: 'qrp2p.com/mt', searchTerms: ['malta', 'malte', 'valeta', 'valletta', 'mt'] },
-        { id: 'marruecos', path: 'ma', flag: '🇲🇦', nameKey: 'marruecos_name', subKey: 'marruecos_sub', domain: 'qrp2p.com/ma', searchTerms: ['marruecos', 'morocco', 'maroc', 'rabat', 'casablanca', 'marrakech', 'ma'] },
-        { id: 'martinica', path: 'mq', flag: '🇲🇶', nameKey: 'martinica_name', subKey: 'martinica_sub', domain: 'qrp2p.com/mq', searchTerms: ['martinica', 'martinique', 'fort de france', 'mq'] },
-        { id: 'mauricio', path: 'mu', flag: '🇲🇺', nameKey: 'mauricio_name', subKey: 'mauricio_sub', domain: 'qrp2p.com/mu', searchTerms: ['mauricio', 'mauritius', 'maurice', 'port louis', 'mu'] },
-        { id: 'mauritania', path: 'mr', flag: '🇲🇷', nameKey: 'mauritania_name', subKey: 'mauritania_sub', domain: 'qrp2p.com/mr', searchTerms: ['mauritania', 'mauritanie', 'nuakchot', 'nouakchott', 'mr'] },
-        { id: 'mayotte', path: 'yt', flag: '🇾🇹', nameKey: 'mayotte_name', subKey: 'mayotte_sub', domain: 'qrp2p.com/yt', searchTerms: ['mayotte', 'mamoudzou', 'yt'] },
-        { id: 'mexico', path: 'mx', flag: '🇲🇽', nameKey: 'mexico_name', subKey: 'mexico_sub', domain: 'qrp2p.com/mx', searchTerms: ['mexico', 'méxico', 'mexique', 'ciudad de mexico', 'cdmx', 'guadalajara', 'monterrey', 'cancun', 'mx'] },
-        { id: 'micronesia', path: 'fm', flag: '🇫🇲', nameKey: 'micronesia_name', subKey: 'micronesia_sub', domain: 'qrp2p.com/fm', searchTerms: ['micronesia', 'micronésie', 'palikir', 'fm'] },
-        { id: 'moldavia', path: 'md', flag: '🇲🇩', nameKey: 'moldavia_name', subKey: 'moldavia_sub', domain: 'qrp2p.com/md', searchTerms: ['moldavia', 'moldova', 'moldavie', 'chisinau', 'chisináu', 'md'] },
-        { id: 'monaco', path: 'mc', flag: '🇲🇨', nameKey: 'monaco_name', subKey: 'monaco_sub', domain: 'qrp2p.com/mc', searchTerms: ['monaco', 'mónaco', 'montecarlo', 'mc'] },
-        { id: 'mongolia', path: 'mn', flag: '🇲🇳', nameKey: 'mongolia_name', subKey: 'mongolia_sub', domain: 'qrp2p.com/mn', searchTerms: ['mongolia', 'mongolie', 'ulan bator', 'ulaanbaatar', 'mn'] },
-        { id: 'montenegro', path: 'me', flag: '🇲🇪', nameKey: 'montenegro_name', subKey: 'montenegro_sub', domain: 'qrp2p.com/me', searchTerms: ['montenegro', 'podgorica', 'me'] },
-        { id: 'montserrat', path: 'ms', flag: '🇲🇸', nameKey: 'montserrat_name', subKey: 'montserrat_sub', domain: 'qrp2p.com/ms', searchTerms: ['montserrat', 'plymouth', 'ms'] },
-        { id: 'mozambique', path: 'mz', flag: '🇲🇿', nameKey: 'mozambique_name', subKey: 'mozambique_sub', domain: 'qrp2p.com/mz', searchTerms: ['mozambique', 'maputo', 'mz'] },
-        { id: 'namibia', path: 'na', flag: '🇳🇦', nameKey: 'namibia_name', subKey: 'namibia_sub', domain: 'qrp2p.com/na', searchTerms: ['namibia', 'namibie', 'windhoek', 'na'] },
-        { id: 'nauru', path: 'nr', flag: '🇳🇷', nameKey: 'nauru_name', subKey: 'nauru_sub', domain: 'qrp2p.com/nr', searchTerms: ['nauru', 'yaren', 'nr'] },
-        { id: 'nepal', path: 'np', flag: '🇳🇵', nameKey: 'nepal_name', subKey: 'nepal_sub', domain: 'qrp2p.com/np', searchTerms: ['nepal', 'népal', 'katmandu', 'katmandú', 'np'] },
-        { id: 'nicaragua', path: 'ni', flag: '🇳🇮', nameKey: 'nicaragua_name', subKey: 'nicaragua_sub', domain: 'qrp2p.com/ni', searchTerms: ['nicaragua', 'managua', 'ni'] },
-        { id: 'niger', path: 'ne', flag: '🇳🇪', nameKey: 'niger_name', subKey: 'niger_sub', domain: 'qrp2p.com/ne', searchTerms: ['niger', 'níger', 'niamey', 'niamei', 'ne'] },
-        { id: 'nigeria', path: 'ng', flag: '🇳🇬', nameKey: 'nigeria_name', subKey: 'nigeria_sub', domain: 'qrp2p.com/ng', searchTerms: ['nigeria', 'abuja', 'lagos', 'ng'] },
-        { id: 'niue', path: 'nu', flag: '🇳🇺', nameKey: 'niue_name', subKey: 'niue_sub', domain: 'qrp2p.com/nu', searchTerms: ['niue', 'alofi', 'nu'] },
-        { id: 'noruega', path: 'no', flag: '🇳🇴', nameKey: 'noruega_name', subKey: 'noruega_sub', domain: 'qrp2p.com/no', searchTerms: ['noruega', 'norway', 'norge', 'oslo', 'no'] },
-        { id: 'nueva_caledonia', path: 'nc', flag: '🇳🇨', nameKey: 'nueva_caledonia_name', subKey: 'nueva_caledonia_sub', domain: 'qrp2p.com/nc', searchTerms: ['nueva caledonia', 'new caledonia', 'noumea', 'numea', 'nc'] },
-        { id: 'nueva_zelanda', path: 'nz', flag: '🇳🇿', nameKey: 'nueva_zelanda_name', subKey: 'nueva_zelanda_sub', domain: 'qrp2p.com/nz', searchTerms: ['nueva zelanda', 'new zealand', 'nouvelle zelande', 'wellington', 'auckland', 'nz'] },
-        { id: 'oman', path: 'om', flag: '🇴🇲', nameKey: 'oman_name', subKey: 'oman_sub', domain: 'qrp2p.com/om', searchTerms: ['oman', 'omán', 'mascate', 'muscat', 'om'] },
-        { id: 'paises_bajos', path: 'nl', flag: '🇳🇱', nameKey: 'paises_bajos_name', subKey: 'paises_bajos_sub', domain: 'qrp2p.com/nl', searchTerms: ['paises bajos', 'netherlands', 'holanda', 'holland', 'amsterdam', 'roterdam', 'la haya', 'nl'] },
-        { id: 'pakistan', path: 'pk', flag: '🇵🇰', nameKey: 'pakistan_name', subKey: 'pakistan_sub', domain: 'qrp2p.com/pk', searchTerms: ['pakistan', 'pakistán', 'islamabad', 'karachi', 'pk'] },
-        { id: 'palaos', path: 'pw', flag: '🇵🇼', nameKey: 'palaos_name', subKey: 'palaos_sub', domain: 'qrp2p.com/pw', searchTerms: ['palaos', 'palau', 'ngerulmud', 'pw'] },
-        { id: 'panama', path: 'pa', flag: '🇵🇦', nameKey: 'panama_name', subKey: 'panama_sub', domain: 'qrp2p.com/pa', searchTerms: ['panama', 'panamá', 'ciudad de panama', 'pa'] },
-        { id: 'papua_nueva_guinea', path: 'pg', flag: '🇵🇬', nameKey: 'papua_nueva_guinea_name', subKey: 'papua_nueva_guinea_sub', domain: 'qrp2p.com/pg', searchTerms: ['papua nueva guinea', 'papua new guinea', 'port moresby', 'pg'] },
-        { id: 'paraguay', path: 'py', flag: '🇵🇾', nameKey: 'paraguay_name', subKey: 'paraguay_sub', domain: 'qrp2p.com/py', searchTerms: ['paraguay', 'asuncion', 'asunción', 'ciudad del este', 'py'] },
-        { id: 'peru', path: 'pe', flag: '🇵🇪', nameKey: 'peru_name', subKey: 'peru_sub', domain: 'qrp2p.com/pe', searchTerms: ['peru', 'perú', 'pérou', 'lima', 'cusco', 'arequipa', 'pe'] },
-        { id: 'polinesia_francesa', path: 'pf', flag: '🇵🇫', nameKey: 'polinesia_francesa_name', subKey: 'polinesia_francesa_sub', domain: 'qrp2p.com/pf', searchTerms: ['polinesia francesa', 'french polynesia', 'papeete', 'tahiti', 'pf'] },
-        { id: 'polonia', path: 'pl', flag: '🇵🇱', nameKey: 'polonia_name', subKey: 'polonia_sub', domain: 'qrp2p.com/pl', searchTerms: ['polonia', 'poland', 'pologne', 'varsovia', 'warsaw', 'cracovia', 'pl'] },
-        { id: 'portugal', path: 'pt', flag: '🇵🇹', nameKey: 'portugal_name', subKey: 'portugal_sub', domain: 'qrp2p.com/pt', searchTerms: ['portugal', 'lisboa', 'lisbon', 'oporto', 'porto', 'algarve', 'pt'] },
-        { id: 'puerto_rico', path: 'pr', flag: '🇵🇷', nameKey: 'puerto_rico_name', subKey: 'puerto_rico_sub', domain: 'qrp2p.com/pr', searchTerms: ['puerto rico', 'san juan', 'pr'] },
-        { id: 'reino_unido', path: 'gb', flag: '🇬🇧', nameKey: 'reino_unido_name', subKey: 'reino_unido_sub', domain: 'qrp2p.com/gb', searchTerms: ['reino unido', 'united kingdom', 'uk', 'inglaterra', 'londres', 'london', 'manchester', 'birmingham', 'gb'] },
-        { id: 'republica_centroafricana', path: 'cf', flag: '🇨🇫', nameKey: 'republica_centroafricana_name', subKey: 'republica_centroafricana_sub', domain: 'qrp2p.com/cf', searchTerms: ['republica centroafricana', 'central african republic', 'bangui', 'cf'] },
-        { id: 'republica_checa', path: 'cz', flag: '🇨🇿', nameKey: 'republica_checa_name', subKey: 'republica_checa_sub', domain: 'qrp2p.com/cz', searchTerms: ['republica checa', 'república checa', 'czech republic', 'praga', 'prague', 'cz'] },
-        { id: 'republica_congo', path: 'cg', flag: '🇨🇬', nameKey: 'republica_congo_name', subKey: 'republica_congo_sub', domain: 'qrp2p.com/cg', searchTerms: ['republica del congo', 'congo', 'brazzaville', 'cg'] },
-        { id: 'republica_dominicana', path: 'do', flag: '🇩🇴', nameKey: 'republica_dominicana_name', subKey: 'republica_dominicana_sub', domain: 'qrp2p.com/do', searchTerms: ['republica dominicana', 'república dominicana', 'dominican republic', 'santo domingo', 'punta cana', 'do'] },
-        { id: 'republica_democratica_congo', path: 'cd', flag: '🇨🇩', nameKey: 'republica_democratica_congo_name', subKey: 'republica_democratica_congo_sub', domain: 'qrp2p.com/cd', searchTerms: ['republica democratica del congo', 'rdc', 'kinshasa', 'kinsasa', 'cd'] },
-        { id: 'ruanda', path: 'rw', flag: '🇷🇼', nameKey: 'ruanda_name', subKey: 'ruanda_sub', domain: 'qrp2p.com/rw', searchTerms: ['ruanda', 'rwanda', 'kigali', 'rw'] },
-        { id: 'rumania', path: 'ro', flag: '🇷🇴', nameKey: 'rumania_name', subKey: 'rumania_sub', domain: 'qrp2p.com/ro', searchTerms: ['rumania', 'rumanía', 'romania', 'roumanie', 'bucarest', 'bucharest', 'ro'] },
-        { id: 'rusia', path: 'ru', flag: '🇷🇺', nameKey: 'rusia_name', subKey: 'rusia_sub', domain: 'qrp2p.com/ru', searchTerms: ['rusia', 'russia', 'russie', 'moscu', 'moscow', 'san petersburgo', 'saint petersburg', 'ru'] },
-        { id: 'sahara_occidental', path: 'eh', flag: '🇪🇭', nameKey: 'sahara_occidental_name', subKey: 'sahara_occidental_sub', domain: 'qrp2p.com/eh', searchTerms: ['sahara occidental', 'western sahara', 'el aaiun', 'eh'] },
-        { id: 'samoa', path: 'ws', flag: '🇼🇸', nameKey: 'samoa_name', subKey: 'samoa_sub', domain: 'qrp2p.com/ws', searchTerms: ['samoa', 'apia', 'ws'] },
-        { id: 'samoa_americana', path: 'as', flag: '🇦🇸', nameKey: 'samoa_americana_name', subKey: 'samoa_americana_sub', domain: 'qrp2p.com/as', searchTerms: ['samoa americana', 'american samoa', 'pago pago', 'as'] },
-        { id: 'san_bartolome', path: 'bl', flag: '🇧🇱', nameKey: 'san_bartolome_name', subKey: 'san_bartolome_sub', domain: 'qrp2p.com/bl', searchTerms: ['san bartolome', 'saint barthelemy', 'gustavia', 'bl'] },
-        { id: 'san_cristobal_nieves', path: 'kn', flag: '🇰🇳', nameKey: 'san_cristobal_nieves_name', subKey: 'san_cristobal_nieves_sub', domain: 'qrp2p.com/kn', searchTerms: ['san cristobal', 'nieves', 'saint kitts', 'basseterre', 'kn'] },
-        { id: 'san_marino', path: 'sm', flag: '🇸🇲', nameKey: 'san_marino_name', subKey: 'san_marino_sub', domain: 'qrp2p.com/sm', searchTerms: ['san marino', 'saint marin', 'sm'] },
-        { id: 'san_martin', path: 'mf', flag: '🇲🇫', nameKey: 'san_martin_name', subKey: 'san_martin_sub', domain: 'qrp2p.com/mf', searchTerms: ['san martin', 'saint martin', 'marigot', 'mf'] },
-        { id: 'san_pedro_miquelon', path: 'pm', flag: '🇵🇲', nameKey: 'san_pedro_miquelon_name', subKey: 'san_pedro_miquelon_sub', domain: 'qrp2p.com/pm', searchTerms: ['san pedro y miquelon', 'saint pierre', 'miquelon', 'pm'] },
-        { id: 'san_vicente_granadinas', path: 'vc', flag: '🇻🇨', nameKey: 'san_vicente_granadinas_name', subKey: 'san_vicente_granadinas_sub', domain: 'qrp2p.com/vc', searchTerms: ['san vicente', 'granadinas', 'saint vincent', 'kingstown', 'vc'] },
-        { id: 'santa_elena', path: 'sh', flag: '🇸🇭', nameKey: 'santa_elena_name', subKey: 'santa_elena_sub', domain: 'qrp2p.com/sh', searchTerms: ['santa elena', 'saint helena', 'jamestown', 'sh'] },
-        { id: 'santa_lucia', path: 'lc', flag: '🇱🇨', nameKey: 'santa_lucia_name', subKey: 'santa_lucia_sub', domain: 'qrp2p.com/lc', searchTerms: ['santa lucia', 'saint lucia', 'castries', 'lc'] },
-        { id: 'santo_tome_principe', path: 'st', flag: '🇸🇹', nameKey: 'santo_tome_principe_name', subKey: 'santo_tome_principe_sub', domain: 'qrp2p.com/st', searchTerms: ['santo tome', 'principe', 'sao tome', 'são tomé', 'st'] },
-        { id: 'senegal', path: 'sn', flag: '🇸🇳', nameKey: 'senegal_name', subKey: 'senegal_sub', domain: 'qrp2p.com/sn', searchTerms: ['senegal', 'sénégal', 'dakar', 'sn'] },
-        { id: 'serbia', path: 'rs', flag: '🇷🇸', nameKey: 'serbia_name', subKey: 'serbia_sub', domain: 'qrp2p.com/rs', searchTerms: ['serbia', 'serbie', 'belgrado', 'belgrade', 'rs'] },
-        { id: 'seychelles', path: 'sc', flag: '🇸🇨', nameKey: 'seychelles_name', subKey: 'seychelles_sub', domain: 'qrp2p.com/sc', searchTerms: ['seychelles', 'victoria', 'sc'] },
-        { id: 'sierra_leona', path: 'sl', flag: '🇸🇱', nameKey: 'sierra_leona_name', subKey: 'sierra_leona_sub', domain: 'qrp2p.com/sl', searchTerms: ['sierra leona', 'sierra leone', 'freetown', 'sl'] },
-        { id: 'singapur', path: 'sg', flag: '🇸🇬', nameKey: 'singapur_name', subKey: 'singapur_sub', domain: 'qrp2p.com/sg', searchTerms: ['singapur', 'singapore', 'singapour', 'sg'] },
-        { id: 'sint_maarten', path: 'sx', flag: '🇸🇽', nameKey: 'sint_maarten_name', subKey: 'sint_maarten_sub', domain: 'qrp2p.com/sx', searchTerms: ['sint maarten', 'philipsburg', 'sx'] },
-        { id: 'siria', path: 'sy', flag: '🇸🇾', nameKey: 'siria_name', subKey: 'siria_sub', domain: 'qrp2p.com/sy', searchTerms: ['siria', 'syria', 'syrie', 'damasco', 'damascus', 'sy'] },
-        { id: 'somalia', path: 'so', flag: '🇸🇴', nameKey: 'somalia_name', subKey: 'somalia_sub', domain: 'qrp2p.com/so', searchTerms: ['somalia', 'somalie', 'mogadiscio', 'mogadishu', 'so'] },
-        { id: 'sri_lanka', path: 'lk', flag: '🇱🇰', nameKey: 'sri_lanka_name', subKey: 'sri_lanka_sub', domain: 'qrp2p.com/lk', searchTerms: ['sri lanka', 'colombo', 'sri jayawardenapura', 'lk'] },
-        { id: 'sudafrica', path: 'za', flag: '🇿🇦', nameKey: 'sudafrica_name', subKey: 'sudafrica_sub', domain: 'qrp2p.com/za', searchTerms: ['sudafrica', 'sudáfrica', 'south africa', 'afrique du sud', 'pretoria', 'ciudad del cabo', 'johannesburgo', 'za'] },
-        { id: 'sudan', path: 'sd', flag: '🇸🇩', nameKey: 'sudan_name', subKey: 'sudan_sub', domain: 'qrp2p.com/sd', searchTerms: ['sudan', 'sudán', 'jartum', 'khartoum', 'sd'] },
-        { id: 'sudan_sur', path: 'ss', flag: '🇸🇸', nameKey: 'sudan_sur_name', subKey: 'sudan_sur_sub', domain: 'qrp2p.com/ss', searchTerms: ['sudan del sur', 'south sudan', 'juba', 'yuba', 'ss'] },
-        { id: 'suecia', path: 'se', flag: '🇸🇪', nameKey: 'suecia_name', subKey: 'suecia_sub', domain: 'qrp2p.com/se', searchTerms: ['suecia', 'sweden', 'sverige', 'estocolmo', 'stockholm', 'gotemburgo', 'se'] },
-        { id: 'suiza', path: 'ch', flag: '🇨🇭', nameKey: 'suiza_name', subKey: 'suiza_sub', domain: 'qrp2p.com/ch', searchTerms: ['suiza', 'switzerland', 'schweiz', 'berna', 'bern', 'zurich', 'ginebra', 'basilea', 'ch'] },
-        { id: 'surinam', path: 'sr', flag: '🇸🇷', nameKey: 'surinam_name', subKey: 'surinam_sub', domain: 'qrp2p.com/sr', searchTerms: ['surinam', 'suriname', 'paramaribo', 'sr'] },
-        { id: 'tailandia', path: 'th', flag: '🇹🇭', nameKey: 'tailandia_name', subKey: 'tailandia_sub', domain: 'qrp2p.com/th', searchTerms: ['tailandia', 'thailand', 'thailande', 'bangkok', 'phuket', 'th'] },
-        { id: 'tanzania', path: 'tz', flag: '🇹🇿', nameKey: 'tanzania_name', subKey: 'tanzania_sub', domain: 'qrp2p.com/tz', searchTerms: ['tanzania', 'tanzanie', 'dodoma', 'dar es salaam', 'tz'] },
-        { id: 'tayikistan', path: 'tj', flag: '🇹🇯', nameKey: 'tayikistan_name', subKey: 'tayikistan_sub', domain: 'qrp2p.com/tj', searchTerms: ['tayikistan', 'tayikistán', 'tajikistan', 'dushanbe', 'tj'] },
-        { id: 'timor_oriental', path: 'tl', flag: '🇹🇱', nameKey: 'timor_oriental_name', subKey: 'timor_oriental_sub', domain: 'qrp2p.com/tl', searchTerms: ['timor oriental', 'east timor', 'dili', 'tl'] },
-        { id: 'togo', path: 'tg', flag: '🇹🇬', nameKey: 'togo_name', subKey: 'togo_sub', domain: 'qrp2p.com/tg', searchTerms: ['togo', 'lome', 'lomé', 'tg'] },
-        { id: 'tonga', path: 'to', flag: '🇹🇴', nameKey: 'tonga_name', subKey: 'tonga_sub', domain: 'qrp2p.com/to', searchTerms: ['tonga', 'nukualofa', 'to'] },
-        { id: 'trinidad_tobago', path: 'tt', flag: '🇹🇹', nameKey: 'trinidad_tobago_name', subKey: 'trinidad_tobago_sub', domain: 'qrp2p.com/tt', searchTerms: ['trinidad', 'tobago', 'trinidad y tobago', 'puerto españa', 'port of spain', 'tt'] },
-        { id: 'tunez', path: 'tn', flag: '🇹🇳', nameKey: 'tunez_name', subKey: 'tunez_sub', domain: 'qrp2p.com/tn', searchTerms: ['tunez', 'túnez', 'tunisia', 'tunisie', 'tn'] },
-        { id: 'turkmenistan', path: 'tm', flag: '🇹🇲', nameKey: 'turkmenistan_name', subKey: 'turkmenistan_sub', domain: 'qrp2p.com/tm', searchTerms: ['turkmenistan', 'turkmenistán', 'ashgabat', 'asjabad', 'tm'] },
-        { id: 'turquia', path: 'tr', flag: '🇹🇷', nameKey: 'turquia_name', subKey: 'turquia_sub', domain: 'qrp2p.com/tr', searchTerms: ['turquia', 'turquía', 'turkey', 'turquie', 'ankara', 'estambul', 'istanbul', 'tr'] },
-        { id: 'tuvalu', path: 'tv', flag: '🇹🇻', nameKey: 'tuvalu_name', subKey: 'tuvalu_sub', domain: 'qrp2p.com/tv', searchTerms: ['tuvalu', 'funafuti', 'tv'] },
-        { id: 'ucrania', path: 'ua', flag: '🇺🇦', nameKey: 'ucrania_name', subKey: 'ucrania_sub', domain: 'qrp2p.com/ua', searchTerms: ['ucrania', 'ukraine', 'kiev', 'kíev', 'ua'] },
-        { id: 'uganda', path: 'ug', flag: '🇺🇬', nameKey: 'uganda_name', subKey: 'uganda_sub', domain: 'qrp2p.com/ug', searchTerms: ['uganda', 'kampala', 'ug'] },
-        { id: 'uruguay', path: 'uy', flag: '🇺🇾', nameKey: 'uruguay_name', subKey: 'uruguay_sub', domain: 'qrp2p.com/uy', searchTerms: ['uruguay', 'montevideo', 'punta del este', 'uy'] },
-        { id: 'uzbekistan', path: 'uz', flag: '🇺🇿', nameKey: 'uzbekistan_name', subKey: 'uzbekistan_sub', domain: 'qrp2p.com/uz', searchTerms: ['uzbekistan', 'uzbekistán', 'tashkent', 'taskent', 'uz'] },
-        { id: 'vanuatu', path: 'vu', flag: '🇻🇺', nameKey: 'vanuatu_name', subKey: 'vanuatu_sub', domain: 'qrp2p.com/vu', searchTerms: ['vanuatu', 'port vila', 'vu'] },
-        { id: 'venezuela', path: 've', flag: '🇻🇪', nameKey: 'venezuela_name', subKey: 'venezuela_sub', domain: 'qrp2p.com/ve', searchTerms: ['venezuela', 'caracas', 'maracaibo', 'valencia', 've'] },
-        { id: 'vietnam', path: 'vn', flag: '🇻🇳', nameKey: 'vietnam_name', subKey: 'vietnam_sub', domain: 'qrp2p.com/vn', searchTerms: ['vietnam', 'hanoi', 'hanói', 'ho chi minh', 'saigon', 'vn'] },
-        { id: 'wallis_futuna', path: 'wf', flag: '🇼🇫', nameKey: 'wallis_futuna_name', subKey: 'wallis_futuna_sub', domain: 'qrp2p.com/wf', searchTerms: ['wallis y futuna', 'wallis et futuna', 'mata utu', 'wf'] },
-        { id: 'yemen', path: 'ye', flag: '🇾🇪', nameKey: 'yemen_name', subKey: 'yemen_sub', domain: 'qrp2p.com/ye', searchTerms: ['yemen', 'sanaa', 'saná', 'aden', 'ye'] },
-        { id: 'yibuti', path: 'dj', flag: '🇩🇯', nameKey: 'yibuti_name', subKey: 'yibuti_sub', domain: 'qrp2p.com/dj', searchTerms: ['yibuti', 'djibouti', 'dj'] },
-        { id: 'zambia', path: 'zm', flag: '🇿🇲', nameKey: 'zambia_name', subKey: 'zambia_sub', domain: 'qrp2p.com/zm', searchTerms: ['zambia', 'lusaka', 'zm'] },
-        { id: 'zimbabue', path: 'zw', flag: '🇿🇼', nameKey: 'zimbabue_name', subKey: 'zimbabue_sub', domain: 'qrp2p.com/zw', searchTerms: ['zimbabue', 'zimbabwe', 'harare', 'zw'] }
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script>
+    let currentLang = 'en';
+    let mapa, userMarker, marcadoresOriginales = [], currentLayer;
+    
+    // VERIFIED BUSINESSES - GLOBAL (60+ ciudades alrededor del mundo)
+    const verifiedBusinesses = [
+      // Norteamérica - USA
+      { id: "NYC01", name_en: "QRP2P NEW YORK", name_es: "QRP2P NUEVA YORK", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.7128, -74.0060], address_en: "5th Avenue, New York", address_es: "5ta Avenida, Nueva York", description_en: "Global distribution hub.", description_es: "Centro de distribución global.", phone: "+12124567890", email: "ny@qrp2p.com", website: "/new-york.html", whatsapp: "12124567890" },
+      { id: "LAX01", name_en: "QRP2P LOS ANGELES", name_es: "QRP2P LOS ÁNGELES", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.0522, -118.2437], address_en: "Hollywood Blvd, LA", address_es: "Hollywood Blvd, LA", description_en: "West Coast center.", description_es: "Centro Costa Oeste.", phone: "+12134567890", email: "la@qrp2p.com", website: "/los-angeles.html", whatsapp: "12134567890" },
+      { id: "CHI01", name_en: "QRP2P CHICAGO", name_es: "QRP2P CHICAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.8781, -87.6298], address_en: "Michigan Ave, Chicago", address_es: "Michigan Ave, Chicago", description_en: "Midwest hub.", description_es: "Centro del Medio Oeste.", phone: "+13124567890", email: "chicago@qrp2p.com", website: "/chicago.html", whatsapp: "13124567890" },
+      { id: "HOU01", name_en: "QRP2P HOUSTON", name_es: "QRP2P HOUSTON", category_en: "Distributor", category_es: "Distribuidor", latlng: [29.7604, -95.3698], address_en: "Texas Ave, Houston", address_es: "Texas Ave, Houston", description_en: "Southern center.", description_es: "Centro del Sur.", phone: "+17134567890", email: "houston@qrp2p.com", website: "/houston.html", whatsapp: "17134567890" },
+      { id: "MIA01", name_en: "QRP2P MIAMI", name_es: "QRP2P MIAMI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.7617, -80.1918], address_en: "Ocean Drive, Miami", address_es: "Ocean Drive, Miami", description_en: "Latin American gateway.", description_es: "Puerta a Latinoamérica.", phone: "+13054567890", email: "miami@qrp2p.com", website: "/miami.html", whatsapp: "13054567890" },
+      { id: "SFX01", name_en: "QRP2P SAN FRANCISCO", name_es: "QRP2P SAN FRANCISCO", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.7749, -122.4194], address_en: "Market St, SF", address_es: "Market St, SF", description_en: "Tech hub.", description_es: "Centro tecnológico.", phone: "+14154567890", email: "sf@qrp2p.com", website: "/san-francisco.html", whatsapp: "14154567890" },
+      { id: "SEA01", name_en: "QRP2P SEATTLE", name_es: "QRP2P SEATTLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.6062, -122.3321], address_en: "Pike St, Seattle", address_es: "Pike St, Seattle", description_en: "Pacific NW hub.", description_es: "Centro del Noroeste.", phone: "+12064567890", email: "seattle@qrp2p.com", website: "/seattle.html", whatsapp: "12064567890" },
+      { id: "DEN01", name_en: "QRP2P DENVER", name_es: "QRP2P DENVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.7392, -104.9903], address_en: "Colfax Ave, Denver", address_es: "Colfax Ave, Denver", description_en: "Mountain region hub.", description_es: "Centro de la región montañosa.", phone: "+13034567890", email: "denver@qrp2p.com", website: "/denver.html", whatsapp: "13034567890" },
+      // Canadá
+      { id: "TOR01", name_en: "QRP2P TORONTO", name_es: "QRP2P TORONTO", category_en: "Distributor", category_es: "Distribuidor", latlng: [43.6532, -79.3832], address_en: "Queen St, Toronto", address_es: "Queen St, Toronto", description_en: "Canadian hub.", description_es: "Centro canadiense.", phone: "+14164567890", email: "toronto@qrp2p.com", website: "/toronto.html", whatsapp: "14164567890" },
+      { id: "VAN01", name_en: "QRP2P VANCOUVER", name_es: "QRP2P VANCOUVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [49.2827, -123.1207], address_en: "Granville St, Vancouver", address_es: "Granville St, Vancouver", description_en: "West Canada hub.", description_es: "Centro del Oeste canadiense.", phone: "+16044567890", email: "vancouver@qrp2p.com", website: "/vancouver.html", whatsapp: "16044567890" },
+      // México y Centroamérica
+      { id: "MEX01", name_en: "QRP2P CIUDAD DE MÉXICO", name_es: "QRP2P CIUDAD DE MÉXICO", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.4326, -99.1332], address_en: "Reforma 123, CDMX", address_es: "Reforma 123, CDMX", description_en: "Latin America center.", description_es: "Centro para Latinoamérica.", phone: "+525512345678", email: "mexico@qrp2p.com", website: "/ciudad-de-mexico.html", whatsapp: "525512345678" },
+      { id: "GDL01", name_en: "QRP2P GUADALAJARA", name_es: "QRP2P GUADALAJARA", category_en: "Distributor", category_es: "Distribuidor", latlng: [20.6597, -103.3496], address_en: "Av. Chapultepec, GDL", address_es: "Av. Chapultepec, GDL", description_en: "Tech center in Mexico.", description_es: "Centro tecnológico en México.", phone: "+523312345678", email: "gdl@qrp2p.com", website: "/guadalajara.html", whatsapp: "523312345678" },
+      { id: "PTY01", name_en: "QRP2P CIUDAD DE PANAMÁ", name_es: "QRP2P CIUDAD DE PANAMÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [8.9824, -79.5199], address_en: "Calle 50, Panamá", address_es: "Calle 50, Panamá", description_en: "Regional logistics hub.", description_es: "Centro logístico regional.", phone: "+5072345678", email: "panama@qrp2p.com", website: "/ciudad-de-panama.html", whatsapp: "5072345678" },
+      // Sudamérica
+      { id: "BOG01", name_en: "QRP2P BOGOTÁ", name_es: "QRP2P BOGOTÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [4.7110, -74.0721], address_en: "Calle 100, Bogotá", address_es: "Calle 100, Bogotá", description_en: "Andean hub.", description_es: "Centro andino.", phone: "+5712345678", email: "bogota@qrp2p.com", website: "/bogota.html", whatsapp: "5712345678" },
+      { id: "CALI01", name_en: "QRP2P CALI VALLE", name_es: "QRP2P CALI VALLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [3.4516, -76.5320], address_en: "Calle 13, Cali", address_es: "Calle 13, Cali", description_en: "Valle del Cauca hub.", description_es: "Centro en el Valle.", phone: "+5722345678", email: "cali@qrp2p.com", website: "/cali-valle.html", whatsapp: "5722345678" },
+      { id: "MED01", name_en: "QRP2P MEDELLÍN", name_es: "QRP2P MEDELLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.2442, -75.5812], address_en: "Poblado, Medellín", address_es: "Poblado, Medellín", description_en: "Innovation hub.", description_es: "Centro de innovación.", phone: "+5742345678", email: "medellin@qrp2p.com", website: "/medellin.html", whatsapp: "5742345678" },
+      { id: "LIM01", name_en: "QRP2P LIMA", name_es: "QRP2P LIMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-12.0464, -77.0428], address_en: "Miraflores, Lima", address_es: "Miraflores, Lima", description_en: "Pacific coast hub.", description_es: "Centro de la costa pacífica.", phone: "+5112345678", email: "lima@qrp2p.com", website: "/lima.html", whatsapp: "5112345678" },
+      { id: "BUE01", name_en: "QRP2P BUENOS AIRES", name_es: "QRP2P BUENOS AIRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [-34.6037, -58.3816], address_en: "Florida St, Buenos Aires", address_es: "Florida St, Buenos Aires", description_en: "Southern Cone hub.", description_es: "Centro del Cono Sur.", phone: "+5411345678", email: "bsas@qrp2p.com", website: "/buenos-aires.html", whatsapp: "5411345678" },
+      { id: "RIO01", name_en: "QRP2P RIO DE JANEIRO", name_es: "QRP2P RIO DE JANEIRO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-22.9068, -43.1729], address_en: "Copacabana, Rio", address_es: "Copacabana, Rio", description_en: "Brazilian hub.", description_es: "Centro brasileño.", phone: "+5521345678", email: "rio@qrp2p.com", website: "/rio-de-janeiro.html", whatsapp: "5521345678" },
+      { id: "SAO01", name_en: "QRP2P SÃO PAULO", name_es: "QRP2P SÃO PAULO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-23.5505, -46.6333], address_en: "Paulista Ave, SP", address_es: "Paulista Ave, SP", description_en: "Business hub in Brazil.", description_es: "Centro de negocios en Brasil.", phone: "+5511345678", email: "sp@qrp2p.com", website: "/sao-paulo.html", whatsapp: "5511345678" },
+      { id: "SCL01", name_en: "QRP2P SANTIAGO", name_es: "QRP2P SANTIAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.4489, -70.6693], address_en: "Providencia, Santiago", address_es: "Providencia, Santiago", description_en: "Chilean hub.", description_es: "Centro chileno.", phone: "+5622345678", email: "santiago@qrp2p.com", website: "/santiago.html", whatsapp: "5622345678" },
+      // Europa
+      { id: "LON01", name_en: "QRP2P LONDON", name_es: "QRP2P LONDRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [51.5074, -0.1278], address_en: "Oxford St, London", address_es: "Oxford St, Londres", description_en: "European hub.", description_es: "Centro europeo.", phone: "+442012345678", email: "london@qrp2p.com", website: "/london.html", whatsapp: "442012345678" },
+      { id: "PAR01", name_en: "QRP2P PARIS", name_es: "QRP2P PARÍS", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.8566, 2.3522], address_en: "Champs-Élysées, Paris", address_es: "Champs-Élysées, París", description_en: "French hub.", description_es: "Centro francés.", phone: "+33123456789", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "33123456789" },
+      { id: "BER01", name_en: "QRP2P BERLIN", name_es: "QRP2P BERLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.5200, 13.4050], address_en: "Unter den Linden, Berlin", address_es: "Unter den Linden, Berlín", description_en: "German hub.", description_es: "Centro alemán.", phone: "+493012345678", email: "berlin@qrp2p.com", website: "/berlin.html", whatsapp: "493012345678" },
+      { id: "MAD01", name_en: "QRP2P MADRID", name_es: "QRP2P MADRID", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.4168, -3.7038], address_en: "Gran Vía, Madrid", address_es: "Gran Vía, Madrid", description_en: "Spanish hub.", description_es: "Centro español.", phone: "+34912345678", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "34912345678" },
+      { id: "BCN01", name_en: "QRP2P BARCELONA", name_es: "QRP2P BARCELONA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.3851, 2.1734], address_en: "Rambla, Barcelona", address_es: "Rambla, Barcelona", description_en: "Mediterranean hub.", description_es: "Centro mediterráneo.", phone: "+34932345678", email: "bcn@qrp2p.com", website: "/barcelona.html", whatsapp: "34932345678" },
+      { id: "ROM01", name_en: "QRP2P ROME", name_es: "QRP2P ROMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.9028, 12.4964], address_en: "Via del Corso, Rome", address_es: "Via del Corso, Roma", description_en: "Italian hub.", description_es: "Centro italiano.", phone: "+390612345678", email: "rome@qrp2p.com", website: "/rome.html", whatsapp: "390612345678" },
+      { id: "AMS01", name_en: "QRP2P AMSTERDAM", name_es: "QRP2P AMSTERDAM", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.3676, 4.9041], address_en: "Damrak, Amsterdam", address_es: "Damrak, Amsterdam", description_en: "Dutch hub.", description_es: "Centro holandés.", phone: "+312012345678", email: "ams@qrp2p.com", website: "/amsterdam.html", whatsapp: "312012345678" },
+      { id: "BRU01", name_en: "QRP2P BRUSSELS", name_es: "QRP2P BRUSELAS", category_en: "Distributor", category_es: "Distribuidor", latlng: [50.8503, 4.3517], address_en: "Grand Place, Brussels", address_es: "Grand Place, Bruselas", description_en: "EU hub.", description_es: "Centro de la UE.", phone: "+32212345678", email: "brussels@qrp2p.com", website: "/brussels.html", whatsapp: "32212345678" },
+      { id: "VIE01", name_en: "QRP2P VIENNA", name_es: "QRP2P VIENA", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.2082, 16.3738], address_en: "Ringstrasse, Vienna", address_es: "Ringstrasse, Viena", description_en: "Austrian hub.", description_es: "Centro austriaco.", phone: "+4312345678", email: "vienna@qrp2p.com", website: "/vienna.html", whatsapp: "4312345678" },
+      { id: "ZUR01", name_en: "QRP2P ZURICH", name_es: "QRP2P ZÚRICH", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.3769, 8.5417], address_en: "Bahnhofstrasse, Zurich", address_es: "Bahnhofstrasse, Zúrich", description_en: "Swiss hub.", description_es: "Centro suizo.", phone: "+41412345678", email: "zurich@qrp2p.com", website: "/zurich.html", whatsapp: "41412345678" },
+      // Asia
+      { id: "TOK01", name_en: "QRP2P TOKYO", name_es: "QRP2P TOKIO", category_en: "Distributor", category_es: "Distribuidor", latlng: [35.6762, 139.6503], address_en: "Shibuya, Tokyo", address_es: "Shibuya, Tokio", description_en: "Asian hub.", description_es: "Centro asiático.", phone: "+81312345678", email: "tokyo@qrp2p.com", website: "/tokyo.html", whatsapp: "81312345678" },
+      { id: "OSA01", name_en: "QRP2P OSAKA", name_es: "QRP2P OSAKA", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.6937, 135.5023], address_en: "Namba, Osaka", address_es: "Namba, Osaka", description_en: "Kansai hub.", description_es: "Centro de Kansai.", phone: "+81612345678", email: "osaka@qrp2p.com", website: "/osaka.html", whatsapp: "81612345678" },
+      { id: "SEO01", name_en: "QRP2P SEOUL", name_es: "QRP2P SEÚL", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.5665, 126.9780], address_en: "Gangnam, Seoul", address_es: "Gangnam, Seúl", description_en: "Korean hub.", description_es: "Centro coreano.", phone: "+82212345678", email: "seoul@qrp2p.com", website: "/seoul.html", whatsapp: "82212345678" },
+      { id: "SHA01", name_en: "QRP2P SHANGHAI", name_es: "QRP2P SHANGHAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [31.2304, 121.4737], address_en: "Nanjing Rd, Shanghai", address_es: "Nanjing Rd, Shanghai", description_en: "Chinese hub.", description_es: "Centro chino.", phone: "+862112345678", email: "shanghai@qrp2p.com", website: "/shanghai.html", whatsapp: "862112345678" },
+      { id: "PEK01", name_en: "QRP2P BEIJING", name_es: "QRP2P PEKÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.9042, 116.4074], address_en: "Wangfujing, Beijing", address_es: "Wangfujing, Pekín", description_en: "Northern China hub.", description_es: "Centro del norte de China.", phone: "+861012345678", email: "beijing@qrp2p.com", website: "/beijing.html", whatsapp: "861012345678" },
+      { id: "HKG01", name_en: "QRP2P HONG KONG", name_es: "QRP2P HONG KONG", category_en: "Distributor", category_es: "Distribuidor", latlng: [22.3193, 114.1694], address_en: "Nathan Rd, HK", address_es: "Nathan Rd, HK", description_en: "Financial hub.", description_es: "Centro financiero.", phone: "+85212345678", email: "hk@qrp2p.com", website: "/hong-kong.html", whatsapp: "85212345678" },
+      { id: "SIN01", name_en: "QRP2P SINGAPORE", name_es: "QRP2P SINGAPUR", category_en: "Distributor", category_es: "Distribuidor", latlng: [1.3521, 103.8198], address_en: "Orchard Rd, Singapore", address_es: "Orchard Rd, Singapur", description_en: "SE Asia hub.", description_es: "Centro del Sudeste Asiático.", phone: "+6512345678", email: "singapore@qrp2p.com", website: "/singapore.html", whatsapp: "6512345678" },
+      { id: "BKK01", name_en: "QRP2P BANGKOK", name_es: "QRP2P BANGKOK", category_en: "Distributor", category_es: "Distribuidor", latlng: [13.7563, 100.5018], address_en: "Sukhumvit, Bangkok", address_es: "Sukhumvit, Bangkok", description_en: "Thai hub.", description_es: "Centro tailandés.", phone: "+6621234567", email: "bangkok@qrp2p.com", website: "/bangkok.html", whatsapp: "6621234567" },
+      { id: "JKT01", name_en: "QRP2P JAKARTA", name_es: "QRP2P JAKARTA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-6.2088, 106.8456], address_en: "Sudirman, Jakarta", address_es: "Sudirman, Jakarta", description_en: "Indonesian hub.", description_es: "Centro indonesio.", phone: "+62112345678", email: "jakarta@qrp2p.com", website: "/jakarta.html", whatsapp: "62112345678" },
+      { id: "MNL01", name_en: "QRP2P MANILA", name_es: "QRP2P MANILA", category_en: "Distributor", category_es: "Distribuidor", latlng: [14.5995, 120.9842], address_en: "Makati, Manila", address_es: "Makati, Manila", description_en: "Philippine hub.", description_es: "Centro filipino.", phone: "+6321234567", email: "manila@qrp2p.com", website: "/manila.html", whatsapp: "6321234567" },
+      { id: "MUM01", name_en: "QRP2P MUMBAI", name_es: "QRP2P MUMBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.0760, 72.8777], address_en: "Marine Drive, Mumbai", address_es: "Marine Drive, Mumbai", description_en: "Indian hub.", description_es: "Centro indio.", phone: "+912212345678", email: "mumbai@qrp2p.com", website: "/mumbai.html", whatsapp: "912212345678" },
+      { id: "DEL01", name_en: "QRP2P DELHI", name_es: "QRP2P DELHI", category_en: "Distributor", category_es: "Distribuidor", latlng: [28.6139, 77.2090], address_en: "Connaught Pl, Delhi", address_es: "Connaught Pl, Delhi", description_en: "Northern India hub.", description_es: "Centro del norte de India.", phone: "+911112345678", email: "delhi@qrp2p.com", website: "/delhi.html", whatsapp: "911112345678" },
+      // Medio Oriente
+      { id: "DXB01", name_en: "QRP2P DUBAI", name_es: "QRP2P DUBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.2048, 55.2708], address_en: "Sheikh Zayed Rd, Dubai", address_es: "Sheikh Zayed Rd, Dubái", description_en: "Middle East hub.", description_es: "Centro del Medio Oriente.", phone: "+97143456789", email: "dubai@qrp2p.com", website: "/dubai.html", whatsapp: "97143456789" },
+      { id: "ABU01", name_en: "QRP2P ABU DHABI", name_es: "QRP2P ABU DHABI", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.4539, 54.3773], address_en: "Corniche, Abu Dhabi", address_es: "Corniche, Abu Dhabi", description_en: "UAE capital hub.", description_es: "Centro capital de UAE.", phone: "+97121234567", email: "abudhabi@qrp2p.com", website: "/abu-dhabi.html", whatsapp: "97121234567" },
+      { id: "RYD01", name_en: "QRP2P RIYADH", name_es: "QRP2P RIYADH", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.7136, 46.6753], address_en: "King Fahd Rd, Riyadh", address_es: "King Fahd Rd, Riad", description_en: "Saudi hub.", description_es: "Centro saudí.", phone: "+96611234567", email: "riyadh@qrp2p.com", website: "/riyadh.html", whatsapp: "96611234567" },
+      { id: "IST01", name_en: "QRP2P ISTANBUL", name_es: "QRP2P ESTAMBUL", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.0082, 28.9784], address_en: "Istiklal Ave, Istanbul", address_es: "Istiklal Ave, Estambul", description_en: "Turkish hub.", description_es: "Centro turco.", phone: "+902121234567", email: "istanbul@qrp2p.com", website: "/istanbul.html", whatsapp: "902121234567" },
+      // África
+      { id: "JHB01", name_en: "QRP2P JOHANNESBURG", name_es: "QRP2P JOHANNESBURGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-26.2041, 28.0473], address_en: "Sandton, Johannesburg", address_es: "Sandton, Johannesburgo", description_en: "African hub.", description_es: "Centro africano.", phone: "+2712345678", email: "jhb@qrp2p.com", website: "/johannesburg.html", whatsapp: "2712345678" },
+      { id: "CPT01", name_en: "QRP2P CAPE TOWN", name_es: "QRP2P CIUDAD DEL CABO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.9249, 18.4241], address_en: "Long St, Cape Town", address_es: "Long St, Ciudad del Cabo", description_en: "Southern Africa hub.", description_es: "Centro del sur de África.", phone: "+27211234567", email: "capetown@qrp2p.com", website: "/cape-town.html", whatsapp: "27211234567" },
+      { id: "NAI01", name_en: "QRP2P NAIROBI", name_es: "QRP2P NAIROBI", category_en: "Distributor", category_es: "Distribuidor", latlng: [-1.2921, 36.8219], address_en: "Moi Ave, Nairobi", address_es: "Moi Ave, Nairobi", description_en: "East African hub.", description_es: "Centro del este de África.", phone: "+25420123456", email: "nairobi@qrp2p.com", website: "/nairobi.html", whatsapp: "25420123456" },
+      { id: "LAG01", name_en: "QRP2P LAGOS", name_es: "QRP2P LAGOS", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.5244, 3.3792], address_en: "Victoria Island, Lagos", address_es: "Victoria Island, Lagos", description_en: "West African hub.", description_es: "Centro del oeste de África.", phone: "+2348012345678", email: "lagos@qrp2p.com", website: "/lagos.html", whatsapp: "2348012345678" },
+      // Oceanía
+      { id: "SYD01", name_en: "QRP2P SYDNEY", name_es: "QRP2P SIDNEY", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.8688, 151.2093], address_en: "George St, Sydney", address_es: "George St, Sídney", description_en: "Oceania hub.", description_es: "Centro de Oceanía.", phone: "+61234567890", email: "sydney@qrp2p.com", website: "/sydney.html", whatsapp: "61234567890" },
+      { id: "MEL01", name_en: "QRP2P MELBOURNE", name_es: "QRP2P MELBOURNE", category_en: "Distributor", category_es: "Distribuidor", latlng: [-37.8136, 144.9631], address_en: "Collins St, Melbourne", address_es: "Collins St, Melbourne", description_en: "Australian hub.", description_es: "Centro australiano.", phone: "+61312345678", email: "melbourne@qrp2p.com", website: "/melbourne.html", whatsapp: "61312345678" },
+      { id: "AKL01", name_en: "QRP2P AUCKLAND", name_es: "QRP2P AUCKLAND", category_en: "Distributor", category_es: "Distribuidor", latlng: [-36.8485, 174.7633], address_en: "Queen St, Auckland", address_es: "Queen St, Auckland", description_en: "New Zealand hub.", description_es: "Centro de Nueva Zelanda.", phone: "+6491234567", email: "auckland@qrp2p.com", website: "/auckland.html", whatsapp: "6491234567" }
     ];
-
-    // --------------------------------------------------------------
-    // 3. TRADUCCIONES COMPLETAS (ESPAÑOL E INGLÉS)
-    // --------------------------------------------------------------
-    const translations = {
-        es: {
-            tagline: "marketplace directo entre comprador y vendedor verificado",
-            title: "SELECCIONAR PAÍS<br>",
-            subtitle: "Compra, vende e invierte directamente entre vendedores verificados. 0% comisiones · transacciones seguras.",
-            afganistan_name: "Afganistán", afganistan_sub: "QRP2P · 0% COMISIONES",
-            albania_name: "Albania", albania_sub: "QRP2P · 0% COMISIONES",
-            alemania_name: "Alemania", alemania_sub: "QRP2P · 0% COMISIONES",
-            andorra_name: "Andorra", andorra_sub: "QRP2P · 0% COMISIONES",
-            angola_name: "Angola", angola_sub: "QRP2P · 0% COMISIONES",
-            anguila_name: "Anguila", anguila_sub: "QRP2P · 0% COMISIONES",
-            antigua_barbuda_name: "Antigua y Barbuda", antigua_barbuda_sub: "QRP2P · 0% COMISIONES",
-            arabia_saudita_name: "Arabia Saudita", arabia_saudita_sub: "QRP2P · 0% COMISIONES",
-            argelia_name: "Argelia", argelia_sub: "QRP2P · 0% COMISIONES",
-            argentina_name: "Argentina", argentina_sub: "QRP2P · 0% COMISIONES",
-            armenia_name: "Armenia", armenia_sub: "QRP2P · 0% COMISIONES",
-            aruba_name: "Aruba", aruba_sub: "QRP2P · 0% COMISIONES",
-            australia_name: "Australia", australia_sub: "QRP2P · 0% COMISIONES",
-            austria_name: "Austria", austria_sub: "QRP2P · 0% COMISIONES",
-            azerbaiyan_name: "Azerbaiyán", azerbaiyan_sub: "QRP2P · 0% COMISIONES",
-            bahamas_name: "Bahamas", bahamas_sub: "QRP2P · 0% COMISIONES",
-            bahrein_name: "Bahrein", bahrein_sub: "QRP2P · 0% COMISIONES",
-            bangladesh_name: "Bangladesh", bangladesh_sub: "QRP2P · 0% COMISIONES",
-            barbados_name: "Barbados", barbados_sub: "QRP2P · 0% COMISIONES",
-            belgica_name: "Bélgica", belgica_sub: "QRP2P · 0% COMISIONES",
-            belice_name: "Belice", belice_sub: "QRP2P · 0% COMISIONES",
-            benin_name: "Benín", benin_sub: "QRP2P · 0% COMISIONES",
-            bermudas_name: "Bermudas", bermudas_sub: "QRP2P · 0% COMISIONES",
-            bielorrusia_name: "Bielorrusia", bielorrusia_sub: "QRP2P · 0% COMISIONES",
-            birmania_name: "Birmania", birmania_sub: "QRP2P · 0% COMISIONES",
-            bolivia_name: "Bolivia", bolivia_sub: "QRP2P · 0% COMISIONES",
-            bosnia_herzegovina_name: "Bosnia y Herzegovina", bosnia_herzegovina_sub: "QRP2P · 0% COMISIONES",
-            botsuana_name: "Botsuana", botsuana_sub: "QRP2P · 0% COMISIONES",
-            brasil_name: "Brasil", brasil_sub: "QRP2P · 0% COMISIONES",
-            brunei_name: "Brunéi", brunei_sub: "QRP2P · 0% COMISIONES",
-            bulgaria_name: "Bulgaria", bulgaria_sub: "QRP2P · 0% COMISIONES",
-            burkina_faso_name: "Burkina Faso", burkina_faso_sub: "QRP2P · 0% COMISIONES",
-            burundi_name: "Burundi", burundi_sub: "QRP2P · 0% COMISIONES",
-            butan_name: "Bután", butan_sub: "QRP2P · 0% COMISIONES",
-            cabo_verde_name: "Cabo Verde", cabo_verde_sub: "QRP2P · 0% COMISIONES",
-            camboya_name: "Camboya", camboya_sub: "QRP2P · 0% COMISIONES",
-            camerun_name: "Camerún", camerun_sub: "QRP2P · 0% COMISIONES",
-            canada_name: "Canadá", canada_sub: "QRP2P · 0% COMISIONES",
-            catar_name: "Catar", catar_sub: "QRP2P · 0% COMISIONES",
-            chad_name: "Chad", chad_sub: "QRP2P · 0% COMISIONES",
-            chile_name: "Chile", chile_sub: "QRP2P · 0% COMISIONES",
-            china_name: "China", china_sub: "QRP2P · 0% COMISIONES",
-            chipre_name: "Chipre", chipre_sub: "QRP2P · 0% COMISIONES",
-            ciudad_vaticano_name: "Ciudad del Vaticano", ciudad_vaticano_sub: "QRP2P · 0% COMISIONES",
-            colombia_name: "Colombia", colombia_sub: "QRP2P · 0% COMISIONES",
-            comoras_name: "Comoras", comoras_sub: "QRP2P · 0% COMISIONES",
-            corea_norte_name: "Corea del Norte", corea_norte_sub: "QRP2P · 0% COMISIONES",
-            corea_sur_name: "Corea del Sur", corea_sur_sub: "QRP2P · 0% COMISIONES",
-            costa_marfil_name: "Costa de Marfil", costa_marfil_sub: "QRP2P · 0% COMISIONES",
-            costa_rica_name: "Costa Rica", costa_rica_sub: "QRP2P · 0% COMISIONES",
-            croacia_name: "Croacia", croacia_sub: "QRP2P · 0% COMISIONES",
-            cuba_name: "Cuba", cuba_sub: "QRP2P · 0% COMISIONES",
-            dinamarca_name: "Dinamarca", dinamarca_sub: "QRP2P · 0% COMISIONES",
-            dominica_name: "Dominica", dominica_sub: "QRP2P · 0% COMISIONES",
-            ecuador_name: "Ecuador", ecuador_sub: "QRP2P · 0% COMISIONES",
-            egipto_name: "Egipto", egipto_sub: "QRP2P · 0% COMISIONES",
-            el_salvador_name: "El Salvador", el_salvador_sub: "QRP2P · 0% COMISIONES",
-            emiratos_arabes_name: "Emiratos Árabes", emiratos_arabes_sub: "QRP2P · 0% COMISIONES",
-            eritrea_name: "Eritrea", eritrea_sub: "QRP2P · 0% COMISIONES",
-            eslovaquia_name: "Eslovaquia", eslovaquia_sub: "QRP2P · 0% COMISIONES",
-            eslovenia_name: "Eslovenia", eslovenia_sub: "QRP2P · 0% COMISIONES",
-            espana_name: "España", espana_sub: "QRP2P · 0% COMISIONES",
-            estados_unidos_name: "Estados Unidos", estados_unidos_sub: "QRP2P · 0% COMISIONES",
-            estonia_name: "Estonia", estonia_sub: "QRP2P · 0% COMISIONES",
-            esuatini_name: "Esuatini", esuatini_sub: "QRP2P · 0% COMISIONES",
-            etiopia_name: "Etiopía", etiopia_sub: "QRP2P · 0% COMISIONES",
-            fiji_name: "Fiyi", fiji_sub: "QRP2P · 0% COMISIONES",
-            filipinas_name: "Filipinas", filipinas_sub: "QRP2P · 0% COMISIONES",
-            finlandia_name: "Finlandia", finlandia_sub: "QRP2P · 0% COMISIONES",
-            francia_name: "Francia", francia_sub: "QRP2P · 0% COMISIONES",
-            gabon_name: "Gabón", gabon_sub: "QRP2P · 0% COMISIONES",
-            gambia_name: "Gambia", gambia_sub: "QRP2P · 0% COMISIONES",
-            georgia_name: "Georgia", georgia_sub: "QRP2P · 0% COMISIONES",
-            ghana_name: "Ghana", ghana_sub: "QRP2P · 0% COMISIONES",
-            granada_name: "Granada", granada_sub: "QRP2P · 0% COMISIONES",
-            grecia_name: "Grecia", grecia_sub: "QRP2P · 0% COMISIONES",
-            groenlandia_name: "Groenlandia", groenlandia_sub: "QRP2P · 0% COMISIONES",
-            guadalupe_name: "Guadalupe", guadalupe_sub: "QRP2P · 0% COMISIONES",
-            guam_name: "Guam", guam_sub: "QRP2P · 0% COMISIONES",
-            guatemala_name: "Guatemala", guatemala_sub: "QRP2P · 0% COMISIONES",
-            guayana_francesa_name: "Guayana Francesa", guayana_francesa_sub: "QRP2P · 0% COMISIONES",
-            guernsey_name: "Guernsey", guernsey_sub: "QRP2P · 0% COMISIONES",
-            guinea_name: "Guinea", guinea_sub: "QRP2P · 0% COMISIONES",
-            guinea_bisau_name: "Guinea Bisáu", guinea_bisau_sub: "QRP2P · 0% COMISIONES",
-            guinea_ecuatorial_name: "Guinea Ecuatorial", guinea_ecuatorial_sub: "QRP2P · 0% COMISIONES",
-            guyana_name: "Guyana", guyana_sub: "QRP2P · 0% COMISIONES",
-            haiti_name: "Haití", haiti_sub: "QRP2P · 0% COMISIONES",
-            honduras_name: "Honduras", honduras_sub: "QRP2P · 0% COMISIONES",
-            hong_kong_name: "Hong Kong", hong_kong_sub: "QRP2P · 0% COMISIONES",
-            hungria_name: "Hungría", hungria_sub: "QRP2P · 0% COMISIONES",
-            india_name: "India", india_sub: "QRP2P · 0% COMISIONES",
-            indonesia_name: "Indonesia", indonesia_sub: "QRP2P · 0% COMISIONES",
-            irak_name: "Irak", irak_sub: "QRP2P · 0% COMISIONES",
-            iran_name: "Irán", iran_sub: "QRP2P · 0% COMISIONES",
-            irlanda_name: "Irlanda", irlanda_sub: "QRP2P · 0% COMISIONES",
-            isla_man_name: "Isla de Man", isla_man_sub: "QRP2P · 0% COMISIONES",
-            islandia_name: "Islandia", islandia_sub: "QRP2P · 0% COMISIONES",
-            islas_caiman_name: "Islas Caimán", islas_caiman_sub: "QRP2P · 0% COMISIONES",
-            islas_cook_name: "Islas Cook", islas_cook_sub: "QRP2P · 0% COMISIONES",
-            islas_feroe_name: "Islas Feroe", islas_feroe_sub: "QRP2P · 0% COMISIONES",
-            islas_malvinas_name: "Islas Malvinas", islas_malvinas_sub: "QRP2P · 0% COMISIONES",
-            islas_marshall_name: "Islas Marshall", islas_marshall_sub: "QRP2P · 0% COMISIONES",
-            islas_salomon_name: "Islas Salomón", islas_salomon_sub: "QRP2P · 0% COMISIONES",
-            islas_turcas_caicos_name: "Islas Turcas y Caicos", islas_turcas_caicos_sub: "QRP2P · 0% COMISIONES",
-            islas_virgenes_britanicas_name: "Islas Vírgenes Británicas", islas_virgenes_britanicas_sub: "QRP2P · 0% COMISIONES",
-            islas_virgenes_eeuu_name: "Islas Vírgenes EEUU", islas_virgenes_eeuu_sub: "QRP2P · 0% COMISIONES",
-            israel_name: "Israel", israel_sub: "QRP2P · 0% COMISIONES",
-            italia_name: "Italia", italia_sub: "QRP2P · 0% COMISIONES",
-            jamaica_name: "Jamaica", jamaica_sub: "QRP2P · 0% COMISIONES",
-            japon_name: "Japón", japon_sub: "QRP2P · 0% COMISIONES",
-            jersey_name: "Jersey", jersey_sub: "QRP2P · 0% COMISIONES",
-            jordania_name: "Jordania", jordania_sub: "QRP2P · 0% COMISIONES",
-            kazajistan_name: "Kazajistán", kazajistan_sub: "QRP2P · 0% COMISIONES",
-            kenia_name: "Kenia", kenia_sub: "QRP2P · 0% COMISIONES",
-            kirguistan_name: "Kirguistán", kirguistan_sub: "QRP2P · 0% COMISIONES",
-            kiribati_name: "Kiribati", kiribati_sub: "QRP2P · 0% COMISIONES",
-            kuwait_name: "Kuwait", kuwait_sub: "QRP2P · 0% COMISIONES",
-            laos_name: "Laos", laos_sub: "QRP2P · 0% COMISIONES",
-            lesoto_name: "Lesoto", lesoto_sub: "QRP2P · 0% COMISIONES",
-            letonia_name: "Letonia", letonia_sub: "QRP2P · 0% COMISIONES",
-            libano_name: "Líbano", libano_sub: "QRP2P · 0% COMISIONES",
-            liberia_name: "Liberia", liberia_sub: "QRP2P · 0% COMISIONES",
-            libia_name: "Libia", libia_sub: "QRP2P · 0% COMISIONES",
-            liechtenstein_name: "Liechtenstein", liechtenstein_sub: "QRP2P · 0% COMISIONES",
-            lituania_name: "Lituania", lituania_sub: "QRP2P · 0% COMISIONES",
-            luxemburgo_name: "Luxemburgo", luxemburgo_sub: "QRP2P · 0% COMISIONES",
-            macao_name: "Macao", macao_sub: "QRP2P · 0% COMISIONES",
-            macedonia_norte_name: "Macedonia del Norte", macedonia_norte_sub: "QRP2P · 0% COMISIONES",
-            madagascar_name: "Madagascar", madagascar_sub: "QRP2P · 0% COMISIONES",
-            malasia_name: "Malasia", malasia_sub: "QRP2P · 0% COMISIONES",
-            malaui_name: "Malaui", malaui_sub: "QRP2P · 0% COMISIONES",
-            maldivas_name: "Maldivas", maldivas_sub: "QRP2P · 0% COMISIONES",
-            mali_name: "Malí", mali_sub: "QRP2P · 0% COMISIONES",
-            malta_name: "Malta", malta_sub: "QRP2P · 0% COMISIONES",
-            marruecos_name: "Marruecos", marruecos_sub: "QRP2P · 0% COMISIONES",
-            martinica_name: "Martinica", martinica_sub: "QRP2P · 0% COMISIONES",
-            mauricio_name: "Mauricio", mauricio_sub: "QRP2P · 0% COMISIONES",
-            mauritania_name: "Mauritania", mauritania_sub: "QRP2P · 0% COMISIONES",
-            mayotte_name: "Mayotte", mayotte_sub: "QRP2P · 0% COMISIONES",
-            mexico_name: "México", mexico_sub: "QRP2P · 0% COMISIONES",
-            micronesia_name: "Micronesia", micronesia_sub: "QRP2P · 0% COMISIONES",
-            moldavia_name: "Moldavia", moldavia_sub: "QRP2P · 0% COMISIONES",
-            monaco_name: "Mónaco", monaco_sub: "QRP2P · 0% COMISIONES",
-            mongolia_name: "Mongolia", mongolia_sub: "QRP2P · 0% COMISIONES",
-            montenegro_name: "Montenegro", montenegro_sub: "QRP2P · 0% COMISIONES",
-            montserrat_name: "Montserrat", montserrat_sub: "QRP2P · 0% COMISIONES",
-            mozambique_name: "Mozambique", mozambique_sub: "QRP2P · 0% COMISIONES",
-            namibia_name: "Namibia", namibia_sub: "QRP2P · 0% COMISIONES",
-            nauru_name: "Nauru", nauru_sub: "QRP2P · 0% COMISIONES",
-            nepal_name: "Nepal", nepal_sub: "QRP2P · 0% COMISIONES",
-            nicaragua_name: "Nicaragua", nicaragua_sub: "QRP2P · 0% COMISIONES",
-            niger_name: "Níger", niger_sub: "QRP2P · 0% COMISIONES",
-            nigeria_name: "Nigeria", nigeria_sub: "QRP2P · 0% COMISIONES",
-            niue_name: "Niue", niue_sub: "QRP2P · 0% COMISIONES",
-            noruega_name: "Noruega", noruega_sub: "QRP2P · 0% COMISIONES",
-            nueva_caledonia_name: "Nueva Caledonia", nueva_caledonia_sub: "QRP2P · 0% COMISIONES",
-            nueva_zelanda_name: "Nueva Zelanda", nueva_zelanda_sub: "QRP2P · 0% COMISIONES",
-            oman_name: "Omán", oman_sub: "QRP2P · 0% COMISIONES",
-            paises_bajos_name: "Países Bajos", paises_bajos_sub: "QRP2P · 0% COMISIONES",
-            pakistan_name: "Pakistán", pakistan_sub: "QRP2P · 0% COMISIONES",
-            palaos_name: "Palaos", palaos_sub: "QRP2P · 0% COMISIONES",
-            palestina_name: "Palestina", palestina_sub: "QRP2P · 0% COMISIONES",
-            panama_name: "Panamá", panama_sub: "QRP2P · 0% COMISIONES",
-            papua_nueva_guinea_name: "Papúa Nueva Guinea", papua_nueva_guinea_sub: "QRP2P · 0% COMISIONES",
-            paraguay_name: "Paraguay", paraguay_sub: "QRP2P · 0% COMISIONES",
-            peru_name: "Perú", peru_sub: "QRP2P · 0% COMISIONES",
-            polinesia_francesa_name: "Polinesia Francesa", polinesia_francesa_sub: "QRP2P · 0% COMISIONES",
-            polonia_name: "Polonia", polonia_sub: "QRP2P · 0% COMISIONES",
-            portugal_name: "Portugal", portugal_sub: "QRP2P · 0% COMISIONES",
-            puerto_rico_name: "Puerto Rico", puerto_rico_sub: "QRP2P · 0% COMISIONES",
-            reino_unido_name: "Reino Unido", reino_unido_sub: "QRP2P · 0% COMISIONES",
-            republica_centroafricana_name: "República Centroafricana", republica_centroafricana_sub: "QRP2P · 0% COMISIONES",
-            republica_checa_name: "República Checa", republica_checa_sub: "QRP2P · 0% COMISIONES",
-            republica_congo_name: "República del Congo", republica_congo_sub: "QRP2P · 0% COMISIONES",
-            republica_dominicana_name: "República Dominicana", republica_dominicana_sub: "QRP2P · 0% COMISIONES",
-            republica_democratica_congo_name: "Rep. Dem. del Congo", republica_democratica_congo_sub: "QRP2P · 0% COMISIONES",
-            ruanda_name: "Ruanda", ruanda_sub: "QRP2P · 0% COMISIONES",
-            rumania_name: "Rumanía", rumania_sub: "QRP2P · 0% COMISIONES",
-            rusia_name: "Rusia", rusia_sub: "QRP2P · 0% COMISIONES",
-            sahara_occidental_name: "Sáhara Occidental", sahara_occidental_sub: "QRP2P · 0% COMISIONES",
-            samoa_name: "Samoa", samoa_sub: "QRP2P · 0% COMISIONES",
-            samoa_americana_name: "Samoa Americana", samoa_americana_sub: "QRP2P · 0% COMISIONES",
-            san_bartolome_name: "San Bartolomé", san_bartolome_sub: "QRP2P · 0% COMISIONES",
-            san_cristobal_nieves_name: "San Cristóbal y Nieves", san_cristobal_nieves_sub: "QRP2P · 0% COMISIONES",
-            san_marino_name: "San Marino", san_marino_sub: "QRP2P · 0% COMISIONES",
-            san_martin_name: "San Martín", san_martin_sub: "QRP2P · 0% COMISIONES",
-            san_pedro_miquelon_name: "San Pedro y Miquelón", san_pedro_miquelon_sub: "QRP2P · 0% COMISIONES",
-            san_vicente_granadinas_name: "San Vicente y las Granadinas", san_vicente_granadinas_sub: "QRP2P · 0% COMISIONES",
-            santa_elena_name: "Santa Elena", santa_elena_sub: "QRP2P · 0% COMISIONES",
-            santa_lucia_name: "Santa Lucía", santa_lucia_sub: "QRP2P · 0% COMISIONES",
-            santo_tome_principe_name: "Santo Tomé y Príncipe", santo_tome_principe_sub: "QRP2P · 0% COMISIONES",
-            senegal_name: "Senegal", senegal_sub: "QRP2P · 0% COMISIONES",
-            serbia_name: "Serbia", serbia_sub: "QRP2P · 0% COMISIONES",
-            seychelles_name: "Seychelles", seychelles_sub: "QRP2P · 0% COMISIONES",
-            sierra_leona_name: "Sierra Leona", sierra_leona_sub: "QRP2P · 0% COMISIONES",
-            singapur_name: "Singapur", singapur_sub: "QRP2P · 0% COMISIONES",
-            sint_maarten_name: "Sint Maarten", sint_maarten_sub: "QRP2P · 0% COMISIONES",
-            siria_name: "Siria", siria_sub: "QRP2P · 0% COMISIONES",
-            somalia_name: "Somalia", somalia_sub: "QRP2P · 0% COMISIONES",
-            sri_lanka_name: "Sri Lanka", sri_lanka_sub: "QRP2P · 0% COMISIONES",
-            sudafrica_name: "Sudáfrica", sudafrica_sub: "QRP2P · 0% COMISIONES",
-            sudan_name: "Sudán", sudan_sub: "QRP2P · 0% COMISIONES",
-            sudan_sur_name: "Sudán del Sur", sudan_sur_sub: "QRP2P · 0% COMISIONES",
-            suecia_name: "Suecia", suecia_sub: "QRP2P · 0% COMISIONES",
-            suiza_name: "Suiza", suiza_sub: "QRP2P · 0% COMISIONES",
-            surinam_name: "Surinam", surinam_sub: "QRP2P · 0% COMISIONES",
-            tailandia_name: "Tailandia", tailandia_sub: "QRP2P · 0% COMISIONES",
-            taiwan_name: "Taiwán", taiwan_sub: "QRP2P · 0% COMISIONES",
-            tanzania_name: "Tanzania", tanzania_sub: "QRP2P · 0% COMISIONES",
-            tayikistan_name: "Tayikistán", tayikistan_sub: "QRP2P · 0% COMISIONES",
-            timor_oriental_name: "Timor Oriental", timor_oriental_sub: "QRP2P · 0% COMISIONES",
-            togo_name: "Togo", togo_sub: "QRP2P · 0% COMISIONES",
-            tonga_name: "Tonga", tonga_sub: "QRP2P · 0% COMISIONES",
-            trinidad_tobago_name: "Trinidad y Tobago", trinidad_tobago_sub: "QRP2P · 0% COMISIONES",
-            tunez_name: "Túnez", tunez_sub: "QRP2P · 0% COMISIONES",
-            turkmenistan_name: "Turkmenistán", turkmenistan_sub: "QRP2P · 0% COMISIONES",
-            turquia_name: "Turquía", turquia_sub: "QRP2P · 0% COMISIONES",
-            tuvalu_name: "Tuvalu", tuvalu_sub: "QRP2P · 0% COMISIONES",
-            ucrania_name: "Ucrania", ucrania_sub: "QRP2P · 0% COMISIONES",
-            uganda_name: "Uganda", uganda_sub: "QRP2P · 0% COMISIONES",
-            uruguay_name: "Uruguay", uruguay_sub: "QRP2P · 0% COMISIONES",
-            uzbekistan_name: "Uzbekistán", uzbekistan_sub: "QRP2P · 0% COMISIONES",
-            vanuatu_name: "Vanuatu", vanuatu_sub: "QRP2P · 0% COMISIONES",
-            venezuela_name: "Venezuela", venezuela_sub: "QRP2P · 0% COMISIONES",
-            vietnam_name: "Vietnam", vietnam_sub: "QRP2P · 0% COMISIONES",
-            wallis_futuna_name: "Wallis y Futuna", wallis_futuna_sub: "QRP2P · 0% COMISIONES",
-            yemen_name: "Yemen", yemen_sub: "QRP2P · 0% COMISIONES",
-            yibuti_name: "Yibuti", yibuti_sub: "QRP2P · 0% COMISIONES",
-            zambia_name: "Zambia", zambia_sub: "QRP2P · 0% COMISIONES",
-            zimbabue_name: "Zimbabue", zimbabue_sub: "QRP2P · 0% COMISIONES",
-            footer_copyright: "© QRP2P.COM — Marketplace directo entre comprador y vendedor verificado",
-            footer_tagline: "Propiedades Directas · 0% Comisiones · Verificación Garantizada",
-            no_results: "No se encontraron países. Prueba con otro término de búsqueda.",
-            install_text: "📱 Instalar QRP2P App",
-            install_btn: "Instalar"
-        },
-        en: {
-            tagline: "verified buyer-seller direct marketplace",
-            title: "Select your country<br>to enter the marketplace",
-            subtitle: "Buy, sell and invest directly between verified owners. 0% commission · secure transactions.",
-            afganistan_name: "Afghanistan", afganistan_sub: "QRP2P · 0% COMMISSION",
-            albania_name: "Albania", albania_sub: "QRP2P · 0% COMMISSION",
-            alemania_name: "Germany", alemania_sub: "QRP2P · 0% COMMISSION",
-            andorra_name: "Andorra", andorra_sub: "QRP2P · 0% COMMISSION",
-            angola_name: "Angola", angola_sub: "QRP2P · 0% COMMISSION",
-            anguila_name: "Anguilla", anguila_sub: "QRP2P · 0% COMMISSION",
-            antigua_barbuda_name: "Antigua and Barbuda", antigua_barbuda_sub: "QRP2P · 0% COMMISSION",
-            arabia_saudita_name: "Saudi Arabia", arabia_saudita_sub: "QRP2P · 0% COMMISSION",
-            argelia_name: "Algeria", argelia_sub: "QRP2P · 0% COMMISSION",
-            argentina_name: "Argentina", argentina_sub: "QRP2P · 0% COMMISSION",
-            armenia_name: "Armenia", armenia_sub: "QRP2P · 0% COMMISSION",
-            aruba_name: "Aruba", aruba_sub: "QRP2P · 0% COMMISSION",
-            australia_name: "Australia", australia_sub: "QRP2P · 0% COMMISSION",
-            austria_name: "Austria", austria_sub: "QRP2P · 0% COMMISSION",
-            azerbaiyan_name: "Azerbaijan", azerbaiyan_sub: "QRP2P · 0% COMMISSION",
-            bahamas_name: "Bahamas", bahamas_sub: "QRP2P · 0% COMMISSION",
-            bahrein_name: "Bahrain", bahrein_sub: "QRP2P · 0% COMMISSION",
-            bangladesh_name: "Bangladesh", bangladesh_sub: "QRP2P · 0% COMMISSION",
-            barbados_name: "Barbados", barbados_sub: "QRP2P · 0% COMMISSION",
-            belgica_name: "Belgium", belgica_sub: "QRP2P · 0% COMMISSION",
-            belice_name: "Belize", belice_sub: "QRP2P · 0% COMMISSION",
-            benin_name: "Benin", benin_sub: "QRP2P · 0% COMMISSION",
-            bermudas_name: "Bermuda", bermudas_sub: "QRP2P · 0% COMMISSION",
-            bielorrusia_name: "Belarus", bielorrusia_sub: "QRP2P · 0% COMMISSION",
-            birmania_name: "Myanmar", birmania_sub: "QRP2P · 0% COMMISSION",
-            bolivia_name: "Bolivia", bolivia_sub: "QRP2P · 0% COMMISSION",
-            bosnia_herzegovina_name: "Bosnia and Herzegovina", bosnia_herzegovina_sub: "QRP2P · 0% COMMISSION",
-            botsuana_name: "Botswana", botsuana_sub: "QRP2P · 0% COMMISSION",
-            brasil_name: "Brazil", brasil_sub: "QRP2P · 0% COMMISSION",
-            brunei_name: "Brunei", brunei_sub: "QRP2P · 0% COMMISSION",
-            bulgaria_name: "Bulgaria", bulgaria_sub: "QRP2P · 0% COMMISSION",
-            burkina_faso_name: "Burkina Faso", burkina_faso_sub: "QRP2P · 0% COMMISSION",
-            burundi_name: "Burundi", burundi_sub: "QRP2P · 0% COMMISSION",
-            butan_name: "Bhutan", butan_sub: "QRP2P · 0% COMMISSION",
-            cabo_verde_name: "Cape Verde", cabo_verde_sub: "QRP2P · 0% COMMISSION",
-            camboya_name: "Cambodia", camboya_sub: "QRP2P · 0% COMMISSION",
-            camerun_name: "Cameroon", camerun_sub: "QRP2P · 0% COMMISSION",
-            canada_name: "Canada", canada_sub: "QRP2P · 0% COMMISSION",
-            catar_name: "Qatar", catar_sub: "QRP2P · 0% COMMISSION",
-            chad_name: "Chad", chad_sub: "QRP2P · 0% COMMISSION",
-            chile_name: "Chile", chile_sub: "QRP2P · 0% COMMISSION",
-            china_name: "China", china_sub: "QRP2P · 0% COMMISSION",
-            chipre_name: "Cyprus", chipre_sub: "QRP2P · 0% COMMISSION",
-            ciudad_vaticano_name: "Vatican City", ciudad_vaticano_sub: "QRP2P · 0% COMMISSION",
-            colombia_name: "Colombia", colombia_sub: "QRP2P · 0% COMMISSION",
-            comoras_name: "Comoros", comoras_sub: "QRP2P · 0% COMMISSION",
-            corea_norte_name: "North Korea", corea_norte_sub: "QRP2P · 0% COMMISSION",
-            corea_sur_name: "South Korea", corea_sur_sub: "QRP2P · 0% COMMISSION",
-            costa_marfil_name: "Ivory Coast", costa_marfil_sub: "QRP2P · 0% COMMISSION",
-            costa_rica_name: "Costa Rica", costa_rica_sub: "QRP2P · 0% COMMISSION",
-            croacia_name: "Croatia", croacia_sub: "QRP2P · 0% COMMISSION",
-            cuba_name: "Cuba", cuba_sub: "QRP2P · 0% COMMISSION",
-            dinamarca_name: "Denmark", dinamarca_sub: "QRP2P · 0% COMMISSION",
-            dominica_name: "Dominica", dominica_sub: "QRP2P · 0% COMMISSION",
-            ecuador_name: "Ecuador", ecuador_sub: "QRP2P · 0% COMMISSION",
-            egipto_name: "Egypt", egipto_sub: "QRP2P · 0% COMMISSION",
-            el_salvador_name: "El Salvador", el_salvador_sub: "QRP2P · 0% COMMISSION",
-            emiratos_arabes_name: "United Arab Emirates", emiratos_arabes_sub: "QRP2P · 0% COMMISSION",
-            eritrea_name: "Eritrea", eritrea_sub: "QRP2P · 0% COMMISSION",
-            eslovaquia_name: "Slovakia", eslovaquia_sub: "QRP2P · 0% COMMISSION",
-            eslovenia_name: "Slovenia", eslovenia_sub: "QRP2P · 0% COMMISSION",
-            espana_name: "Spain", espana_sub: "QRP2P · 0% COMMISSION",
-            estados_unidos_name: "United States", estados_unidos_sub: "QRP2P · 0% COMMISSION",
-            estonia_name: "Estonia", estonia_sub: "QRP2P · 0% COMMISSION",
-            esuatini_name: "Eswatini", esuatini_sub: "QRP2P · 0% COMMISSION",
-            etiopia_name: "Ethiopia", etiopia_sub: "QRP2P · 0% COMMISSION",
-            fiji_name: "Fiji", fiji_sub: "QRP2P · 0% COMMISSION",
-            filipinas_name: "Philippines", filipinas_sub: "QRP2P · 0% COMMISSION",
-            finlandia_name: "Finland", finlandia_sub: "QRP2P · 0% COMMISSION",
-            francia_name: "France", francia_sub: "QRP2P · 0% COMMISSION",
-            gabon_name: "Gabon", gabon_sub: "QRP2P · 0% COMMISSION",
-            gambia_name: "Gambia", gambia_sub: "QRP2P · 0% COMMISSION",
-            georgia_name: "Georgia", georgia_sub: "QRP2P · 0% COMMISSION",
-            ghana_name: "Ghana", ghana_sub: "QRP2P · 0% COMMISSION",
-            granada_name: "Grenada", granada_sub: "QRP2P · 0% COMMISSION",
-            grecia_name: "Greece", grecia_sub: "QRP2P · 0% COMMISSION",
-            groenlandia_name: "Greenland", groenlandia_sub: "QRP2P · 0% COMMISSION",
-            guadalupe_name: "Guadeloupe", guadalupe_sub: "QRP2P · 0% COMMISSION",
-            guam_name: "Guam", guam_sub: "QRP2P · 0% COMMISSION",
-            guatemala_name: "Guatemala", guatemala_sub: "QRP2P · 0% COMMISSION",
-            guayana_francesa_name: "French Guiana", guayana_francesa_sub: "QRP2P · 0% COMMISSION",
-            guernsey_name: "Guernsey", guernsey_sub: "QRP2P · 0% COMMISSION",
-            guinea_name: "Guinea", guinea_sub: "QRP2P · 0% COMMISSION",
-            guinea_bisau_name: "Guinea-Bissau", guinea_bisau_sub: "QRP2P · 0% COMMISSION",
-            guinea_ecuatorial_name: "Equatorial Guinea", guinea_ecuatorial_sub: "QRP2P · 0% COMMISSION",
-            guyana_name: "Guyana", guyana_sub: "QRP2P · 0% COMMISSION",
-            haiti_name: "Haiti", haiti_sub: "QRP2P · 0% COMMISSION",
-            honduras_name: "Honduras", honduras_sub: "QRP2P · 0% COMMISSION",
-            hong_kong_name: "Hong Kong", hong_kong_sub: "QRP2P · 0% COMMISSION",
-            hungria_name: "Hungary", hungria_sub: "QRP2P · 0% COMMISSION",
-            india_name: "India", india_sub: "QRP2P · 0% COMMISSION",
-            indonesia_name: "Indonesia", indonesia_sub: "QRP2P · 0% COMMISSION",
-            irak_name: "Iraq", irak_sub: "QRP2P · 0% COMMISSION",
-            iran_name: "Iran", iran_sub: "QRP2P · 0% COMMISSION",
-            irlanda_name: "Ireland", irlanda_sub: "QRP2P · 0% COMMISSION",
-            isla_man_name: "Isle of Man", isla_man_sub: "QRP2P · 0% COMMISSION",
-            islandia_name: "Iceland", islandia_sub: "QRP2P · 0% COMMISSION",
-            islas_caiman_name: "Cayman Islands", islas_caiman_sub: "QRP2P · 0% COMMISSION",
-            islas_cook_name: "Cook Islands", islas_cook_sub: "QRP2P · 0% COMMISSION",
-            islas_feroe_name: "Faroe Islands", islas_feroe_sub: "QRP2P · 0% COMMISSION",
-            islas_malvinas_name: "Falkland Islands", islas_malvinas_sub: "QRP2P · 0% COMMISSION",
-            islas_marshall_name: "Marshall Islands", islas_marshall_sub: "QRP2P · 0% COMMISSION",
-            islas_salomon_name: "Solomon Islands", islas_salomon_sub: "QRP2P · 0% COMMISSION",
-            islas_turcas_caicos_name: "Turks and Caicos Islands", islas_turcas_caicos_sub: "QRP2P · 0% COMMISSION",
-            islas_virgenes_britanicas_name: "British Virgin Islands", islas_virgenes_britanicas_sub: "QRP2P · 0% COMMISSION",
-            islas_virgenes_eeuu_name: "US Virgin Islands", islas_virgenes_eeuu_sub: "QRP2P · 0% COMMISSION",
-            israel_name: "Israel", israel_sub: "QRP2P · 0% COMMISSION",
-            italia_name: "Italy", italia_sub: "QRP2P · 0% COMMISSION",
-            jamaica_name: "Jamaica", jamaica_sub: "QRP2P · 0% COMMISSION",
-            japon_name: "Japan", japon_sub: "QRP2P · 0% COMMISSION",
-            jersey_name: "Jersey", jersey_sub: "QRP2P · 0% COMMISSION",
-            jordania_name: "Jordan", jordania_sub: "QRP2P · 0% COMMISSION",
-            kazajistan_name: "Kazakhstan", kazajistan_sub: "QRP2P · 0% COMMISSION",
-            kenia_name: "Kenya", kenia_sub: "QRP2P · 0% COMMISSION",
-            kirguistan_name: "Kyrgyzstan", kirguistan_sub: "QRP2P · 0% COMMISSION",
-            kiribati_name: "Kiribati", kiribati_sub: "QRP2P · 0% COMMISSION",
-            kuwait_name: "Kuwait", kuwait_sub: "QRP2P · 0% COMMISSION",
-            laos_name: "Laos", laos_sub: "QRP2P · 0% COMMISSION",
-            lesoto_name: "Lesotho", lesoto_sub: "QRP2P · 0% COMMISSION",
-            letonia_name: "Latvia", letonia_sub: "QRP2P · 0% COMMISSION",
-            libano_name: "Lebanon", libano_sub: "QRP2P · 0% COMMISSION",
-            liberia_name: "Liberia", liberia_sub: "QRP2P · 0% COMMISSION",
-            libia_name: "Libya", libia_sub: "QRP2P · 0% COMMISSION",
-            liechtenstein_name: "Liechtenstein", liechtenstein_sub: "QRP2P · 0% COMMISSION",
-            lituania_name: "Lithuania", lituania_sub: "QRP2P · 0% COMMISSION",
-            luxemburgo_name: "Luxembourg", luxemburgo_sub: "QRP2P · 0% COMMISSION",
-            macao_name: "Macau", macao_sub: "QRP2P · 0% COMMISSION",
-            macedonia_norte_name: "North Macedonia", macedonia_norte_sub: "QRP2P · 0% COMMISSION",
-            madagascar_name: "Madagascar", madagascar_sub: "QRP2P · 0% COMMISSION",
-            malasia_name: "Malaysia", malasia_sub: "QRP2P · 0% COMMISSION",
-            malaui_name: "Malawi", malaui_sub: "QRP2P · 0% COMMISSION",
-            maldivas_name: "Maldives", maldivas_sub: "QRP2P · 0% COMMISSION",
-            mali_name: "Mali", mali_sub: "QRP2P · 0% COMMISSION",
-            malta_name: "Malta", malta_sub: "QRP2P · 0% COMMISSION",
-            marruecos_name: "Morocco", marruecos_sub: "QRP2P · 0% COMMISSION",
-            martinica_name: "Martinique", martinica_sub: "QRP2P · 0% COMMISSION",
-            mauricio_name: "Mauritius", mauricio_sub: "QRP2P · 0% COMMISSION",
-            mauritania_name: "Mauritania", mauritania_sub: "QRP2P · 0% COMMISSION",
-            mayotte_name: "Mayotte", mayotte_sub: "QRP2P · 0% COMMISSION",
-            mexico_name: "Mexico", mexico_sub: "QRP2P · 0% COMMISSION",
-            micronesia_name: "Micronesia", micronesia_sub: "QRP2P · 0% COMMISSION",
-            moldavia_name: "Moldova", moldavia_sub: "QRP2P · 0% COMMISSION",
-            monaco_name: "Monaco", monaco_sub: "QRP2P · 0% COMMISSION",
-            mongolia_name: "Mongolia", mongolia_sub: "QRP2P · 0% COMMISSION",
-            montenegro_name: "Montenegro", montenegro_sub: "QRP2P · 0% COMMISSION",
-            montserrat_name: "Montserrat", montserrat_sub: "QRP2P · 0% COMMISSION",
-            mozambique_name: "Mozambique", mozambique_sub: "QRP2P · 0% COMMISSION",
-            namibia_name: "Namibia", namibia_sub: "QRP2P · 0% COMMISSION",
-            nauru_name: "Nauru", nauru_sub: "QRP2P · 0% COMMISSION",
-            nepal_name: "Nepal", nepal_sub: "QRP2P · 0% COMMISSION",
-            nicaragua_name: "Nicaragua", nicaragua_sub: "QRP2P · 0% COMMISSION",
-            niger_name: "Niger", niger_sub: "QRP2P · 0% COMMISSION",
-            nigeria_name: "Nigeria", nigeria_sub: "QRP2P · 0% COMMISSION",
-            niue_name: "Niue", niue_sub: "QRP2P · 0% COMMISSION",
-            noruega_name: "Norway", noruega_sub: "QRP2P · 0% COMMISSION",
-            nueva_caledonia_name: "New Caledonia", nueva_caledonia_sub: "QRP2P · 0% COMMISSION",
-            nueva_zelanda_name: "New Zealand", nueva_zelanda_sub: "QRP2P · 0% COMMISSION",
-            oman_name: "Oman", oman_sub: "QRP2P · 0% COMMISSION",
-            paises_bajos_name: "Netherlands", paises_bajos_sub: "QRP2P · 0% COMMISSION",
-            pakistan_name: "Pakistan", pakistan_sub: "QRP2P · 0% COMMISSION",
-            palaos_name: "Palau", palaos_sub: "QRP2P · 0% COMMISSION",
-            palestina_name: "Palestine", palestina_sub: "QRP2P · 0% COMMISSION",
-            panama_name: "Panama", panama_sub: "QRP2P · 0% COMMISSION",
-            papua_nueva_guinea_name: "Papua New Guinea", papua_nueva_guinea_sub: "QRP2P · 0% COMMISSION",
-            paraguay_name: "Paraguay", paraguay_sub: "QRP2P · 0% COMMISSION",
-            peru_name: "Peru", peru_sub: "QRP2P · 0% COMMISSION",
-            polinesia_francesa_name: "French Polynesia", polinesia_francesa_sub: "QRP2P · 0% COMMISSION",
-            polonia_name: "Poland", polonia_sub: "QRP2P · 0% COMMISSION",
-            portugal_name: "Portugal", portugal_sub: "QRP2P · 0% COMMISSION",
-            puerto_rico_name: "Puerto Rico", puerto_rico_sub: "QRP2P · 0% COMMISSION",
-            reino_unido_name: "United Kingdom", reino_unido_sub: "QRP2P · 0% COMMISSION",
-            republica_centroafricana_name: "Central African Republic", republica_centroafricana_sub: "QRP2P · 0% COMMISSION",
-            republica_checa_name: "Czech Republic", republica_checa_sub: "QRP2P · 0% COMMISSION",
-            republica_congo_name: "Republic of the Congo", republica_congo_sub: "QRP2P · 0% COMMISSION",
-            republica_dominicana_name: "Dominican Republic", republica_dominicana_sub: "QRP2P · 0% COMMISSION",
-            republica_democratica_congo_name: "Democratic Republic of the Congo", republica_democratica_congo_sub: "QRP2P · 0% COMMISSION",
-            ruanda_name: "Rwanda", ruanda_sub: "QRP2P · 0% COMMISSION",
-            rumania_name: "Romania", rumania_sub: "QRP2P · 0% COMMISSION",
-            rusia_name: "Russia", rusia_sub: "QRP2P · 0% COMMISSION",
-            sahara_occidental_name: "Western Sahara", sahara_occidental_sub: "QRP2P · 0% COMMISSION",
-            samoa_name: "Samoa", samoa_sub: "QRP2P · 0% COMMISSION",
-            samoa_americana_name: "American Samoa", samoa_americana_sub: "QRP2P · 0% COMMISSION",
-            san_bartolome_name: "Saint Barthélemy", san_bartolome_sub: "QRP2P · 0% COMMISSION",
-            san_cristobal_nieves_name: "Saint Kitts and Nevis", san_cristobal_nieves_sub: "QRP2P · 0% COMMISSION",
-            san_marino_name: "San Marino", san_marino_sub: "QRP2P · 0% COMMISSION",
-            san_martin_name: "Saint Martin", san_martin_sub: "QRP2P · 0% COMMISSION",
-            san_pedro_miquelon_name: "Saint Pierre and Miquelon", san_pedro_miquelon_sub: "QRP2P · 0% COMMISSION",
-            san_vicente_granadinas_name: "Saint Vincent and the Grenadines", san_vicente_granadinas_sub: "QRP2P · 0% COMMISSION",
-            santa_elena_name: "Saint Helena", santa_elena_sub: "QRP2P · 0% COMMISSION",
-            santa_lucia_name: "Saint Lucia", santa_lucia_sub: "QRP2P · 0% COMMISSION",
-            santo_tome_principe_name: "São Tomé and Príncipe", santo_tome_principe_sub: "QRP2P · 0% COMMISSION",
-            senegal_name: "Senegal", senegal_sub: "QRP2P · 0% COMMISSION",
-            serbia_name: "Serbia", serbia_sub: "QRP2P · 0% COMMISSION",
-            seychelles_name: "Seychelles", seychelles_sub: "QRP2P · 0% COMMISSION",
-            sierra_leona_name: "Sierra Leone", sierra_leona_sub: "QRP2P · 0% COMMISSION",
-            singapur_name: "Singapore", singapur_sub: "QRP2P · 0% COMMISSION",
-            sint_maarten_name: "Sint Maarten", sint_maarten_sub: "QRP2P · 0% COMMISSION",
-            siria_name: "Syria", siria_sub: "QRP2P · 0% COMMISSION",
-            somalia_name: "Somalia", somalia_sub: "QRP2P · 0% COMMISSION",
-            sri_lanka_name: "Sri Lanka", sri_lanka_sub: "QRP2P · 0% COMMISSION",
-            sudafrica_name: "South Africa", sudafrica_sub: "QRP2P · 0% COMMISSION",
-            sudan_name: "Sudan", sudan_sub: "QRP2P · 0% COMMISSION",
-            sudan_sur_name: "South Sudan", sudan_sur_sub: "QRP2P · 0% COMMISSION",
-            suecia_name: "Sweden", suecia_sub: "QRP2P · 0% COMMISSION",
-            suiza_name: "Switzerland", suiza_sub: "QRP2P · 0% COMMISSION",
-            surinam_name: "Suriname", surinam_sub: "QRP2P · 0% COMMISSION",
-            tailandia_name: "Thailand", tailandia_sub: "QRP2P · 0% COMMISSION",
-            taiwan_name: "Taiwan", taiwan_sub: "QRP2P · 0% COMMISSION",
-            tanzania_name: "Tanzania", tanzania_sub: "QRP2P · 0% COMMISSION",
-            tayikistan_name: "Tajikistan", tayikistan_sub: "QRP2P · 0% COMMISSION",
-            timor_oriental_name: "East Timor", timor_oriental_sub: "QRP2P · 0% COMMISSION",
-            togo_name: "Togo", togo_sub: "QRP2P · 0% COMMISSION",
-            tonga_name: "Tonga", tonga_sub: "QRP2P · 0% COMMISSION",
-            trinidad_tobago_name: "Trinidad and Tobago", trinidad_tobago_sub: "QRP2P · 0% COMMISSION",
-            tunez_name: "Tunisia", tunez_sub: "QRP2P · 0% COMMISSION",
-            turkmenistan_name: "Turkmenistan", turkmenistan_sub: "QRP2P · 0% COMMISSION",
-            turquia_name: "Turkey", turquia_sub: "QRP2P · 0% COMMISSION",
-            tuvalu_name: "Tuvalu", tuvalu_sub: "QRP2P · 0% COMMISSION",
-            ucrania_name: "Ukraine", ucrania_sub: "QRP2P · 0% COMMISSION",
-            uganda_name: "Uganda", uganda_sub: "QRP2P · 0% COMMISSION",
-            uruguay_name: "Uruguay", uruguay_sub: "QRP2P · 0% COMMISSION",
-            uzbekistan_name: "Uzbekistan", uzbekistan_sub: "QRP2P · 0% COMMISSION",
-            vanuatu_name: "Vanuatu", vanuatu_sub: "QRP2P · 0% COMMISSION",
-            venezuela_name: "Venezuela", venezuela_sub: "QRP2P · 0% COMMISSION",
-            vietnam_name: "Vietnam", vietnam_sub: "QRP2P · 0% COMMISSION",
-            wallis_futuna_name: "Wallis and Futuna", wallis_futuna_sub: "QRP2P · 0% COMMISSION",
-            yemen_name: "Yemen", yemen_sub: "QRP2P · 0% COMMISSION",
-            yibuti_name: "Djibouti", yibuti_sub: "QRP2P · 0% COMMISSION",
-            zambia_name: "Zambia", zambia_sub: "QRP2P · 0% COMMISSION",
-            zimbabue_name: "Zimbabwe", zimbabue_sub: "QRP2P · 0% COMMISSION",
-            footer_copyright: "© QRP2P.COM — Verified buyer-seller direct marketplace",
-            footer_tagline: "Direct Properties · 0% Commission · Verified Guarantee",
-            no_results: "No countries found. Try another search term.",
-            install_text: "📱 Install QRP2P App",
-            install_btn: "Install"
-        }
+    
+    const translations = { 
+      en: { 
+        buscar_placeholder: "Search businesses around the world...", 
+        centrar: "CENTER", 
+        mapa: "Map", 
+        satelite: "Satellite", 
+        view_store: "VIEW STORE"
+      },
+      es: { 
+        buscar_placeholder: "Buscar negocios en todo el mundo...", 
+        centrar: "CENTRAR", 
+        mapa: "Mapa", 
+        satelite: "Satélite", 
+        view_store: "VER TIENDA"
+      }
     };
-
-    // --------------------------------------------------------------
-    // 4. RESTO DEL CÓDIGO (RENDER, BÚSQUEDA, IDIOMAS, PWA)
-    // --------------------------------------------------------------
-    let currentLang = 'es';
-    let currentFilter = '';
-    let deferredPrompt = null;
-
-    function normalizeString(str) {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\w\s]/g, '');
+    
+    function t(key) { return translations[currentLang][key] || key; }
+    
+    function generarPopupHTML(business) { 
+      const name = currentLang === 'es' ? business.name_es : business.name_en;
+      const category = currentLang === 'es' ? business.category_es : business.category_en;
+      const description = currentLang === 'es' ? business.description_es : business.description_en;
+      const address = currentLang === 'es' ? business.address_es : business.address_en;
+      const storeText = t('view_store');
+      const websiteUrl = business.website || (business.whatsapp ? `https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}` : '#');
+      let contactButtons = '';
+      if(business.website) contactButtons += `<a href="${business.website}" target="_blank" class="contact-link"><i class="fas fa-globe"></i> Web</a>`;
+      if(business.whatsapp) contactButtons += `<a href="https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
+      if(business.phone) contactButtons += `<a href="tel:${business.phone}" class="contact-link"><i class="fas fa-phone"></i> Call</a>`;
+      if(business.email) contactButtons += `<a href="mailto:${business.email}" class="contact-link"><i class="fas fa-envelope"></i> Email</a>`;
+      return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${name}</h3><span class="popup-business-category">${category}</span></div><div class="popup-business-info"><div class="popup-business-description">${description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> ${storeText}</a></div></div>`; 
     }
-
-    function getSearchableTextForCountry(country, langData) {
-        const countryName = langData[country.nameKey] || '';
-        const countrySub = langData[country.subKey] || '';
-        const baseTerms = country.searchTerms || [];
-        let combined = `${countryName} ${countrySub} ${baseTerms.join(' ')}`.toLowerCase();
-        return normalizeString(combined);
+    
+    function initMap() { 
+      const googleMapsLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
+      const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
+      
+      mapa = L.map('mapa', { center: [20, 0], zoom: 2, zoomControl: false });
+      currentLayer = googleMapsLayer;
+      currentLayer.addTo(mapa);
+      
+      let clusters = L.markerClusterGroup({ iconCreateFunction: cluster => L.divIcon({ html: `<div>${cluster.getChildCount()}</div>`, className: 'cluster-marcadores', iconSize: [40,40] }) }); 
+      let icono = L.divIcon({ className: 'negocio-marker', html: '⚡', iconSize: [32,32], popupAnchor: [0,-16] }); 
+      
+      verifiedBusinesses.forEach(business => { 
+        let popup = generarPopupHTML(business); 
+        let marker = L.marker(business.latlng, { icon: icono }).bindPopup(popup, { maxWidth: 380, className: 'custom-popup' }); 
+        marker.datosNegocio = business; 
+        marker.datosBusqueda = `${business.name_en} ${business.name_es} ${business.category_en} ${business.category_es} ${business.description_en} ${business.description_es}`.toLowerCase(); 
+        marcadoresOriginales.push(marker); 
+        clusters.addLayer(marker); 
+      }); 
+      mapa.addLayer(clusters); 
+      
+      mapa.googleMapsLayer = googleMapsLayer;
+      mapa.googleSatelliteLayer = googleSatelliteLayer;
     }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+    
+    function centrarMapaRapido() {
+      if (navigator.geolocation) {
+        const btn = document.getElementById('centrar-btn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>LOCATING...</span>';
+        navigator.geolocation.getCurrentPosition(
+          pos => { const { latitude, longitude } = pos.coords; if (userMarker) mapa.removeLayer(userMarker); userMarker = L.marker([latitude, longitude], { icon: L.divIcon({ className: 'user-location-marker', html: '📍', iconSize: [28, 28] }) }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); mapa.setView([latitude, longitude], 12); btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; },
+          err => { btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; mapa.setView([20, 0], 2); alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando vista global.' : 'Could not get your location. Showing global view.'); }
+        );
+      } else { mapa.setView([20, 0], 2); }
     }
-
-    function renderCountries() {
-        const container = document.getElementById('countriesContainer');
-        if (!container) return;
-        const langData = translations[currentLang];
-        const filterNorm = normalizeString(currentFilter);
-        
-        let html = '';
-        let visibleCount = 0;
-        
-        countriesData.forEach(country => {
-            const searchableText = getSearchableTextForCountry(country, langData);
-            const matches = filterNorm === '' || searchableText.includes(filterNorm);
-            if (matches) visibleCount++;
-            
-            const countryName = langData[country.nameKey];
-            const countrySub = langData[country.subKey];
-            const displayStyle = matches ? '' : 'hidden-card';
-            
-            const fullUrl = `https://${country.domain}`;
-            
-            html += `
-                <a href="${fullUrl}" class="country-card ${displayStyle}" target="_self" rel="noopener noreferrer" data-country-id="${country.id}">
-                    <div class="country-flag">${country.flag}</div>
-                    <div class="country-name">${escapeHtml(countryName)}</div>
-                    <div class="country-sub">${escapeHtml(countrySub)}</div>
-                    <div class="divider" style="margin: 0.8rem auto; width: 30px;"></div>
-                    <div class="country-domain">${fullUrl}</div>
-                </a>
-            `;
-        });
-        
-        if (visibleCount === 0 && currentFilter !== '') {
-            html += `<div class="no-results">${escapeHtml(langData.no_results)}</div>`;
-        }
-        
-        container.innerHTML = html;
-        
-        const resultsSpan = document.getElementById('resultsCount');
-        if (resultsSpan) {
-            if (currentFilter === '') {
-                resultsSpan.innerHTML = '';
-            } else {
-                const resultText = currentLang === 'es' 
-                    ? `${visibleCount} resultado${visibleCount !== 1 ? 's' : ''} encontrado${visibleCount !== 1 ? 's' : ''}`
-                    : `${visibleCount} result${visibleCount !== 1 ? 's' : ''} found`;
-                resultsSpan.innerHTML = resultText;
-            }
-        }
-        
-        const clearBtn = document.getElementById('clearSearch');
-        if (clearBtn) {
-            clearBtn.style.display = currentFilter !== '' ? 'block' : 'none';
-        }
+    
+    function updateUILanguage() {
+      document.getElementById('buscador').placeholder = t('buscar_placeholder');
+      document.getElementById('centrar-text').innerText = t('centrar');
+      document.getElementById('map-text').innerText = t('mapa');
+      document.getElementById('satellite-text').innerText = t('satelite');
+      marcadoresOriginales.forEach(marker => { marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); });
     }
-
-    function setLanguage(lang) {
-        if (!translations[lang]) return;
-        currentLang = lang;
-        const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang][key] !== undefined) {
-                if (key === 'title') {
-                    el.innerHTML = translations[lang][key];
-                } else {
-                    el.innerText = translations[lang][key];
-                }
-            }
-        });
-        const searchInput = document.getElementById('countrySearch');
-        if (searchInput) {
-            searchInput.placeholder = currentLang === 'es' ? 'Buscar país...' : 'Search country...';
-        }
-        renderCountries();
-        
-        document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-        document.documentElement.lang = lang === 'es' ? 'es' : 'en';
-        localStorage.setItem('qrp2p_lang', lang);
-    }
-
-    let debounceTimer;
-    function onSearchInput(value) {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            currentFilter = value;
-            renderCountries();
-        }, 180);
-    }
-
-    function initSearch() {
-        const searchInput = document.getElementById('countrySearch');
-        const clearBtn = document.getElementById('clearSearch');
-        if (!searchInput) return;
-        
-        searchInput.addEventListener('input', (e) => {
-            onSearchInput(e.target.value);
-        });
-        
-        if (clearBtn) {
-            clearBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                onSearchInput('');
-                searchInput.focus();
-            });
-        }
-    }
-
-    function initPWAInstall() {
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            const installBanner = document.getElementById('installBanner');
-            if (installBanner) installBanner.style.display = 'flex';
-        });
-
-        const installBtn = document.getElementById('installBtn');
-        if (installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        console.log('PWA instalada');
-                        const installBanner = document.getElementById('installBanner');
-                        if (installBanner) installBanner.style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                }
-            });
-        }
-    }
-
-    function registerServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registrado:', registration);
-                    })
-                    .catch(error => {
-                        console.log('Error al registrar Service Worker:', error);
-                    });
-            });
-        }
-    }
-
-    function loadInitialLanguage() {
-        const savedLang = localStorage.getItem('qrp2p_lang');
-        if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-            setLanguage(savedLang);
-        } else {
-            const browserLang = navigator.language || '';
-            setLanguage(browserLang.startsWith('es') ? 'es' : 'en');
-        }
-    }
-
-    function bindLanguageEvents() {
-        document.getElementById('lang-es').addEventListener('click', () => setLanguage('es'));
-        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        initSearch();
-        bindLanguageEvents();
-        loadInitialLanguage();
-        renderCountries();
-        initPWAInstall();
-        registerServiceWorker();
-        
-        const searchInputPlace = document.getElementById('countrySearch');
-        if (searchInputPlace) {
-            searchInputPlace.placeholder = currentLang === 'es' ? 'Buscar país...' : 'Search country...';
-        }
+    
+    document.addEventListener('DOMContentLoaded', () => { 
+      initMap(); updateUILanguage();
+      
+      document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
+      
+      document.getElementById('map-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.googleMapsLayer; currentLayer.addTo(mapa); document.getElementById('map-btn').classList.add('active'); document.getElementById('satellite-btn').classList.remove('active'); }); 
+      document.getElementById('satellite-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.googleSatelliteLayer; currentLayer.addTo(mapa); document.getElementById('satellite-btn').classList.add('active'); document.getElementById('map-btn').classList.remove('active'); }); 
+      
+      document.querySelectorAll('.lang-btn').forEach(btn => { 
+        btn.addEventListener('click', () => { document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentLang = btn.getAttribute('data-lang'); updateUILanguage(); }); 
+      });
+      
+      let inputBuscar = document.getElementById('buscador'); let buscadorTimeout;
+      inputBuscar.addEventListener('input', (e) => { 
+        clearTimeout(buscadorTimeout); 
+        let term = e.target.value.trim(); 
+        let sugDiv = document.getElementById('sugerencias-busqueda'); 
+        if(term.length < 2) { sugDiv.style.display = 'none'; return; } 
+        sugDiv.innerHTML = `<div class="sugerencia-item">🔍 ${currentLang === 'es' ? 'Buscando...' : 'Searching...'}</div>`; 
+        sugDiv.style.display = 'block'; 
+        buscadorTimeout = setTimeout(() => { 
+          let resultados = marcadoresOriginales.filter(m => m.datosBusqueda.includes(term.toLowerCase())); 
+          sugDiv.innerHTML = ''; 
+          resultados.forEach(m => { 
+            let name = currentLang === 'es' ? m.datosNegocio.name_es : m.datosNegocio.name_en; 
+            let item = document.createElement('div'); 
+            item.className = 'sugerencia-item'; 
+            item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">${currentLang === 'es' ? 'Ver' : 'View'}</button>`; 
+            item.querySelector('.sugerencia-boton').addEventListener('click', () => { m.openPopup(); mapa.setView(m.getLatLng(), 12); sugDiv.style.display = 'none'; }); 
+            sugDiv.appendChild(item); 
+          }); 
+          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ ${currentLang === 'es' ? 'No se encontraron resultados en el mundo' : 'No results found worldwide'}</div>`; 
+        }, 300); 
+      }); 
+      document.addEventListener('click', (e) => { if(!e.target.closest('.contenedor-buscador')) document.getElementById('sugerencias-busqueda').style.display = 'none'; });
     });
-</script>
+  </script>
 </body>
 </html>
