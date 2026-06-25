@@ -319,16 +319,6 @@
         .product-supplier .label {
             font-weight: 400;
         }
-
-        .product-badge {
-            background-color: var(--color-azul);
-            color: white;
-            padding: 0.15rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            margin-left: 0.3rem;
-        }
         
         .product-actions {
             display: flex;
@@ -1518,7 +1508,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 143,
@@ -1534,7 +1525,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 144,
@@ -1550,7 +1542,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 145,
@@ -1566,7 +1559,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 146,
@@ -1582,7 +1576,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 147,
@@ -1598,7 +1593,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 148,
@@ -1614,7 +1610,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 149,
@@ -1630,7 +1627,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 150,
@@ -1646,7 +1644,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             {
                 "id": 151,
@@ -1662,7 +1661,8 @@
                 ],
                 "isReserva": false,
                 "isPhysical": true,
-                "hasLogistics": true
+                "hasLogistics": true,
+                "isInmueble": false
             },
             // Producto de reserva (no físico)
             {
@@ -1679,9 +1679,10 @@
                 ],
                 "isReserva": true,
                 "isPhysical": false,
-                "hasLogistics": false
+                "hasLogistics": false,
+                "isInmueble": false
             },
-            // Producto físico SIN logística (inmueble en venta)
+            // Inmueble en venta (físico SIN logística, CON cita previa)
             {
                 "id": 300,
                 "title": "APARTAMENTO EN VENTA - NORTE DE CALI",
@@ -1697,7 +1698,7 @@
                 "isReserva": false,
                 "isPhysical": true,
                 "hasLogistics": false,
-                "needsVisit": true
+                "isInmueble": true
             }
         ];
 
@@ -1818,10 +1819,12 @@
         // Eventos para mostrar/ocultar fecha de visita
         visitNo.addEventListener('change', () => {
             visitDateTime.classList.remove('active');
+            validateDirectCheckoutButton();
         });
 
         visitYes.addEventListener('change', () => {
             visitDateTime.classList.add('active');
+            validateDirectCheckoutButton();
         });
 
         function loadProducts(productsToLoad) {
@@ -1831,14 +1834,12 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 
-                // Determinar si es reserva para cambiar el texto del botón
+                // Determinar el texto del botón según el tipo de producto
                 let buyText = 'Comprar';
-                let badgeHtml = '';
                 if (product.isReserva) {
                     buyText = 'Reservar';
-                    badgeHtml = `<span class="product-badge">Reserva</span>`;
-                } else if (!product.hasLogistics && product.isPhysical) {
-                    badgeHtml = `<span class="product-badge" style="background-color:#28a745;">Sin envío</span>`;
+                } else if (product.isInmueble) {
+                    buyText = 'Adquirir';
                 }
                 
                 // Construir información de proveedor y logística
@@ -1849,11 +1850,6 @@
                         <a href="/calivalle.html">${product.supplier}</a>
                         <span class="label">Logística:</span>
                         <a href="/calivalle.html">QRP2P Cali</a>
-                    `;
-                } else if (product.isPhysical && !product.hasLogistics) {
-                    supplierHtml = `
-                        <span class="label">Vendedor:</span>
-                        <a href="/calivalle.html">${product.supplier}</a>
                     `;
                 } else {
                     supplierHtml = `
@@ -1870,7 +1866,7 @@
                     </a>
                     <div class="product-info">
                         <a href="${product.productUrl}" class="product-link" target="_blank">
-                            <h3 class="product-title">${product.title} ${badgeHtml}</h3>
+                            <h3 class="product-title">${product.title}</h3>
                         </a>
                         <p class="product-price">${formatPrice(product.price)}</p>
                         <p class="product-description">${product.description}</p>
@@ -1915,7 +1911,7 @@
             let buyText = 'Comprar';
             if (product.isReserva) {
                 buyText = 'Reservar';
-            } else if (!product.hasLogistics && product.isPhysical) {
+            } else if (product.isInmueble) {
                 buyText = 'Adquirir';
             }
             directPurchaseTitle.textContent = `${buyText} en QRP2P Cali`;
@@ -1960,7 +1956,7 @@
             }
 
             // Mostrar/ocultar agendar visita para inmuebles
-            if (product.needsVisit && product.isPhysical && !product.hasLogistics) {
+            if (product.isInmueble) {
                 visitScheduleContainer.style.display = 'block';
                 visitDateTime.classList.remove('active');
                 visitNo.checked = true;
@@ -2017,7 +2013,7 @@
                     isReserva: product.isReserva || false,
                     isPhysical: product.isPhysical !== undefined ? product.isPhysical : true,
                     hasLogistics: product.hasLogistics !== undefined ? product.hasLogistics : true,
-                    needsVisit: product.needsVisit || false
+                    isInmueble: product.isInmueble || false
                 });
             }
             
@@ -2062,7 +2058,7 @@
                         <h4 class="item-title">${item.title}</h4>
                         <p class="item-price">${formatPrice(item.price)} c/u</p>
                         ${item.isReserva ? '<p style="font-size:0.7rem;color:var(--color-azul);">📅 Reserva</p>' : ''}
-                        ${!item.hasLogistics && item.isPhysical ? '<p style="font-size:0.7rem;color:#28a745;">🏠 Sin envío</p>' : ''}
+                        ${item.isInmueble ? '<p style="font-size:0.7rem;color:var(--color-azul);">🏠 Inmueble</p>' : ''}
                     </div>
                     <div class="item-quantity">
                         <button class="quantity-btn minus" data-id="${item.id}">-</button>
@@ -2143,7 +2139,7 @@
 
             // Si es inmueble con visita, verificar que si quiere visita tenga fecha
             let visitValid = true;
-            if (currentDirectProduct && currentDirectProduct.needsVisit) {
+            if (currentDirectProduct && currentDirectProduct.isInmueble) {
                 if (visitYes.checked) {
                     visitValid = visitDateTimeInput.value !== '';
                 }
@@ -2179,8 +2175,8 @@
             
             cart.forEach(item => {
                 const itemType = item.isReserva ? ' (Reserva)' : '';
-                const noLogistics = (!item.hasLogistics && item.isPhysical) ? ' (Sin envío)' : '';
-                message += `- ${item.title}${itemType}${noLogistics} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
+                const inmueble = item.isInmueble ? ' (Inmueble)' : '';
+                message += `- ${item.title}${itemType}${inmueble} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
             });
             
             message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
@@ -2210,9 +2206,9 @@
             const info = getShippingInfo(location);
             const product = currentDirectProduct;
             const isReserva = product && product.isReserva;
-            const needsVisit = product && product.needsVisit;
+            const isInmueble = product && product.isInmueble;
             
-            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (needsVisit ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
+            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (isInmueble ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
             
             message += `- ${product.title}: ${formatPrice(product.price)}\n`;
             
@@ -2229,7 +2225,7 @@
             }
 
             // Si es inmueble con visita
-            if (needsVisit && visitYes.checked) {
+            if (isInmueble && visitYes.checked) {
                 const visitDate = visitDateTimeInput.value;
                 if (visitDate) {
                     const visitFormatted = new Date(visitDate).toLocaleString('es-CO');
@@ -2274,7 +2270,7 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.id}</td>
-                    <td>${product.title}${product.isReserva ? ' (Reserva)' : ''}${!product.hasLogistics && product.isPhysical ? ' (Sin envío)' : ''}</td>
+                    <td>${product.title}${product.isReserva ? ' (Reserva)' : ''}${product.isInmueble ? ' (Inmueble)' : ''}</td>
                     <td>${product.category}</td>
                     <td>${formatPrice(product.warehousePrice)}</td>
                     <td>${formatPrice(product.price)}</td>
