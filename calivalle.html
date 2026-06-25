@@ -319,16 +319,6 @@
         .product-supplier .label {
             font-weight: 400;
         }
-
-        .product-supplier .reserva-badge {
-            background-color: var(--color-azul);
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-left: 0.3rem;
-        }
         
         .product-actions {
             display: flex;
@@ -1416,7 +1406,7 @@
                 "id": 1,
                 "title": "EGO PLANT BOTELLA 200 ML",
                 "price": 12800,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Producto de alta calidad para tu bienestar",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 8192,
@@ -1431,7 +1421,7 @@
                 "id": 143,
                 "title": "OMNILIFE F PLUS",
                 "price": 134750,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Suplemento nutricional de alta calidad",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 86240,
@@ -1446,7 +1436,7 @@
                 "id": 144,
                 "title": "FIBER'N PLUS SUPREME SACHET 450 G",
                 "price": 159550,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Fibra soluble para una digestión saludable",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 102112,
@@ -1461,7 +1451,7 @@
                 "id": 145,
                 "title": "ESTOP PLUS CAJA 30 SACHETS 450G",
                 "price": 251500,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Control de peso y metabolismo activo",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 160960,
@@ -1476,7 +1466,7 @@
                 "id": 146,
                 "title": "HOMO PLUS CAJA 30 SACHETS 195 G",
                 "price": 134750,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Equilibrio hormonal y bienestar general",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 86240,
@@ -1491,7 +1481,7 @@
                 "id": 147,
                 "title": "OMNILIFE KOLINA BOTELLA 200 ML",
                 "price": 12800,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Bebida refrescante y nutritiva",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 8192,
@@ -1506,7 +1496,7 @@
                 "id": 148,
                 "title": "BIOCROS SUPREME CAJA 30 SOBRES 240G",
                 "price": 120050,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Apoyo inmune y energía natural",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 76832,
@@ -1521,7 +1511,7 @@
                 "id": 149,
                 "title": "OMNIPLUS FRUTAS EVOLUCION 30 SACHES",
                 "price": 184550,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Vitaminas y minerales en delicioso sabor frutal",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 118112,
@@ -1536,7 +1526,7 @@
                 "id": 150,
                 "title": "OMNIPLUS NARANJA SUPREME CAJA 30 SOBRES",
                 "price": 184550,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Vitamina C y antioxidantes naturales",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 118112,
@@ -1551,7 +1541,7 @@
                 "id": 151,
                 "title": "COGNOS EVOLUCION CAJA",
                 "price": 125750,
-                "description": "Distribuye: Nutrición HD — Despacha: QRP2P Cali",
+                "description": "Concentración y rendimiento mental",
                 "category": "todo",
                 "supplier": "Nutrición HD",
                 "warehousePrice": 80480,
@@ -1708,7 +1698,6 @@
                     supplierHtml = `
                         <span class="label">Vendedor:</span>
                         <a href="/calivalle.html">${product.supplier}</a>
-                        <span class="reserva-badge">Reserva</span>
                     `;
                 }
                 
@@ -1775,7 +1764,6 @@
             } else {
                 supplierInfoHtml = `
                     <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
-                    <span class="reserva-badge" style="background-color:var(--color-azul);color:white;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.7rem;font-weight:700;margin-left:0.5rem;">Reserva</span>
                 `;
             }
             
