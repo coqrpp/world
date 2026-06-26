@@ -542,7 +542,7 @@
             margin-top: 0.2rem;
         }
 
-        /* Cuota inicial extra fields - VERSIÓN VERTICAL MEJORADA */
+        /* Cuota inicial extra fields */
         .downpayment-fields {
             display: none;
             margin-top: 0.8rem;
@@ -700,7 +700,7 @@
             margin-top: 0.3rem;
         }
 
-        /* Agendar Visita Previa (para inmuebles y carros) - VERSIÓN VERTICAL */
+        /* Agendar Visita Previa (para inmuebles y carros) */
         .visit-schedule {
             margin: 1rem 0;
             padding: 1rem;
@@ -1502,7 +1502,7 @@
                 </div>
             </div>
 
-            <!-- Agendar Visita Previa (para inmuebles y carros) - VERSIÓN VERTICAL -->
+            <!-- Agendar Visita Previa (para inmuebles y carros) -->
             <div class="visit-schedule" id="visitScheduleContainer" style="display:none;">
                 <h4><i class="fas fa-calendar-check"></i> ¿Deseas agendar una visita previa?</h4>
                 <div class="visit-options">
@@ -1810,11 +1810,11 @@
             {
                 "id": 300,
                 "title": "APARTAMENTO EN VENTA - POLANCO CDMX",
-                "price": 850000000,
+                "price": 8500000,
                 "description": "Hermoso apartamento de 160m² en Polanco. 3 habitaciones, 3 baños, garaje y zona social con alberca.",
                 "category": "inmuebles",
                 "supplier": "Inmobiliaria CDMX",
-                "warehousePrice": 780000000,
+                "warehousePrice": 7800000,
                 "productUrl": "https://ejemplo.com/inmueble/apartamento-polano",
                 "images": [
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
@@ -1830,11 +1830,11 @@
             {
                 "id": 400,
                 "title": "TOYOTA SEQUOIA 2024 - FULL EQUIPO",
-                "price": 380000000,
+                "price": 3800000,
                 "description": "Toyota Sequoia 2024, motor V8 5.7L, 4x4, 7 pasajeros, asientos de cuero, pantalla táctil, cámara 360°, sunroof, excelentes condiciones.",
                 "category": "carros",
                 "supplier": "Autos Premium CDMX",
-                "warehousePrice": 350000000,
+                "warehousePrice": 3500000,
                 "productUrl": "https://ejemplo.com/carros/toyota-sequoia-2024",
                 "images": [
                     "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
@@ -1848,12 +1848,9 @@
             }
         ];
 
-        // Función para formatear precios en formato COP
+        // Función para formatear precios en MXN
         function formatPrice(price) {
-            if (price >= 1000000) {
-                return 'COP $' + (price / 1000000).toFixed(0) + 'M';
-            }
-            return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' MXN';
         }
 
         // Variables globales
@@ -1978,7 +1975,7 @@
             validateDirectCheckoutButton();
         });
 
-        // Función para generar las opciones de pago según el tipo de producto - VERSIÓN VERTICAL
+        // Función para generar las opciones de pago según el tipo de producto
         function renderPaymentOptions(paymentType) {
             let html = '<h3>Método de Pago</h3>';
             
@@ -2057,8 +2054,8 @@
                         </div>
                         <div class="downpayment-fields" id="downpaymentFields">
                             <div class="form-group">
-                                <label for="downpaymentAmount">💰 Monto de cuota inicial (COP) *</label>
-                                <input type="number" id="downpaymentAmount" placeholder="Ej: 50.000.000" min="0">
+                                <label for="downpaymentAmount">💰 Monto de cuota inicial (MXN) *</label>
+                                <input type="number" id="downpaymentAmount" placeholder="Ej: 500,000" min="0">
                                 <div class="input-hint">Ingresa el valor que deseas dar como cuota inicial</div>
                             </div>
                         </div>
@@ -2074,7 +2071,6 @@
                     const radio = option.querySelector('.payment-radio');
                     if (radio) {
                         radio.checked = true;
-                        // Mostrar/ocultar campos de cuota inicial
                         const downpaymentFields = option.querySelector('.downpayment-fields');
                         if (downpaymentFields) {
                             if (radio.value === 'credito' || option.getAttribute('data-payment') === 'credito') {
@@ -2105,7 +2101,6 @@
                 });
             });
 
-            // Inicializar campos de cuota inicial
             const downpaymentInput = document.getElementById('downpaymentAmount');
             if (downpaymentInput) {
                 downpaymentInput.addEventListener('input', validateDirectCheckoutButton);
@@ -2119,7 +2114,6 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 
-                // Determinar el texto del botón según el tipo de producto
                 let buyText = 'Comprar';
                 if (product.isReserva) {
                     buyText = 'Reservar';
@@ -2127,13 +2121,11 @@
                     buyText = 'Adquirir';
                 }
                 
-                // Ícono para la categoría
                 let categoryIcon = '';
                 if (product.isCarro) categoryIcon = '🚗 ';
                 else if (product.isInmueble) categoryIcon = '🏠 ';
                 else if (product.isReserva) categoryIcon = '📅 ';
                 
-                // Construir información de proveedor y logística
                 let supplierHtml = '';
                 if (product.isPhysical && product.hasLogistics) {
                     supplierHtml = `
@@ -2198,7 +2190,6 @@
             
             currentDirectProduct = product;
             
-            // Cambiar título del modal según el tipo de producto
             let buyText = 'Comprar';
             if (product.isReserva) {
                 buyText = 'Reservar';
@@ -2207,7 +2198,6 @@
             }
             directPurchaseTitle.textContent = `${buyText} en QRP2P CDMX`;
             
-            // Construir información de proveedor y logística en el modal
             let supplierInfoHtml = '';
             if (product.isPhysical && product.hasLogistics) {
                 supplierInfoHtml = `
@@ -2232,24 +2222,20 @@
                 </div>
             `;
             
-            // Renderizar opciones de pago según el tipo de producto
             renderPaymentOptions(product.paymentType);
             
-            // Mostrar/ocultar sección de envío según si es físico con logística
             if (product.isPhysical && product.hasLogistics) {
                 directShippingOptions.style.display = 'block';
             } else {
                 directShippingOptions.style.display = 'none';
             }
             
-            // Mostrar/ocultar fechas de reserva
             if (product.isReserva) {
                 bookingDatesContainer.style.display = 'block';
             } else {
                 bookingDatesContainer.style.display = 'none';
             }
 
-            // Mostrar/ocultar agendar visita para inmuebles y carros
             if (product.isInmueble || product.isCarro) {
                 visitScheduleContainer.style.display = 'block';
                 visitDateTime.classList.remove('active');
@@ -2268,7 +2254,6 @@
             downpaymentAmount = '';
             directWhatsappBtn.disabled = true;
             
-            // Seleccionar el primer método de pago por defecto
             const firstRadio = document.querySelector('#dynamicPaymentOptions .payment-radio');
             if (firstRadio) {
                 firstRadio.checked = true;
@@ -2288,10 +2273,7 @@
             const filteredProducts = products.filter(product => {
                 const matchesSearch = product.title.toLowerCase().includes(searchText) || 
                                      product.description.toLowerCase().includes(searchText);
-                
-                // Solo mostrar todos los productos cuando la categoría es "todo"
                 let matchesCategory = activeCategory === 'todo';
-                
                 return matchesSearch && matchesCategory;
             });
             
@@ -2417,7 +2399,6 @@
                 if (radio && radio.checked) {
                     option.classList.add('selected');
                     selectedPayment = option.getAttribute('data-payment');
-                    // Guardar monto de cuota inicial si existe
                     const downpaymentInput = document.getElementById('downpaymentAmount');
                     if (downpaymentInput) {
                         downpaymentAmount = downpaymentInput.value;
@@ -2442,7 +2423,6 @@
             const hasAddress = directCustomerAddress.value.trim() !== '';
             const hasCity = directCustomerCity.value.trim() !== '';
             
-            // Si es reserva, verificar que las fechas estén completas
             let datesValid = true;
             if (currentDirectProduct && currentDirectProduct.isReserva) {
                 const checkin = checkinDate.value;
@@ -2450,7 +2430,6 @@
                 datesValid = checkin !== '' && checkout !== '';
             }
 
-            // Si es inmueble o carro con visita, verificar que si quiere visita tenga fecha
             let visitValid = true;
             if (currentDirectProduct && (currentDirectProduct.isInmueble || currentDirectProduct.isCarro)) {
                 if (visitYes.checked) {
@@ -2458,7 +2437,6 @@
                 }
             }
 
-            // Si es crédito, verificar que tenga monto de cuota inicial
             let downpaymentValid = true;
             if (selectedPayment === 'credito') {
                 const downpaymentInput = document.getElementById('downpaymentAmount');
@@ -2548,28 +2526,25 @@
             
             message += `- ${product.title}: ${formatPrice(product.price)}\n`;
             
-            // Si es reserva, agregar fechas
             if (isReserva) {
                 const checkin = checkinDate.value;
                 const checkout = checkoutDate.value;
                 if (checkin && checkout) {
-                    const checkinFormatted = new Date(checkin).toLocaleString('es-CO');
-                    const checkoutFormatted = new Date(checkout).toLocaleString('es-CO');
+                    const checkinFormatted = new Date(checkin).toLocaleString('es-MX');
+                    const checkoutFormatted = new Date(checkout).toLocaleString('es-MX');
                     message += `\n📅 Check-in: ${checkinFormatted}`;
                     message += `\n📅 Check-out: ${checkoutFormatted}`;
                 }
             }
 
-            // Si es inmueble o carro con visita
             if ((isInmueble || isCarro) && visitYes.checked) {
                 const visitDate = visitDateTimeInput.value;
                 if (visitDate) {
-                    const visitFormatted = new Date(visitDate).toLocaleString('es-CO');
+                    const visitFormatted = new Date(visitDate).toLocaleString('es-MX');
                     message += `\n📅 Visita previa agendada: ${visitFormatted}`;
                 }
             }
             
-            // Solo agregar envío si es físico con logística
             if (product.isPhysical && product.hasLogistics) {
                 message += `\n📦 Envío (${info.label}): $${info.price} MXN`;
                 message += `\n📅 Entrega estimada: ${info.date}`;
@@ -2688,11 +2663,9 @@
         shippingLocation.addEventListener('change', updateShippingInfo);
         directShippingLocation.addEventListener('change', updateDirectShippingInfo);
 
-        // Event listeners para fechas de reserva
         checkinDate.addEventListener('change', validateDirectCheckoutButton);
         checkoutDate.addEventListener('change', validateDirectCheckoutButton);
 
-        // Event listeners para visita
         visitNo.addEventListener('change', validateDirectCheckoutButton);
         visitYes.addEventListener('change', validateDirectCheckoutButton);
         visitDateTimeInput.addEventListener('change', validateDirectCheckoutButton);
@@ -2736,7 +2709,6 @@
         updateShippingInfo();
         updateDirectShippingInfo();
         
-        // Inicializar validación de checkout directo
         setTimeout(validateDirectCheckoutButton, 100);
     </script>
 </body>
