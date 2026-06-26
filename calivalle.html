@@ -34,6 +34,7 @@
             --color-verde: #25D366;
             --color-azul: #007bff;
             --color-rojo: #dc3545;
+            --color-dorado: #c9a84c;
         }
         
         * {
@@ -705,6 +706,38 @@
             font-size: 14px;
             margin-top: 0.3rem;
         }
+
+        /* Información de crédito para inmuebles y carros */
+        .credit-info {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f5f0;
+            border-radius: 8px;
+            border: 2px solid var(--color-dorado);
+        }
+
+        .credit-info h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--color-dorado);
+        }
+
+        .credit-info p {
+            font-size: 0.85rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.3rem;
+        }
+
+        .credit-info .credit-badge {
+            display: inline-block;
+            background-color: var(--color-dorado);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+        }
         
         /* Customer Info Form */
         .customer-info {
@@ -1350,27 +1383,10 @@
                 <!-- Información del producto se cargará dinámicamente -->
             </div>
             
-            <!-- Payment Options -->
-            <div class="payment-options">
+            <!-- Payment Options - se genera dinámicamente según el tipo de producto -->
+            <div class="payment-options" id="dynamicPaymentOptions">
                 <h3>Método de Pago</h3>
-                <div class="payment-option" data-payment="contraentrega">
-                    <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
-                        </span>
-                        <span class="payment-description">Paga cuando recibas tu pedido en Cali o tu ciudad</span>
-                    </div>
-                </div>
-                <div class="payment-option" data-payment="anticipado">
-                    <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
-                    <div class="payment-info">
-                        <span class="payment-name">
-                            <i class="fas fa-credit-card"></i> Paga en línea
-                        </span>
-                        <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia</span>
-                    </div>
-                </div>
+                <!-- Las opciones de pago se inyectarán desde JavaScript -->
             </div>
             
             <!-- Shipping Options - Solo para productos físicos con logística -->
@@ -1429,6 +1445,15 @@
                         </label>
                     </div>
                 </div>
+            </div>
+
+            <!-- Información de crédito para inmuebles y carros -->
+            <div class="credit-info" id="creditInfoContainer" style="display:none;">
+                <h4><i class="fas fa-handshake"></i> Opciones de Financiamiento</h4>
+                <p>Puedes adquirir este inmueble/vehículo con:</p>
+                <p><strong>🏦 Pago de contado</strong> - Aprovecha descuentos especiales</p>
+                <p><strong>📋 Cuota inicial + Crédito</strong> - Si ya cuentas con preaprobación bancaria o nosotros te ayudamos a gestionar el mejor crédito sin complicaciones.</p>
+                <span class="credit-badge"><i class="fas fa-star"></i> Asesoría financiera incluida</span>
             </div>
             
             <!-- Customer Information Form -->
@@ -1511,7 +1536,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 143,
@@ -1529,7 +1555,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 144,
@@ -1547,7 +1574,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 145,
@@ -1565,7 +1593,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 146,
@@ -1583,7 +1612,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 147,
@@ -1601,7 +1631,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 148,
@@ -1619,7 +1650,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 149,
@@ -1637,7 +1669,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 150,
@@ -1655,7 +1688,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             {
                 "id": 151,
@@ -1673,7 +1707,8 @@
                 "isPhysical": true,
                 "hasLogistics": true,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "fisico"
             },
             // Producto de reserva (no físico)
             {
@@ -1692,7 +1727,8 @@
                 "isPhysical": false,
                 "hasLogistics": false,
                 "isInmueble": false,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "reserva"
             },
             // Inmueble en venta (físico SIN logística, CON cita previa)
             {
@@ -1711,7 +1747,8 @@
                 "isPhysical": true,
                 "hasLogistics": false,
                 "isInmueble": true,
-                "isCarro": false
+                "isCarro": false,
+                "paymentType": "inmueble_carro"
             },
             // Toyota Sequoia - Carro en venta
             {
@@ -1730,7 +1767,8 @@
                 "isPhysical": true,
                 "hasLogistics": false,
                 "isInmueble": false,
-                "isCarro": true
+                "isCarro": true,
+                "paymentType": "inmueble_carro"
             }
         ];
 
@@ -1793,6 +1831,9 @@
         const visitYes = document.getElementById('visitYes');
         const visitDateTime = document.getElementById('visitDateTime');
         const visitDateTimeInput = document.getElementById('visitDateTimeInput');
+
+        const creditInfoContainer = document.getElementById('creditInfoContainer');
+        const dynamicPaymentOptions = document.getElementById('dynamicPaymentOptions');
         
         const adminKeyInput = document.getElementById('adminKey');
         const adminAccessBtn = document.getElementById('adminAccessBtn');
@@ -1858,6 +1899,93 @@
             visitDateTime.classList.add('active');
             validateDirectCheckoutButton();
         });
+
+        // Función para generar las opciones de pago según el tipo de producto
+        function renderPaymentOptions(paymentType) {
+            let html = '<h3>Método de Pago</h3>';
+            
+            if (paymentType === 'fisico') {
+                html += `
+                    <div class="payment-option" data-payment="contraentrega">
+                        <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                            </span>
+                            <span class="payment-description">Paga cuando recibas tu pedido en Cali o tu ciudad</span>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="anticipado">
+                        <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-credit-card"></i> Paga en línea
+                            </span>
+                            <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia</span>
+                        </div>
+                    </div>
+                `;
+            } else if (paymentType === 'reserva') {
+                html += `
+                    <div class="payment-option" data-payment="checkin">
+                        <input type="radio" id="direct-payment-checkin" name="direct-payment" class="payment-radio" checked>
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-hotel"></i> Paga en el Check-in
+                            </span>
+                            <span class="payment-description">Realiza el pago al momento de tu llegada</span>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="anticipado">
+                        <input type="radio" id="direct-payment-anticipado-reserva" name="direct-payment" class="payment-radio">
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-credit-card"></i> Paga en línea
+                            </span>
+                            <span class="payment-description">Asegura tu reserva pagando con criptomonedas, tarjetas, PSE, Nequi o Bancolombia</span>
+                        </div>
+                    </div>
+                `;
+            } else if (paymentType === 'inmueble_carro') {
+                html += `
+                    <div class="payment-option" data-payment="contado">
+                        <input type="radio" id="direct-payment-contado" name="direct-payment" class="payment-radio" checked>
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-hand-holding-usd"></i> Pago de contado
+                            </span>
+                            <span class="payment-description">Aprovecha descuentos y beneficios especiales</span>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="credito">
+                        <input type="radio" id="direct-payment-credito" name="direct-payment" class="payment-radio">
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-building-columns"></i> Cuota inicial + Crédito
+                            </span>
+                            <span class="payment-description">Si ya cuentas con preaprobación o te ayudamos a gestionar el mejor crédito sin complicaciones</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            dynamicPaymentOptions.innerHTML = html;
+            
+            // Re-asignar event listeners a las nuevas opciones de pago
+            document.querySelectorAll('#dynamicPaymentOptions .payment-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const radio = option.querySelector('.payment-radio');
+                    if (radio) {
+                        radio.checked = true;
+                        updatePaymentOptions();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('#dynamicPaymentOptions .payment-radio').forEach(radio => {
+                radio.addEventListener('change', updatePaymentOptions);
+            });
+        }
 
         function loadProducts(productsToLoad) {
             productsGrid.innerHTML = '';
@@ -1979,6 +2107,9 @@
                 </div>
             `;
             
+            // Renderizar opciones de pago según el tipo de producto
+            renderPaymentOptions(product.paymentType);
+            
             // Mostrar/ocultar sección de envío según si es físico con logística
             if (product.isPhysical && product.hasLogistics) {
                 directShippingOptions.style.display = 'block';
@@ -1999,8 +2130,10 @@
                 visitDateTime.classList.remove('active');
                 visitNo.checked = true;
                 visitDateTimeInput.value = '';
+                creditInfoContainer.style.display = 'block';
             } else {
                 visitScheduleContainer.style.display = 'none';
+                creditInfoContainer.style.display = 'none';
             }
             
             directCustomerName.value = '';
@@ -2009,8 +2142,11 @@
             directCustomerCity.value = '';
             directWhatsappBtn.disabled = true;
             
-            document.getElementById('direct-payment-contraentrega').checked = true;
-            selectedPayment = "contraentrega";
+            // Seleccionar el primer método de pago por defecto
+            const firstRadio = document.querySelector('#dynamicPaymentOptions .payment-radio');
+            if (firstRadio) {
+                firstRadio.checked = true;
+            }
             updatePaymentOptions();
             
             directShippingLocation.value = 'cali';
@@ -2054,7 +2190,8 @@
                     isPhysical: product.isPhysical !== undefined ? product.isPhysical : true,
                     hasLogistics: product.hasLogistics !== undefined ? product.hasLogistics : true,
                     isInmueble: product.isInmueble || false,
-                    isCarro: product.isCarro || false
+                    isCarro: product.isCarro || false,
+                    paymentType: product.paymentType || 'fisico'
                 });
             }
             
@@ -2148,7 +2285,7 @@
         }
 
         function updatePaymentOptions() {
-            document.querySelectorAll('.payment-option').forEach(option => {
+            document.querySelectorAll('#dynamicPaymentOptions .payment-option').forEach(option => {
                 option.classList.remove('selected');
                 const radio = option.querySelector('.payment-radio');
                 if (radio && radio.checked) {
@@ -2232,11 +2369,19 @@
             const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + info.price;
             message += `\n\n💰 Total: ${formatPrice(total)}`;
             
-            if (selectedPayment === "contraentrega") {
-                message += `\n\n💳 Método de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            let paymentLabel = '';
+            if (selectedPayment === 'contraentrega') {
+                paymentLabel = 'Paga en persona con efectivo (Paga cuando recibas tu pedido)';
+            } else if (selectedPayment === 'checkin') {
+                paymentLabel = 'Paga en el Check-in';
+            } else if (selectedPayment === 'contado') {
+                paymentLabel = 'Pago de contado';
+            } else if (selectedPayment === 'credito') {
+                paymentLabel = 'Cuota inicial + Crédito';
             } else {
-                message += `\n\n💳 Método de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia)`;
+                paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
             }
+            message += `\n\n💳 Método de pago: ${paymentLabel}`;
             
             message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
             message += `\n\nMi información de envío es:\n`;
@@ -2291,11 +2436,19 @@
                 message += `\n\n💰 Total: ${formatPrice(product.price)}`;
             }
             
-            if (selectedPayment === "contraentrega") {
-                message += `\n\n💳 Método de pago: Paga en persona con efectivo (Paga cuando recibas tu pedido)`;
+            let paymentLabel = '';
+            if (selectedPayment === 'contraentrega') {
+                paymentLabel = 'Paga en persona con efectivo (Paga cuando recibas tu pedido)';
+            } else if (selectedPayment === 'checkin') {
+                paymentLabel = 'Paga en el Check-in';
+            } else if (selectedPayment === 'contado') {
+                paymentLabel = 'Pago de contado';
+            } else if (selectedPayment === 'credito') {
+                paymentLabel = 'Cuota inicial + Crédito - Te ayudamos a gestionar el mejor crédito sin complicaciones';
             } else {
-                message += `\n\n💳 Método de pago: Paga en línea (Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia)`;
+                paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
             }
+            message += `\n\n💳 Método de pago: ${paymentLabel}`;
             
             if (product.isPhysical && product.hasLogistics) {
                 message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
@@ -2398,21 +2551,6 @@
         visitNo.addEventListener('change', validateDirectCheckoutButton);
         visitYes.addEventListener('change', validateDirectCheckoutButton);
         visitDateTimeInput.addEventListener('change', validateDirectCheckoutButton);
-
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const radio = option.querySelector('.payment-radio');
-                if (radio) {
-                    radio.checked = true;
-                    updatePaymentOptions();
-                }
-            });
-        });
-
-        // También escuchar cambios en los radios
-        document.querySelectorAll('.payment-radio').forEach(radio => {
-            radio.addEventListener('change', updatePaymentOptions);
-        });
 
         customerName.addEventListener('input', validateCheckoutButton);
         customerPhone.addEventListener('input', validateCheckoutButton);
