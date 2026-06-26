@@ -534,14 +534,15 @@
             margin-right: 0.8rem;
         }
 
-        /* Cuota inicial extra fields */
+        /* Cuota inicial extra fields - VERSIÓN MEJORADA */
         .downpayment-fields {
             display: none;
-            margin-top: 0.8rem;
-            padding: 0.8rem;
+            margin-top: 1rem;
+            padding: 1rem;
             background-color: var(--color-blanco);
-            border-radius: 6px;
-            border: 1px solid var(--color-gris-medio);
+            border-radius: 8px;
+            border: 2px solid var(--color-dorado);
+            width: 100%;
         }
 
         .downpayment-fields.active {
@@ -549,7 +550,7 @@
         }
 
         .downpayment-fields .form-group {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .downpayment-fields .form-group:last-child {
@@ -557,19 +558,36 @@
         }
 
         .downpayment-fields label {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 700;
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-negro);
         }
 
         .downpayment-fields input {
             width: 100%;
-            padding: 0.6rem;
-            border: 1px solid var(--color-gris-medio);
-            border-radius: 4px;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
             font-family: 'Libre Baskerville', serif;
-            font-size: 14px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+            background-color: #fafafa;
+        }
+
+        .downpayment-fields input:focus {
+            border-color: var(--color-dorado);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        }
+
+        .downpayment-fields .input-hint {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.3rem;
+            font-style: italic;
         }
         
         /* Shipping Options */
@@ -1144,6 +1162,11 @@
             .header-right {
                 gap: 0.5rem;
             }
+
+            .downpayment-fields input {
+                font-size: 1rem;
+                padding: 0.7rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1188,8 +1211,9 @@
                 font-size: 0.8rem;
             }
 
-            .downpayment-fields .form-group input {
-                font-size: 14px;
+            .downpayment-fields input {
+                font-size: 0.95rem;
+                padding: 0.6rem;
             }
         }
         
@@ -2011,8 +2035,9 @@
                         </div>
                         <div class="downpayment-fields" id="downpaymentFields">
                             <div class="form-group">
-                                <label for="downpaymentAmount">Monto de cuota inicial (COP) *</label>
-                                <input type="number" id="downpaymentAmount" placeholder="Ej: 50000000" min="0">
+                                <label for="downpaymentAmount">💰 Monto de cuota inicial (COP) *</label>
+                                <input type="number" id="downpaymentAmount" placeholder="Ej: 50.000.000" min="0">
+                                <div class="input-hint">Ingresa el valor que deseas dar como cuota inicial</div>
                             </div>
                         </div>
                     </div>
@@ -2062,6 +2087,15 @@
             const downpaymentInput = document.getElementById('downpaymentAmount');
             if (downpaymentInput) {
                 downpaymentInput.addEventListener('input', validateDirectCheckoutButton);
+                // Formatear placeholder con separadores de miles
+                downpaymentInput.addEventListener('focus', function() {
+                    this.placeholder = 'Ej: 50000000';
+                });
+                downpaymentInput.addEventListener('blur', function() {
+                    if (this.value) {
+                        this.placeholder = 'Ej: 50.000.000';
+                    }
+                });
             }
         }
 
