@@ -533,6 +533,44 @@
         .payment-radio {
             margin-right: 0.8rem;
         }
+
+        /* Cuota inicial extra fields */
+        .downpayment-fields {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background-color: var(--color-blanco);
+            border-radius: 6px;
+            border: 1px solid var(--color-gris-medio);
+        }
+
+        .downpayment-fields.active {
+            display: block;
+        }
+
+        .downpayment-fields .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .downpayment-fields .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .downpayment-fields label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .downpayment-fields input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+        }
         
         /* Shipping Options */
         .shipping-options {
@@ -1149,6 +1187,10 @@
             .nav-menu a {
                 font-size: 0.8rem;
             }
+
+            .downpayment-fields .form-group input {
+                font-size: 14px;
+            }
         }
         
         /* Notificación */
@@ -1501,7 +1543,7 @@
                 <div class="social-icons">
                     <a href="https://www.facebook.com/share/14T4jNLh1Dw/?mibextid=wwXIfr" aria-label="Facebook QRP2P Cali"><i class="fab fa-facebook"></i></a>
                     <a href="https://instagram.com/calivalle_qrcontraentrega" aria-label="Instagram QRP2P Cali"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/573215343562" aria-label="WhatsApp QRP2P Cali"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/573148304504" aria-label="WhatsApp QRP2P Cali"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-section">
@@ -1784,7 +1826,9 @@
         let cart = [];
         let currentDirectProduct = null;
         let selectedPayment = "contraentrega";
+        let downpaymentAmount = '';
         const ADMIN_KEY = "proveedor2024";
+        const WHATSAPP_NUMBER = "573148304504";
         
         const cartIcon = document.getElementById('cartIcon');
         const cartCount = document.getElementById('cartCount');
@@ -1965,6 +2009,12 @@
                             </span>
                             <span class="payment-description">Si ya cuentas con preaprobación o te ayudamos a gestionar el mejor crédito sin complicaciones</span>
                         </div>
+                        <div class="downpayment-fields" id="downpaymentFields">
+                            <div class="form-group">
+                                <label for="downpaymentAmount">Monto de cuota inicial (COP) *</label>
+                                <input type="number" id="downpaymentAmount" placeholder="Ej: 50000000" min="0">
+                            </div>
+                        </div>
                     </div>
                 `;
             }
@@ -1977,14 +2027,42 @@
                     const radio = option.querySelector('.payment-radio');
                     if (radio) {
                         radio.checked = true;
+                        // Mostrar/ocultar campos de cuota inicial
+                        const downpaymentFields = option.querySelector('.downpayment-fields');
+                        if (downpaymentFields) {
+                            if (radio.value === 'credito' || option.getAttribute('data-payment') === 'credito') {
+                                downpaymentFields.classList.add('active');
+                            } else {
+                                downpaymentFields.classList.remove('active');
+                            }
+                        }
                         updatePaymentOptions();
+                        validateDirectCheckoutButton();
                     }
                 });
             });
             
             document.querySelectorAll('#dynamicPaymentOptions .payment-radio').forEach(radio => {
-                radio.addEventListener('change', updatePaymentOptions);
+                radio.addEventListener('change', (e) => {
+                    const parentOption = radio.closest('.payment-option');
+                    const downpaymentFields = parentOption ? parentOption.querySelector('.downpayment-fields') : null;
+                    if (downpaymentFields) {
+                        if (radio.value === 'credito' || parentOption.getAttribute('data-payment') === 'credito') {
+                            downpaymentFields.classList.add('active');
+                        } else {
+                            downpaymentFields.classList.remove('active');
+                        }
+                    }
+                    updatePaymentOptions();
+                    validateDirectCheckoutButton();
+                });
             });
+
+            // Inicializar campos de cuota inicial
+            const downpaymentInput = document.getElementById('downpaymentAmount');
+            if (downpaymentInput) {
+                downpaymentInput.addEventListener('input', validateDirectCheckoutButton);
+            }
         }
 
         function loadProducts(productsToLoad) {
@@ -2140,6 +2218,7 @@
             directCustomerPhone.value = '';
             directCustomerAddress.value = '';
             directCustomerCity.value = '';
+            downpaymentAmount = '';
             directWhatsappBtn.disabled = true;
             
             // Seleccionar el primer método de pago por defecto
@@ -2291,6 +2370,11 @@
                 if (radio && radio.checked) {
                     option.classList.add('selected');
                     selectedPayment = option.getAttribute('data-payment');
+                    // Guardar monto de cuota inicial si existe
+                    const downpaymentInput = document.getElementById('downpaymentAmount');
+                    if (downpaymentInput) {
+                        downpaymentAmount = downpaymentInput.value;
+                    }
                 }
             });
         }
@@ -2326,8 +2410,18 @@
                     visitValid = visitDateTimeInput.value !== '';
                 }
             }
+
+            // Si es crédito, verificar que tenga monto de cuota inicial
+            let downpaymentValid = true;
+            if (selectedPayment === 'credito') {
+                const downpaymentInput = document.getElementById('downpaymentAmount');
+                if (downpaymentInput) {
+                    const value = downpaymentInput.value.trim();
+                    downpaymentValid = value !== '' && parseFloat(value) > 0;
+                }
+            }
             
-            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity && datesValid && visitValid);
+            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity && datesValid && visitValid && downpaymentValid);
         }
 
         function showNotification(message) {
@@ -2377,7 +2471,9 @@
             } else if (selectedPayment === 'contado') {
                 paymentLabel = 'Pago de contado';
             } else if (selectedPayment === 'credito') {
-                paymentLabel = 'Cuota inicial + Crédito';
+                const downpayment = document.getElementById('downpaymentAmount');
+                const amount = downpayment ? downpayment.value : '';
+                paymentLabel = `Cuota inicial + Crédito - Cuota inicial: ${amount ? formatPrice(parseFloat(amount)) : 'No especificada'}`;
             } else {
                 paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
             }
@@ -2444,7 +2540,9 @@
             } else if (selectedPayment === 'contado') {
                 paymentLabel = 'Pago de contado';
             } else if (selectedPayment === 'credito') {
-                paymentLabel = 'Cuota inicial + Crédito - Te ayudamos a gestionar el mejor crédito sin complicaciones';
+                const downpayment = document.getElementById('downpaymentAmount');
+                const amount = downpayment ? downpayment.value : '';
+                paymentLabel = `Cuota inicial + Crédito - Cuota inicial: ${amount ? formatPrice(parseFloat(amount)) : 'No especificada'} - Te ayudamos a gestionar el mejor crédito sin complicaciones`;
             } else {
                 paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
             }
@@ -2509,7 +2607,7 @@
             }
             
             const message = generateWhatsAppMessage();
-            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
         });
 
         closeDirectPurchase.addEventListener('click', () => {
@@ -2527,7 +2625,7 @@
             }
             
             const message = generateDirectWhatsAppMessage();
-            window.open(`https://wa.me/573215343562?text=${message}`, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
         });
 
         searchInput.addEventListener('input', filterProducts);
