@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>QRP2P Colombia | Plan Anual Catálogos Express - $800.000/año | Marketplace P2P Global</title>
-    <meta name="description" content="Plan Anual para vendedores por solo $800.000 COP/año. Tienda en línea profesional con carrito de compras, 0% comisión, visible en más de 190 países. Incluye dominio, correo, hosting y academia.">
+    <title>QRP2P Colombia | Plan Anual Catálogos Express - $100.000/año | Marketplace P2P Global</title>
+    <meta name="description" content="Plan Anual para vendedores por solo $100.000 COP/año. Tienda en línea profesional con carrito de compras, 0% comisión, visible en más de 190 países. Incluye dominio, correo, hosting y academia.">
     <meta name="keywords" content="QRP2P Colombia, plan anual vendedor, tienda en línea, carrito de compras, marketplace global, 0% comisión, reservas, hostales, hoteles, alquileres, turismo">
     <meta name="author" content="QRP2P Colombia">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="QRP2P Colombia | Plan Anual Catálogos Express - $800.000/año">
+    <meta property="og:title" content="QRP2P Colombia | Plan Anual Catálogos Express - $100.000/año">
     <meta property="og:description" content="Plan Anual. Tienda en línea profesional con carrito. Incluye dominio, correo, hosting y academia. 0% comisión. Visible en 190+ países.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:locale" content="es_CO">
@@ -21,12 +21,12 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "Plan Anual Catálogos Express QRP2P Colombia",
-        "description": "Plan Anual de $800.000 COP con tienda en línea profesional, carrito de compras, 0% comisión. Incluye dominio, correo, hosting y academia. Servicios adicionales disponibles.",
+        "description": "Plan Anual de $100.000 COP con tienda en línea profesional, carrito de compras, 0% comisión. Incluye dominio, correo, hosting y academia. Servicios adicionales disponibles.",
         "brand": { "@type": "Brand", "name": "QRP2P" },
         "offers": {
             "@type": "Offer",
             "priceCurrency": "COP",
-            "price": "800000",
+            "price": "100000",
             "availability": "https://schema.org/OnlineOnly"
         }
     }
@@ -43,6 +43,7 @@
             --color-gris-oscuro: #333333;
             --color-gris-muy-oscuro: #111111;
             --color-whatsapp: #25D366;
+            --color-lightning: #f7931a;
         }
         
         * {
@@ -156,6 +157,18 @@
         .btn-whatsapp:hover {
             background: #128C7E;
             border-color: #128C7E;
+            color: white;
+        }
+        
+        .btn-lightning {
+            background: var(--color-lightning);
+            border-color: var(--color-lightning);
+            color: white;
+        }
+        
+        .btn-lightning:hover {
+            background: #d97706;
+            border-color: #d97706;
             color: white;
         }
         
@@ -496,6 +509,23 @@
             justify-content: center;
             margin-top: 1rem;
         }
+
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+        
+        .payment-methods span {
+            background: var(--color-gris-oscuro);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            border: 1px solid var(--color-gris-medio);
+        }
         
         /* ===== FORMULARIO ===== */
         .form-section {
@@ -672,17 +702,24 @@
         <div class="header-container">
             <div class="logo-text">QRP2P COLOMBIA <small>Aplicaciones web</small></div>
             <a href="#formulario" class="btn-primary">
-                <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $800.000
+                <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $100.000
             </a>
         </div>
     </header>
 
     <section class="hero">
         <div class="price-badge-hero">
-            <i class="fas fa-tag"></i> Plan Anual desde $800.000 COP / año
+            <i class="fas fa-tag"></i> Plan Anual desde $100.000 COP / año
         </div>
         <h1>Tu aplicación web profesional <span>sin complicaciones</span></h1>
         <p><strong>Tienda 100% funcional con carrito de compras</strong> para productos físicos, reservas de hostales, hoteles, alquiler de vehículos, agencias de turismo, servicios digitales, inmuebles y más. <strong>0% comisión</strong> para el marketplace.</p>
+        <div class="payment-methods">
+            <span><i class="fas fa-bolt"></i> Lightning Network</span>
+            <span><i class="fas fa-credit-card"></i> Tarjetas</span>
+            <span><i class="fas fa-mobile-alt"></i> Nequi / Daviplata</span>
+            <span><i class="fas fa-university"></i> Bancos</span>
+            <span><i class="fas fa-cash"></i> Efectivo</span>
+        </div>
         <a href="#formulario" class="btn-primary btn-primary-large">
             <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
         </a>
@@ -711,7 +748,7 @@
         <!-- PRICE CARD -->
         <div class="price-card">
             <h2>Plan Anual · Vendedor Verificado</h2>
-            <div class="price">$800.000 <small>COP</small></div>
+            <div class="price">$100.000 <small>COP</small></div>
             <p>Pago único anual • 0% comisión • Tienda profesional con carrito de compras</p>
             <ul class="feature-list">
                 <li><i class="fas fa-check-circle"></i> <strong>Tienda en línea profesional</strong> con carrito de compras para todo tipo de negocio: productos físicos, digitales, reservas (hoteles, hostales, vehículos, turismo), inmuebles y más.</li>
@@ -841,7 +878,7 @@
                     <div class="step-number">2</div>
                     <i class="fas fa-credit-card"></i>
                     <h3>Te damos instrucciones de pago</h3>
-                    <p>Te enviamos los datos para pagar los $800.000 COP del Plan Anual</p>
+                    <p>Te enviamos los datos para pagar los $100.000 COP del Plan Anual</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -988,7 +1025,7 @@
             <p style="margin-bottom: 1.5rem;">Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye dominio, correo, hosting y acceso a la academia QRP2P.</p>
             <div class="button-group">
                 <a href="#formulario" class="btn-primary btn-primary-large">
-                    <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $800.000
+                    <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $100.000
                 </a>
                 <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20adicionales%20del%20Plan%20Anual%20de%20QRP2P" class="btn-secondary" target="_blank">
                     <i class="fab fa-whatsapp"></i> CONSULTAR SERVICIOS ADICIONALES
@@ -1024,9 +1061,9 @@
         
         <div class="footer-register">
             <a href="#formulario" class="btn-primary">
-                <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $800.000
+                <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $100.000
             </a>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">Plan Anual $800.000 COP • Productos ilimitados • 0% comisión • Academia QRP2P incluida</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">Plan Anual $100.000 COP • Productos ilimitados • 0% comisión • Academia QRP2P incluida</p>
         </div>
         
         <div class="copyright">
