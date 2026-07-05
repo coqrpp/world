@@ -1,379 +1,2743 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>QRP2P Inmobiliaria Cali | Apartamentos, Casas y Oficinas Verificadas</title>
-  <meta name="description" content="Encuentra los mejores inmuebles verificados en Cali. Venta y arriendo de apartamentos, casas y oficinas en los mejores sectores como Norte, Ciudad Jardín y Pance. ¡Agenda tu visita!">
-  <meta name="keywords" content="inmobiliaria cali, apartamentos en venta cali, casas en arriendo cali, oficinas cali, propiedades verified, qrp2p">
-  <meta name="author" content="QRP2P Inmobiliaria">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="QRP2P Inmobiliaria Cali | Inmuebles Verificados">
-  <meta property="og:description" content="Tu plataforma de confianza para encontrar propiedades verificadas en venta y arriendo en Cali.">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body {
-      font-family: 'Libre Baskerville', serif;
-      background-color: #ffffff;
-      color: #111111;
-      line-height: 1.5;
-      font-size: 16px;
-      overflow: hidden;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-    }
-    #contenedor-mapa { 
-      width: 100%;
-      height: 100vh;
-      display: flex; 
-      flex-direction: column; 
-      position: relative;
-      overflow: hidden;
-    }
-    #barra-superior { 
-      display: flex; 
-      gap: 0.8rem; 
-      padding: 0.8rem; 
-      background: #ffffff;
-      width: 100%;
-      z-index: 1000;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid #eaeaea;
-      flex-shrink: 0;
-    }
-    .contenedor-buscador {
-      position: relative;
-      flex: 1;
-      max-width: 400px;
-    }
-    #buscador { 
-      width: 100%;
-      padding: 0.6rem 1.2rem; 
-      border: 1.5px solid #e0e0e0; 
-      border-radius: 50px; 
-      font-size: 16px;
-      font-family: 'Libre Baskerville', serif;
-      transition: all 0.3s ease;
-      background: #ffffff;
-      user-select: text;
-    }
-    #buscador:focus {
-      outline: none;
-      border-color: #000000;
-    }
-    .btn-mapa { 
-      background: #000000;
-      color: #ffffff;
-      padding: 0.6rem 1.2rem; 
-      border-radius: 40px; 
-      text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      gap: 5px;
-      font-family: 'Libre Baskerville', serif;
-    }
-    .btn-mapa:hover { background: #333333; }
-    .btn-centrar { background-color: #000000; }
-    .btn-registro { background-color: #25D366; color: #000000; }
-    .botones-izquierda { display: flex; gap: 0.8rem; align-items: center; }
-    .botones-derecha { display: flex; gap: 0.5rem; background: #f0f0f0; padding: 0.3rem; border-radius: 50px; }
-    .map-type-btn {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      background: transparent;
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 600;
-    }
-    .map-type-btn.active { background: #000000; color: white; }
-    #mapa { flex: 1; background: #f0f0f0; width: 100%; min-height: 0; }
-    .leaflet-control-zoom { display: none !important; }
-    .sugerencias-busqueda {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 1000;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-    }
-    .sugerencia-item {
-      padding: 12px 15px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .sugerencia-item:hover { background-color: #f5f5f5; }
-    .sugerencia-texto { flex: 1; }
-    .sugerencia-boton {
-      margin-left: 10px;
-      padding: 6px 12px;
-      background-color: #000000;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-    .cargando {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(0,0,0,.3);
-      border-radius: 50%;
-      border-top-color: #000;
-      animation: spin 1s ease-in-out infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .cluster-marcadores { background: rgba(0,0,0,0.7); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-    .inmueble-marker { background: transparent; border: none; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .user-location-marker { background: transparent; border: none; font-size: 28px; display: flex; align-items: center; justify-content: center; }
-    .popup-video-container { width: 100%; height: 260px; background-color: #000; position: relative; }
-    .popup-video-container iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
-    .popup-product-card {
-      background: #ffffff;
-      border-radius: 20px;
-      overflow: hidden;
-      width: 420px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .popup-product-image-container { position: relative; width: 100%; height: 260px; overflow: hidden; background-color: #f0f0f0; }
-    .popup-product-image { width: 100%; height: 100%; object-fit: cover; }
-    .popup-image-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 8px; transform: translateY(-50%); z-index: 10; }
-    .popup-nav-btn { background-color: rgba(0, 0, 0, 0.6); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-    .popup-nav-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
-    .popup-image-counter { position: absolute; bottom: 8px; right: 8px; background-color: rgba(0, 0, 0, 0.65); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; z-index: 10; }
-    .popup-product-info { padding: 1rem; }
-    .popup-product-title { font-size: 1rem; margin-bottom: 0.5rem; font-weight: 700; }
-    .precio-line { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-    .popup-product-price { font-size: 1.2rem; font-weight: 800; color: #000000; }
-    .enlaces-secundarios { display: flex; gap: 0.8rem; font-size: 0.75rem; }
-    .enlace-info { color: #000000; text-decoration: none; font-weight: 600; cursor: pointer; display: flex; gap: 4px; }
-    .enlace-mapa { color: #000000; text-decoration: none; font-size: 1rem; cursor: pointer; }
-    .popup-product-details { margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .popup-product-details span { background-color: #f5f5f5; padding: 0.2rem 0.6rem; border-radius: 30px; font-size: 0.7rem; }
-    .popup-product-actions { display: flex; gap: 0.5rem; }
-    .popup-add-to-cart, .popup-buy-now { padding: 0.5rem; border: none; border-radius: 10px; cursor: pointer; font-family: 'Libre Baskerville', serif; font-size: 0.7rem; font-weight: 600; flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.3rem; transition: all 0.2s ease; }
-    .popup-add-to-cart { background-color: #000000; color: #ffffff; }
-    .popup-buy-now { background-color: #f0f0f0; color: #000000; border: 1px solid #ddd; }
-    .gm-style .gm-style-iw-c { border-radius: 20px !important; padding: 0 !important; max-width: 440px !important; }
-    .gm-style .gm-style-iw-d { overflow: auto !important; max-height: none !important; padding: 0 !important; }
-    .gm-style-iw-tc { display: none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QRP2P Cali Valle del Cauca Colombia - El Marketplace de Cali</title>
+    <meta name="description" content="QRP2P Cali, el marketplace de Cali Valle del Cauca Colombia. Compra y vende con contraentrega, envíos rápidos y pago seguro en Cali y todo Colombia.">
+    <meta name="keywords" content="QRP2P Cali, marketplace Cali, contraentrega Cali, comprar en Cali, vender en Cali, envíos Cali, QRP2P Colombia">
+    <meta name="author" content="QRP2P Cali">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrcontraentrega.com/calivalle">
     
-    /* MODAL MÁS PEQUEÑO, PERO IMÁGENES INTERNAS DEL POPUP SIGUEN IGUAL (260px) */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      overflow-y: auto;
-      padding: 1rem;
-    }
-    .modal-container {
-      max-width: 580px;   /* Reducido de 750px a 580px para que sea más compacto */
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 28px;
-      background: white;
-      box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-    }
-    .close-modal {
-      position: sticky;
-      top: 0;
-      right: 0;
-      display: flex;
-      justify-content: flex-end;
-      padding: 0.8rem 1rem;
-      background: white;
-      border-bottom: 1px solid #eee;
-      z-index: 10;
-    }
-    .close-modal button {
-      background: #f0f0f0;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-    }
-    .form-panel {
-      padding: 1.2rem 1.5rem;
-    }
-    .step-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      color: #333;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      font-size: 15px !important;
-      border: 1.5px solid #e0e0e0;
-      border-radius: 16px;
-      font-family: inherit;
-      user-select: text;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #000000;
-    }
-    .inline-checkbox {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin: 0.8rem 0;
-    }
-    .inline-checkbox input { width: 1rem; height: 1rem; margin: 0; }
-    .inline-checkbox label { margin: 0; text-transform: none; font-size: 0.8rem; }
-    .terms-link { color: #000; text-decoration: underline; cursor: pointer; font-weight: 600; }
-    .calendar-card {
-      border: 1.5px solid #eaeaea;
-      border-radius: 20px;
-      padding: 0.8rem;
-      margin: 1rem 0;
-    }
-    .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
-    .month-year { font-weight: 700; font-size: 1rem; }
-    .weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 600; font-size: 0.65rem; margin-bottom: 0.5rem; color: #888; }
-    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
-    .day-cell { padding: 0.5rem 0; font-size: 0.8rem; border-radius: 50px; cursor: pointer; background: #fff; }
-    .day-cell.selected { background: #000000; color: white; }
-    .day-cell.available:hover { background: #f0f0f0; }
-    .day-cell.other-month { opacity: 0.3; cursor: default; }
-    .day-cell.disabled { opacity: 0.3; cursor: not-allowed; background: #f5f5f5; }
-    .horarios-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; max-height: 140px; overflow-y: auto; padding: 0.5rem; background: #f9f9f9; border-radius: 16px; }
-    .horario-badge { display: inline-block; padding: 0.4rem 0.9rem; border: 1.5px solid #e0e0e0; border-radius: 50px; font-size: 0.75rem; cursor: pointer; background: white; font-weight: 500; }
-    .horario-badge.selected { background: #000; color: white; border-color: #000; }
-    .btn-submit { width: 100%; padding: 0.8rem; font-size: 0.9rem; font-weight: 700; background: #000000; color: white; border: none; border-radius: 50px; cursor: pointer; margin-top: 1rem; }
-    .section { background: #ffffff; border-radius: 20px; padding: 1rem; margin-bottom: 1rem; border: 1px solid #eaeaea; }
-    .section-title { font-size: 1rem; font-weight: 700; border-left: 4px solid #000000; padding-left: 0.8rem; margin-bottom: 1rem; }
-    .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin: 0.5rem 0; }
-    .radio-group label, .checkbox-group label { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; margin-bottom: 0; text-transform: none; font-size: 0.85rem; cursor: pointer; }
-    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-    .comprador-card { border: 1.5px solid #eaeaea; border-radius: 18px; padding: 1rem; margin-bottom: 1rem; background: #fafafa; }
-    .tipo-comprador-selector { display: flex; gap: 1.2rem; margin-bottom: 0.8rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.6rem; border-bottom: 1px solid #eaeaea; font-size: 0.8rem; }
-    .property-info { background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%); border-radius: 18px; padding: 0.8rem 1rem; margin-bottom: 1rem; }
-    .property-info h4 { font-size: 1rem; margin-bottom: 0.3rem; }
-    .terms-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; padding: 1rem; }
-    .terms-modal-content { background: white; max-width: 450px; width: 100%; border-radius: 28px; padding: 1.5rem; max-height: 70vh; overflow-y: auto; }
-    .notificacion-alerta { position: fixed; bottom: 80px; right: 20px; background: #ff6b6b; color: white; padding: 10px 16px; border-radius: 12px; font-size: 0.8rem; z-index: 2000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; gap: 10px; align-items: center; }
-    .servicios-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 2500; justify-content: center; align-items: center; }
-    .servicios-container { background: white; border-radius: 28px; width: 90%; max-width: 480px; max-height: 80vh; overflow-y: auto; padding: 1.2rem; }
-    .servicios-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 0.6rem; margin-bottom: 1rem; }
-    .servicios-botones { display: flex; flex-direction: column; gap: 0.7rem; }
-    .servicio-btn { background: #000000; color: white; border: none; padding: 0.8rem; border-radius: 50px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-align: center; font-family: 'Libre Baskerville', serif; }
-    @media (max-width: 680px) {
-      .modal-container { max-width: 95%; }
-      .form-panel { padding: 1rem; }
-      .row-2 { grid-template-columns: 1fr; }
-      .popup-product-card { width: 310px; }
-      .btn-mapa { padding: 0.5rem 0.8rem; font-size: 0.8rem; }
-    }
-  </style>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrcontraentrega.com/calivalle">
+    <meta property="og:title" content="QRP2P Cali Valle del Cauca Colombia - El Marketplace de Cali">
+    <meta property="og:description" content="QRP2P Cali, el marketplace de Cali Valle del Cauca Colombia. Compra y vende con contraentrega, envíos rápidos y pago seguro.">
+    <meta property="og:image" content="https://qrp2p.com/img/P2Pblack.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QRP2P Cali Valle del Cauca Colombia - El Marketplace de Cali">
+    <meta name="twitter:description" content="QRP2P Cali, el marketplace de Cali Valle del Cauca Colombia. Compra y vende con contraentrega.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-blanco: #ffffff;
+            --color-negro: #000000;
+            --color-gris-claro: #f5f5f5;
+            --color-gris-medio: #e0e0e0;
+            --color-gris-oscuro: #333333;
+            --color-verde: #25D366;
+            --color-azul: #007bff;
+            --color-rojo: #dc3545;
+            --color-dorado: #c9a84c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        /* Botón menú hamburguesa */
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            padding: 0.3rem;
+        }
+
+        .menu-toggle:hover {
+            color: #cccccc;
+        }
+
+        /* Menú de navegación */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-menu a:hover {
+            color: #cccccc;
+        }
+
+        .nav-menu a i {
+            font-size: 1rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--color-gris-claro);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--color-gris-oscuro);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Filtros */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+        
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .category-btn {
+            background: none;
+            border: 1px solid var(--color-negro);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
+        
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-card {
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid var(--color-gris-medio);
+            transition: opacity 0.3s;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            min-height: 2.8rem;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-gris-oscuro);
+        }
+        
+        .product-description {
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--color-gris-oscuro);
+            min-height: 2.8rem;
+            line-height: 1.4;
+        }
+
+        .product-supplier {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 0.8rem;
+            align-items: center;
+        }
+
+        .product-supplier a {
+            color: var(--color-negro);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .product-supplier a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
+
+        .product-supplier .label {
+            font-weight: 400;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .add-to-cart, .buy-now {
+            padding: 0.7rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .add-to-cart {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+        
+        .buy-now {
+            background-color: var(--color-gris-oscuro);
+            color: var(--color-blanco);
+        }
+        
+        .buy-now:hover {
+            background-color: var(--color-negro);
+        }
+        
+        /* Enlaces de producto */
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .product-link:hover .product-title {
+            text-decoration: underline;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: var(--color-blanco);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .close-cart {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .item-info {
+            flex-grow: 1;
+        }
+        
+        .item-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .item-price {
+            color: var(--color-gris-oscuro);
+            font-size: 0.9rem;
+        }
+        
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: 1px solid var(--color-gris-medio);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .remove-item {
+            color: #ff0000;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--color-gris-medio);
+        }
+        
+        /* Payment Options - Versión vertical */
+        .payment-options {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .payment-options h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .payment-option {
+            display: flex;
+            flex-direction: column;
+            padding: 0.8rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--color-negro);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--color-negro);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .payment-option .payment-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            width: 100%;
+        }
+        
+        .payment-radio {
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        
+        .payment-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .payment-name {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .payment-description {
+            font-size: 0.85rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.2rem;
+        }
+
+        /* Cuota inicial extra fields - VERSIÓN VERTICAL MEJORADA */
+        .downpayment-fields {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-dorado);
+            width: 100%;
+        }
+
+        .downpayment-fields.active {
+            display: block;
+        }
+
+        .downpayment-fields .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        .downpayment-fields .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .downpayment-fields label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-negro);
+        }
+
+        .downpayment-fields input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2rem;
+            transition: border-color 0.3s;
+            background-color: #fafafa;
+        }
+
+        .downpayment-fields input:focus {
+            border-color: var(--color-dorado);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        }
+
+        .downpayment-fields .input-hint {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        /* Shipping Options */
+        .shipping-options {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .shipping-options h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .shipping-location {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .shipping-location select {
+            padding: 0.8rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+            background-color: var(--color-blanco);
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .shipping-location select:focus {
+            border-color: var(--color-negro);
+            outline: none;
+        }
+        
+        .shipping-info-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+        
+        .shipping-info-box .label {
+            font-weight: 700;
+        }
+        
+        .shipping-info-box .price {
+            font-weight: 700;
+            color: var(--color-negro);
+        }
+        
+        .shipping-delivery-date {
+            font-size: 0.9rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: var(--color-blanco);
+            border-radius: 4px;
+            border-left: 4px solid var(--color-verde);
+        }
+
+        /* Check-in / Checkout para reservas */
+        .booking-dates {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+
+        .booking-dates h4 {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .booking-dates .date-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .booking-dates .date-group label {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 140px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .booking-dates .date-group input {
+            padding: 0.5rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+            margin-top: 0.3rem;
+        }
+
+        /* Agendar Visita Previa (para inmuebles y carros) - VERSIÓN VERTICAL */
+        .visit-schedule {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+
+        .visit-schedule h4 {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .visit-schedule .visit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .visit-schedule .visit-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .visit-schedule .visit-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .visit-schedule .visit-option label {
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .visit-schedule .visit-date-time {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 6px;
+        }
+
+        .visit-schedule .visit-date-time.active {
+            display: block;
+        }
+
+        .visit-schedule .visit-date-time label {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .visit-schedule .visit-date-time input {
+            padding: 0.6rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+            margin-top: 0.3rem;
+            width: 100%;
+        }
+
+        /* Información de crédito para inmuebles y carros */
+        .credit-info {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f5f0;
+            border-radius: 8px;
+            border: 2px solid var(--color-dorado);
+        }
+
+        .credit-info h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--color-dorado);
+        }
+
+        .credit-info p {
+            font-size: 0.85rem;
+            color: var(--color-gris-oscuro);
+            margin-bottom: 0.3rem;
+        }
+
+        .credit-info .credit-badge {
+            display: inline-block;
+            background-color: var(--color-dorado);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+        }
+        
+        /* Customer Info Form */
+        .customer-info {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+        }
+        
+        .customer-info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+        
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .checkout-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .whatsapp-btn {
+            background-color: var(--color-verde);
+            color: white;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        
+        .whatsapp-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .continue-shopping {
+            background-color: var(--color-gris-medio);
+            color: var(--color-negro);
+        }
+        
+        .continue-shopping:hover {
+            background-color: var(--color-gris-oscuro);
+            color: var(--color-blanco);
+        }
+        
+        /* Modal para compra directa */
+        .direct-purchase-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .direct-purchase-content {
+            background-color: var(--color-blanco);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .direct-purchase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .close-direct-purchase {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .direct-purchase-product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .direct-purchase-product img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 1rem;
+            border-radius: 4px;
+        }
+        
+        .direct-purchase-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .direct-purchase-info .product-price {
+            margin-bottom: 0;
+        }
+        
+        /* Admin Access Section */
+        .admin-access {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .admin-access h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .admin-form input {
+            padding: 0.8rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+        }
+        
+        .admin-form button {
+            padding: 0.8rem;
+            background-color: var(--color-negro);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-form button:hover {
+            background-color: var(--color-gris-oscuro);
+        }
+        
+        /* Supplier Table */
+        .supplier-table-container {
+            display: none;
+            margin: 2rem 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .supplier-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .supplier-table th,
+        .supplier-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-gris-medio);
+        }
+        
+        .supplier-table th {
+            background-color: var(--color-gris-claro);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+        
+        .supplier-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .supplier-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            margin-bottom: 0.5rem;
+            color: var(--color-gris-medio);
+            text-decoration: none;
+            display: block;
+        }
+        
+        .footer-section a:hover {
+            color: var(--color-blanco);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            font-size: 1.5rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-gris-oscuro);
+            color: var(--color-gris-medio);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+            
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .cart-content, .direct-purchase-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            
+            .checkout-buttons {
+                gap: 0.5rem;
+            }
+            
+            .checkout-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                margin-top: 0.8rem;
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.3rem 0;
+                width: 100%;
+            }
+
+            .header-container {
+                justify-content: space-between;
+            }
+
+            .header-right {
+                gap: 0.5rem;
+            }
+
+            .downpayment-fields input {
+                font-size: 1.1rem;
+                padding: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .item-quantity {
+                align-self: flex-end;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .product-card {
+                min-width: 160px;
+            }
+            
+            .product-title {
+                font-size: 1rem;
+            }
+            
+            .product-price {
+                font-size: 1.1rem;
+            }
+            
+            .add-to-cart, .buy-now {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .nav-menu a {
+                font-size: 0.8rem;
+            }
+
+            .downpayment-fields input {
+                font-size: 1rem;
+                padding: 0.7rem;
+            }
+        }
+        
+        /* Notificación */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            border-radius: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.5s;
+        }
+        
+        /* Scroll horizontal en móviles */
+        .scroll-container {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .scroll-content {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 769px) {
+            .scroll-container {
+                overflow-x: visible;
+            }
+            
+            .scroll-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media screen and (max-width: 767px) {
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="contenedor-mapa">
-    <div id="barra-superior">
-      <div class="botones-izquierda">
-        <div class="contenedor-buscador">
-          <input type="search" id="buscador" placeholder="Buscar inmuebles en Cali..." enterkeyhint="search">
-          <div id="sugerencias-busqueda" class="sugerencias-busqueda"></div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="https://qrp2p.com/img/P2Pblack.png" alt="QRP2P Cali - Marketplace de Cali" class="logo-img">
+            </a>
+            <!-- Botón menú hamburguesa -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Menú de navegación -->
+            <nav class="nav-menu" id="navMenu">
+                <a href="/plan-anual-colombia.html"><i class="fas fa-clipboard-list"></i>Crear web + vendedor verificado marketplace</a>
+                <a href="/administracion-colombia.html"><i class="fas fa-user-cog"></i> Administración Mensual</a>
+                <a href="/marketing-colombia.html"><i class="fas fa-bullhorn"></i> Marketing Mensual</a>
+                <a href="/logistica-colombia.html"><i class="fas fa-truck"></i> Logística</a>
+                <a href="/finanzas-colombia.html"><i class="fas fa-chart-line"></i> Finanzas</a>
+                <a href="/contabilidad-colombia.html"><i class="fas fa-book"></i> Contabilidad Mensual</a>
+                <a href="/academia-colombia.html"><i class="fas fa-graduation-cap"></i> Academia QRP2P</a>
+            </nav>
+            <div class="header-right">
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
         </div>
-        <button class="btn-mapa btn-centrar" id="centrar-btn"><i class="fas fa-location-dot"></i>CENTRAR</button>
-        <button class="btn-mapa btn-registro" id="servicios-btn"><i class="fas fa-key"></i>SERVICIOS</button>
-      </div>
-      <div class="botones-derecha">
-        <button class="map-type-btn active" id="map-btn">Mapa</button>
-        <button class="map-type-btn" id="satellite-btn">Satélite</button>
-      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>QRP2P.COM</h1>
+        <p class="subtitle">Marketplace Cali, Valle del Cauca, Colombia</p>
+        <p>Compra y vende seguro en Cali y todo destino. Envíos rápidos, pago seguro y vendedores verificados.</p>
+    </section>
+        
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filtros -->
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar productos y servicios en QRP2P Cali...">
+            </div>
+            <div class="category-filter">
+                <button class="category-btn active" data-category="todo">@calivalle</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="scroll-container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- Admin Access Section -->
+        <div class="admin-access">
+            <h2></h2>
+            <div class="admin-form">
+                <input type="password" id="adminKey" placeholder="Ingreso de afiliados">
+                <button id="adminAccessBtn">Acceder</button>
+            </div>
+        </div>
+
+        <!-- Supplier Table -->
+        <div class="supplier-table-container" id="supplierTableContainer">
+            <table class="supplier-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio Proveedor</th>
+                        <th>Precio Venta</th>
+                        <th>Proveedor</th>
+                        <th>Margen</th>
+                    </tr>
+                </thead>
+                <tbody id="supplierTableBody">
+                    <!-- Los datos se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div id="mapa"></div>
-  </div>
-  <div id="visitaModal" class="modal-overlay"><div class="modal-container"><div class="close-modal"><button class="close-visita-modal">&times;</button></div><div id="visitaFormContainer" class="form-panel"></div></div></div>
-  <div id="ofertaModal" class="modal-overlay"><div class="modal-container"><div class="close-modal"><button class="close-oferta-modal">&times;</button></div><div id="ofertaFormContainer" class="form-panel"></div></div></div>
-  <div id="termsModal" class="terms-modal"><div class="terms-modal-content"><h3>Términos y Condiciones</h3><p>Al agendar aceptas recibir información del inmueble.</p><button class="close-terms" id="closeTermsBtn">Aceptar</button></div></div>
-  <div id="serviciosModal" class="servicios-modal"><div class="servicios-container"><div class="servicios-header"><h2>SERVICIOS</h2><button class="close-servicios" id="closeServiciosBtn">&times;</button></div><div class="servicios-botones"><button class="servicio-btn" data-url="/agentes-cali">AGENTES</button><button class="servicio-btn" data-url="/arrendar-inmueble-cali">RENTAS</button><button class="servicio-btn" data-url="/vender-inmueble-cali">VENTAS</button><button class="servicio-btn" data-url="/hipotecar-inmueble-cali">HIPOTÉCAS</button><button class="servicio-btn" data-url="/construccion-cali">CONSTRUCCIÓN</button><button class="servicio-btn" data-url="/credito-inmobiliario-cali">CRÉDITO</button><button class="servicio-btn" data-url="/inversion-cali">INVERSIÓN</button><button class="servicio-btn" data-url="/avaluos-cali">AVALÚOS</button><button class="servicio-btn" data-url="https://co.qrp2p.com/">MARKETPLACE</button></div></div></div>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script>
-    const WHATSAPP_NUMBER = "573041146297";
-    const LIMITES_CALI = { minLat: 3.3000, maxLat: 3.5500, minLng: -76.6500, maxLng: -76.4800 };
-    const properties = [
-      { id: 01, title: "Casa en Venta en Conjunto Cerrado Pampalinda", price: 800000000, priceRent: 0, description: "ID: CALI-01 | DIRECCIÓN: Cl 2 a # 64 a - 15 ca 24", category: "venta", m2: 188, cuartos: 4, baños: 3, latlng: [3.400458, -76.552114], media: ["https://co.qrp2p.com/wp-content/uploads/2026/04/picture-6-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-27-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-28-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-29-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-30-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-31-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-32-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-1-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-2-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-3-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-4-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-5-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-7-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-8-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-9-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-10-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-11-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-12-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-13-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-14-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-15-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-16-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-17-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-18-600x338.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-19-600x338.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-20-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-21-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-22-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-23-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-24-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-25-scaled.png", "https://co.qrp2p.com/wp-content/uploads/2026/04/picture-25-scaled.png", {type:"video", videoId:"dQw4w9WgXcQ"}], infoUrl: "https://co.qrp2p.com/producto/casa-en-venta-en-pampalinda-conjunto-cerrado-cali-valle-del-cauca-colombia/", mapsUrl: "https://maps.app.goo.gl/DHWLoB3V4RV9JvoZ8" },
-      { id: 2, title: "Casa en Ciudad Jardín", price: 680000000, priceRent: 3500000, description: "Casa con jardín y piscina privada", category: "venta", m2: 200, cuartos: 4, baños: 3, latlng: [3.3750, -76.5450], media: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=500", "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500", {type:"video", videoId:"9bZkp7q19f0"}], infoUrl: "https://qrp2p.com/propiedad/2", mapsUrl: "https://maps.google.com/?q=3.3750,-76.5450" },
-      { id: 3, title: "Oficina en el Centro Empresarial", price: 0, priceRent: 1800000, description: "Oficina completamente amoblada", category: "arriendo", m2: 80, cuartos: 2, baños: 1, latlng: [3.4516, -76.5320], media: ["https://images.unsplash.com/photo-1497366216548-37526070297c?w=500", "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=500", {type:"video", videoId:"JGwWNGJdvx8"}], infoUrl: "https://qrp2p.com/propiedad/3", mapsUrl: "https://maps.google.com/?q=3.4516,-76.5320" },
-      { id: 4, title: "Apartamento en el Sur", price: 320000000, priceRent: 1900000, description: "Apartamento familiar", category: "venta", m2: 95, cuartos: 3, baños: 2, latlng: [3.4000, -76.5200], media: ["https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=500", "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=500", {type:"video", videoId:"tgbNymZ7vqY"}], infoUrl: "https://qrp2p.com/propiedad/4", mapsUrl: "https://maps.google.com/?q=3.4000,-76.5200" }
-    ];
-    let mapa, userMarker, marcadoresOriginales = [], buscadorTimeout, googleMapsLayer, googleSatelliteLayer, currentLayer, currentProperty = null, selectedDate = null, selectedHorario = null, currentYear = new Date().getFullYear(), currentMonth = new Date().getMonth(), today = new Date(); today.setHours(0,0,0,0);
-    const allHorarios = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
-    let currentIndices = {};
-    function formatPrice(p) { if(p===0) return "Consultar"; return '$' + p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
-    function estaEnCali(lat,lng) { return (lat >= LIMITES_CALI.minLat && lat <= LIMITES_CALI.maxLat && lng >= LIMITES_CALI.minLng && lng <= LIMITES_CALI.maxLng); }
-    function mostrarNotificacion(mensaje) { alert(mensaje); }
-    function isDateInPast(dateStr) { let date = new Date(dateStr); date.setHours(0,0,0,0); return date < today; }
-    function getDaysForMonth(year, month) {
-      const firstDay = new Date(year, month, 1); let startWeekday = firstDay.getDay(); let offset = (startWeekday === 0 ? 6 : startWeekday - 1);
-      const daysInMonth = new Date(year, month+1, 0).getDate(), prevMonthDays = new Date(year, month, 0).getDate();
-      let days = [];
-      for(let i=0;i<offset;i++){ let dayNum = prevMonthDays - offset + i + 1, prevMonth=month-1, prevYear=year; if(prevMonth<0){prevMonth=11; prevYear--;} let dateStr=`${prevYear}-${String(prevMonth+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`; days.push({day:dayNum, isSelectable:!isDateInPast(dateStr), dateStr, currentMonth:false}); }
-      for(let d=1;d<=daysInMonth;d++){ let dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; days.push({day:d, isSelectable:!isDateInPast(dateStr), dateStr, currentMonth:true}); }
-      let remaining=42-days.length; for(let i=1;i<=remaining;i++){ let nextMonth=month+1, nextYear=year; if(nextMonth>11){nextMonth=0; nextYear++;} let dateStr=`${nextYear}-${String(nextMonth+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`; days.push({day:i, isSelectable:!isDateInPast(dateStr), dateStr, currentMonth:false}); }
-      return days;
-    }
-    function renderCalendar(container) { let days=getDaysForMonth(currentYear,currentMonth); const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']; let monthSpan=container.querySelector('.month-year'); if(monthSpan) monthSpan.innerText=`${monthNames[currentMonth]} ${currentYear}`; let daysGrid=container.querySelector('.days-grid'); if(!daysGrid) return; daysGrid.innerHTML=''; days.forEach(cell=>{ let div=document.createElement('div'); let className='day-cell'; if(!cell.currentMonth) className+=' other-month'; if(!cell.isSelectable) className+=' disabled'; else className+=' available'; div.className=className; div.innerText=cell.day; if(cell.isSelectable){ div.addEventListener('click',(function(dateStr){ return function(){ document.querySelectorAll('#visitaFormContainer .day-cell').forEach(el=>el.classList.remove('selected')); div.classList.add('selected'); selectedDate=dateStr; let horariosContainer=document.querySelector('#visitaFormContainer .horarios-list'); if(horariosContainer) renderHorarios(horariosContainer); }; })(cell.dateStr)); if(selectedDate===cell.dateStr) div.classList.add('selected'); } daysGrid.appendChild(div); }); }
-    function renderHorarios(horariosContainer) { if(!horariosContainer) return; if(!selectedDate){ horariosContainer.innerHTML='<div style="padding:0.6rem; text-align:center;">📅 Selecciona una fecha</div>'; return; } horariosContainer.innerHTML=''; allHorarios.forEach(slot=>{ let badge=document.createElement('span'); badge.className='horario-badge'; badge.innerText=slot; if(selectedHorario===slot) badge.classList.add('selected'); badge.addEventListener('click',()=>{ document.querySelectorAll('#visitaFormContainer .horario-badge').forEach(b=>b.classList.remove('selected')); badge.classList.add('selected'); selectedHorario=slot; }); horariosContainer.appendChild(badge); }); }
-    function showTermsModal() { document.getElementById('termsModal').style.display='flex'; }
-    function closeTermsModal() { document.getElementById('termsModal').style.display='none'; }
-    function openVisitaModal(property) { currentProperty=property; selectedDate=null; selectedHorario=null; currentYear=new Date().getFullYear(); currentMonth=new Date().getMonth(); let modal=document.getElementById('visitaModal'), container=document.getElementById('visitaFormContainer'); container.innerHTML=`<div class="property-info"><h4>🏠 ${currentProperty.title}</h4><p>${currentProperty.m2} m² · ${currentProperty.cuartos} hab · ${currentProperty.baños} baños</p></div><div class="step-title">📅 Agendar visita</div><div class="form-group"><label>NOMBRE COMPLETO *</label><input type="text" id="visitaNombre" placeholder="Ej: Juan Pérez"></div><div class="form-group"><label>TELÉFONO *</label><input type="tel" id="visitaTelefono" placeholder="3001234567"></div><div class="form-group"><label>CORREO</label><input type="email" id="visitaEmail"></div><div class="inline-checkbox"><input type="checkbox" id="visitaTerms"><label>Acepto <span class="terms-link" id="visitaTermsLink">términos</span></label></div><div class="calendar-card"><div class="calendar-nav"><button class="popup-nav-btn" id="prevMonthBtn" style="background:#000;"><i class="fas fa-chevron-left"></i></button><div class="month-year"></div><button class="popup-nav-btn" id="nextMonthBtn" style="background:#000;"><i class="fas fa-chevron-right"></i></button></div><div class="weekdays"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div class="days-grid"></div></div><div class="form-group"><label>HORARIO</label><div class="horarios-list"></div></div><button class="btn-submit" id="submitVisita">📩 Agendar por WhatsApp</button>`; let calendarDiv=container.querySelector('.calendar-card'); let prev=container.querySelector('#prevMonthBtn'), next=container.querySelector('#nextMonthBtn'), horariosDiv=container.querySelector('.horarios-list'); renderCalendar(calendarDiv); if(horariosDiv) renderHorarios(horariosDiv); if(prev) prev.addEventListener('click',()=>{ currentMonth--; if(currentMonth<0){currentMonth=11; currentYear--;} renderCalendar(calendarDiv); selectedDate=null; selectedHorario=null; if(horariosDiv) renderHorarios(horariosDiv); }); if(next) next.addEventListener('click',()=>{ currentMonth++; if(currentMonth>11){currentMonth=0; currentYear++;} renderCalendar(calendarDiv); selectedDate=null; selectedHorario=null; if(horariosDiv) renderHorarios(horariosDiv); }); document.getElementById('visitaTermsLink')?.addEventListener('click',showTermsModal); document.getElementById('submitVisita').addEventListener('click',()=>{ let nombre=document.getElementById('visitaNombre').value.trim(), telefono=document.getElementById('visitaTelefono').value.trim(), email=document.getElementById('visitaEmail').value.trim(), termsChecked=document.getElementById('visitaTerms').checked; if(!nombre||!telefono){alert('Completa nombre y teléfono'); return;} if(!termsChecked){alert('Acepta términos'); return;} if(!selectedDate){alert('Selecciona fecha'); return;} if(!selectedHorario){alert('Selecciona horario'); return;} let fecha=new Date(selectedDate).toLocaleDateString('es-ES'); let msg=`🏠 VISITA: ${currentProperty.title}\n👤 ${nombre}\n📱 ${telefono}\n✉️ ${email||'No'}\n📅 ${fecha} ⏰ ${selectedHorario}`; window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); modal.style.display='none'; }); modal.style.display='flex'; }
-    function openOfertaModal(property){ currentProperty=property; let modal=document.getElementById('ofertaModal'), container=document.getElementById('ofertaFormContainer'); container.innerHTML=`<div class="property-info"><h4>🏠 ${currentProperty.title}</h4><p>${currentProperty.m2} m² · ${currentProperty.cuartos} hab · ${currentProperty.baños} baños</p><p><strong>Precio: ${formatPrice(currentProperty.category==='venta'?currentProperty.price:currentProperty.priceRent)}</strong></p></div><div class="form-group"><label>NOMBRE COMPLETO *</label><input type="text" id="ofertaNombre" placeholder="Nombre"></div><div class="form-group"><label>TELÉFONO *</label><input type="tel" id="ofertaTelefono" placeholder="3001234567"></div><div class="form-group"><label>CORREO</label><input type="email" id="ofertaEmail"></div><div class="form-group"><label>COMENTARIOS</label><textarea rows="2" id="ofertaComentarios" placeholder="Ej: Requiero financiación..."></textarea></div><button class="btn-submit" id="submitOferta">📩 Enviar oferta</button>`; document.getElementById('submitOferta').addEventListener('click',()=>{ let nombre=document.getElementById('ofertaNombre').value.trim(), tel=document.getElementById('ofertaTelefono').value.trim(), email=document.getElementById('ofertaEmail').value.trim(), coment=document.getElementById('ofertaComentarios').value.trim(); if(!nombre||!tel){alert('Completa datos'); return;} let msg=`🏠 OFERTA: ${currentProperty.title}\n👤 ${nombre}\n📱 ${tel}\n✉️ ${email}\n📝 ${coment||'Sin comentarios'}`; window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); modal.style.display='none'; }); modal.style.display='flex'; }
-    function updateMediaInPopup(propertyId, newIndex){ const property=properties.find(p=>p.id===propertyId); if(!property) return; const popupNode=document.querySelector('.custom-popup'); if(!popupNode) return; const container=popupNode.querySelector(`#popup-img-container-${propertyId}`); if(!container) return; const mediaItem=property.media[newIndex]; const navDiv=container.querySelector('.popup-image-nav'); const counterDiv=container.querySelector('.popup-image-counter'); const existing=container.querySelector('.popup-product-image, .popup-video-container'); if(existing) existing.remove(); if(typeof mediaItem === 'string'){ const img=document.createElement('img'); img.src=mediaItem; img.alt=property.title; img.className='popup-product-image'; container.insertBefore(img, navDiv); } else if(mediaItem.type==='video'){ const videoDiv=document.createElement('div'); videoDiv.className='popup-video-container'; videoDiv.innerHTML=`<iframe src="https://www.youtube.com/embed/${mediaItem.videoId}?autoplay=0" frameborder="0" allowfullscreen></iframe>`; container.insertBefore(videoDiv, navDiv); } if(counterDiv) counterDiv.textContent=`${newIndex+1}/${property.media.length}`; currentIndices[propertyId]=newIndex; }
-    function generarPopupHTML(property){ const displayPrice=property.category==='venta'?formatPrice(property.price):formatPrice(property.priceRent); const actionText=property.category==='venta'?'Ofertar inmueble':'Iniciar arriendo'; const actionIcon=property.category==='venta'?'fa-hand-holding-usd':'fa-key'; if(currentIndices[property.id]===undefined) currentIndices[property.id]=0; const idx=currentIndices[property.id]; const media=property.media[idx]; let mediaHtml=''; if(typeof media==='string') mediaHtml=`<img src="${media}" alt="${property.title}" class="popup-product-image">`; else if(media.type==='video') mediaHtml=`<div class="popup-video-container"><iframe src="https://www.youtube.com/embed/${media.videoId}?autoplay=0" frameborder="0" allowfullscreen></iframe></div>`; return `<div class="popup-product-card" data-id="${property.id}"><div class="popup-product-image-container" id="popup-img-container-${property.id}">${mediaHtml}<div class="popup-image-nav"><button class="popup-nav-btn popup-prev-btn" data-id="${property.id}"><i class="fas fa-chevron-left"></i></button><button class="popup-nav-btn popup-next-btn" data-id="${property.id}"><i class="fas fa-chevron-right"></i></button></div><div class="popup-image-counter">${idx+1}/${property.media.length}</div></div><div class="popup-product-info"><h3 class="popup-product-title">${property.title}</h3><div class="precio-line"><span class="popup-product-price">${displayPrice}</span><div class="enlaces-secundarios"><a href="${property.infoUrl}" target="_blank" class="enlace-info"><i class="fas fa-key"></i> Info</a><a href="${property.mapsUrl}" target="_blank" class="enlace-mapa"><i class="fas fa-location-dot"></i></a></div></div><div class="popup-product-details"><span><i class="fas fa-arrows-alt"></i> ${property.m2} m²</span><span><i class="fas fa-bed"></i> ${property.cuartos} hab</span><span><i class="fas fa-bath"></i> ${property.baños} baños</span></div><p style="font-size:0.7rem; margin-bottom:0.6rem;">${property.description}</p><div class="popup-product-actions"><button class="popup-add-to-cart" data-id="${property.id}"><i class="fas fa-calendar-check"></i> Visita</button><button class="popup-buy-now" data-id="${property.id}"><i class="${actionIcon}"></i> ${actionText}</button></div></div></div>`; }
-    function centrarMapa(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ let{latitude,longitude}=pos.coords; if(estaEnCali(latitude,longitude)){ if(userMarker)mapa.removeLayer(userMarker); userMarker=L.marker([latitude,longitude],{icon:L.divIcon({className:'user-location-marker',html:'📍',iconSize:[24,24]})}).addTo(mapa).bindPopup('Tu ubicación'); mapa.setView([latitude,longitude],15); } else{ mostrarNotificacion("Fuera de Cali."); mapa.setView([3.4516,-76.5320],13); } },()=>{ mapa.setView([3.4516,-76.5320],13); }); } else{ mapa.setView([3.4516,-76.5320],13); } }
-    function initMap(){ mapa=L.map('mapa',{center:[3.4516,-76.5320],zoom:13,zoomControl:false}); googleMapsLayer=L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom:20,subdomains:['mt0','mt1','mt2','mt3']}); googleSatelliteLayer=L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom:20,subdomains:['mt0','mt1','mt2','mt3']}); currentLayer=googleMapsLayer; currentLayer.addTo(mapa); let clusters=L.markerClusterGroup({iconCreateFunction:cluster=>L.divIcon({html:`<div>${cluster.getChildCount()}</div>`,className:'cluster-marcadores',iconSize:[40,40]})}); let icono=L.divIcon({className:'inmueble-marker',html:'🔑',iconSize:[32,32],popupAnchor:[0,-16]}); properties.forEach(prop=>{ let popup=generarPopupHTML(prop); let marker=L.marker(prop.latlng,{icon:icono}).bindPopup(popup,{maxWidth:440,className:'custom-popup'}); marker.datosInmueble=prop; marker.datosBusqueda=`${prop.title} ${prop.description}`.toLowerCase(); marcadoresOriginales.push(marker); marker.on('popupopen',()=>{ setTimeout(()=>{ let node=document.querySelector('.custom-popup'); if(node){ let prev=node.querySelector(`.popup-prev-btn[data-id="${prop.id}"]`), next=node.querySelector(`.popup-next-btn[data-id="${prop.id}"]`); if(prev) prev.addEventListener('click',(e)=>{e.stopPropagation(); let idx=(currentIndices[prop.id]-1+prop.media.length)%prop.media.length; updateMediaInPopup(prop.id,idx);}); if(next) next.addEventListener('click',(e)=>{e.stopPropagation(); let idx=(currentIndices[prop.id]+1)%prop.media.length; updateMediaInPopup(prop.id,idx);}); let visaBtn=node.querySelector(`.popup-add-to-cart[data-id="${prop.id}"]`), offerBtn=node.querySelector(`.popup-buy-now[data-id="${prop.id}"]`); if(visaBtn) visaBtn.addEventListener('click',(e)=>{e.preventDefault(); openVisitaModal(prop); mapa.closePopup();}); if(offerBtn) offerBtn.addEventListener('click',(e)=>{e.preventDefault(); openOfertaModal(prop); mapa.closePopup();}); } },100); }); clusters.addLayer(marker); }); mapa.addLayer(clusters); }
-    function buscarInmuebles(q){ let term=q.toLowerCase(); let resultados=marcadoresOriginales.filter(m=>m.datosBusqueda.includes(term)); let sugerenciasDiv=document.getElementById('sugerencias-busqueda'); if(resultados.length){ sugerenciasDiv.innerHTML=''; resultados.forEach(m=>{ let item=document.createElement('div'); item.className='sugerencia-item'; item.innerHTML=`<div class="sugerencia-texto"><strong>🔑 ${m.datosInmueble.title}</strong><br><small>${m.datosInmueble.description}</small></div><button class="sugerencia-boton" data-id="${m.datosInmueble.id}">Ver</button>`; let btn=item.querySelector('.sugerencia-boton'); btn.addEventListener('click',(e)=>{ e.stopPropagation(); mapa.setView(m.getLatLng(),16); m.openPopup(); document.getElementById('buscador').value=m.datosInmueble.title; sugerenciasDiv.style.display='none'; }); item.addEventListener('click',()=>{ mapa.setView(m.getLatLng(),16); m.openPopup(); document.getElementById('buscador').value=m.datosInmueble.title; sugerenciasDiv.style.display='none'; }); sugerenciasDiv.appendChild(item); }); } else { sugerenciasDiv.innerHTML='<div class="sugerencia-item">❌ No se encontraron inmuebles verificados</div>'; } }
-    document.addEventListener('DOMContentLoaded',()=>{ initMap(); document.getElementById('centrar-btn').addEventListener('click',centrarMapa); document.getElementById('servicios-btn').addEventListener('click',()=>document.getElementById('serviciosModal').style.display='flex'); document.getElementById('map-btn').addEventListener('click',()=>{ mapa.removeLayer(currentLayer); currentLayer=googleMapsLayer; currentLayer.addTo(mapa); document.getElementById('map-btn').classList.add('active'); document.getElementById('satellite-btn').classList.remove('active'); }); document.getElementById('satellite-btn').addEventListener('click',()=>{ mapa.removeLayer(currentLayer); currentLayer=googleSatelliteLayer; currentLayer.addTo(mapa); document.getElementById('satellite-btn').classList.add('active'); document.getElementById('map-btn').classList.remove('active'); }); document.getElementById('closeServiciosBtn').addEventListener('click',()=>document.getElementById('serviciosModal').style.display='none'); window.addEventListener('click',(e)=>{if(e.target===document.getElementById('serviciosModal')) document.getElementById('serviciosModal').style.display='none';}); document.querySelectorAll('.servicio-btn').forEach(btn=>{btn.addEventListener('click',function(){ let url=this.getAttribute('data-url'); if(url) window.open(url,'_blank');});}); let inputBuscar=document.getElementById('buscador'); inputBuscar.addEventListener('input',(e)=>{ clearTimeout(buscadorTimeout); let term=e.target.value.trim(); let sugDiv=document.getElementById('sugerencias-busqueda'); if(term.length<2){ sugDiv.style.display='none'; return; } sugDiv.innerHTML='<div class="sugerencia-item">🔍 Buscando...</div>'; sugDiv.style.display='block'; buscadorTimeout=setTimeout(()=>buscarInmuebles(term),300); }); inputBuscar.addEventListener('keydown',(e)=>{if(e.key==='Enter'){ e.preventDefault(); let term=inputBuscar.value.trim(); if(term) buscarInmuebles(term); }}); document.addEventListener('click',(e)=>{ if(!e.target.closest('.contenedor-buscador')) document.getElementById('sugerencias-busqueda').style.display='none'; }); document.querySelectorAll('.close-visita-modal, .close-oferta-modal').forEach(btn=>{btn.addEventListener('click',()=>{document.getElementById('visitaModal').style.display='none'; document.getElementById('ofertaModal').style.display='none';});}); window.addEventListener('click',(e)=>{ if(e.target===document.getElementById('visitaModal')) document.getElementById('visitaModal').style.display='none'; if(e.target===document.getElementById('ofertaModal')) document.getElementById('ofertaModal').style.display='none'; if(e.target===document.getElementById('termsModal')) closeTermsModal(); }); document.getElementById('closeTermsBtn').addEventListener('click',closeTermsModal); });
-  </script>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Tu Carrito - QRP2P Cali</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Los items del carrito se cargarán dinámicamente -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            
+            <!-- Payment Options -->
+            <div class="payment-options">
+                <h3>Método de Pago</h3>
+                <div class="payment-option" data-payment="contraentrega">
+                    <div class="payment-row">
+                        <input type="radio" id="payment-contraentrega" name="payment" class="payment-radio" checked>
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                            </span>
+                            <span class="payment-description">Paga cuando recibas tu pedido en Cali o tu ciudad</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-option" data-payment="anticipado">
+                    <div class="payment-row">
+                        <input type="radio" id="payment-anticipado" name="payment" class="payment-radio">
+                        <div class="payment-info">
+                            <span class="payment-name">
+                                <i class="fas fa-credit-card"></i> Paga en línea
+                            </span>
+                            <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Options -->
+            <div class="shipping-options">
+                <h3><i class="fas fa-map-pin"></i> Logística y Envío - QRP2P Cali</h3>
+                <div class="shipping-location">
+                    <label for="shippingLocation">Selecciona tu ubicación:</label>
+                    <select id="shippingLocation">
+                        <option value="cali">📍 Cali, Valle del Cauca</option>
+                        <option value="colombia">🇨🇴 Colombia (fuera de Cali)</option>
+                        <option value="internacional">🌎 Fuera de Colombia</option>
+                    </select>
+                    
+                    <div class="shipping-info-box">
+                        <span class="label">Costo de envío:</span>
+                        <span class="price" id="shippingPriceDisplay">$10.000</span>
+                    </div>
+                    
+                    <div class="shipping-delivery-date" id="deliveryDateDisplay">
+                        <i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>Hoy mismo</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Customer Information Form -->
+            <div class="customer-info">
+                <h3>Información de Envío</h3>
+                <div class="form-group">
+                    <label for="customerName">Nombre Completo *</label>
+                    <input type="text" id="customerName" placeholder="Ingresa tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Teléfono *</label>
+                    <input type="tel" id="customerPhone" placeholder="Ingresa tu número de teléfono" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress">Dirección de Envío *</label>
+                    <input type="text" id="customerAddress" placeholder="Ingresa tu dirección completa" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerCity">Ciudad *</label>
+                    <input type="text" id="customerCity" placeholder="Ingresa tu ciudad" required>
+                </div>
+            </div>
+            
+            <div class="checkout-buttons">
+                <button class="checkout-btn whatsapp-btn" id="whatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
+                </button>
+                <button class="checkout-btn continue-shopping" id="continueShopping">Seguir comprando</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direct Purchase Modal -->
+    <div class="direct-purchase-modal" id="directPurchaseModal">
+        <div class="direct-purchase-content">
+            <div class="direct-purchase-header">
+                <h2 id="directPurchaseTitle">Comprar en QRP2P Cali</h2>
+                <button class="close-direct-purchase" id="closeDirectPurchase">&times;</button>
+            </div>
+            
+            <div class="direct-purchase-product" id="directPurchaseProduct">
+                <!-- Información del producto se cargará dinámicamente -->
+            </div>
+            
+            <!-- Payment Options - se genera dinámicamente según el tipo de producto -->
+            <div class="payment-options" id="dynamicPaymentOptions">
+                <h3>Método de Pago</h3>
+                <!-- Las opciones de pago se inyectarán desde JavaScript -->
+            </div>
+            
+            <!-- Shipping Options - Solo para productos físicos con logística -->
+            <div class="shipping-options" id="directShippingOptions">
+                <h3><i class="fas fa-map-pin"></i> Logística y Envío - QRP2P Cali</h3>
+                <div class="shipping-location">
+                    <label for="directShippingLocation">Selecciona tu ubicación:</label>
+                    <select id="directShippingLocation">
+                        <option value="cali">📍 Cali, Valle del Cauca</option>
+                        <option value="colombia">🇨🇴 Colombia (fuera de Cali)</option>
+                        <option value="internacional">🌎 Fuera de Colombia</option>
+                    </select>
+                    
+                    <div class="shipping-info-box">
+                        <span class="label">Costo de envío:</span>
+                        <span class="price" id="directShippingPriceDisplay">$10.000</span>
+                    </div>
+                    
+                    <div class="shipping-delivery-date" id="directDeliveryDateDisplay">
+                        <i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>Hoy mismo</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Dates (para reservas) -->
+            <div class="booking-dates" id="bookingDatesContainer" style="display:none;">
+                <h4><i class="fas fa-calendar-alt"></i> Fechas de Reserva</h4>
+                <div class="date-group">
+                    <label>
+                        Check-in
+                        <input type="datetime-local" id="checkinDate">
+                    </label>
+                    <label>
+                        Check-out
+                        <input type="datetime-local" id="checkoutDate">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Agendar Visita Previa (para inmuebles y carros) - VERSIÓN VERTICAL -->
+            <div class="visit-schedule" id="visitScheduleContainer" style="display:none;">
+                <h4><i class="fas fa-calendar-check"></i> ¿Deseas agendar una visita previa?</h4>
+                <div class="visit-options">
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitNo" value="no" checked>
+                        <label for="visitNo">No, deseo comprar directamente</label>
+                    </div>
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitYes" value="yes">
+                        <label for="visitYes">Sí, quiero agendar una visita</label>
+                    </div>
+                    <div class="visit-date-time" id="visitDateTime">
+                        <label>
+                            Fecha y hora de visita
+                            <input type="datetime-local" id="visitDateTimeInput">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de crédito para inmuebles y carros -->
+            <div class="credit-info" id="creditInfoContainer" style="display:none;">
+                <h4><i class="fas fa-handshake"></i> Opciones de Financiamiento</h4>
+                <p>Puedes adquirir este inmueble/vehículo con:</p>
+                <p><strong>🏦 Pago de contado</strong> - Aprovecha descuentos especiales</p>
+                <p><strong>📋 Cuota inicial + Crédito</strong> - Si ya cuentas con preaprobación bancaria o nosotros te ayudamos a gestionar el mejor crédito sin complicaciones.</p>
+                <span class="credit-badge"><i class="fas fa-star"></i> Asesoría financiera incluida</span>
+            </div>
+            
+            <!-- Customer Information Form -->
+            <div class="customer-info">
+                <h3>Información de Contacto</h3>
+                <div class="form-group">
+                    <label for="directCustomerName">Nombre Completo *</label>
+                    <input type="text" id="directCustomerName" placeholder="Ingresa tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerPhone">Teléfono *</label>
+                    <input type="tel" id="directCustomerPhone" placeholder="Ingresa tu número de teléfono" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerAddress">Dirección *</label>
+                    <input type="text" id="directCustomerAddress" placeholder="Ingresa tu dirección" required>
+                </div>
+                <div class="form-group">
+                    <label for="directCustomerCity">Ciudad *</label>
+                    <input type="text" id="directCustomerCity" placeholder="Ingresa tu ciudad" required>
+                </div>
+            </div>
+            
+            <div class="checkout-buttons">
+                <button class="checkout-btn whatsapp-btn" id="directWhatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i> Enviar pedido por WhatsApp
+                </button>
+                <button class="checkout-btn continue-shopping" id="cancelDirectPurchase">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>QRP2P Cali - El Marketplace de Cali</h3>
+                <p>QRP2P Cali es el marketplace líder en Cali, Valle del Cauca, Colombia. Conectamos vendedores y compradores con entrega contraentrega, envíos rápidos y el sistema de pago más seguro de la región.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-phone"></i> +57 3215343562</p>
+                <p><i class="fas fa-envelope"></i> calivalle@qrcontraentrega.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Carrera 16 # 9 - 44, Cali, Colombia</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/14T4jNLh1Dw/?mibextid=wwXIfr" aria-label="Facebook QRP2P Cali"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/calivalle_qrcontraentrega" aria-label="Instagram QRP2P Cali"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/573148304504" aria-label="WhatsApp QRP2P Cali"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="https://qrcontraentrega.com/afiliacion-colombia">Afiliarse a QRP2P Cali</a>
+                <a href="https://qrcontraentrega.com/solicitar-envio-colombia">Logística QRP2P Cali</a>
+                <a href="https://qrcontraentrega.com/terminos-y-condiciones-colombia">Términos y Condiciones</a>
+                <a href="https://qrcontraentrega.com/calivalle-mapa">Mapa QRP2P Cali</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; QRP2P Cali - El Marketplace de Cali, Valle del Cauca, Colombia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de datos de productos con nuevas propiedades
+        const products = [
+            {
+                "id": 1,
+                "title": "EGO PLANT BOTELLA 200 ML",
+                "price": 12800,
+                "description": "Producto de alta calidad para tu bienestar",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 8192,
+                "productUrl": "nutricionhd-01.html",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 143,
+                "title": "OMNILIFE F PLUS",
+                "price": 134750,
+                "description": "Suplemento nutricional de alta calidad",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 86240,
+                "productUrl": "https://ejemplo.com/productos/omnilife-f-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 144,
+                "title": "FIBER'N PLUS SUPREME SACHET 450 G",
+                "price": 159550,
+                "description": "Fibra soluble para una digestión saludable",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 102112,
+                "productUrl": "https://ejemplo.com/productos/fiber-n-plus-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 145,
+                "title": "ESTOP PLUS CAJA 30 SACHETS 450G",
+                "price": 251500,
+                "description": "Control de peso y metabolismo activo",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 160960,
+                "productUrl": "https://ejemplo.com/productos/estop-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 146,
+                "title": "HOMO PLUS CAJA 30 SACHETS 195 G",
+                "price": 134750,
+                "description": "Equilibrio hormonal y bienestar general",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 86240,
+                "productUrl": "https://ejemplo.com/productos/homo-plus",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 147,
+                "title": "OMNILIFE KOLINA BOTELLA 200 ML",
+                "price": 12800,
+                "description": "Bebida refrescante y nutritiva",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 8192,
+                "productUrl": "https://ejemplo.com/productos/omnilife-kolina",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 148,
+                "title": "BIOCROS SUPREME CAJA 30 SOBRES 240G",
+                "price": 120050,
+                "description": "Apoyo inmune y energía natural",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 76832,
+                "productUrl": "https://ejemplo.com/productos/biocros-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 149,
+                "title": "OMNIPLUS FRUTAS EVOLUCION 30 SACHES",
+                "price": 184550,
+                "description": "Vitaminas y minerales en delicioso sabor frutal",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 118112,
+                "productUrl": "https://ejemplo.com/productos/omniplus-frutas-evolucion",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 150,
+                "title": "OMNIPLUS NARANJA SUPREME CAJA 30 SOBRES",
+                "price": 184550,
+                "description": "Vitamina C y antioxidantes naturales",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 118112,
+                "productUrl": "https://ejemplo.com/productos/omniplus-naranja-supreme",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            {
+                "id": 151,
+                "title": "COGNOS EVOLUCION CAJA",
+                "price": 125750,
+                "description": "Concentración y rendimiento mental",
+                "category": "todo",
+                "supplier": "Nutrición HD",
+                "warehousePrice": 80480,
+                "productUrl": "https://ejemplo.com/productos/cognos-evolucion",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": true,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "fisico"
+            },
+            // Producto de reserva (no físico)
+            {
+                "id": 200,
+                "title": "CASA DE CAMPO - RESERVA EXCLUSIVA",
+                "price": 450000,
+                "description": "Disfruta de una estadía única en nuestra casa de campo",
+                "category": "reservas",
+                "supplier": "Turismo Cali",
+                "warehousePrice": 350000,
+                "productUrl": "https://ejemplo.com/reserva-casa-campo",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": true,
+                "isPhysical": false,
+                "hasLogistics": false,
+                "isInmueble": false,
+                "isCarro": false,
+                "paymentType": "reserva"
+            },
+            // Inmueble en venta (físico SIN logística, CON cita previa)
+            {
+                "id": 300,
+                "title": "APARTAMENTO EN VENTA - NORTE DE CALI",
+                "price": 450000000,
+                "description": "Hermoso apartamento de 120m² en el norte de Cali. 3 habitaciones, 2 baños, garaje y zona social.",
+                "category": "inmuebles",
+                "supplier": "Inmobiliaria Cali",
+                "warehousePrice": 400000000,
+                "productUrl": "https://ejemplo.com/inmueble/apartamento-norte-cali",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": false,
+                "isInmueble": true,
+                "isCarro": false,
+                "paymentType": "inmueble_carro"
+            },
+            // Toyota Sequoia - Carro en venta
+            {
+                "id": 400,
+                "title": "TOYOTA SEQUOIA 2024 - FULL EQUIPO",
+                "price": 380000000,
+                "description": "Toyota Sequoia 2024, motor V8 5.7L, 4x4, 7 pasajeros, asientos de cuero, pantalla táctil, cámara 360°, sunroof, excelentes condiciones.",
+                "category": "carros",
+                "supplier": "Autos Premium Cali",
+                "warehousePrice": 350000000,
+                "productUrl": "https://ejemplo.com/carros/toyota-sequoia-2024",
+                "images": [
+                    "https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"
+                ],
+                "isReserva": false,
+                "isPhysical": true,
+                "hasLogistics": false,
+                "isInmueble": false,
+                "isCarro": true,
+                "paymentType": "inmueble_carro"
+            }
+        ];
+
+        // Función para formatear precios en formato COP
+        function formatPrice(price) {
+            if (price >= 1000000) {
+                return 'COP $' + (price / 1000000).toFixed(0) + 'M';
+            }
+            return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Variables globales
+        let cart = [];
+        let currentDirectProduct = null;
+        let selectedPayment = "contraentrega";
+        let downpaymentAmount = '';
+        const ADMIN_KEY = "18Gr@ncolombia";
+        const WHATSAPP_NUMBER = "573148304504";
+        
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const continueShopping = document.getElementById('continueShopping');
+        const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const customerName = document.getElementById('customerName');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+        const customerCity = document.getElementById('customerCity');
+        
+        const shippingLocation = document.getElementById('shippingLocation');
+        const shippingPriceDisplay = document.getElementById('shippingPriceDisplay');
+        const deliveryDateDisplay = document.getElementById('deliveryDateDisplay');
+        
+        const directPurchaseModal = document.getElementById('directPurchaseModal');
+        const directPurchaseProduct = document.getElementById('directPurchaseProduct');
+        const closeDirectPurchase = document.getElementById('closeDirectPurchase');
+        const directCustomerName = document.getElementById('directCustomerName');
+        const directCustomerPhone = document.getElementById('directCustomerPhone');
+        const directCustomerAddress = document.getElementById('directCustomerAddress');
+        const directCustomerCity = document.getElementById('directCustomerCity');
+        const directWhatsappBtn = document.getElementById('directWhatsappBtn');
+        const cancelDirectPurchase = document.getElementById('cancelDirectPurchase');
+        const directPurchaseTitle = document.getElementById('directPurchaseTitle');
+        
+        const directShippingLocation = document.getElementById('directShippingLocation');
+        const directShippingPriceDisplay = document.getElementById('directShippingPriceDisplay');
+        const directDeliveryDateDisplay = document.getElementById('directDeliveryDateDisplay');
+        const directShippingOptions = document.getElementById('directShippingOptions');
+        
+        const bookingDatesContainer = document.getElementById('bookingDatesContainer');
+        const checkinDate = document.getElementById('checkinDate');
+        const checkoutDate = document.getElementById('checkoutDate');
+
+        const visitScheduleContainer = document.getElementById('visitScheduleContainer');
+        const visitNo = document.getElementById('visitNo');
+        const visitYes = document.getElementById('visitYes');
+        const visitDateTime = document.getElementById('visitDateTime');
+        const visitDateTimeInput = document.getElementById('visitDateTimeInput');
+
+        const creditInfoContainer = document.getElementById('creditInfoContainer');
+        const dynamicPaymentOptions = document.getElementById('dynamicPaymentOptions');
+        
+        const adminKeyInput = document.getElementById('adminKey');
+        const adminAccessBtn = document.getElementById('adminAccessBtn');
+        const supplierTableContainer = document.getElementById('supplierTableContainer');
+        const supplierTableBody = document.getElementById('supplierTableBody');
+        
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        // Toggle menú móvil
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('open')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Cerrar menú al hacer clic en un enlace (móvil)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // Función para calcular envío y fecha
+        function getShippingInfo(location) {
+            const info = {
+                'cali': { price: 10000, date: 'Hoy mismo', label: 'Cali' },
+                'colombia': { price: 25000, date: '1 a 3 días hábiles', label: 'Colombia' },
+                'internacional': { price: 200000, date: '5 a 10 días hábiles', label: 'Internacional' }
+            };
+            return info[location] || info['cali'];
+        }
+
+        // Actualizar información de envío en el carrito
+        function updateShippingInfo() {
+            const location = shippingLocation.value;
+            const info = getShippingInfo(location);
+            shippingPriceDisplay.textContent = formatPrice(info.price);
+            deliveryDateDisplay.innerHTML = `<i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>${info.date}</strong>`;
+            updateCart();
+        }
+
+        // Actualizar información de envío en compra directa
+        function updateDirectShippingInfo() {
+            const location = directShippingLocation.value;
+            const info = getShippingInfo(location);
+            directShippingPriceDisplay.textContent = formatPrice(info.price);
+            directDeliveryDateDisplay.innerHTML = `<i class="fas fa-calendar-check"></i> Fecha estimada de entrega: <strong>${info.date}</strong>`;
+        }
+
+        // Eventos para mostrar/ocultar fecha de visita
+        visitNo.addEventListener('change', () => {
+            visitDateTime.classList.remove('active');
+            validateDirectCheckoutButton();
+        });
+
+        visitYes.addEventListener('change', () => {
+            visitDateTime.classList.add('active');
+            validateDirectCheckoutButton();
+        });
+
+        // Función para generar las opciones de pago según el tipo de producto - VERSIÓN VERTICAL
+        function renderPaymentOptions(paymentType) {
+            let html = '<h3>Método de Pago</h3>';
+            
+            if (paymentType === 'fisico') {
+                html += `
+                    <div class="payment-option" data-payment="contraentrega">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-contraentrega" name="direct-payment" class="payment-radio" checked>
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-money-bill-wave"></i> Paga en persona con efectivo
+                                </span>
+                                <span class="payment-description">Paga cuando recibas tu pedido en Cali o tu ciudad</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="anticipado">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-anticipado" name="direct-payment" class="payment-radio">
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-credit-card"></i> Paga en línea
+                                </span>
+                                <span class="payment-description">Criptomonedas, tarjetas crédito y débito, PSE, Nequi, Bancolombia</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (paymentType === 'reserva') {
+                html += `
+                    <div class="payment-option" data-payment="checkin">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-checkin" name="direct-payment" class="payment-radio" checked>
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-hotel"></i> Paga en el Check-in
+                                </span>
+                                <span class="payment-description">Realiza el pago al momento de tu llegada</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="anticipado">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-anticipado-reserva" name="direct-payment" class="payment-radio">
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-credit-card"></i> Paga en línea
+                                </span>
+                                <span class="payment-description">Asegura tu reserva pagando con criptomonedas, tarjetas, PSE, Nequi o Bancolombia</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (paymentType === 'inmueble_carro') {
+                html += `
+                    <div class="payment-option" data-payment="contado">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-contado" name="direct-payment" class="payment-radio" checked>
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-hand-holding-usd"></i> Pago de contado
+                                </span>
+                                <span class="payment-description">Aprovecha descuentos y beneficios especiales</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-payment="credito">
+                        <div class="payment-row">
+                            <input type="radio" id="direct-payment-credito" name="direct-payment" class="payment-radio">
+                            <div class="payment-info">
+                                <span class="payment-name">
+                                    <i class="fas fa-building-columns"></i> Cuota inicial + Crédito
+                                </span>
+                                <span class="payment-description">Si ya cuentas con preaprobación o te ayudamos a gestionar el mejor crédito sin complicaciones</span>
+                            </div>
+                        </div>
+                        <div class="downpayment-fields" id="downpaymentFields">
+                            <div class="form-group">
+                                <label for="downpaymentAmount">💰 Monto de cuota inicial (COP) *</label>
+                                <input type="number" id="downpaymentAmount" placeholder="Ej: 50.000.000" min="0">
+                                <div class="input-hint">Ingresa el valor que deseas dar como cuota inicial</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            dynamicPaymentOptions.innerHTML = html;
+            
+            // Re-asignar event listeners a las nuevas opciones de pago
+            document.querySelectorAll('#dynamicPaymentOptions .payment-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const radio = option.querySelector('.payment-radio');
+                    if (radio) {
+                        radio.checked = true;
+                        // Mostrar/ocultar campos de cuota inicial
+                        const downpaymentFields = option.querySelector('.downpayment-fields');
+                        if (downpaymentFields) {
+                            if (radio.value === 'credito' || option.getAttribute('data-payment') === 'credito') {
+                                downpaymentFields.classList.add('active');
+                            } else {
+                                downpaymentFields.classList.remove('active');
+                            }
+                        }
+                        updatePaymentOptions();
+                        validateDirectCheckoutButton();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('#dynamicPaymentOptions .payment-radio').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const parentOption = radio.closest('.payment-option');
+                    const downpaymentFields = parentOption ? parentOption.querySelector('.downpayment-fields') : null;
+                    if (downpaymentFields) {
+                        if (radio.value === 'credito' || parentOption.getAttribute('data-payment') === 'credito') {
+                            downpaymentFields.classList.add('active');
+                        } else {
+                            downpaymentFields.classList.remove('active');
+                        }
+                    }
+                    updatePaymentOptions();
+                    validateDirectCheckoutButton();
+                });
+            });
+
+            // Inicializar campos de cuota inicial
+            const downpaymentInput = document.getElementById('downpaymentAmount');
+            if (downpaymentInput) {
+                downpaymentInput.addEventListener('input', validateDirectCheckoutButton);
+            }
+        }
+
+        function loadProducts(productsToLoad) {
+            productsGrid.innerHTML = '';
+            
+            productsToLoad.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                // Determinar el texto del botón según el tipo de producto
+                let buyText = 'Comprar';
+                if (product.isReserva) {
+                    buyText = 'Reservar';
+                } else if (product.isInmueble || product.isCarro) {
+                    buyText = 'Adquirir';
+                }
+                
+                // Ícono para la categoría
+                let categoryIcon = '';
+                if (product.isCarro) categoryIcon = '🚗 ';
+                else if (product.isInmueble) categoryIcon = '🏠 ';
+                else if (product.isReserva) categoryIcon = '📅 ';
+                
+                // Construir información de proveedor y logística
+                let supplierHtml = '';
+                if (product.isPhysical && product.hasLogistics) {
+                    supplierHtml = `
+                        <span class="label">Vendedor:</span>
+                        <a href="/calivalle.html">${product.supplier}</a>
+                        <span class="label">Logística:</span>
+                        <a href="/calivalle.html">QRP2P Cali</a>
+                    `;
+                } else {
+                    supplierHtml = `
+                        <span class="label">Vendedor:</span>
+                        <a href="/calivalle.html">${product.supplier}</a>
+                    `;
+                }
+                
+                productCard.innerHTML = `
+                    <a href="${product.productUrl}" class="product-link" target="_blank">
+                        <div class="product-image-container">
+                            <img src="${product.images[0]}" alt="${product.title} - QRP2P Cali" class="product-image" loading="lazy">
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <a href="${product.productUrl}" class="product-link" target="_blank">
+                            <h3 class="product-title">${categoryIcon}${product.title}</h3>
+                        </a>
+                        <p class="product-price">${formatPrice(product.price)}</p>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-supplier">
+                            ${supplierHtml}
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                            </button>
+                            <button class="buy-now" data-id="${product.id}">
+                                <i class="fas fa-shopping-bag"></i> ${buyText}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+            
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.closest('.add-to-cart').getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+            
+            document.querySelectorAll('.buy-now').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.closest('.buy-now').getAttribute('data-id'));
+                    openDirectPurchase(productId);
+                });
+            });
+        }
+
+        function openDirectPurchase(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentDirectProduct = product;
+            
+            // Cambiar título del modal según el tipo de producto
+            let buyText = 'Comprar';
+            if (product.isReserva) {
+                buyText = 'Reservar';
+            } else if (product.isInmueble || product.isCarro) {
+                buyText = 'Adquirir';
+            }
+            directPurchaseTitle.textContent = `${buyText} en QRP2P Cali`;
+            
+            // Construir información de proveedor y logística en el modal
+            let supplierInfoHtml = '';
+            if (product.isPhysical && product.hasLogistics) {
+                supplierInfoHtml = `
+                    <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
+                    <span style="margin-left:0.8rem;">Logística: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">QRP2P Cali</a></span>
+                `;
+            } else {
+                supplierInfoHtml = `
+                    <span>Vendedor: <a href="/calivalle.html" style="color:var(--color-negro);font-weight:700;">${product.supplier}</a></span>
+                `;
+            }
+            
+            directPurchaseProduct.innerHTML = `
+                <img src="${product.images[0]}" alt="${product.title} - QRP2P Cali">
+                <div class="direct-purchase-info">
+                    <h3>${product.title}</h3>
+                    <p class="product-price">${formatPrice(product.price)}</p>
+                    <p style="font-size:0.85rem;color:var(--color-gris-oscuro);margin-top:0.3rem;">${product.description}</p>
+                    <div style="font-size:0.8rem;margin-top:0.5rem;color:var(--color-gris-oscuro);display:flex;flex-wrap:wrap;gap:0.3rem 0.8rem;">
+                        ${supplierInfoHtml}
+                    </div>
+                </div>
+            `;
+            
+            // Renderizar opciones de pago según el tipo de producto
+            renderPaymentOptions(product.paymentType);
+            
+            // Mostrar/ocultar sección de envío según si es físico con logística
+            if (product.isPhysical && product.hasLogistics) {
+                directShippingOptions.style.display = 'block';
+            } else {
+                directShippingOptions.style.display = 'none';
+            }
+            
+            // Mostrar/ocultar fechas de reserva
+            if (product.isReserva) {
+                bookingDatesContainer.style.display = 'block';
+            } else {
+                bookingDatesContainer.style.display = 'none';
+            }
+
+            // Mostrar/ocultar agendar visita para inmuebles y carros
+            if (product.isInmueble || product.isCarro) {
+                visitScheduleContainer.style.display = 'block';
+                visitDateTime.classList.remove('active');
+                visitNo.checked = true;
+                visitDateTimeInput.value = '';
+                creditInfoContainer.style.display = 'block';
+            } else {
+                visitScheduleContainer.style.display = 'none';
+                creditInfoContainer.style.display = 'none';
+            }
+            
+            directCustomerName.value = '';
+            directCustomerPhone.value = '';
+            directCustomerAddress.value = '';
+            directCustomerCity.value = '';
+            downpaymentAmount = '';
+            directWhatsappBtn.disabled = true;
+            
+            // Seleccionar el primer método de pago por defecto
+            const firstRadio = document.querySelector('#dynamicPaymentOptions .payment-radio');
+            if (firstRadio) {
+                firstRadio.checked = true;
+            }
+            updatePaymentOptions();
+            
+            directShippingLocation.value = 'cali';
+            updateDirectShippingInfo();
+            
+            directPurchaseModal.style.display = 'flex';
+        }
+
+        function filterProducts() {
+            const searchText = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+            
+            const filteredProducts = products.filter(product => {
+                const matchesSearch = product.title.toLowerCase().includes(searchText) || 
+                                     product.description.toLowerCase().includes(searchText);
+                
+                // Solo mostrar todos los productos cuando la categoría es "todo"
+                let matchesCategory = activeCategory === 'todo';
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            loadProducts(filteredProducts);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    quantity: 1,
+                    image: product.images[0],
+                    description: product.description,
+                    isReserva: product.isReserva || false,
+                    isPhysical: product.isPhysical !== undefined ? product.isPhysical : true,
+                    hasLogistics: product.hasLogistics !== undefined ? product.hasLogistics : true,
+                    isInmueble: product.isInmueble || false,
+                    isCarro: product.isCarro || false,
+                    paymentType: product.paymentType || 'fisico'
+                });
+            }
+            
+            updateCart();
+            showNotification(`${product.title} agregado al carrito de QRP2P Cali`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                let itemBadge = '';
+                if (item.isReserva) itemBadge = '📅 Reserva';
+                else if (item.isCarro) itemBadge = '🚗 Carro';
+                else if (item.isInmueble) itemBadge = '🏠 Inmueble';
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" width="50">
+                    <div class="item-info">
+                        <h4 class="item-title">${item.title}</h4>
+                        <p class="item-price">${formatPrice(item.price)} c/u</p>
+                        ${itemBadge ? `<p style="font-size:0.7rem;color:var(--color-azul);">${itemBadge}</p>` : ''}
+                    </div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <span class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></span>
+                    </div>
+                    <div class="item-total">${formatPrice(itemTotal)}</div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            const location = shippingLocation.value;
+            const info = getShippingInfo(location);
+            const shippingCost = info.price;
+            
+            const total = subtotal + shippingCost;
+            cartTotal.textContent = formatPrice(total);
+            
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.quantity-btn').getAttribute('data-id'));
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+            
+            validateCheckoutButton();
+        }
+
+        function updatePaymentOptions() {
+            document.querySelectorAll('#dynamicPaymentOptions .payment-option').forEach(option => {
+                option.classList.remove('selected');
+                const radio = option.querySelector('.payment-radio');
+                if (radio && radio.checked) {
+                    option.classList.add('selected');
+                    selectedPayment = option.getAttribute('data-payment');
+                    // Guardar monto de cuota inicial si existe
+                    const downpaymentInput = document.getElementById('downpaymentAmount');
+                    if (downpaymentInput) {
+                        downpaymentAmount = downpaymentInput.value;
+                    }
+                }
+            });
+        }
+
+        function validateCheckoutButton() {
+            const hasItems = cart.length > 0;
+            const hasName = customerName.value.trim() !== '';
+            const hasPhone = customerPhone.value.trim() !== '';
+            const hasAddress = customerAddress.value.trim() !== '';
+            const hasCity = customerCity.value.trim() !== '';
+            
+            whatsappBtn.disabled = !(hasItems && hasName && hasPhone && hasAddress && hasCity);
+        }
+
+        function validateDirectCheckoutButton() {
+            const hasName = directCustomerName.value.trim() !== '';
+            const hasPhone = directCustomerPhone.value.trim() !== '';
+            const hasAddress = directCustomerAddress.value.trim() !== '';
+            const hasCity = directCustomerCity.value.trim() !== '';
+            
+            // Si es reserva, verificar que las fechas estén completas
+            let datesValid = true;
+            if (currentDirectProduct && currentDirectProduct.isReserva) {
+                const checkin = checkinDate.value;
+                const checkout = checkoutDate.value;
+                datesValid = checkin !== '' && checkout !== '';
+            }
+
+            // Si es inmueble o carro con visita, verificar que si quiere visita tenga fecha
+            let visitValid = true;
+            if (currentDirectProduct && (currentDirectProduct.isInmueble || currentDirectProduct.isCarro)) {
+                if (visitYes.checked) {
+                    visitValid = visitDateTimeInput.value !== '';
+                }
+            }
+
+            // Si es crédito, verificar que tenga monto de cuota inicial
+            let downpaymentValid = true;
+            if (selectedPayment === 'credito') {
+                const downpaymentInput = document.getElementById('downpaymentAmount');
+                if (downpaymentInput) {
+                    const value = downpaymentInput.value.trim();
+                    downpaymentValid = value !== '' && parseFloat(value) > 0;
+                }
+            }
+            
+            directWhatsappBtn.disabled = !(hasName && hasPhone && hasAddress && hasCity && datesValid && visitValid && downpaymentValid);
+        }
+
+        function showNotification(message) {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        function generateWhatsAppMessage() {
+            const location = shippingLocation.value;
+            const info = getShippingInfo(location);
+            let message = "¡Hola! Quiero realizar la siguiente compra en QRP2P Cali:\n\n";
+            
+            cart.forEach(item => {
+                let itemType = '';
+                if (item.isReserva) itemType = ' (Reserva)';
+                else if (item.isCarro) itemType = ' (Carro)';
+                else if (item.isInmueble) itemType = ' (Inmueble)';
+                message += `- ${item.title}${itemType} x${item.quantity}: ${formatPrice(item.price * item.quantity)}\n`;
+            });
+            
+            message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
+            message += `\n📅 Entrega estimada: ${info.date}`;
+            
+            const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + info.price;
+            message += `\n\n💰 Total: ${formatPrice(total)}`;
+            
+            let paymentLabel = '';
+            if (selectedPayment === 'contraentrega') {
+                paymentLabel = 'Paga en persona con efectivo (Paga cuando recibas tu pedido)';
+            } else if (selectedPayment === 'checkin') {
+                paymentLabel = 'Paga en el Check-in';
+            } else if (selectedPayment === 'contado') {
+                paymentLabel = 'Pago de contado';
+            } else if (selectedPayment === 'credito') {
+                const downpayment = document.getElementById('downpaymentAmount');
+                const amount = downpayment ? downpayment.value : '';
+                paymentLabel = `Cuota inicial + Crédito - Cuota inicial: ${amount ? formatPrice(parseFloat(amount)) : 'No especificada'}`;
+            } else {
+                paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
+            }
+            message += `\n\n💳 Método de pago: ${paymentLabel}`;
+            
+            message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
+            message += `\n\nMi información de envío es:\n`;
+            message += `Nombre: ${customerName.value}\n`;
+            message += `Teléfono: ${customerPhone.value}\n`;
+            message += `Dirección: ${customerAddress.value}\n`;
+            message += `Ciudad: ${customerCity.value}`;
+            
+            return encodeURIComponent(message);
+        }
+
+        function generateDirectWhatsAppMessage() {
+            const location = directShippingLocation.value;
+            const info = getShippingInfo(location);
+            const product = currentDirectProduct;
+            const isReserva = product && product.isReserva;
+            const isInmueble = product && product.isInmueble;
+            const isCarro = product && product.isCarro;
+            
+            let message = `¡Hola! Quiero ${isReserva ? 'reservar' : (isInmueble || isCarro ? 'adquirir' : 'comprar')} el siguiente producto en QRP2P Cali:\n\n`;
+            
+            message += `- ${product.title}: ${formatPrice(product.price)}\n`;
+            
+            // Si es reserva, agregar fechas
+            if (isReserva) {
+                const checkin = checkinDate.value;
+                const checkout = checkoutDate.value;
+                if (checkin && checkout) {
+                    const checkinFormatted = new Date(checkin).toLocaleString('es-CO');
+                    const checkoutFormatted = new Date(checkout).toLocaleString('es-CO');
+                    message += `\n📅 Check-in: ${checkinFormatted}`;
+                    message += `\n📅 Check-out: ${checkoutFormatted}`;
+                }
+            }
+
+            // Si es inmueble o carro con visita
+            if ((isInmueble || isCarro) && visitYes.checked) {
+                const visitDate = visitDateTimeInput.value;
+                if (visitDate) {
+                    const visitFormatted = new Date(visitDate).toLocaleString('es-CO');
+                    message += `\n📅 Visita previa agendada: ${visitFormatted}`;
+                }
+            }
+            
+            // Solo agregar envío si es físico con logística
+            if (product.isPhysical && product.hasLogistics) {
+                message += `\n📦 Envío (${info.label}): ${formatPrice(info.price)}`;
+                message += `\n📅 Entrega estimada: ${info.date}`;
+                const total = product.price + info.price;
+                message += `\n\n💰 Total: ${formatPrice(total)}`;
+            } else {
+                message += `\n\n💰 Total: ${formatPrice(product.price)}`;
+            }
+            
+            let paymentLabel = '';
+            if (selectedPayment === 'contraentrega') {
+                paymentLabel = 'Paga en persona con efectivo (Paga cuando recibas tu pedido)';
+            } else if (selectedPayment === 'checkin') {
+                paymentLabel = 'Paga en el Check-in';
+            } else if (selectedPayment === 'contado') {
+                paymentLabel = 'Pago de contado';
+            } else if (selectedPayment === 'credito') {
+                const downpayment = document.getElementById('downpaymentAmount');
+                const amount = downpayment ? downpayment.value : '';
+                paymentLabel = `Cuota inicial + Crédito - Cuota inicial: ${amount ? formatPrice(parseFloat(amount)) : 'No especificada'} - Te ayudamos a gestionar el mejor crédito sin complicaciones`;
+            } else {
+                paymentLabel = 'Paga en línea (Criptomonedas, tarjetas, PSE, Nequi, Bancolombia)';
+            }
+            message += `\n\n💳 Método de pago: ${paymentLabel}`;
+            
+            if (product.isPhysical && product.hasLogistics) {
+                message += `\n\n📍 Mi ubicación: ${location === 'cali' ? 'Cali, Valle del Cauca' : location === 'colombia' ? 'Colombia (fuera de Cali)' : 'Fuera de Colombia'}`;
+            }
+            
+            message += `\n\nMi información de contacto es:\n`;
+            message += `Nombre: ${directCustomerName.value}\n`;
+            message += `Teléfono: ${directCustomerPhone.value}\n`;
+            message += `Dirección: ${directCustomerAddress.value}\n`;
+            message += `Ciudad: ${directCustomerCity.value}`;
+            
+            return encodeURIComponent(message);
+        }
+
+        function loadSupplierTable() {
+            supplierTableBody.innerHTML = '';
+            
+            products.forEach(product => {
+                const margin = ((product.price - product.warehousePrice) / product.warehousePrice * 100).toFixed(2);
+                let typeLabel = '';
+                if (product.isReserva) typeLabel = ' (Reserva)';
+                else if (product.isCarro) typeLabel = ' (Carro)';
+                else if (product.isInmueble) typeLabel = ' (Inmueble)';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.title}${typeLabel}</td>
+                    <td>${product.category}</td>
+                    <td>${formatPrice(product.warehousePrice)}</td>
+                    <td>${formatPrice(product.price)}</td>
+                    <td>${product.supplier}</td>
+                    <td>${margin}%</td>
+                `;
+                supplierTableBody.appendChild(row);
+            });
+            
+            supplierTableContainer.style.display = 'block';
+        }
+
+        // Event Listeners
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        continueShopping.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        whatsappBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showNotification('El carrito está vacío');
+                return;
+            }
+            
+            const message = generateWhatsAppMessage();
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        });
+
+        closeDirectPurchase.addEventListener('click', () => {
+            directPurchaseModal.style.display = 'none';
+        });
+
+        cancelDirectPurchase.addEventListener('click', () => {
+            directPurchaseModal.style.display = 'none';
+        });
+
+        directWhatsappBtn.addEventListener('click', () => {
+            if (!currentDirectProduct) {
+                showNotification('No hay producto seleccionado');
+                return;
+            }
+            
+            const message = generateDirectWhatsAppMessage();
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        });
+
+        searchInput.addEventListener('input', filterProducts);
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterProducts();
+            });
+        });
+
+        shippingLocation.addEventListener('change', updateShippingInfo);
+        directShippingLocation.addEventListener('change', updateDirectShippingInfo);
+
+        // Event listeners para fechas de reserva
+        checkinDate.addEventListener('change', validateDirectCheckoutButton);
+        checkoutDate.addEventListener('change', validateDirectCheckoutButton);
+
+        // Event listeners para visita
+        visitNo.addEventListener('change', validateDirectCheckoutButton);
+        visitYes.addEventListener('change', validateDirectCheckoutButton);
+        visitDateTimeInput.addEventListener('change', validateDirectCheckoutButton);
+
+        customerName.addEventListener('input', validateCheckoutButton);
+        customerPhone.addEventListener('input', validateCheckoutButton);
+        customerAddress.addEventListener('input', validateCheckoutButton);
+        customerCity.addEventListener('input', validateCheckoutButton);
+
+        directCustomerName.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerPhone.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerAddress.addEventListener('input', validateDirectCheckoutButton);
+        directCustomerCity.addEventListener('input', validateDirectCheckoutButton);
+
+        adminAccessBtn.addEventListener('click', () => {
+            if (adminKeyInput.value === ADMIN_KEY) {
+                loadSupplierTable();
+                showNotification('Acceso concedido. Tabla de proveedores cargada.');
+            } else {
+                showNotification('Clave incorrecta. Intenta nuevamente.');
+            }
+        });
+
+        adminKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminAccessBtn.click();
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (e.target === directPurchaseModal) {
+                directPurchaseModal.style.display = 'none';
+            }
+        });
+
+        // Inicializar
+        loadProducts(products);
+        updateShippingInfo();
+        updateDirectShippingInfo();
+        
+        // Inicializar validación de checkout directo
+        setTimeout(validateDirectCheckoutButton, 100);
+    </script>
 </body>
 </html>
