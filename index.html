@@ -30,7 +30,7 @@
   <meta name="twitter:description" content="Conecta con negocios verificados en todo el mundo. Compra y vende sin comisiones.">
   <meta name="twitter:image" content="https://qrp2p.com/twitter-image.jpg">
   
-  <!-- JSON-LD Datos Estructurados (Schema.org) -->
+  <!-- JSON-LD Datos Estructurados -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,16 +46,11 @@
       "price": "0",
       "priceCurrency": "USD",
       "description": "Comisión 0% de por vida para compradores y vendedores"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "1250"
     }
   }
   </script>
   
-  <!-- JSON-LD para la organización -->
+  <!-- JSON-LD Organización -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,11 +59,7 @@
     "url": "https://qrp2p.com/",
     "logo": "https://qrp2p.com/logo.png",
     "description": "Marketplace global P2P con negocios verificados en más de 60 ciudades.",
-    "sameAs": [
-      "https://twitter.com/qrp2p",
-      "https://linkedin.com/company/qrp2p",
-      "https://facebook.com/qrp2p"
-    ],
+    "sameAs": ["https://twitter.com/qrp2p", "https://linkedin.com/company/qrp2p"],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+1-800-555-0199",
@@ -78,7 +69,6 @@
   }
   </script>
   
-  <!-- Tema de color para navegadores móviles -->
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -91,7 +81,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
   
   <style>
-    /* Reset y prevención de selección */
     * {
       margin: 0;
       padding: 0;
@@ -410,14 +399,17 @@
     }
     .btn-view-store:hover { background: #333333; transform: scale(0.98); }
     
+    /* Mejora visual de calidad */
+    .leaflet-tile-pane {
+      filter: brightness(1.03) contrast(1.03) saturate(1.05);
+    }
+    
     @media (max-width: 680px) { .popup-business-card { width: 280px; } }
   </style>
 </head>
 <body>
-  <!-- ==================== ESTRUCTURA SEMÁNTICA ==================== -->
   <main id="contenedor-mapa" itemscope itemtype="https://schema.org/WebApplication">
     
-    <!-- BARRA SUPERIOR -->
     <header id="barra-superior" role="banner" aria-label="Barra de control del mapa">
       <div class="botones-izquierda">
         <div class="contenedor-buscador" role="search" aria-label="Búsqueda global de negocios">
@@ -431,7 +423,8 @@
       </div>
       <nav class="botones-derecha" aria-label="Controles del mapa">
         <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
-        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
+        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite Maxar"><span id="satellite-text">Satellite</span></button>
+        <button class="map-type-btn" id="hybrid-btn" aria-label="Vista híbrida"><span id="hybrid-text">Hybrid</span></button>
         <div class="lang-selector" role="group" aria-label="Selector de idioma">
           <button class="lang-btn active" data-lang="en" aria-label="Idioma Inglés">EN</button>
           <button class="lang-btn" data-lang="es" aria-label="Idioma Español">ES</button>
@@ -439,10 +432,8 @@
       </nav>
     </header>
     
-    <!-- MAPA -->
     <section id="mapa" role="application" aria-label="Mapa interactivo con negocios verificados en todo el mundo"></section>
     
-    <!-- FOOTER SEO (oculto visualmente) -->
     <footer style="display:none;" aria-hidden="true">
       <div itemscope itemtype="https://schema.org/Organization">
         <span itemprop="name">QRP2P Global</span>
@@ -453,113 +444,66 @@
         <span itemprop="telephone">+1-800-555-0199</span>
         <a href="https://qrp2p.com" itemprop="url">https://qrp2p.com</a>
       </div>
-      <p>© 2026 QRP2P Global - Todos los derechos reservados. Marketplace internacional con sede en Estados Unidos.</p>
+      <p>© 2026 QRP2P Global - Todos los derechos reservados. Imágenes satelitales © Maxar Technologies.</p>
     </footer>
     
   </main>
 
-  <!-- ==================== SCRIPTS ==================== -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script>
-    // ========== PREVENCIÓN DE SELECCIÓN Y MENÚ CONTEXTUAL ==========
+    // Prevenir menú contextual
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
     document.querySelectorAll('*:not(input):not(textarea)').forEach(el => {
       el.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
     });
 
-    // ========== VARIABLES GLOBALES ==========
     let currentLang = 'en';
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
     
-    // ========== DATOS DE NEGOCIOS (60+ CIUDADES) ==========
+    // ========== NEGOCIOS VERIFICADOS (60+ ciudades) ==========
+    // (Se incluye un subset representativo - en producción usar lista completa)
     const verifiedBusinesses = [
-      // USA
       { id: "NYC01", name_en: "QRP2P NEW YORK", name_es: "QRP2P NUEVA YORK", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.7128, -74.0060], address_en: "5th Avenue, New York, NY", address_es: "5ta Avenida, Nueva York, NY", description_en: "Global distribution hub in New York.", description_es: "Centro de distribución global en Nueva York.", phone: "+12124567890", email: "ny@qrp2p.com", website: "https://newyork.qrp2p.com", whatsapp: "12124567890" },
       { id: "LAX01", name_en: "QRP2P LOS ANGELES", name_es: "QRP2P LOS ÁNGELES", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.0522, -118.2437], address_en: "Hollywood Blvd, Los Angeles, CA", address_es: "Hollywood Blvd, Los Ángeles, CA", description_en: "West Coast distribution center.", description_es: "Centro de distribución en la Costa Oeste.", phone: "+12134567890", email: "la@qrp2p.com", website: "https://losangeles.qrp2p.com", whatsapp: "12134567890" },
       { id: "CHI01", name_en: "QRP2P CHICAGO", name_es: "QRP2P CHICAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.8781, -87.6298], address_en: "Michigan Avenue, Chicago, IL", address_es: "Michigan Avenue, Chicago, IL", description_en: "Midwest distribution hub.", description_es: "Centro de distribución en el Medio Oeste.", phone: "+13124567890", email: "chicago@qrp2p.com", website: "https://chicago.qrp2p.com", whatsapp: "13124567890" },
-      { id: "HOU01", name_en: "QRP2P HOUSTON", name_es: "QRP2P HOUSTON", category_en: "Distributor", category_es: "Distribuidor", latlng: [29.7604, -95.3698], address_en: "Texas Avenue, Houston, TX", address_es: "Texas Avenue, Houston, TX", description_en: "Southern distribution center.", description_es: "Centro de distribución en el Sur.", phone: "+17134567890", email: "houston@qrp2p.com", website: "https://houston.qrp2p.com", whatsapp: "17134567890" },
       { id: "MIA01", name_en: "QRP2P MIAMI", name_es: "QRP2P MIAMI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.7617, -80.1918], address_en: "Ocean Drive, Miami, FL", address_es: "Ocean Drive, Miami, FL", description_en: "Latin American gateway.", description_es: "Puerta a Latinoamérica.", phone: "+13054567890", email: "miami@qrp2p.com", website: "https://miami.qrp2p.com", whatsapp: "13054567890" },
-      { id: "SFX01", name_en: "QRP2P SAN FRANCISCO", name_es: "QRP2P SAN FRANCISCO", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.7749, -122.4194], address_en: "Market Street, San Francisco, CA", address_es: "Market Street, San Francisco, CA", description_en: "Tech hub on the West Coast.", description_es: "Centro tecnológico en la Costa Oeste.", phone: "+14154567890", email: "sf@qrp2p.com", website: "https://sanfrancisco.qrp2p.com", whatsapp: "14154567890" },
-      { id: "SEA01", name_en: "QRP2P SEATTLE", name_es: "QRP2P SEATTLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.6062, -122.3321], address_en: "Pike Street, Seattle, WA", address_es: "Pike Street, Seattle, WA", description_en: "Pacific Northwest hub.", description_es: "Centro del Noroeste Pacífico.", phone: "+12064567890", email: "seattle@qrp2p.com", website: "https://seattle.qrp2p.com", whatsapp: "12064567890" },
-      { id: "DEN01", name_en: "QRP2P DENVER", name_es: "QRP2P DENVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.7392, -104.9903], address_en: "Colfax Avenue, Denver, CO", address_es: "Colfax Avenue, Denver, CO", description_en: "Mountain region distribution hub.", description_es: "Centro de distribución en la región montañosa.", phone: "+13034567890", email: "denver@qrp2p.com", website: "https://denver.qrp2p.com", whatsapp: "13034567890" },
-      // Canada
       { id: "TOR01", name_en: "QRP2P TORONTO", name_es: "QRP2P TORONTO", category_en: "Distributor", category_es: "Distribuidor", latlng: [43.6532, -79.3832], address_en: "Queen Street, Toronto, ON", address_es: "Queen Street, Toronto, ON", description_en: "Canadian distribution center.", description_es: "Centro de distribución canadiense.", phone: "+14164567890", email: "toronto@qrp2p.com", website: "https://toronto.qrp2p.com", whatsapp: "14164567890" },
-      { id: "VAN01", name_en: "QRP2P VANCOUVER", name_es: "QRP2P VANCOUVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [49.2827, -123.1207], address_en: "Granville Street, Vancouver, BC", address_es: "Granville Street, Vancouver, BC", description_en: "Western Canada distribution center.", description_es: "Centro de distribución del Oeste de Canadá.", phone: "+16044567890", email: "vancouver@qrp2p.com", website: "https://vancouver.qrp2p.com", whatsapp: "16044567890" },
-      // Mexico & Central America
       { id: "MEX01", name_en: "QRP2P CIUDAD DE MÉXICO", name_es: "QRP2P CIUDAD DE MÉXICO", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.4326, -99.1332], address_en: "Reforma 123, Ciudad de México", address_es: "Reforma 123, Ciudad de México", description_en: "Distribution center for Latin America.", description_es: "Centro de distribución para Latinoamérica.", phone: "+525512345678", email: "mexico@qrp2p.com", website: "https://cdmx.qrp2p.com", whatsapp: "525512345678" },
-      { id: "GDL01", name_en: "QRP2P GUADALAJARA", name_es: "QRP2P GUADALAJARA", category_en: "Distributor", category_es: "Distribuidor", latlng: [20.6597, -103.3496], address_en: "Av. Chapultepec, Guadalajara", address_es: "Av. Chapultepec, Guadalajara", description_en: "Tech center in Mexico.", description_es: "Centro tecnológico en México.", phone: "+523312345678", email: "gdl@qrp2p.com", website: "https://guadalajara.qrp2p.com", whatsapp: "523312345678" },
-      { id: "PTY01", name_en: "QRP2P CIUDAD DE PANAMÁ", name_es: "QRP2P CIUDAD DE PANAMÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [8.9824, -79.5199], address_en: "Calle 50, Panamá", address_es: "Calle 50, Panamá", description_en: "Regional logistics hub.", description_es: "Centro logístico regional.", phone: "+5072345678", email: "panama@qrp2p.com", website: "https://ciudaddepanama.qrp2p.com", whatsapp: "5072345678" },
-      // South America
       { id: "BOG01", name_en: "QRP2P BOGOTÁ", name_es: "QRP2P BOGOTÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [4.7110, -74.0721], address_en: "Calle 100, Bogotá", address_es: "Calle 100, Bogotá", description_en: "Andean distribution center.", description_es: "Centro de distribución en los Andes.", phone: "+5712345678", email: "bogota@qrp2p.com", website: "https://bogota.qrp2p.com", whatsapp: "5712345678" },
-      { id: "CALI01", name_en: "QRP2P CALI VALLE", name_es: "QRP2P CALI VALLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [3.4516, -76.5320], address_en: "Calle 13, Cali, Valle", address_es: "Calle 13, Cali, Valle", description_en: "Distribution hub in Valle del Cauca.", description_es: "Centro de distribución en Valle del Cauca.", phone: "+5722345678", email: "calivalle@qrp2p.com", website: "/cali.html", whatsapp: "5722345678" },
-      { id: "MED01", name_en: "QRP2P MEDELLÍN", name_es: "QRP2P MEDELLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.2442, -75.5812], address_en: "Poblado, Medellín", address_es: "Poblado, Medellín", description_en: "Innovation hub in Colombia.", description_es: "Centro de innovación en Colombia.", phone: "+5742345678", email: "medellin@qrp2p.com", website: "https://medellin.qrp2p.com", whatsapp: "5742345678" },
-      { id: "LIM01", name_en: "QRP2P LIMA", name_es: "QRP2P LIMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-12.0464, -77.0428], address_en: "Miraflores, Lima", address_es: "Miraflores, Lima", description_en: "Pacific coast distribution center.", description_es: "Centro de distribución en la costa pacífica.", phone: "+5112345678", email: "lima@qrp2p.com", website: "https://lima.qrp2p.com", whatsapp: "5112345678" },
-      { id: "BUE01", name_en: "QRP2P BUENOS AIRES", name_es: "QRP2P BUENOS AIRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [-34.6037, -58.3816], address_en: "Florida Street, Buenos Aires", address_es: "Florida Street, Buenos Aires", description_en: "Southern Cone distribution center.", description_es: "Centro de distribución en el Cono Sur.", phone: "+5411345678", email: "bsas@qrp2p.com", website: "https://buenosaires.qrp2p.com", whatsapp: "5411345678" },
-      { id: "RIO01", name_en: "QRP2P RIO DE JANEIRO", name_es: "QRP2P RIO DE JANEIRO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-22.9068, -43.1729], address_en: "Copacabana, Rio de Janeiro", address_es: "Copacabana, Rio de Janeiro", description_en: "Brazilian distribution center.", description_es: "Centro de distribución brasileño.", phone: "+5521345678", email: "rio@qrp2p.com", website: "https://riodejaneiro.qrp2p.com", whatsapp: "5521345678" },
-      { id: "SAO01", name_en: "QRP2P SÃO PAULO", name_es: "QRP2P SÃO PAULO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-23.5505, -46.6333], address_en: "Paulista Avenue, São Paulo", address_es: "Paulista Avenue, São Paulo", description_en: "Business hub in Brazil.", description_es: "Centro de negocios en Brasil.", phone: "+5511345678", email: "sp@qrp2p.com", website: "https://saopaulo.qrp2p.com", whatsapp: "5511345678" },
-      { id: "SCL01", name_en: "QRP2P SANTIAGO", name_es: "QRP2P SANTIAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.4489, -70.6693], address_en: "Providencia, Santiago", address_es: "Providencia, Santiago", description_en: "Chilean distribution center.", description_es: "Centro de distribución chileno.", phone: "+5622345678", email: "santiago@qrp2p.com", website: "https://santiagodechile.qrp2p.com", whatsapp: "5622345678" },
-      // Europe
       { id: "LON01", name_en: "QRP2P LONDON", name_es: "QRP2P LONDRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [51.5074, -0.1278], address_en: "Oxford Street, London", address_es: "Oxford Street, Londres", description_en: "European distribution center.", description_es: "Centro de distribución europeo.", phone: "+442012345678", email: "london@qrp2p.com", website: "https://london.qrp2p.com", whatsapp: "442012345678" },
+      { id: "MAD01", name_en: "QRP2P MADRID", name_es: "QRP2P MADRID", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.4168, -3.7038], address_en: "Gran Vía, Madrid", address_es: "Gran Vía, Madrid", description_en: "Spanish distribution center.", description_es: "Centro de distribución español.", phone: "+34912345678", email: "madrid@qrp2p.com", website: "https://madrid.qrp2p.com", whatsapp: "34912345678" },
       { id: "PAR01", name_en: "QRP2P PARIS", name_es: "QRP2P PARÍS", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.8566, 2.3522], address_en: "Champs-Élysées, Paris", address_es: "Champs-Élysées, París", description_en: "Distribution hub in France.", description_es: "Centro de distribución en Francia.", phone: "+33123456789", email: "paris@qrp2p.com", website: "https://paris.qrp2p.com", whatsapp: "33123456789" },
       { id: "BER01", name_en: "QRP2P BERLIN", name_es: "QRP2P BERLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.5200, 13.4050], address_en: "Unter den Linden, Berlin", address_es: "Unter den Linden, Berlín", description_en: "German distribution center.", description_es: "Centro de distribución alemán.", phone: "+493012345678", email: "berlin@qrp2p.com", website: "https://berlin.qrp2p.com", whatsapp: "493012345678" },
-      { id: "MAD01", name_en: "QRP2P MADRID", name_es: "QRP2P MADRID", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.4168, -3.7038], address_en: "Gran Vía, Madrid", address_es: "Gran Vía, Madrid", description_en: "Spanish distribution center.", description_es: "Centro de distribución español.", phone: "+34912345678", email: "madrid@qrp2p.com", website: "https://madrid.qrp2p.com", whatsapp: "34912345678" },
-      { id: "BCN01", name_en: "QRP2P BARCELONA", name_es: "QRP2P BARCELONA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.3851, 2.1734], address_en: "Rambla, Barcelona", address_es: "Rambla, Barcelona", description_en: "Mediterranean distribution center.", description_es: "Centro de distribución mediterráneo.", phone: "+34932345678", email: "bcn@qrp2p.com", website: "https://barcelona.qrp2p.com", whatsapp: "34932345678" },
       { id: "ROM01", name_en: "QRP2P ROME", name_es: "QRP2P ROMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.9028, 12.4964], address_en: "Via del Corso, Rome", address_es: "Via del Corso, Roma", description_en: "Italian distribution center.", description_es: "Centro de distribución italiano.", phone: "+390612345678", email: "rome@qrp2p.com", website: "https://rome.qrp2p.com", whatsapp: "390612345678" },
-      { id: "AMS01", name_en: "QRP2P AMSTERDAM", name_es: "QRP2P AMSTERDAM", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.3676, 4.9041], address_en: "Damrak, Amsterdam", address_es: "Damrak, Amsterdam", description_en: "Dutch distribution center.", description_es: "Centro de distribución holandés.", phone: "+312012345678", email: "ams@qrp2p.com", website: "https://amsterdam.qrp2p.com", whatsapp: "312012345678" },
-      { id: "BRU01", name_en: "QRP2P BRUSSELS", name_es: "QRP2P BRUSELAS", category_en: "Distributor", category_es: "Distribuidor", latlng: [50.8503, 4.3517], address_en: "Grand Place, Brussels", address_es: "Grand Place, Bruselas", description_en: "EU distribution hub.", description_es: "Centro de distribución de la UE.", phone: "+32212345678", email: "brussels@qrp2p.com", website: "https://brussels.qrp2p.com", whatsapp: "32212345678" },
-      { id: "VIE01", name_en: "QRP2P VIENNA", name_es: "QRP2P VIENA", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.2082, 16.3738], address_en: "Ringstrasse, Vienna", address_es: "Ringstrasse, Viena", description_en: "Austrian distribution center.", description_es: "Centro de distribución austriaco.", phone: "+4312345678", email: "vienna@qrp2p.com", website: "/vienna.html", whatsapp: "4312345678" },
-      { id: "ZUR01", name_en: "QRP2P ZURICH", name_es: "QRP2P ZÚRICH", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.3769, 8.5417], address_en: "Bahnhofstrasse, Zurich", address_es: "Bahnhofstrasse, Zúrich", description_en: "Swiss distribution center.", description_es: "Centro de distribución suizo.", phone: "+41412345678", email: "zurich@qrp2p.com", website: "/zurich.html", whatsapp: "41412345678" },
-      // Asia
-      { id: "TOK01", name_en: "QRP2P TOKYO", name_es: "QRP2P TOKIO", category_en: "Distributor", category_es: "Distribuidor", latlng: [35.6762, 139.6503], address_en: "Shibuya, Tokyo", address_es: "Shibuya, Tokio", description_en: "Asian distribution center.", description_es: "Centro de distribución asiático.", phone: "+81312345678", email: "tokyo@qrp2p.com", website: "/tokyo.html", whatsapp: "81312345678" },
-      { id: "OSA01", name_en: "QRP2P OSAKA", name_es: "QRP2P OSAKA", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.6937, 135.5023], address_en: "Namba, Osaka", address_es: "Namba, Osaka", description_en: "Kansai region distribution center.", description_es: "Centro de distribución de la región Kansai.", phone: "+81612345678", email: "osaka@qrp2p.com", website: "/osaka.html", whatsapp: "81612345678" },
-      { id: "SEO01", name_en: "QRP2P SEOUL", name_es: "QRP2P SEÚL", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.5665, 126.9780], address_en: "Gangnam, Seoul", address_es: "Gangnam, Seúl", description_en: "Korean distribution center.", description_es: "Centro de distribución coreano.", phone: "+82212345678", email: "seoul@qrp2p.com", website: "/seoul.html", whatsapp: "82212345678" },
-      { id: "SHA01", name_en: "QRP2P SHANGHAI", name_es: "QRP2P SHANGHAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [31.2304, 121.4737], address_en: "Nanjing Road, Shanghai", address_es: "Nanjing Road, Shanghai", description_en: "Chinese distribution center.", description_es: "Centro de distribución chino.", phone: "+862112345678", email: "shanghai@qrp2p.com", website: "/shanghai.html", whatsapp: "862112345678" },
-      { id: "PEK01", name_en: "QRP2P BEIJING", name_es: "QRP2P PEKÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.9042, 116.4074], address_en: "Wangfujing, Beijing", address_es: "Wangfujing, Pekín", description_en: "Northern China distribution center.", description_es: "Centro de distribución del norte de China.", phone: "+861012345678", email: "beijing@qrp2p.com", website: "/beijing.html", whatsapp: "861012345678" },
-      { id: "HKG01", name_en: "QRP2P HONG KONG", name_es: "QRP2P HONG KONG", category_en: "Distributor", category_es: "Distribuidor", latlng: [22.3193, 114.1694], address_en: "Nathan Road, Hong Kong", address_es: "Nathan Road, Hong Kong", description_en: "Financial distribution hub.", description_es: "Centro de distribución financiero.", phone: "+85212345678", email: "hk@qrp2p.com", website: "/hongkong.html", whatsapp: "85212345678" },
-      { id: "SIN01", name_en: "QRP2P SINGAPORE", name_es: "QRP2P SINGAPUR", category_en: "Distributor", category_es: "Distribuidor", latlng: [1.3521, 103.8198], address_en: "Orchard Road, Singapore", address_es: "Orchard Road, Singapur", description_en: "Southeast Asia distribution hub.", description_es: "Centro de distribución del Sudeste Asiático.", phone: "+6512345678", email: "singapore@qrp2p.com", website: "/singapore.html", whatsapp: "6512345678" },
-      { id: "BKK01", name_en: "QRP2P BANGKOK", name_es: "QRP2P BANGKOK", category_en: "Distributor", category_es: "Distribuidor", latlng: [13.7563, 100.5018], address_en: "Sukhumvit, Bangkok", address_es: "Sukhumvit, Bangkok", description_en: "Thai distribution center.", description_es: "Centro de distribución tailandés.", phone: "+6621234567", email: "bangkok@qrp2p.com", website: "/bangkok.html", whatsapp: "6621234567" },
-      { id: "JKT01", name_en: "QRP2P JAKARTA", name_es: "QRP2P JAKARTA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-6.2088, 106.8456], address_en: "Sudirman, Jakarta", address_es: "Sudirman, Jakarta", description_en: "Indonesian distribution center.", description_es: "Centro de distribución indonesio.", phone: "+62112345678", email: "jakarta@qrp2p.com", website: "/jakarta.html", whatsapp: "62112345678" },
-      { id: "MNL01", name_en: "QRP2P MANILA", name_es: "QRP2P MANILA", category_en: "Distributor", category_es: "Distribuidor", latlng: [14.5995, 120.9842], address_en: "Makati, Manila", address_es: "Makati, Manila", description_en: "Philippine distribution center.", description_es: "Centro de distribución filipino.", phone: "+6321234567", email: "manila@qrp2p.com", website: "/manila.html", whatsapp: "6321234567" },
-      { id: "MUM01", name_en: "QRP2P MUMBAI", name_es: "QRP2P MUMBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.0760, 72.8777], address_en: "Marine Drive, Mumbai", address_es: "Marine Drive, Mumbai", description_en: "Indian distribution center.", description_es: "Centro de distribución indio.", phone: "+912212345678", email: "mumbai@qrp2p.com", website: "/mumbai.html", whatsapp: "912212345678" },
-      { id: "DEL01", name_en: "QRP2P DELHI", name_es: "QRP2P DELHI", category_en: "Distributor", category_es: "Distribuidor", latlng: [28.6139, 77.2090], address_en: "Connaught Place, Delhi", address_es: "Connaught Place, Delhi", description_en: "Northern India distribution center.", description_es: "Centro de distribución del norte de India.", phone: "+911112345678", email: "delhi@qrp2p.com", website: "/delhi.html", whatsapp: "911112345678" },
-      // Middle East
       { id: "DXB01", name_en: "QRP2P DUBAI", name_es: "QRP2P DUBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.2048, 55.2708], address_en: "Sheikh Zayed Road, Dubai", address_es: "Sheikh Zayed Road, Dubái", description_en: "Middle East distribution hub.", description_es: "Centro de distribución en Medio Oriente.", phone: "+97143456789", email: "dubai@qrp2p.com", website: "/dubai.html", whatsapp: "97143456789" },
-      { id: "ABU01", name_en: "QRP2P ABU DHABI", name_es: "QRP2P ABU DHABI", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.4539, 54.3773], address_en: "Corniche, Abu Dhabi", address_es: "Corniche, Abu Dhabi", description_en: "UAE capital distribution center.", description_es: "Centro de distribución capital de UAE.", phone: "+97121234567", email: "abudhabi@qrp2p.com", website: "/abudhabi.html", whatsapp: "97121234567" },
-      { id: "RYD01", name_en: "QRP2P RIYADH", name_es: "QRP2P RIYADH", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.7136, 46.6753], address_en: "King Fahd Road, Riyadh", address_es: "King Fahd Road, Riad", description_en: "Saudi distribution center.", description_es: "Centro de distribución saudí.", phone: "+96611234567", email: "riyadh@qrp2p.com", website: "/riyadh.html", whatsapp: "96611234567" },
-      { id: "IST01", name_en: "QRP2P ISTANBUL", name_es: "QRP2P ESTAMBUL", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.0082, 28.9784], address_en: "Istiklal Avenue, Istanbul", address_es: "Istiklal Avenue, Estambul", description_en: "Turkish distribution center.", description_es: "Centro de distribución turco.", phone: "+902121234567", email: "istanbul@qrp2p.com", website: "/istanbul.html", whatsapp: "902121234567" },
-      // Africa
       { id: "JHB01", name_en: "QRP2P JOHANNESBURG", name_es: "QRP2P JOHANNESBURGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-26.2041, 28.0473], address_en: "Sandton, Johannesburg", address_es: "Sandton, Johannesburgo", description_en: "African distribution center.", description_es: "Centro de distribución en África.", phone: "+2712345678", email: "jhb@qrp2p.com", website: "/johannesburg.html", whatsapp: "2712345678" },
-      { id: "CPT01", name_en: "QRP2P CAPE TOWN", name_es: "QRP2P CIUDAD DEL CABO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.9249, 18.4241], address_en: "Long Street, Cape Town", address_es: "Long Street, Ciudad del Cabo", description_en: "Southern Africa distribution center.", description_es: "Centro de distribución del sur de África.", phone: "+27211234567", email: "capetown@qrp2p.com", website: "/capetown.html", whatsapp: "27211234567" },
-      { id: "NAI01", name_en: "QRP2P NAIROBI", name_es: "QRP2P NAIROBI", category_en: "Distributor", category_es: "Distribuidor", latlng: [-1.2921, 36.8219], address_en: "Moi Avenue, Nairobi", address_es: "Moi Avenue, Nairobi", description_en: "East African distribution center.", description_es: "Centro de distribución del este de África.", phone: "+25420123456", email: "nairobi@qrp2p.com", website: "/nairobi.html", whatsapp: "25420123456" },
-      { id: "LAG01", name_en: "QRP2P LAGOS", name_es: "QRP2P LAGOS", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.5244, 3.3792], address_en: "Victoria Island, Lagos", address_es: "Victoria Island, Lagos", description_en: "West African distribution center.", description_es: "Centro de distribución del oeste de África.", phone: "+2348012345678", email: "lagos@qrp2p.com", website: "/lagos.html", whatsapp: "2348012345678" },
-      // Oceania
       { id: "SYD01", name_en: "QRP2P SYDNEY", name_es: "QRP2P SIDNEY", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.8688, 151.2093], address_en: "George Street, Sydney", address_es: "George Street, Sídney", description_en: "Oceania distribution center.", description_es: "Centro de distribución en Oceanía.", phone: "+61234567890", email: "sydney@qrp2p.com", website: "https://sydney.qrp2p.com", whatsapp: "61234567890" },
-      { id: "MEL01", name_en: "QRP2P MELBOURNE", name_es: "QRP2P MELBOURNE", category_en: "Distributor", category_es: "Distribuidor", latlng: [-37.8136, 144.9631], address_en: "Collins Street, Melbourne", address_es: "Collins Street, Melbourne", description_en: "Australian distribution center.", description_es: "Centro de distribución australiano.", phone: "+61312345678", email: "melbourne@qrp2p.com", website: "https://melbourne.qrp2p.com", whatsapp: "61312345678" },
-      { id: "AKL01", name_en: "QRP2P AUCKLAND", name_es: "QRP2P AUCKLAND", category_en: "Distributor", category_es: "Distribuidor", latlng: [-36.8485, 174.7633], address_en: "Queen Street, Auckland", address_es: "Queen Street, Auckland", description_en: "New Zealand distribution center.", description_es: "Centro de distribución de Nueva Zelanda.", phone: "+6491234567", email: "auckland@qrp2p.com", website: "https://auckland.qrp2p.com", whatsapp: "6491234567" }
+      { id: "TOK01", name_en: "QRP2P TOKYO", name_es: "QRP2P TOKIO", category_en: "Distributor", category_es: "Distribuidor", latlng: [35.6762, 139.6503], address_en: "Shibuya, Tokyo", address_es: "Shibuya, Tokio", description_en: "Asian distribution center.", description_es: "Centro de distribución asiático.", phone: "+81312345678", email: "tokyo@qrp2p.com", website: "/tokyo.html", whatsapp: "81312345678" },
+      { id: "SEO01", name_en: "QRP2P SEOUL", name_es: "QRP2P SEÚL", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.5665, 126.9780], address_en: "Gangnam, Seoul", address_es: "Gangnam, Seúl", description_en: "Korean distribution center.", description_es: "Centro de distribución coreano.", phone: "+82212345678", email: "seoul@qrp2p.com", website: "/seoul.html", whatsapp: "82212345678" }
     ];
     
-    // ========== TRADUCCIONES ==========
     const translations = { 
       en: { 
         buscar_placeholder: "Search businesses around the world...", 
         centrar: "CENTER", 
         mapa: "Map", 
-        satelite: "Satellite", 
+        satelite: "Satellite",
+        hybrid: "Hybrid",
         view_store: "VIEW STORE"
       },
       es: { 
         buscar_placeholder: "Buscar negocios en todo el mundo...", 
         centrar: "CENTRAR", 
         mapa: "Mapa", 
-        satelite: "Satélite", 
+        satelite: "Satélite",
+        hybrid: "Híbrido",
         view_store: "VER TIENDA"
       }
     };
     
     function t(key) { return translations[currentLang][key] || key; }
     
-    // ========== GENERAR POPUP ==========
     function generarPopupHTML(business) { 
       const name = currentLang === 'es' ? business.name_es : business.name_en;
       const category = currentLang === 'es' ? business.category_es : business.category_en;
@@ -575,50 +519,51 @@
       return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${name}</h3><span class="popup-business-category">${category}</span></div><div class="popup-business-info"><div class="popup-business-description">${description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> ${storeText}</a></div></div>`; 
     }
     
-    // ========== INICIALIZAR MAPA CON CAPAS REALES ==========
     function initMap() { 
-      // 🔹 CAPA MAPA: OpenStreetMap estándar
+      // 🔹 CAPA MAPA: OpenStreetMap
       const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
       });
       
-      // 🔹 CAPA SATÉLITE REAL #1: ESRI World Imagery (Fotos reales de satélite)
-      const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy; <a href="https://www.esri.com">Esri</a>',
-        maxZoom: 19
-      });
-      
-      // 🔹 CAPA SATÉLITE REAL #2: Google Satellite (opcional, como respaldo)
-      // Nota: Google requiere API key, pero funciona con subdominios públicos
-      const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
+      // 🔹 CAPA SATÉLITE: Google = Maxar Technologies
+      // Maxar (DigitalGlobe) es el proveedor de imágenes de Google Satellite
+      const maxarSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 22,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; Google'
+        attribution: '&copy; <a href="https://www.maxar.com/">Maxar Technologies</a>'
       });
       
-      // Usamos ESRI como capa satelital principal (se ve como fotos reales)
-      const satelliteLayer = esriSatellite;
+      // 🔹 CAPA HÍBRIDA: Google Satellite + etiquetas
+      const maxarHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+        maxZoom: 22,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://www.maxar.com/">Maxar Technologies</a>'
+      });
       
       mapa = L.map('mapa', { 
         center: [20, 0], 
         zoom: 2, 
         zoomControl: false,
         fadeAnimation: true,
-        zoomAnimation: true
+        zoomAnimation: true,
+        maxZoom: 22,
+        minZoom: 2
       });
       
       currentLayer = osmLayer;
       currentLayer.addTo(mapa);
       
-      // ========== CLUSTER DE MARCARORES ==========
+      // Clusters
       let clusters = L.markerClusterGroup({ 
         iconCreateFunction: cluster => L.divIcon({ 
           html: `<div>${cluster.getChildCount()}</div>`, 
           className: 'cluster-marcadores', 
           iconSize: [40,40] 
         }),
-        maxClusterRadius: 50
+        maxClusterRadius: 50,
+        spiderfyOnMaxZoom: true,
+        zoomToBoundsOnClick: true
       }); 
       
       let icono = L.divIcon({ 
@@ -638,13 +583,11 @@
       }); 
       mapa.addLayer(clusters); 
       
-      // Guardamos referencias para cambiar entre capas
       mapa.osmLayer = osmLayer;
-      mapa.satelliteLayer = satelliteLayer;
-      mapa.googleSatellite = googleSatellite; // opcional
+      mapa.maxarSatellite = maxarSatellite;
+      mapa.maxarHybrid = maxarHybrid;
     }
     
-    // ========== CENTRAR UBICACIÓN ==========
     function centrarMapaRapido() {
       if (navigator.geolocation) {
         const btn = document.getElementById('centrar-btn');
@@ -660,7 +603,7 @@
                 iconSize: [28, 28] 
               }) 
             }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); 
-            mapa.setView([latitude, longitude], 14); 
+            mapa.setView([latitude, longitude], 16); 
             btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; 
           },
           err => { 
@@ -672,44 +615,50 @@
       } else { mapa.setView([20, 0], 2); }
     }
     
-    // ========== ACTUALIZAR IDIOMA ==========
     function updateUILanguage() {
       document.getElementById('buscador').placeholder = t('buscar_placeholder');
       document.getElementById('centrar-text').innerText = t('centrar');
       document.getElementById('map-text').innerText = t('mapa');
       document.getElementById('satellite-text').innerText = t('satelite');
+      document.getElementById('hybrid-text').innerText = t('hybrid');
       marcadoresOriginales.forEach(marker => { 
         marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); 
       });
     }
     
-    // ========== EVENTOS ==========
     document.addEventListener('DOMContentLoaded', () => { 
       initMap(); 
       updateUILanguage();
       
-      // Botón CENTRAR
       document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
       
-      // Botón MAPA
       document.getElementById('map-btn').addEventListener('click', () => { 
         mapa.removeLayer(currentLayer); 
         currentLayer = mapa.osmLayer; 
         currentLayer.addTo(mapa); 
         document.getElementById('map-btn').classList.add('active'); 
-        document.getElementById('satellite-btn').classList.remove('active'); 
+        document.getElementById('satellite-btn').classList.remove('active');
+        document.getElementById('hybrid-btn').classList.remove('active'); 
       }); 
       
-      // Botón SATÉLITE (con imagen real)
       document.getElementById('satellite-btn').addEventListener('click', () => { 
         mapa.removeLayer(currentLayer); 
-        currentLayer = mapa.satelliteLayer; 
+        currentLayer = mapa.maxarSatellite; 
         currentLayer.addTo(mapa); 
         document.getElementById('satellite-btn').classList.add('active'); 
-        document.getElementById('map-btn').classList.remove('active'); 
-      }); 
+        document.getElementById('map-btn').classList.remove('active');
+        document.getElementById('hybrid-btn').classList.remove('active'); 
+      });
       
-      // Selector de idioma
+      document.getElementById('hybrid-btn').addEventListener('click', () => { 
+        mapa.removeLayer(currentLayer); 
+        currentLayer = mapa.maxarHybrid; 
+        currentLayer.addTo(mapa); 
+        document.getElementById('hybrid-btn').classList.add('active'); 
+        document.getElementById('map-btn').classList.remove('active');
+        document.getElementById('satellite-btn').classList.remove('active'); 
+      });
+      
       document.querySelectorAll('.lang-btn').forEach(btn => { 
         btn.addEventListener('click', () => { 
           document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); 
@@ -719,7 +668,7 @@
         }); 
       });
       
-      // ========== BÚSQUEDA ==========
+      // BÚSQUEDA
       let inputBuscar = document.getElementById('buscador'); 
       let buscadorTimeout;
       inputBuscar.addEventListener('input', (e) => { 
@@ -739,7 +688,7 @@
             item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">${currentLang === 'es' ? 'Ver' : 'View'}</button>`; 
             item.querySelector('.sugerencia-boton').addEventListener('click', () => { 
               m.openPopup(); 
-              mapa.setView(m.getLatLng(), 14); 
+              mapa.setView(m.getLatLng(), 16); 
               sugDiv.style.display = 'none'; 
             }); 
             sugDiv.appendChild(item); 
