@@ -78,29 +78,6 @@
   }
   </script>
   
-  <!-- JSON-LD para los negocios (Lista de ubicaciones) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Negocios verificados QRP2P alrededor del mundo",
-    "description": "Lista de centros de distribución y negocios verificados en la red QRP2P Global",
-    "numberOfItems": 60,
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "QRP2P Nueva York", "url": "https://newyork.qrp2p.com"},
-      {"@type": "ListItem", "position": 2, "name": "QRP2P Los Ángeles", "url": "https://losangeles.qrp2p.com"},
-      {"@type": "ListItem", "position": 3, "name": "QRP2P Chicago", "url": "https://chicago.qrp2p.com"},
-      {"@type": "ListItem", "position": 4, "name": "QRP2P Miami", "url": "https://miami.qrp2p.com"},
-      {"@type": "ListItem", "position": 5, "name": "QRP2P Toronto", "url": "https://toronto.qrp2p.com"},
-      {"@type": "ListItem", "position": 6, "name": "QRP2P Ciudad de México", "url": "https://cdmx.qrp2p.com"},
-      {"@type": "ListItem", "position": 7, "name": "QRP2P Bogotá", "url": "https://bogota.qrp2p.com"},
-      {"@type": "ListItem", "position": 8, "name": "QRP2P Londres", "url": "https://london.qrp2p.com"},
-      {"@type": "ListItem", "position": 9, "name": "QRP2P Madrid", "url": "https://madrid.qrp2p.com"},
-      {"@type": "ListItem", "position": 10, "name": "QRP2P Dubái", "url": "https://dubai.qrp2p.com"}
-    ]
-  }
-  </script>
-  
   <!-- Tema de color para navegadores móviles -->
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -440,7 +417,7 @@
   <!-- ==================== ESTRUCTURA SEMÁNTICA ==================== -->
   <main id="contenedor-mapa" itemscope itemtype="https://schema.org/WebApplication">
     
-    <!-- BARRA SUPERIOR con roles ARIA para accesibilidad -->
+    <!-- BARRA SUPERIOR -->
     <header id="barra-superior" role="banner" aria-label="Barra de control del mapa">
       <div class="botones-izquierda">
         <div class="contenedor-buscador" role="search" aria-label="Búsqueda global de negocios">
@@ -465,9 +442,8 @@
     <!-- MAPA -->
     <section id="mapa" role="application" aria-label="Mapa interactivo con negocios verificados en todo el mundo"></section>
     
-    <!-- ==================== FOOTER SEO ==================== -->
+    <!-- FOOTER SEO (oculto visualmente) -->
     <footer style="display:none;" aria-hidden="true">
-      <!-- Footer oculto para SEO, visible solo para motores de búsqueda -->
       <div itemscope itemtype="https://schema.org/Organization">
         <span itemprop="name">QRP2P Global</span>
         <span itemprop="description">Marketplace P2P verificado con 0% comisión</span>
@@ -599,22 +575,58 @@
       return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${name}</h3><span class="popup-business-category">${category}</span></div><div class="popup-business-info"><div class="popup-business-description">${description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> ${storeText}</a></div></div>`; 
     }
     
-    // ========== INICIALIZAR MAPA ==========
+    // ========== INICIALIZAR MAPA CON CAPAS REALES ==========
     function initMap() { 
-      // Capas OpenStreetMap
+      // 🔹 CAPA MAPA: OpenStreetMap estándar
       const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      });
-      const satelliteLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
       });
       
-      mapa = L.map('mapa', { center: [20, 0], zoom: 2, zoomControl: false });
+      // 🔹 CAPA SATÉLITE REAL #1: ESRI World Imagery (Fotos reales de satélite)
+      const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; <a href="https://www.esri.com">Esri</a>',
+        maxZoom: 19
+      });
+      
+      // 🔹 CAPA SATÉLITE REAL #2: Google Satellite (opcional, como respaldo)
+      // Nota: Google requiere API key, pero funciona con subdominios públicos
+      const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google'
+      });
+      
+      // Usamos ESRI como capa satelital principal (se ve como fotos reales)
+      const satelliteLayer = esriSatellite;
+      
+      mapa = L.map('mapa', { 
+        center: [20, 0], 
+        zoom: 2, 
+        zoomControl: false,
+        fadeAnimation: true,
+        zoomAnimation: true
+      });
+      
       currentLayer = osmLayer;
       currentLayer.addTo(mapa);
       
-      let clusters = L.markerClusterGroup({ iconCreateFunction: cluster => L.divIcon({ html: `<div>${cluster.getChildCount()}</div>`, className: 'cluster-marcadores', iconSize: [40,40] }) }); 
-      let icono = L.divIcon({ className: 'negocio-marker', html: '⚡', iconSize: [32,32], popupAnchor: [0,-16] }); 
+      // ========== CLUSTER DE MARCARORES ==========
+      let clusters = L.markerClusterGroup({ 
+        iconCreateFunction: cluster => L.divIcon({ 
+          html: `<div>${cluster.getChildCount()}</div>`, 
+          className: 'cluster-marcadores', 
+          iconSize: [40,40] 
+        }),
+        maxClusterRadius: 50
+      }); 
+      
+      let icono = L.divIcon({ 
+        className: 'negocio-marker', 
+        html: '⚡', 
+        iconSize: [32,32], 
+        popupAnchor: [0,-16] 
+      }); 
       
       verifiedBusinesses.forEach(business => { 
         let popup = generarPopupHTML(business); 
@@ -626,8 +638,10 @@
       }); 
       mapa.addLayer(clusters); 
       
+      // Guardamos referencias para cambiar entre capas
       mapa.osmLayer = osmLayer;
       mapa.satelliteLayer = satelliteLayer;
+      mapa.googleSatellite = googleSatellite; // opcional
     }
     
     // ========== CENTRAR UBICACIÓN ==========
@@ -636,8 +650,24 @@
         const btn = document.getElementById('centrar-btn');
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>LOCATING...</span>';
         navigator.geolocation.getCurrentPosition(
-          pos => { const { latitude, longitude } = pos.coords; if (userMarker) mapa.removeLayer(userMarker); userMarker = L.marker([latitude, longitude], { icon: L.divIcon({ className: 'user-location-marker', html: '📍', iconSize: [28, 28] }) }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); mapa.setView([latitude, longitude], 12); btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; },
-          err => { btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; mapa.setView([20, 0], 2); alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando vista global.' : 'Could not get your location. Showing global view.'); }
+          pos => { 
+            const { latitude, longitude } = pos.coords; 
+            if (userMarker) mapa.removeLayer(userMarker); 
+            userMarker = L.marker([latitude, longitude], { 
+              icon: L.divIcon({ 
+                className: 'user-location-marker', 
+                html: '📍', 
+                iconSize: [28, 28] 
+              }) 
+            }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); 
+            mapa.setView([latitude, longitude], 14); 
+            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; 
+          },
+          err => { 
+            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; 
+            mapa.setView([20, 0], 2); 
+            alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando vista global.' : 'Could not get your location. Showing global view.'); 
+          }
         );
       } else { mapa.setView([20, 0], 2); }
     }
@@ -648,24 +678,50 @@
       document.getElementById('centrar-text').innerText = t('centrar');
       document.getElementById('map-text').innerText = t('mapa');
       document.getElementById('satellite-text').innerText = t('satelite');
-      marcadoresOriginales.forEach(marker => { marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); });
+      marcadoresOriginales.forEach(marker => { 
+        marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); 
+      });
     }
     
     // ========== EVENTOS ==========
     document.addEventListener('DOMContentLoaded', () => { 
-      initMap(); updateUILanguage();
+      initMap(); 
+      updateUILanguage();
       
+      // Botón CENTRAR
       document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
       
-      document.getElementById('map-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.osmLayer; currentLayer.addTo(mapa); document.getElementById('map-btn').classList.add('active'); document.getElementById('satellite-btn').classList.remove('active'); }); 
-      document.getElementById('satellite-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.satelliteLayer; currentLayer.addTo(mapa); document.getElementById('satellite-btn').classList.add('active'); document.getElementById('map-btn').classList.remove('active'); }); 
+      // Botón MAPA
+      document.getElementById('map-btn').addEventListener('click', () => { 
+        mapa.removeLayer(currentLayer); 
+        currentLayer = mapa.osmLayer; 
+        currentLayer.addTo(mapa); 
+        document.getElementById('map-btn').classList.add('active'); 
+        document.getElementById('satellite-btn').classList.remove('active'); 
+      }); 
       
+      // Botón SATÉLITE (con imagen real)
+      document.getElementById('satellite-btn').addEventListener('click', () => { 
+        mapa.removeLayer(currentLayer); 
+        currentLayer = mapa.satelliteLayer; 
+        currentLayer.addTo(mapa); 
+        document.getElementById('satellite-btn').classList.add('active'); 
+        document.getElementById('map-btn').classList.remove('active'); 
+      }); 
+      
+      // Selector de idioma
       document.querySelectorAll('.lang-btn').forEach(btn => { 
-        btn.addEventListener('click', () => { document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentLang = btn.getAttribute('data-lang'); updateUILanguage(); }); 
+        btn.addEventListener('click', () => { 
+          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); 
+          btn.classList.add('active'); 
+          currentLang = btn.getAttribute('data-lang'); 
+          updateUILanguage(); 
+        }); 
       });
       
       // ========== BÚSQUEDA ==========
-      let inputBuscar = document.getElementById('buscador'); let buscadorTimeout;
+      let inputBuscar = document.getElementById('buscador'); 
+      let buscadorTimeout;
       inputBuscar.addEventListener('input', (e) => { 
         clearTimeout(buscadorTimeout); 
         let term = e.target.value.trim(); 
@@ -681,13 +737,21 @@
             let item = document.createElement('div'); 
             item.className = 'sugerencia-item'; 
             item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">${currentLang === 'es' ? 'Ver' : 'View'}</button>`; 
-            item.querySelector('.sugerencia-boton').addEventListener('click', () => { m.openPopup(); mapa.setView(m.getLatLng(), 12); sugDiv.style.display = 'none'; }); 
+            item.querySelector('.sugerencia-boton').addEventListener('click', () => { 
+              m.openPopup(); 
+              mapa.setView(m.getLatLng(), 14); 
+              sugDiv.style.display = 'none'; 
+            }); 
             sugDiv.appendChild(item); 
           }); 
           if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ ${currentLang === 'es' ? 'No se encontraron resultados en el mundo' : 'No results found worldwide'}</div>`; 
         }, 300); 
       }); 
-      document.addEventListener('click', (e) => { if(!e.target.closest('.contenedor-buscador')) document.getElementById('sugerencias-busqueda').style.display = 'none'; });
+      
+      document.addEventListener('click', (e) => { 
+        if(!e.target.closest('.contenedor-buscador')) 
+          document.getElementById('sugerencias-busqueda').style.display = 'none'; 
+      });
     });
   </script>
 </body>
