@@ -404,7 +404,31 @@
       filter: brightness(1.03) contrast(1.03) saturate(1.05);
     }
     
-    @media (max-width: 680px) { .popup-business-card { width: 280px; } }
+    /* Badge de Maxar en el mapa */
+    .maxar-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.75);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-family: 'Libre Baskerville', serif;
+      z-index: 999;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.15);
+      letter-spacing: 0.5px;
+    }
+    .maxar-badge i {
+      margin-right: 6px;
+    }
+    
+    @media (max-width: 680px) { 
+      .popup-business-card { width: 280px; }
+      .maxar-badge { font-size: 9px; padding: 4px 10px; bottom: 12px; right: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -424,7 +448,6 @@
       <nav class="botones-derecha" aria-label="Controles del mapa">
         <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
         <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite Maxar"><span id="satellite-text">Satellite</span></button>
-        <button class="map-type-btn" id="hybrid-btn" aria-label="Vista híbrida"><span id="hybrid-text">Hybrid</span></button>
         <div class="lang-selector" role="group" aria-label="Selector de idioma">
           <button class="lang-btn active" data-lang="en" aria-label="Idioma Inglés">EN</button>
           <button class="lang-btn" data-lang="es" aria-label="Idioma Español">ES</button>
@@ -433,6 +456,11 @@
     </header>
     
     <section id="mapa" role="application" aria-label="Mapa interactivo con negocios verificados en todo el mundo"></section>
+    
+    <!-- Badge de Maxar Technologies -->
+    <div class="maxar-badge" id="maxarBadge">
+      <i class="fas fa-satellite"></i> Maxar Technologies
+    </div>
     
     <footer style="display:none;" aria-hidden="true">
       <div itemscope itemtype="https://schema.org/Organization">
@@ -444,7 +472,7 @@
         <span itemprop="telephone">+1-800-555-0199</span>
         <a href="https://qrp2p.com" itemprop="url">https://qrp2p.com</a>
       </div>
-      <p>© 2026 QRP2P Global - Todos los derechos reservados. Imágenes satelitales © Maxar Technologies.</p>
+      <p>© 2026 QRP2P Global - Imágenes satelitales © Maxar Technologies</p>
     </footer>
     
   </main>
@@ -460,9 +488,9 @@
 
     let currentLang = 'en';
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
+    let badge = document.getElementById('maxarBadge');
     
-    // ========== NEGOCIOS VERIFICADOS (60+ ciudades) ==========
-    // (Se incluye un subset representativo - en producción usar lista completa)
+    // ========== NEGOCIOS VERIFICADOS ==========
     const verifiedBusinesses = [
       { id: "NYC01", name_en: "QRP2P NEW YORK", name_es: "QRP2P NUEVA YORK", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.7128, -74.0060], address_en: "5th Avenue, New York, NY", address_es: "5ta Avenida, Nueva York, NY", description_en: "Global distribution hub in New York.", description_es: "Centro de distribución global en Nueva York.", phone: "+12124567890", email: "ny@qrp2p.com", website: "https://newyork.qrp2p.com", whatsapp: "12124567890" },
       { id: "LAX01", name_en: "QRP2P LOS ANGELES", name_es: "QRP2P LOS ÁNGELES", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.0522, -118.2437], address_en: "Hollywood Blvd, Los Angeles, CA", address_es: "Hollywood Blvd, Los Ángeles, CA", description_en: "West Coast distribution center.", description_es: "Centro de distribución en la Costa Oeste.", phone: "+12134567890", email: "la@qrp2p.com", website: "https://losangeles.qrp2p.com", whatsapp: "12134567890" },
@@ -489,7 +517,6 @@
         centrar: "CENTER", 
         mapa: "Map", 
         satelite: "Satellite",
-        hybrid: "Hybrid",
         view_store: "VIEW STORE"
       },
       es: { 
@@ -497,7 +524,6 @@
         centrar: "CENTRAR", 
         mapa: "Mapa", 
         satelite: "Satélite",
-        hybrid: "Híbrido",
         view_store: "VER TIENDA"
       }
     };
@@ -526,19 +552,12 @@
         maxZoom: 19
       });
       
-      // 🔹 CAPA SATÉLITE: Google = Maxar Technologies
-      // Maxar (DigitalGlobe) es el proveedor de imágenes de Google Satellite
+      // 🔹 CAPA SATÉLITE MAXAR (via Google Satellite)
+      // Maxar Technologies (DigitalGlobe) es el proveedor exclusivo de imágenes
       const maxarSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
         maxZoom: 22,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://www.maxar.com/">Maxar Technologies</a>'
-      });
-      
-      // 🔹 CAPA HÍBRIDA: Google Satellite + etiquetas
-      const maxarHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-        maxZoom: 22,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://www.maxar.com/">Maxar Technologies</a>'
+        attribution: '&copy; <a href="https://www.maxar.com/" target="_blank">Maxar Technologies</a>'
       });
       
       mapa = L.map('mapa', { 
@@ -585,7 +604,8 @@
       
       mapa.osmLayer = osmLayer;
       mapa.maxarSatellite = maxarSatellite;
-      mapa.maxarHybrid = maxarHybrid;
+      
+      badge.style.display = 'block';
     }
     
     function centrarMapaRapido() {
@@ -620,7 +640,6 @@
       document.getElementById('centrar-text').innerText = t('centrar');
       document.getElementById('map-text').innerText = t('mapa');
       document.getElementById('satellite-text').innerText = t('satelite');
-      document.getElementById('hybrid-text').innerText = t('hybrid');
       marcadoresOriginales.forEach(marker => { 
         marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); 
       });
@@ -638,7 +657,7 @@
         currentLayer.addTo(mapa); 
         document.getElementById('map-btn').classList.add('active'); 
         document.getElementById('satellite-btn').classList.remove('active');
-        document.getElementById('hybrid-btn').classList.remove('active'); 
+        badge.style.display = 'block';
       }); 
       
       document.getElementById('satellite-btn').addEventListener('click', () => { 
@@ -647,16 +666,7 @@
         currentLayer.addTo(mapa); 
         document.getElementById('satellite-btn').classList.add('active'); 
         document.getElementById('map-btn').classList.remove('active');
-        document.getElementById('hybrid-btn').classList.remove('active'); 
-      });
-      
-      document.getElementById('hybrid-btn').addEventListener('click', () => { 
-        mapa.removeLayer(currentLayer); 
-        currentLayer = mapa.maxarHybrid; 
-        currentLayer.addTo(mapa); 
-        document.getElementById('hybrid-btn').classList.add('active'); 
-        document.getElementById('map-btn').classList.remove('active');
-        document.getElementById('satellite-btn').classList.remove('active'); 
+        badge.style.display = 'block';
       });
       
       document.querySelectorAll('.lang-btn').forEach(btn => { 
