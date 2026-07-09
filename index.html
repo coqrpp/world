@@ -385,30 +385,8 @@
       filter: brightness(1.03) contrast(1.03) saturate(1.05);
     }
     
-    /* Badge de Maxar en el mapa */
-    .maxar-badge {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.75);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-family: 'Libre Baskerville', serif;
-      z-index: 999;
-      pointer-events: none;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,0.15);
-      letter-spacing: 0.5px;
-    }
-    .maxar-badge i {
-      margin-right: 6px;
-    }
-    
     @media (max-width: 680px) { 
       .popup-business-card { width: 280px; }
-      .maxar-badge { font-size: 9px; padding: 4px 10px; bottom: 12px; right: 12px; }
     }
   </style>
 </head>
@@ -428,7 +406,7 @@
       </div>
       <nav class="botones-derecha" aria-label="Controles del mapa">
         <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
-        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite Maxar"><span id="satellite-text">Satellite</span></button>
+        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
         <div class="lang-selector" role="group" aria-label="Selector de idioma">
           <button class="lang-btn active" data-lang="en" aria-label="Idioma Inglés">EN</button>
           <button class="lang-btn" data-lang="es" aria-label="Idioma Español">ES</button>
@@ -437,11 +415,6 @@
     </header>
     
     <section id="mapa" role="application" aria-label="Mapa interactivo con negocios verificados en todo el mundo"></section>
-    
-    <!-- Badge de Maxar Technologies -->
-    <div class="maxar-badge" id="maxarBadge">
-      <i class="fas fa-satellite"></i> Maxar Technologies
-    </div>
     
     <footer style="display:none;" aria-hidden="true">
       <div itemscope itemtype="https://schema.org/Organization">
@@ -453,7 +426,7 @@
         <span itemprop="telephone">+1-800-555-0199</span>
         <a href="https://qrp2p.com" itemprop="url">https://qrp2p.com</a>
       </div>
-      <p>© 2026 QRP2P Global - Imágenes satelitales © Maxar Technologies</p>
+      <p>© 2026 QRP2P Global - Todos los derechos reservados.</p>
     </footer>
     
   </main>
@@ -469,7 +442,6 @@
 
     let currentLang = 'en';
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
-    let badge = document.getElementById('maxarBadge');
     
     // ========== NEGOCIOS VERIFICADOS ==========
     const verifiedBusinesses = [
@@ -585,8 +557,6 @@
       
       mapa.osmLayer = osmLayer;
       mapa.maxarSatellite = maxarSatellite;
-      
-      badge.style.display = 'block';
     }
     
     function centrarMapaRapido() {
@@ -638,7 +608,6 @@
         currentLayer.addTo(mapa); 
         document.getElementById('map-btn').classList.add('active'); 
         document.getElementById('satellite-btn').classList.remove('active');
-        badge.style.display = 'block';
       }); 
       
       document.getElementById('satellite-btn').addEventListener('click', () => { 
@@ -647,7 +616,6 @@
         currentLayer.addTo(mapa); 
         document.getElementById('satellite-btn').classList.add('active'); 
         document.getElementById('map-btn').classList.remove('active');
-        badge.style.display = 'block';
       });
       
       document.querySelectorAll('.lang-btn').forEach(btn => { 
