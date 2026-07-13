@@ -32,7 +32,7 @@
     }
     </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== PREVENCIÓN DE ZOOM, SELECCIÓN Y COPIA ===== */
@@ -89,12 +89,16 @@
         :root {
             --color-blanco: #ffffff;
             --color-negro: #000000;
-            --color-gris-claro: #f5f5f5;
-            --color-gris-medio: #cccccc;
-            --color-gris-oscuro: #333333;
-            --color-gris-muy-oscuro: #111111;
+            --color-gris-10: #f7f7f7;
+            --color-gris-20: #e8e8e8;
+            --color-gris-30: #d0d0d0;
+            --color-gris-40: #a0a0a0;
+            --color-gris-50: #777777;
+            --color-gris-60: #555555;
+            --color-gris-70: #333333;
+            --color-gris-80: #1a1a1a;
+            --color-gris-90: #0d0d0d;
             --color-whatsapp: #25D366;
-            --color-lightning: #f7931a;
         }
         
         * {
@@ -104,9 +108,9 @@
         }
         
         body {
-            font-family: 'Libre Baskerville', serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--color-blanco);
-            color: var(--color-negro);
+            color: var(--color-gris-80);
             line-height: 1.6;
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
@@ -116,11 +120,12 @@
         header {
             background: var(--color-negro);
             color: var(--color-blanco);
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
         .header-container {
@@ -134,17 +139,19 @@
         }
         
         .logo-text {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: -0.5px;
             color: var(--color-blanco);
         }
         
         .logo-text small {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             letter-spacing: normal;
-            color: var(--color-gris-medio);
-            font-weight: normal;
+            color: var(--color-gris-40);
+            font-weight: 400;
+            display: block;
+            margin-top: -2px;
         }
         
         .btn-primary {
@@ -152,31 +159,31 @@
             align-items: center;
             justify-content: center;
             gap: 0.6rem;
-            background: var(--color-negro);
-            color: white;
-            border: 2px solid white;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
-            font-weight: bold;
+            background: var(--color-blanco);
+            color: var(--color-negro);
+            border: none;
+            padding: 0.7rem 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            font-family: 'Libre Baskerville', serif;
+            font-family: 'Inter', sans-serif;
             -webkit-touch-callout: none;
             touch-action: manipulation;
+            letter-spacing: -0.3px;
         }
         
         .btn-primary:hover {
-            background: var(--color-blanco);
-            color: var(--color-negro);
-            border-color: var(--color-negro);
+            background: var(--color-gris-20);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .btn-primary-large {
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.05rem;
         }
         
         .btn-secondary {
@@ -184,17 +191,17 @@
             align-items: center;
             justify-content: center;
             gap: 0.6rem;
-            background: var(--color-gris-oscuro);
-            color: white;
-            border: 2px solid var(--color-gris-medio);
-            padding: 0.7rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: bold;
+            background: var(--color-gris-70);
+            color: var(--color-blanco);
+            border: 1px solid var(--color-gris-40);
+            padding: 0.6rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            font-family: 'Libre Baskerville', serif;
+            font-family: 'Inter', sans-serif;
             -webkit-touch-callout: none;
             touch-action: manipulation;
         }
@@ -217,57 +224,53 @@
             color: white;
         }
         
-        .btn-lightning {
-            background: var(--color-lightning);
-            border-color: var(--color-lightning);
-            color: white;
-        }
-        
-        .btn-lightning:hover {
-            background: #d97706;
-            border-color: #d97706;
-            color: white;
-        }
-        
         .hero {
             background: var(--color-negro);
             color: var(--color-blanco);
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 4rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 800;
             margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
         }
         
         .hero h1 span {
             text-decoration: underline;
-            text-decoration-thickness: 2px;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
         }
         
         .hero p {
             font-size: 1.1rem;
             max-width: 800px;
             margin: 0 auto 2rem auto;
-            color: var(--color-gris-medio);
+            color: var(--color-gris-40);
+            font-weight: 300;
+            line-height: 1.8;
         }
         
         .price-badge-hero {
             display: inline-block;
-            background: var(--color-gris-oscuro);
-            border: 1px solid var(--color-gris-medio);
-            padding: 0.5rem 1.5rem;
+            background: var(--color-gris-80);
+            border: 1px solid var(--color-gris-40);
+            padding: 0.5rem 1.8rem;
             border-radius: 50px;
             margin-bottom: 1.5rem;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem 3rem;
+            padding: 0 1.5rem 3rem;
         }
         
         .stats-bar {
@@ -275,12 +278,12 @@
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 2rem;
-            background: var(--color-gris-claro);
-            padding: 2rem;
-            border-radius: 20px;
-            margin: -2rem auto 2rem auto;
+            background: var(--color-gris-10);
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            margin: -2rem auto 2.5rem auto;
             max-width: 1000px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--color-gris-20);
         }
         
         .stat-item {
@@ -288,72 +291,184 @@
         }
         
         .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 2.2rem;
+            font-weight: 800;
             color: var(--color-negro);
+            letter-spacing: -0.5px;
         }
         
         .stat-label {
-            color: var(--color-gris-oscuro);
-            font-size: 0.9rem;
+            color: var(--color-gris-50);
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-top: 2px;
         }
         
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
         
         .benefit-card {
-            background: var(--color-gris-claro);
-            padding: 1.5rem;
-            border-radius: 15px;
+            background: var(--color-gris-10);
+            padding: 1.8rem;
+            border-radius: 16px;
             transition: all 0.3s;
-            border: 1px solid var(--color-gris-medio);
+            border: 1px solid var(--color-gris-20);
             text-align: left;
         }
         
         .benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
             background: var(--color-blanco);
+            border-color: var(--color-gris-30);
         }
         
         .benefit-card i {
             font-size: 2rem;
             color: var(--color-negro);
             margin-bottom: 1rem;
+            display: block;
         }
         
         .benefit-card h3 {
             margin-bottom: 0.5rem;
             font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.3px;
         }
         
         .benefit-card p {
-            color: var(--color-gris-oscuro);
-            line-height: 1.5;
+            color: var(--color-gris-50);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            font-weight: 400;
         }
         
         .price-card {
             background: var(--color-negro);
-            color: white;
-            padding: 2rem;
+            color: var(--color-blanco);
+            padding: 2.5rem;
             border-radius: 20px;
             text-align: center;
-            margin: 2rem 0;
-            border: 1px solid var(--color-gris-oscuro);
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .price-card h2 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
         }
         
         .price {
-            font-size: 3.5rem;
-            font-weight: bold;
+            font-size: 4rem;
+            font-weight: 900;
             color: var(--color-blanco);
+            letter-spacing: -1px;
         }
         
         .price small {
             font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--color-gris-40);
+        }
+        
+        .price-card > p {
+            color: var(--color-gris-40);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .bonus-box {
+            background: var(--color-blanco);
+            color: var(--color-negro);
+            padding: 1.5rem;
+            border-radius: 14px;
+            margin: 1rem 0 1.5rem 0;
+            border: 2px solid var(--color-gris-30);
+        }
+        
+        .bonus-box i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bonus-box h3 {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .bonus-box p {
+            color: var(--color-gris-60);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+        
+        .bonus-box .highlight-tag {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 0.2rem 1.2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        
+        .credit-system {
+            background: var(--color-gris-80);
+            color: var(--color-blanco);
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            margin: 1rem 0;
+            border: 1px solid var(--color-gris-40);
+        }
+        
+        .credit-system i {
+            font-size: 2rem;
+            color: var(--color-blanco);
+        }
+        
+        .credit-system h3 {
+            color: var(--color-blanco);
+            margin-top: 0.3rem;
+            font-weight: 700;
+        }
+        
+        .credit-system .credit-highlight {
+            color: var(--color-blanco);
+            font-weight: 700;
+        }
+        
+        .credit-system .credit-desc {
+            color: var(--color-gris-40);
+            font-size: 0.9rem;
+        }
+        
+        .credit-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin: 0.8rem 0;
+        }
+        
+        .credit-pills span {
+            background: rgba(255,255,255,0.08);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--color-gris-40);
+            font-size: 0.8rem;
+            font-weight: 500;
         }
         
         .feature-list {
@@ -365,26 +480,43 @@
         }
         
         .feature-list li {
-            margin: 0.8rem 0;
+            margin: 0.7rem 0;
             display: flex;
             align-items: flex-start;
             gap: 0.8rem;
             text-align: left;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--color-gris-20);
+            line-height: 1.6;
         }
         
         .feature-list li i {
             color: var(--color-blanco);
-            width: 24px;
+            width: 22px;
             flex-shrink: 0;
-            margin-top: 4px;
+            margin-top: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .feature-list li strong {
+            color: var(--color-blanco);
+            font-weight: 600;
         }
         
         .how-it-works {
-            background: var(--color-gris-claro);
-            padding: 2rem;
+            background: var(--color-gris-10);
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
-            border: 1px solid var(--color-gris-medio);
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .how-it-works h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
         }
         
         .steps {
@@ -400,75 +532,85 @@
             min-width: 200px;
             text-align: center;
             padding: 1.5rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--color-gris-medio);
+            background: var(--color-blanco);
+            border-radius: 16px;
+            border: 1px solid var(--color-gris-20);
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
         }
         
         .step-number {
             width: 40px;
             height: 40px;
             background: var(--color-negro);
-            color: white;
+            color: var(--color-blanco);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem auto;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
         
         .step i {
             font-size: 2rem;
             color: var(--color-negro);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            display: block;
         }
         
         .step h3 {
             margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.3px;
         }
         
         .step p {
-            color: var(--color-gris-oscuro);
+            color: var(--color-gris-50);
             font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.6;
         }
         
-        .packages-section {
-            background: var(--color-gris-claro);
-            color: var(--color-negro);
-            padding: 2rem;
-            border-radius: 20px;
-            margin: 2rem 0;
-            text-align: center;
-            border: 1px solid var(--color-gris-medio);
-        }
-        
-        .single-package {
+        .whatsapp-note {
             background: var(--color-negro);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            display: inline-block;
-            margin-top: 1rem;
+            color: var(--color-blanco);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--color-gris-30);
         }
         
-        .single-package .package-price {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .single-package i {
-            margin-right: 0.5rem;
+        .whatsapp-note i {
+            color: var(--color-whatsapp);
         }
         
         .services-section {
-            background: var(--color-gris-claro);
-            padding: 2rem;
+            background: var(--color-gris-10);
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
-            border: 1px solid var(--color-gris-medio);
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .services-section h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .services-section > p {
+            text-align: center;
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
         }
         
         .services-grid {
@@ -479,54 +621,59 @@
         }
         
         .service-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
+            background: var(--color-blanco);
+            padding: 1.8rem;
+            border-radius: 16px;
             text-align: left;
-            border: 1px solid var(--color-gris-medio);
+            border: 1px solid var(--color-gris-20);
             transition: all 0.3s;
         }
         
         .service-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
         }
         
         .service-card i {
             font-size: 2rem;
             color: var(--color-negro);
             margin-bottom: 1rem;
+            display: block;
         }
         
         .service-card h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.3px;
         }
         
         .service-card .price-tag {
             display: inline-block;
             background: var(--color-negro);
-            color: white;
-            padding: 0.3rem 1rem;
+            color: var(--color-blanco);
+            padding: 0.2rem 1rem;
             border-radius: 50px;
-            font-size: 0.8rem;
-            margin: 0.8rem 0;
-            font-weight: bold;
+            font-size: 0.75rem;
+            margin: 0.6rem 0;
+            font-weight: 600;
         }
         
         .service-card p {
-            color: var(--color-gris-oscuro);
+            color: var(--color-gris-50);
             margin-bottom: 1rem;
             font-size: 0.9rem;
+            line-height: 1.7;
         }
         
         .testimonial-section {
             background: var(--color-negro);
-            color: white;
+            color: var(--color-blanco);
             padding: 3rem;
             border-radius: 20px;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
             text-align: center;
+            border: 1px solid var(--color-gris-30);
         }
         
         .testimonial-card {
@@ -537,26 +684,43 @@
         
         .testimonial-card i {
             font-size: 2rem;
-            color: var(--color-gris-medio);
+            color: var(--color-gris-40);
             margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .testimonial-card p {
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--color-gris-30);
+        }
+        
+        .testimonial-card .author {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-style: normal;
+            color: var(--color-blanco);
         }
         
         .mid-section {
             text-align: center;
             margin: 3rem 0;
-            padding: 2rem;
-            background: var(--color-gris-claro);
+            padding: 2.5rem;
+            background: var(--color-gris-10);
             border-radius: 20px;
-            border: 1px solid var(--color-gris-medio);
+            border: 1px solid var(--color-gris-20);
         }
         
-        .whatsapp-note {
-            background: var(--color-negro);
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-            text-align: center;
+        .mid-section h2 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .mid-section p {
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
         }
         
         .button-group {
@@ -572,265 +736,302 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
-            margin: 0.5rem 0;
+            margin: 0.5rem 0 1.5rem 0;
         }
         
         .payment-methods span {
-            background: var(--color-gris-oscuro);
-            color: white;
-            padding: 0.2rem 0.8rem;
+            background: var(--color-gris-80);
+            color: var(--color-gris-30);
+            padding: 0.2rem 1rem;
             border-radius: 50px;
             font-size: 0.75rem;
-            border: 1px solid var(--color-gris-medio);
+            border: 1px solid var(--color-gris-40);
+            font-weight: 400;
         }
 
         .product-management {
-            background: var(--color-gris-claro);
-            padding: 2rem;
+            background: var(--color-gris-10);
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
-            border: 1px solid var(--color-gris-medio);
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
         }
-
+        
+        .product-management h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .product-management > p {
+            text-align: center;
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
+        }
+        
         .product-management ul {
             list-style: none;
             padding: 0;
             max-width: 700px;
             margin: 1rem auto;
         }
-
+        
         .product-management ul li {
             padding: 0.6rem 0;
-            border-bottom: 1px solid var(--color-gris-medio);
+            border-bottom: 1px solid var(--color-gris-20);
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--color-gris-70);
         }
-
+        
         .product-management ul li i {
             width: 28px;
             color: var(--color-negro);
             text-align: center;
+            font-size: 1.1rem;
         }
 
         .whatsapp-management {
             background: var(--color-whatsapp);
-            color: white;
-            padding: 2rem;
+            color: var(--color-blanco);
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
             text-align: center;
-            border: 2px solid #128C7E;
         }
-
+        
         .whatsapp-management h2 {
-            color: white;
+            color: var(--color-blanco);
             margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
-
+        
         .whatsapp-management i {
             font-size: 3rem;
             margin-bottom: 1rem;
+            display: block;
         }
-
-        .credit-system {
-            background: var(--color-negro);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
+        
+        .whatsapp-management p {
+            font-weight: 400;
+            opacity: 0.95;
+        }
+        
+        .whatsapp-management .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
             margin: 1rem 0;
-            border: 2px solid var(--color-lightning);
         }
-
-        .credit-system i {
-            color: var(--color-lightning);
-            font-size: 2rem;
-        }
-
-        .credit-system .price-credit {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--color-lightning);
+        
+        .whatsapp-management .pill-group span {
+            background: rgba(255,255,255,0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .domain-section {
-            background: var(--color-gris-claro);
-            padding: 2rem;
+            background: var(--color-gris-10);
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
-            border: 2px solid var(--color-negro);
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
         }
-
+        
         .domain-section h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
         }
-
+        
         .domain-section .subtitle {
             text-align: center;
             max-width: 800px;
             margin: 0 auto 1.5rem auto;
-            font-size: 1.05rem;
-            color: var(--color-gris-oscuro);
+            font-size: 1rem;
+            color: var(--color-gris-50);
             line-height: 1.7;
+            font-weight: 400;
         }
-
+        
         .domain-highlight-box {
             background: var(--color-negro);
-            color: white;
+            color: var(--color-blanco);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: 16px;
             text-align: center;
             margin: 1.5rem 0;
-            border: 2px solid var(--color-lightning);
+            border: 1px solid var(--color-gris-30);
         }
-
+        
         .domain-highlight-box .icon-big {
-            font-size: 3rem;
-            color: var(--color-lightning);
+            font-size: 2.5rem;
+            color: var(--color-blanco);
             margin-bottom: 0.5rem;
             display: block;
         }
-
+        
         .domain-highlight-box h3 {
-            color: white;
-            font-size: 1.3rem;
+            color: var(--color-blanco);
+            font-size: 1.2rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
-
+        
         .domain-highlight-box .url-example {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--color-lightning);
-            background: rgba(255,255,255,0.08);
-            padding: 0.8rem 2rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--color-blanco);
+            background: rgba(255,255,255,0.06);
+            padding: 0.6rem 2rem;
             border-radius: 12px;
             display: inline-block;
-            margin: 0.8rem 0;
-            border: 1px solid var(--color-lightning);
+            margin: 0.6rem 0;
+            border: 1px solid var(--color-gris-30);
             word-break: break-all;
+            letter-spacing: -0.5px;
         }
-
+        
         .domain-highlight-box .note {
-            color: var(--color-gris-medio);
-            margin-top: 0.8rem;
-            font-size: 0.95rem;
+            color: var(--color-gris-40);
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 300;
         }
-
+        
         .domain-highlight-box .note i {
-            color: var(--color-lightning);
             margin-right: 0.5rem;
         }
-
+        
         .domain-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-
+        
         .domain-feature {
-            background: white;
+            background: var(--color-blanco);
             padding: 1.5rem;
-            border-radius: 15px;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid var(--color-gris-medio);
+            border: 1px solid var(--color-gris-20);
             transition: all 0.3s;
         }
-
+        
         .domain-feature:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
         }
-
+        
         .domain-feature i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--color-negro);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            display: block;
         }
-
+        
         .domain-feature h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
-
+        
         .domain-feature p {
-            color: var(--color-gris-oscuro);
+            color: var(--color-gris-50);
             font-size: 0.9rem;
             line-height: 1.6;
+            font-weight: 400;
         }
-
+        
         .domain-feature .badge {
             display: inline-block;
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 1rem;
             border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.6rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
-
+        
         .badge-green {
-            background: #28a745;
-            color: white;
-        }
-
-        .badge-black {
             background: var(--color-negro);
-            color: white;
+            color: var(--color-blanco);
         }
-
-        .badge-orange {
-            background: var(--color-lightning);
-            color: white;
+        
+        .badge-gray {
+            background: var(--color-gris-20);
+            color: var(--color-gris-60);
         }
-
+        
         .domain-info-box {
             text-align: center;
             margin-top: 1.5rem;
             padding: 1.2rem;
             background: var(--color-negro);
-            color: white;
+            color: var(--color-blanco);
             border-radius: 12px;
-            border: 1px solid var(--color-lightning);
+            border: 1px solid var(--color-gris-30);
         }
-
+        
         .domain-info-box i {
-            color: var(--color-lightning);
             margin-right: 0.5rem;
+            color: var(--color-blanco);
+        }
+        
+        .domain-info-box strong {
+            font-weight: 600;
         }
 
         /* ===== FORMULARIO ===== */
         .form-section {
             background: var(--color-blanco);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 20px;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
             border: 2px solid var(--color-negro);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.04);
         }
         
         .form-section h2 {
             text-align: center;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
         }
         
         .form-section .subtitle {
             text-align: center;
-            color: var(--color-gris-oscuro);
+            color: var(--color-gris-50);
             margin-bottom: 2rem;
+            font-weight: 400;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         
         .form-group label {
             display: block;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 0.3rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--color-gris-70);
+            letter-spacing: -0.2px;
         }
         
         .form-group input,
@@ -838,12 +1039,13 @@
         .form-group textarea {
             width: 100%;
             padding: 0.8rem 1rem;
-            border: 2px solid var(--color-gris-medio);
+            border: 2px solid var(--color-gris-20);
             border-radius: 10px;
-            font-family: 'Libre Baskerville', serif;
+            font-family: 'Inter', sans-serif;
             font-size: 16px !important;
             transition: border 0.3s;
-            background: var(--color-gris-claro);
+            background: var(--color-gris-10);
+            color: var(--color-gris-80);
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
@@ -877,34 +1079,36 @@
         
         .form-submit {
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .form-submit .btn-primary {
             background: var(--color-whatsapp);
-            border-color: var(--color-whatsapp);
-            font-size: 1.2rem;
+            color: var(--color-blanco);
+            font-size: 1.1rem;
             padding: 1rem 3rem;
+            border: none;
         }
         
         .form-submit .btn-primary:hover {
             background: #128C7E;
-            border-color: #128C7E;
-            color: white;
+            color: var(--color-blanco);
+            transform: translateY(-2px);
         }
         
         .form-note {
             text-align: center;
             margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--color-gris-oscuro);
+            font-size: 0.8rem;
+            color: var(--color-gris-50);
         }
         
         footer {
             background: var(--color-negro);
             color: var(--color-blanco);
-            padding: 2rem 1rem;
+            padding: 2.5rem 1.5rem;
             margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .footer-content {
@@ -918,19 +1122,32 @@
         
         .footer-section {
             flex: 1;
-            min-width: 250px;
+            min-width: 220px;
         }
         
         .footer-section h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             color: var(--color-blanco);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .footer-section p {
+            color: var(--color-gris-40);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.7;
         }
         
         .footer-section a {
-            color: var(--color-gris-medio);
+            color: var(--color-gris-40);
             text-decoration: none;
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s;
         }
         
         .footer-section a:hover {
@@ -940,87 +1157,127 @@
         .social-icons {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
         
         .social-icons a {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--color-gris-40);
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--color-blanco);
         }
         
         .footer-register {
             text-align: center;
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-register p {
+            color: var(--color-gris-40);
+            font-size: 0.8rem;
+            font-weight: 300;
+            margin-top: 0.8rem;
         }
         
         .copyright {
             text-align: center;
             margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.75rem;
+            color: var(--color-gris-50);
+            font-weight: 300;
         }
         
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .hero h1 { font-size: 2.2rem; }
-            .price { font-size: 3rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .price { font-size: 3.2rem; }
             .domain-features { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.8rem; }
-            .hero { padding: 2.5rem 1rem; }
+            .hero { padding: 3rem 1rem; }
             .stats-bar { 
                 flex-direction: column; 
                 align-items: center;
                 padding: 1.5rem;
-                gap: 1rem;
+                gap: 1.2rem;
+                margin-top: -1.5rem;
             }
             .benefits-grid { grid-template-columns: 1fr; }
-            .logo-text { font-size: 1.3rem; }
+            .logo-text { font-size: 1.2rem; }
             .price { font-size: 2.5rem; }
             .steps { flex-direction: column; }
             .services-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
             .form-row-3 { grid-template-columns: 1fr; }
             .domain-features { grid-template-columns: 1fr; }
-            .domain-highlight-box .url-example { font-size: 1.3rem; padding: 0.6rem 1rem; }
-            .domain-section h2 { font-size: 1.5rem; }
-            .btn-primary-large { font-size: 1rem; padding: 0.8rem 1.5rem; }
-            .feature-list li { font-size: 0.95rem; }
+            .domain-highlight-box .url-example { font-size: 1.2rem; padding: 0.5rem 1rem; }
+            .domain-section h2 { font-size: 1.3rem; }
+            .btn-primary-large { font-size: 0.95rem; padding: 0.8rem 1.5rem; }
+            .feature-list li { font-size: 0.9rem; }
             .price-card { padding: 1.5rem; }
             .testimonial-section { padding: 2rem 1.5rem; }
-            .whatsapp-management { padding: 1.5rem; }
-            .whatsapp-management i { font-size: 2.5rem; }
+            .whatsapp-management { padding: 1.8rem; }
+            .whatsapp-management i { font-size: 2.2rem; }
+            .product-management { padding: 1.5rem; }
+            .product-management ul li { font-size: 0.9rem; }
+            .bonus-box { padding: 1.2rem; }
+            .bonus-box .highlight-tag { font-size: 0.8rem; }
+            .credit-pills span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
         }
 
         @media (max-width: 480px) {
             body { font-size: 15px; }
             .hero h1 { font-size: 1.5rem; }
-            .hero p { font-size: 0.95rem; }
-            .price-badge-hero { font-size: 1rem; padding: 0.4rem 1rem; }
-            .logo-text { font-size: 1.1rem; }
-            .logo-text small { font-size: 0.7rem; }
-            .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
-            .btn-primary-large { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+            .hero p { font-size: 0.9rem; }
+            .price-badge-hero { font-size: 0.9rem; padding: 0.4rem 1.2rem; }
+            .logo-text { font-size: 1rem; }
+            .logo-text small { font-size: 0.6rem; }
+            .btn-primary { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+            .btn-primary-large { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
             .stat-number { font-size: 1.5rem; }
             .price { font-size: 2rem; }
-            .price small { font-size: 1rem; }
+            .price small { font-size: 0.9rem; }
             .container { padding: 0 0.8rem 2rem; }
-            .benefit-card { padding: 1rem; }
+            .benefit-card { padding: 1.2rem; }
             .benefit-card i { font-size: 1.5rem; }
             .step { padding: 1rem; min-width: unset; }
             .form-section { padding: 1.2rem; }
             .form-group input, .form-group select, .form-group textarea { padding: 0.6rem 0.8rem; font-size: 16px !important; }
             .domain-highlight-box { padding: 1.2rem; }
-            .domain-highlight-box .url-example { font-size: 1.1rem; padding: 0.5rem 1rem; }
-            .domain-highlight-box .icon-big { font-size: 2.2rem; }
-            .domain-section h2 { font-size: 1.3rem; }
-            .domain-section .subtitle { font-size: 0.95rem; }
+            .domain-highlight-box .url-example { font-size: 1rem; padding: 0.4rem 0.8rem; }
+            .domain-highlight-box .icon-big { font-size: 2rem; }
+            .domain-section h2 { font-size: 1.2rem; }
+            .domain-section .subtitle { font-size: 0.9rem; }
             .credit-system { padding: 1rem; }
-            .credit-system .price-credit { font-size: 2rem; }
+            .credit-system .price-credit { font-size: 1.8rem; }
+            .whatsapp-management { padding: 1.2rem; }
+            .whatsapp-management i { font-size: 2rem; }
+            .whatsapp-management h2 { font-size: 1.2rem; }
+            .testimonial-section { padding: 1.5rem; }
+            .mid-section { padding: 1.5rem; }
+            .mid-section h2 { font-size: 1.2rem; }
+            .services-section { padding: 1.5rem; }
+            .services-section h2 { font-size: 1.2rem; }
+            .product-management h2 { font-size: 1.2rem; }
+            .how-it-works h2 { font-size: 1.2rem; }
+            .price-card h2 { font-size: 1.2rem; }
+            .domain-feature { padding: 1rem; }
+            .domain-feature i { font-size: 1.8rem; }
+            .service-card { padding: 1.2rem; }
+            .service-card i { font-size: 1.5rem; }
+            .bonus-box h3 { font-size: 1rem; }
+            .bonus-box p { font-size: 0.9rem; }
+            .credit-system .credit-desc { font-size: 0.8rem; }
+            .credit-pills span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
         }
 
         @media (max-width: 768px) {
@@ -1037,7 +1294,10 @@
 <body>
     <header>
         <div class="header-container">
-            <div class="logo-text">QRP2P COLOMBIA <small>Tu tienda en línea</small></div>
+            <div class="logo-text">
+                QRP2P COLOMBIA
+                <small>Tu tienda en línea</small>
+            </div>
             <a href="#formulario" class="btn-primary">
                 <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $100.000
             </a>
@@ -1086,20 +1346,20 @@
         <div class="domain-section">
             <h2><i class="fas fa-globe"></i> Tu subdominio y correo corporativo</h2>
             <p class="subtitle">
-                <strong>Cada vendedor recibe un subdominio único</strong> en nuestros servidores Ubuntu de alto rendimiento. 
-                Tu tienda estará disponible en <strong>tunegocio.qrp2p.com</strong> con el mismo diseño, funcionalidad y CSS que todas las demás tiendas de la plataforma.
+                <strong>Cada vendedor recibe un subdominio único</strong> en nuestros servidores de alto rendimiento. 
+                Tu tienda estará disponible en <strong>tunegocio.qrp2p.com</strong> con el mismo diseño y funcionalidad que todas las demás tiendas de la plataforma.
             </p>
 
             <div class="domain-highlight-box">
                 <span class="icon-big"><i class="fas fa-link"></i></span>
                 <h3>Tu subdominio único</h3>
                 <div class="url-example">
-                    <i class="fas fa-store" style="color: var(--color-lightning);"></i> tunegocio.qrp2p.com
+                    <i class="fas fa-store"></i> tunegocio.qrp2p.com
                 </div>
                 <p class="note">
                     <i class="fas fa-check-circle"></i> 
                     <strong>No es una ruta (qrp2p.com/tunegocio)</strong> — es un subdominio independiente 
-                    con el mismo rendimiento y CSS que todas las tiendas de la plataforma.
+                    con el mismo rendimiento para todas las tiendas.
                 </p>
             </div>
             
@@ -1107,29 +1367,29 @@
                 <div class="domain-feature">
                     <i class="fas fa-server"></i>
                     <h3>Subdominio incluido</h3>
-                    <p>Recibes un subdominio único en nuestros servidores Ubuntu de alto rendimiento. La URL de tu tienda será <strong>tunegocio.qrp2p.com</strong>.</p>
+                    <p>Recibes un subdominio único en nuestros servidores de alto rendimiento. La URL de tu tienda será <strong>tunegocio.qrp2p.com</strong>.</p>
                     <span class="badge badge-green"><i class="fas fa-check"></i> Incluido</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-paint-brush"></i>
-                    <h3>CSS y funcionalidad idéntica</h3>
-                    <p>Todas las tiendas comparten el mismo diseño profesional y funcionalidad. El CSS y todas las características son <strong>exactamente iguales</strong> para todos los vendedores.</p>
-                    <span class="badge badge-black"><i class="fas fa-check"></i> Estándar unificado</span>
+                    <h3>Diseño estándar unificado</h3>
+                    <p>Todas las tiendas inician con el mismo diseño profesional. Eres libre de solicitar cambios de diseño según tu imaginación y necesidades.</p>
+                    <span class="badge badge-green"><i class="fas fa-check"></i> Personalizable</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-link"></i>
-                    <h3>Vincular dominio propio (opcional)</h3>
-                    <p>Si ya tienes un dominio (<strong>tudominio.com</strong>), puedes vincularlo a tu tienda. El diseño, CSS y funcionalidad se mantienen idénticos.</p>
-                    <span class="badge badge-orange"><i class="fas fa-arrow-right"></i> Opción adicional</span>
+                    <h3>Vincular dominio propio</h3>
+                    <p>Si ya tienes un dominio (<strong>tudominio.com</strong>), puedes vincularlo a tu tienda. El diseño se mantiene idéntico.</p>
+                    <span class="badge badge-gray"><i class="fas fa-arrow-right"></i> Opcional</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-envelope"></i>
                     <h3>Correo corporativo</h3>
                     <p>Posibilidad de configurar correos corporativos (<strong>ventas@tudominio.com</strong>) para una imagen profesional. Requiere dominio propio.</p>
-                    <span class="badge badge-orange"><i class="fas fa-arrow-right"></i> Con dominio propio</span>
+                    <span class="badge badge-gray"><i class="fas fa-arrow-right"></i> Opcional</span>
                 </div>
                 
                 <div class="domain-feature">
@@ -1143,14 +1403,14 @@
                     <i class="fas fa-user-cog"></i>
                     <h3>Configuración por nosotros</h3>
                     <p>Si prefieres que nosotros configuremos tu dominio y correos, lo hacemos por un costo muy asequible y sin complicaciones.</p>
-                    <span class="badge badge-orange"><i class="fas fa-tag"></i> Costo bajo</span>
+                    <span class="badge badge-gray"><i class="fas fa-tag"></i> Costo bajo</span>
                 </div>
             </div>
             
             <div class="domain-info-box">
                 <i class="fas fa-info-circle"></i>
                 <strong>Importante:</strong> El subdominio es la base de tu tienda. Si decides vincular un dominio propio, 
-                la experiencia de usuario, el diseño y el CSS serán <strong>exactamente los mismos</strong> que con el subdominio.
+                la experiencia de usuario y el diseño serán <strong>exactamente los mismos</strong> que con el subdominio.
             </div>
         </div>
 
@@ -1160,14 +1420,13 @@
             <div class="price">$100.000 <small>COP</small></div>
             <p>Pago único anual • 0% comisión • Tienda profesional con carrito de compras</p>
             
-            <!-- BONUS DESTACADO: 100 PRODUCTOS GRATIS -->
-            <div style="background: var(--color-lightning); color: var(--color-negro); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border: 2px solid #d97706;">
-                <i class="fas fa-gift" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
-                <h3 style="color: var(--color-negro); font-weight: 800; font-size: 1.3rem;">🎁 BONO DE LANZAMIENTO</h3>
-                <p style="color: var(--color-negro); font-size: 1.1rem; font-weight: bold;">
-                    ¡Incluye <span style="background: var(--color-negro); color: white; padding: 0.2rem 1rem; border-radius: 50px;">HASTA 100 PRODUCTOS</span> sin costo adicional!
+            <div class="bonus-box">
+                <i class="fas fa-gift"></i>
+                <h3>🎁 BONO DE LANZAMIENTO</h3>
+                <p>
+                    ¡Incluye <span class="highlight-tag">HASTA 100 PRODUCTOS</span> sin costo adicional!
                 </p>
-                <p style="color: var(--color-gris-muy-oscuro); font-size: 0.95rem; margin-top: 0.5rem;">
+                <p style="font-weight: 400; font-size: 0.9rem; color: var(--color-gris-60);">
                     Al activar tu plan, el asesor QRP2P crea tu catálogo y puede subir <strong>hasta 100 publicaciones</strong> sin ningún costo extra. 
                     <strong>¡Solo pagas los $100.000 del plan anual!</strong>
                 </p>
@@ -1175,20 +1434,20 @@
             
             <div class="credit-system">
                 <i class="fas fa-coins"></i>
-                <h3 style="color: white; margin-top: 0.5rem;">💰 Sistema de Créditos</h3>
-                <p style="color: var(--color-gris-medio);">
-                    <strong style="color: var(--color-lightning);">Primera gestión: HASTA 100 PRODUCTOS GRATIS</strong>
+                <h3>💰 Sistema de Créditos</h3>
+                <p class="credit-desc">
+                    <span class="credit-highlight">Primera gestión: HASTA 100 PRODUCTOS GRATIS</span>
                 </p>
-                <p style="color: var(--color-gris-medio); font-size: 0.9rem; margin-top: 0.3rem;">
-                    Después de la primera gestión, cada acción sobre un producto cuesta <strong style="color: var(--color-lightning);">$500 COP</strong>
+                <p class="credit-desc" style="margin-top: 0.2rem;">
+                    Después de la primera gestión, cada acción sobre un producto cuesta <strong>$500 COP</strong>
                 </p>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 0.8rem;">
-                    <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 1rem; border-radius: 50px; border: 1px solid var(--color-lightning);">⬆️ Subir: $500</span>
-                    <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 1rem; border-radius: 50px; border: 1px solid var(--color-lightning);">⬇️ Bajar: $500</span>
-                    <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 1rem; border-radius: 50px; border: 1px solid var(--color-lightning);">✏️ Editar: $500</span>
-                    <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 1rem; border-radius: 50px; border: 1px solid var(--color-lightning);">🗑️ Eliminar: $500</span>
+                <div class="credit-pills">
+                    <span>⬆️ Subir: $500</span>
+                    <span>⬇️ Bajar: $500</span>
+                    <span>✏️ Editar: $500</span>
+                    <span>🗑️ Eliminar: $500</span>
                 </div>
-                <p style="color: var(--color-gris-medio); font-size: 0.8rem; margin-top: 0.8rem;">
+                <p class="credit-desc" style="font-size: 0.8rem; margin-top: 0.6rem;">
                     <i class="fas fa-info-circle"></i> Cada vez que subes, bajas, editas o eliminas un producto después de la primera gestión, consumes 1 crédito de $500 COP
                 </p>
             </div>
@@ -1197,7 +1456,7 @@
                 <li><i class="fas fa-check-circle"></i> <strong>Tienda en línea profesional</strong> con carrito de compras para todo tipo de negocio: productos físicos, digitales, reservas (hoteles, hostales, vehículos, turismo), inmuebles y más.</li>
                 <li><i class="fas fa-user-tag"></i> <strong>Subdominio único:</strong> tu tienda estará en <strong>tunegocio.qrp2p.com</strong> (tú eliges tu nombre de subdominio).</li>
                 <li><i class="fab fa-whatsapp"></i> <strong>Gestión 100% por WhatsApp</strong> - Sin panel de control complicado. Solo envías la información por WhatsApp y nosotros gestionamos tu catálogo.</li>
-                <li><i class="fas fa-gift" style="color: var(--color-lightning);"></i> <strong>Bono de lanzamiento:</strong> <strong>hasta 100 productos sin costo</strong> en la primera gestión al activar tu plan anual.</li>
+                <li><i class="fas fa-gift"></i> <strong>Bono de lanzamiento:</strong> <strong>hasta 100 productos sin costo</strong> en la primera gestión al activar tu plan anual.</li>
                 <li><i class="fas fa-coins"></i> <strong>Sistema de créditos:</strong> Después de la primera gestión, cada producto que subes, bajas, editas o eliminas cuesta <strong>$500 COP</strong>. Pagas solo por lo que usas.</li>
                 <li><i class="fas fa-mobile-alt"></i> <strong>Adaptable a cualquier industria:</strong> tu catálogo se ajusta a productos con o sin envío, servicios, reservas y alquileres.</li>
                 <li><i class="fas fa-globe-americas"></i> <strong>Visibilidad global:</strong> presencia en más de 190 países con acceso a una audiencia potencial de más de 50 mil millones de personas.</li>
@@ -1214,41 +1473,40 @@
             </a>
         </div>
 
-        <!-- GESTIÓN DE PRODUCTOS - ACTUALIZADO CON BONO -->
+        <!-- GESTIÓN DE PRODUCTOS -->
         <div class="product-management">
-            <h2 style="text-align: center;"><i class="fas fa-boxes"></i> Gestión de tu catálogo</h2>
-            <p style="text-align: center; margin-bottom: 1rem;"><strong>Sin panel de control.</strong> Toda la gestión se hace por WhatsApp.</p>
+            <h2><i class="fas fa-boxes"></i> Gestión de tu catálogo</h2>
+            <p><strong>Sin panel de control.</strong> Toda la gestión se hace por WhatsApp.</p>
             
-            <!-- BONO DESTACADO -->
-            <div style="background: var(--color-lightning); color: var(--color-negro); padding: 1.2rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem; border: 2px solid #d97706;">
-                <i class="fas fa-gift" style="font-size: 1.8rem;"></i>
-                <h3 style="color: var(--color-negro); font-weight: 800;">🎁 PRIMERA GESTIÓN: HASTA 100 PRODUCTOS GRATIS</h3>
-                <p style="color: var(--color-gris-muy-oscuro); font-weight: bold;">
+            <div class="bonus-box" style="margin: 1rem 0; background: var(--color-gris-10); border: 2px solid var(--color-negro);">
+                <i class="fas fa-gift"></i>
+                <h3 style="color: var(--color-negro);">🎁 PRIMERA GESTIÓN: HASTA 100 PRODUCTOS GRATIS</h3>
+                <p style="color: var(--color-gris-60); font-weight: 500;">
                     Al activar tu plan anual, el asesor crea tu catálogo y sube <strong>hasta 100 productos sin costo adicional</strong>.
                 </p>
-                <p style="color: var(--color-gris-muy-oscuro); font-size: 0.9rem;">
+                <p style="color: var(--color-gris-50); font-size: 0.9rem; font-weight: 400;">
                     ¡Solo pagas los $100.000 del plan anual!
                 </p>
             </div>
             
-            <div style="background: var(--color-negro); color: white; padding: 1rem; border-radius: 10px; text-align: center; margin-bottom: 1.5rem;">
-                <i class="fas fa-coins" style="color: var(--color-lightning); font-size: 1.5rem;"></i>
-                <strong style="color: var(--color-lightning);">Después de la primera gestión: Cada acción = $500 COP</strong>
-                <p style="color: var(--color-gris-medio); font-size: 0.85rem; margin-top: 0.3rem;">Subir, bajar, editar o eliminar un producto cuesta $500 COP por producto</p>
+            <div style="background: var(--color-negro); color: var(--color-blanco); padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem; border: 1px solid var(--color-gris-30);">
+                <i class="fas fa-coins" style="color: var(--color-blanco); font-size: 1.3rem;"></i>
+                <strong>Después de la primera gestión: Cada acción = $500 COP</strong>
+                <p style="color: var(--color-gris-40); font-size: 0.85rem; margin-top: 0.2rem; font-weight: 300;">Subir, bajar, editar o eliminar un producto cuesta $500 COP por producto</p>
             </div>
             
             <ul>
                 <li><i class="fab fa-whatsapp" style="color: var(--color-whatsapp);"></i> <strong>Envías la solicitud por WhatsApp</strong> y nosotros la ejecutamos</li>
-                <li><i class="fas fa-gift" style="color: var(--color-lightning);"></i> <strong>Primera gestión:</strong> hasta 100 productos sin costo</li>
-                <li><i class="fas fa-arrow-up" style="color: #28a745;"></i> <strong>Subir producto:</strong> $500 COP por producto (después de la primera gestión)</li>
-                <li><i class="fas fa-arrow-down" style="color: #ffc107;"></i> <strong>Bajar producto</strong> (ocultar): $500 COP por producto</li>
-                <li><i class="fas fa-trash-alt" style="color: #dc3545;"></i> <strong>Eliminar producto:</strong> $500 COP por producto</li>
-                <li><i class="fas fa-edit" style="color: #17a2b8;"></i> <strong>Editar producto:</strong> $500 COP por producto</li>
-                <li><i class="fas fa-tags" style="color: var(--color-negro);"></i> <strong>Categorías y etiquetas</strong> para organizar tu catálogo</li>
-                <li><i class="fas fa-headset" style="color: var(--color-negro);"></i> <strong>Atención personalizada</strong> - Un asesor QRP2P te atiende por WhatsApp</li>
+                <li><i class="fas fa-gift"></i> <strong>Primera gestión:</strong> hasta 100 productos sin costo</li>
+                <li><i class="fas fa-arrow-up"></i> <strong>Subir producto:</strong> $500 COP por producto (después de la primera gestión)</li>
+                <li><i class="fas fa-arrow-down"></i> <strong>Bajar producto</strong> (ocultar): $500 COP por producto</li>
+                <li><i class="fas fa-trash-alt"></i> <strong>Eliminar producto:</strong> $500 COP por producto</li>
+                <li><i class="fas fa-edit"></i> <strong>Editar producto:</strong> $500 COP por producto</li>
+                <li><i class="fas fa-tags"></i> <strong>Categorías y etiquetas</strong> para organizar tu catálogo</li>
+                <li><i class="fas fa-headset"></i> <strong>Atención personalizada</strong> - Un asesor QRP2P te atiende por WhatsApp</li>
             </ul>
             
-            <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: var(--color-gris-oscuro); color: white; border-radius: 10px;">
+            <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: var(--color-negro); color: var(--color-blanco); border-radius: 12px; border: 1px solid var(--color-gris-30);">
                 <i class="fas fa-info-circle"></i> <strong>Ejemplo:</strong> Activas tu plan anual ($100.000 COP) y el asesor te sube 50 productos sin costo. Luego, si quieres subir 5 productos más, pagas 5 × $500 = <strong>$2.500 COP</strong>.
             </div>
         </div>
@@ -1257,18 +1515,18 @@
         <div class="whatsapp-management">
             <i class="fab fa-whatsapp"></i>
             <h2>📱 Todo se gestiona por WhatsApp</h2>
-            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            <p style="font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
                 <strong>Sin panel de control, sin complicaciones.</strong><br>
                 Solo nos envías la solicitud por WhatsApp y nosotros gestionamos tu catálogo.
             </p>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 1rem;">
-                <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);">🎁 Hasta 100 gratis</span>
-                <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);">⬆️ Subir: $500</span>
-                <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);">⬇️ Bajar: $500</span>
-                <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);">✏️ Editar: $500</span>
-                <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);">🗑️ Eliminar: $500</span>
+            <div class="pill-group">
+                <span>🎁 Hasta 100 gratis</span>
+                <span>⬆️ Subir: $500</span>
+                <span>⬇️ Bajar: $500</span>
+                <span>✏️ Editar: $500</span>
+                <span>🗑️ Eliminar: $500</span>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+            <p style="margin-top: 1.2rem; font-size: 0.9rem;">
                 <i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +57 3148304504
             </p>
         </div>
@@ -1346,12 +1604,11 @@
                     </div>
                 </div>
 
-                <!-- NOMBRE DE SUBDOMINIO ÚNICO -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
                         <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
-                        <small style="color: var(--color-gris-oscuro); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-oscuro);">.qrp2p.com</span></small>
+                        <small style="color: var(--color-gris-50); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-50);">.qrp2p.com</span></small>
                     </div>
                     <div class="form-group">
                         <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
@@ -1388,11 +1645,10 @@
                 </p>
             </form>
         </div>
-        <!-- FIN FORMULARIO -->
 
-        <!-- ¿CÓMO FUNCIONA? - ACTUALIZADO -->
+        <!-- ¿CÓMO FUNCIONA? -->
         <div class="how-it-works">
-            <h2 style="text-align: center;">📋 ¿Cómo funciona? Es muy sencillo</h2>
+            <h2>📋 ¿Cómo funciona? Es muy sencillo</h2>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
@@ -1408,7 +1664,7 @@
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <i class="fas fa-gift" style="color: var(--color-lightning);"></i>
+                    <i class="fas fa-gift"></i>
                     <h3>¡Bono de lanzamiento!</h3>
                     <p>El asesor crea tu catálogo y sube <strong>hasta 100 productos sin costo</strong> en la primera gestión</p>
                 </div>
@@ -1428,7 +1684,7 @@
         <!-- BENEFICIOS -->
         <div class="benefits-grid">
             <div class="benefit-card">
-                <i class="fas fa-gift" style="color: var(--color-lightning);"></i>
+                <i class="fas fa-gift"></i>
                 <h3>100 productos gratis</h3>
                 <p>Al activar tu plan anual, el asesor sube hasta 100 productos sin costo adicional. ¡Solo pagas el plan!</p>
             </div>
@@ -1463,7 +1719,7 @@
                 <p>Todas las tiendas inician con el mismo diseño estándar, pero eres libre de solicitar cambios de diseño según tu imaginación.</p>
             </div>
             <div class="benefit-card">
-                <i class="fas fa-coins" style="color: var(--color-lightning);"></i>
+                <i class="fas fa-coins"></i>
                 <h3>Paga solo por lo que usas</h3>
                 <p>Después de la primera gestión, cada producto que subes, editas, bajas o eliminas cuesta $500 COP. Sin suscripciones mensuales.</p>
             </div>
@@ -1471,8 +1727,8 @@
 
         <!-- SERVICIOS ADICIONALES -->
         <div class="services-section">
-            <h2 style="text-align: center;"><i class="fas fa-concierge-bell"></i> Servicios adicionales para vendedores</h2>
-            <p style="text-align: center; margin-bottom: 1rem;">Si prefieres que nosotros gestionemos tu tienda por completo, ofrecemos servicios profesionales mensuales.</p>
+            <h2><i class="fas fa-concierge-bell"></i> Servicios adicionales para vendedores</h2>
+            <p>Si prefieres que nosotros gestionemos tu tienda por completo, ofrecemos servicios profesionales mensuales.</p>
             
             <div class="services-grid">
                 <div class="service-card">
@@ -1499,7 +1755,7 @@
                     <i class="fas fa-hand-holding-usd"></i>
                     <h3>Recaudo y Desembolso</h3>
                     <div class="price-tag">5% del valor de la venta</div>
-                    <p>Recibimos el pago del cliente (Nequi, Daviplata, bancos, efectivo) y te transferimos a tu cuenta. Tú no tocas el dinero. Perfecto para vendedores sin internet.</p>
+                    <p>Recibimos el pago del cliente (Nequi, Daviplata, bancos, efectivo) y te transferimos a tu cuenta. Tú no tocas el dinero.</p>
                     <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20RECAUDO%20Y%20DESEMBOLSO" class="btn-secondary" target="_blank">
                         <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
@@ -1530,7 +1786,7 @@
                     <h3>Paquete Completo · Todo incluido</h3>
                     <div class="price-tag">Desde $150.000 COP/mes</div>
                     <p>Gestionamos: atención por WhatsApp, recaudo de pagos, inventario, almacenamiento, garantías y logística. Tú solo cobras tus ventas mensuales.</p>
-                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20PAQUETE%20COMPLETO" class="btn-primary" target="_blank" style="background: var(--color-negro); border-color: var(--color-negro);">
+                    <a href="https://wa.me/573148304504?text=Hola%2C%20quiero%20cotizar%20el%20PAQUETE%20COMPLETO" class="btn-primary" target="_blank" style="background: var(--color-negro); border: 1px solid var(--color-gris-30); color: var(--color-blanco);">
                         <i class="fab fa-whatsapp"></i> Cotizar
                     </a>
                 </div>
@@ -1552,14 +1808,14 @@
             <div class="testimonial-card">
                 <i class="fas fa-quote-left"></i>
                 <p>"Con QRP2P tengo mi tienda en línea con carrito de compras y mis productos aparecen en toda Colombia y el mundo. La academia me ha enseñado a gestionar mi negocio y las ventas han aumentado significativamente. Lo mejor es que no pago comisión, me dieron 100 productos gratis al inicio y solo pago $500 por cada producto que gestiono después."</p>
-                <p style="margin-top: 1rem; font-weight: bold;">— Carlos R., Emprendedor de productos naturales</p>
+                <p class="author">— Carlos R., Emprendedor de productos naturales</p>
             </div>
         </div>
 
         <!-- CTA FINAL -->
         <div class="mid-section">
             <h2>¿Listo para vender en todo el mundo?</h2>
-            <p style="margin-bottom: 1.5rem;">Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye subdominio único, URL única, acceso a la academia QRP2P y <strong>hasta 100 productos gratis en tu primera gestión</strong>.</p>
+            <p>Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye subdominio único, URL única, acceso a la academia QRP2P y <strong>hasta 100 productos gratis en tu primera gestión</strong>.</p>
             <div class="button-group">
                 <a href="#formulario" class="btn-primary btn-primary-large">
                     <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $100.000
@@ -1568,7 +1824,7 @@
                     <i class="fab fa-whatsapp"></i> CONSULTAR SERVICIOS ADICIONALES
                 </a>
             </div>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--color-gris-50);">
                 💬 Después de enviar el formulario, un asesor te contacta por WhatsApp para verificar el negocio y darte las instrucciones de pago. 
                 <strong>¡Recuerda! Al activar tu plan, el asesor sube hasta 100 productos sin costo adicional.</strong>
             </p>
@@ -1603,7 +1859,7 @@
             <a href="#formulario" class="btn-primary">
                 <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $100.000
             </a>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">
+            <p>
                 Plan Anual $100.000 COP • <strong>Primera gestión: hasta 100 productos gratis</strong> • Después: $500 COP por gestión de producto • 0% comisión • Academia QRP2P incluida • Gestión por WhatsApp
             </p>
         </div>
@@ -1614,12 +1870,10 @@
     </footer>
 
     <script>
-        // Prevenir eventos táctiles que puedan causar zoom o selección
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
         });
 
-        // Vista previa del nombre de subdominio en tiempo real
         document.getElementById('usuario').addEventListener('input', function() {
             const usuario = this.value.trim() || 'tu-subdominio';
             document.getElementById('urlPreview').textContent = usuario;
@@ -1683,8 +1937,8 @@
                 `• Eliminar producto: $500 COP%0A%0A` +
                 `*✅ Plan Anual: $100.000 COP (pago único)*%0A%0A` +
                 `*🌐 Subdominio y Correo Corporativo:*%0A` +
-                `• Subdominio único en servidores Ubuntu: ${usuario}.qrp2p.com%0A` +
-                `• CSS y funcionalidad idénticos para todos los vendedores%0A` +
+                `• Subdominio único en servidores: ${usuario}.qrp2p.com%0A` +
+                `• Diseño estándar unificado para todos los vendedores%0A` +
                 `• Los vendedores pueden vincular su propio dominio (opcional)%0A` +
                 `• Correo corporativo disponible con dominio propio%0A` +
                 `• Acompañamiento sin costo si lo hacen ellos%0A` +
@@ -1714,7 +1968,6 @@
             document.getElementById('urlPreview').textContent = 'tu-subdominio';
         }
 
-        // Prevenir copia mediante eventos de teclado
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U')) {
                 if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
@@ -1723,7 +1976,6 @@
             }
         });
 
-        // Prevenir menú contextual (copiar/pegar)
         document.addEventListener('contextmenu', function(e) {
             if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
                 e.preventDefault();
