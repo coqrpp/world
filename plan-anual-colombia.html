@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>QRP2P Colombia | Plan Anual Catálogos Express - $100.000/año</title>
     <meta name="description" content="Plan Anual para vendedores por solo $100.000 COP/año. Tienda en línea profesional con carrito de compras, 0% comisión. Sin panel de control, todo por WhatsApp. Cada gestión de producto cuesta $500 COP.">
     <meta name="keywords" content="QRP2P Colombia, plan anual vendedor, tienda en línea, carrito de compras, marketplace global, 0% comisión, reservas, hostales, hoteles, alquileres, turismo, WhatsApp">
@@ -35,6 +35,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== PREVENCIÓN DE ZOOM, SELECCIÓN Y COPIA ===== */
+        html, body {
+            touch-action: pan-y pinch-zoom;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior: none;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        /* Permitir selección solo en inputs y textarea (necesario para formularios) */
+        input, textarea, select, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+            -webkit-touch-callout: default !important;
+        }
+
+        /* Prevenir selección de imágenes y enlaces */
+        img, a, button, .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Prevenir copia mediante CSS */
+        * {
+            -webkit-touch-callout: none;
+        }
+
+        /* Prevenir contexto de menú al presionar largo */
+        img, a, .prevent-long-press {
+            -webkit-touch-callout: none !important;
+            touch-action: manipulation;
+        }
+
+        /* Evitar zoom en inputs en iOS */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        /* ===== RESTO DEL CSS ===== */
         :root {
             --color-blanco: #ffffff;
             --color-negro: #000000;
@@ -58,6 +114,8 @@
             color: var(--color-negro);
             line-height: 1.6;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         header {
@@ -110,6 +168,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             font-family: 'Libre Baskerville', serif;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
         }
         
         .btn-primary:hover {
@@ -140,6 +200,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             font-family: 'Libre Baskerville', serif;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
         }
         
         .btn-secondary:hover {
@@ -738,9 +800,13 @@
             border: 2px solid var(--color-gris-medio);
             border-radius: 10px;
             font-family: 'Libre Baskerville', serif;
-            font-size: 1rem;
+            font-size: 16px !important;
             transition: border 0.3s;
             background: var(--color-gris-claro);
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
         
         .form-group input:focus,
@@ -855,9 +921,22 @@
             font-size: 0.8rem;
         }
         
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.2rem; }
+            .price { font-size: 3rem; }
+            .domain-features { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.8rem; }
-            .stats-bar { flex-direction: column; align-items: center; }
+            .hero { padding: 2.5rem 1rem; }
+            .stats-bar { 
+                flex-direction: column; 
+                align-items: center;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
             .benefits-grid { grid-template-columns: 1fr; }
             .logo-text { font-size: 1.3rem; }
             .price { font-size: 2.5rem; }
@@ -866,6 +945,48 @@
             .form-row { grid-template-columns: 1fr; }
             .form-row-3 { grid-template-columns: 1fr; }
             .domain-features { grid-template-columns: 1fr; }
+            .domain-highlight-box .url-example { font-size: 1.1rem; padding: 0.4rem 1rem; }
+            .btn-primary-large { font-size: 1rem; padding: 0.8rem 1.5rem; }
+            .feature-list li { font-size: 0.95rem; }
+            .price-card { padding: 1.5rem; }
+            .testimonial-section { padding: 2rem 1.5rem; }
+            .whatsapp-management { padding: 1.5rem; }
+            .whatsapp-management i { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { font-size: 15px; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero p { font-size: 0.95rem; }
+            .price-badge-hero { font-size: 1rem; padding: 0.4rem 1rem; }
+            .logo-text { font-size: 1.1rem; }
+            .logo-text small { font-size: 0.7rem; }
+            .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+            .btn-primary-large { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+            .stat-number { font-size: 1.5rem; }
+            .price { font-size: 2rem; }
+            .price small { font-size: 1rem; }
+            .container { padding: 0 0.8rem 2rem; }
+            .benefit-card { padding: 1rem; }
+            .benefit-card i { font-size: 1.5rem; }
+            .step { padding: 1rem; min-width: unset; }
+            .form-section { padding: 1.2rem; }
+            .form-group input, .form-group select, .form-group textarea { padding: 0.6rem 0.8rem; font-size: 16px !important; }
+            .domain-highlight-box { padding: 1rem; }
+            .domain-highlight-box .url-example { font-size: 1rem; }
+            .credit-system { padding: 1rem; }
+            .credit-system .price-credit { font-size: 2rem; }
+        }
+
+        /* Prevenir scroll horizontal en móviles */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            .container, header, footer {
+                overflow-x: hidden;
+            }
         }
     </style>
 </head>
@@ -917,7 +1038,7 @@
             </div>
         </div>
 
-        <!-- DOMINIO Y CORREO CORPORATIVO - CORREGIDO -->
+        <!-- DOMINIO Y CORREO CORPORATIVO -->
         <div class="domain-section">
             <h2><i class="fas fa-globe"></i> Tu subdominio y correo corporativo</h2>
             <p style="text-align: center; max-width: 800px; margin: 0 auto 1rem auto; font-size: 1.05rem;">
@@ -925,7 +1046,6 @@
                 Tu tienda estará disponible en <strong>tunegocio.qrp2p.com</strong> con el mismo diseño, funcionalidad y CSS que todas las demás tiendas de la plataforma.
             </p>
 
-            <!-- Recuadro destacado del subdominio -->
             <div class="domain-highlight-box">
                 <i class="fas fa-link"></i>
                 <h3 style="color: white; margin-bottom: 0.3rem;">Tu subdominio único</h3>
@@ -1403,6 +1523,11 @@
     </footer>
 
     <script>
+        // Prevenir eventos táctiles que puedan causar zoom o selección
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
         // Vista previa del nombre de subdominio en tiempo real
         document.getElementById('usuario').addEventListener('input', function() {
             const usuario = this.value.trim() || 'tu-subdominio';
@@ -1412,7 +1537,6 @@
         function enviarWhatsApp(e) {
             e.preventDefault();
             
-            // Obtener todos los valores del formulario
             const nombres = document.getElementById('nombres').value.trim();
             const apellidos = document.getElementById('apellidos').value.trim();
             const tipo_id = document.getElementById('tipo_id').value;
@@ -1428,13 +1552,11 @@
             const categoria = document.getElementById('categoria_negocio').value;
             const descripcion = document.getElementById('descripcion').value.trim();
             
-            // Validar campos obligatorios
             if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !nombre_comercial || !email || !usuario || !categoria) {
                 alert('Por favor completa todos los campos obligatorios.');
                 return;
             }
             
-            // Construir mensaje para WhatsApp
             let mensaje = 
                 `*📋 NUEVA SOLICITUD PLAN ANUAL QRP2P*%0A%0A` +
                 `*👤 Representante Legal:*%0A` +
@@ -1475,14 +1597,10 @@
                 `• Configuración por nosotros a bajo costo%0A%0A` +
                 `*✅ Verificar negocio y enviar instrucciones de pago.*`;
             
-            // Número de WhatsApp destino
             const numeroDestino = '573148304504';
-            
-            // Abrir WhatsApp con el mensaje
             const url = `https://wa.me/${numeroDestino}?text=${mensaje}`;
             window.open(url, '_blank');
             
-            // Mostrar mensaje de confirmación
             alert(`✅ ¡Formulario enviado! Un asesor te contactará por WhatsApp para verificar tu negocio y darte las instrucciones de pago.
 
 📊 Resumen de tu plan:
@@ -1491,14 +1609,29 @@
 - Sin comisiones en ventas (0%)
 - Subdominio único: https://${usuario}.qrp2p.com
 - CSS y funcionalidad idénticos a todas las tiendas de la plataforma
-- Vinculación de dominio y correo corporativo (opcional, acompañamiento sin costo o configuración a bajo costo)
+- Vinculación de dominio y correo corporativo (opcional)
 
 ℹ️ Recuerda: Toda la gestión se hace por WhatsApp. Sin panel de control.`);
             
-            // Resetear formulario
             document.getElementById('formWhatsApp').reset();
             document.getElementById('urlPreview').textContent = 'tu-subdominio';
         }
+
+        // Prevenir copia mediante eventos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U')) {
+                if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Prevenir menú contextual (copiar/pegar)
+        document.addEventListener('contextmenu', function(e) {
+            if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
