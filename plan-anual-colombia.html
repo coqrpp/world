@@ -612,7 +612,7 @@
 
         .domain-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -623,6 +623,12 @@
             border-radius: 15px;
             text-align: center;
             border: 1px solid var(--color-gris-medio);
+            transition: all 0.3s;
+        }
+
+        .domain-feature:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         .domain-feature i {
@@ -639,6 +645,7 @@
         .domain-feature p {
             color: var(--color-gris-oscuro);
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .domain-feature .highlight {
@@ -649,7 +656,46 @@
             display: inline-block;
             font-size: 0.8rem;
             font-weight: bold;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .domain-feature .highlight-green {
+            background: #28a745;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.8rem;
+        }
+
+        .domain-highlight-box {
+            background: var(--color-negro);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 1.5rem 0;
+            border: 2px solid var(--color-lightning);
+        }
+
+        .domain-highlight-box i {
+            font-size: 2rem;
+            color: var(--color-lightning);
+            margin-bottom: 0.5rem;
+        }
+
+        .domain-highlight-box .url-example {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--color-lightning);
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+            border: 1px solid var(--color-lightning);
         }
 
         /* ===== FORMULARIO ===== */
@@ -871,56 +917,76 @@
             </div>
         </div>
 
-        <!-- DOMINIO Y CORREO CORPORATIVO -->
+        <!-- DOMINIO Y CORREO CORPORATIVO - CORREGIDO -->
         <div class="domain-section">
-            <h2><i class="fas fa-globe"></i> Tu dominio y correo corporativo</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 1rem auto;">
-                Incluye <strong>subdominio en servidores independientes Ubuntu</strong> con excelente rendimiento. 
-                Tienes la libertad de vincular tu propio <strong>nombre de dominio</strong> y <strong>correo corporativo</strong>.
+            <h2><i class="fas fa-globe"></i> Tu subdominio y correo corporativo</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 1rem auto; font-size: 1.05rem;">
+                <strong>Cada vendedor recibe un subdominio único</strong> en nuestros servidores Ubuntu de alto rendimiento. 
+                Tu tienda estará disponible en <strong>tunegocio.qrp2p.com</strong> con el mismo diseño, funcionalidad y CSS que todas las demás tiendas de la plataforma.
             </p>
+
+            <!-- Recuadro destacado del subdominio -->
+            <div class="domain-highlight-box">
+                <i class="fas fa-link"></i>
+                <h3 style="color: white; margin-bottom: 0.3rem;">Tu subdominio único</h3>
+                <div class="url-example">
+                    <i class="fas fa-store" style="color: var(--color-lightning);"></i> tunegocio.qrp2p.com
+                </div>
+                <p style="color: var(--color-gris-medio); margin-top: 0.5rem; font-size: 0.9rem;">
+                    <i class="fas fa-check-circle" style="color: var(--color-lightning);"></i> 
+                    <strong>No es una ruta (qrp2p.com/tunegocio)</strong> — es un subdominio independiente 
+                    con el mismo rendimiento y CSS que todas las tiendas de la plataforma.
+                </p>
+            </div>
             
             <div class="domain-features">
                 <div class="domain-feature">
                     <i class="fas fa-server"></i>
                     <h3>Subdominio incluido</h3>
-                    <p>Entregamos tu tienda con un subdominio en nuestros servidores Ubuntu de alto rendimiento.</p>
-                    <span class="highlight">Incluido</span>
+                    <p>Recibes un subdominio único en nuestros servidores Ubuntu de alto rendimiento. La URL de tu tienda será <strong>tunegocio.qrp2p.com</strong>.</p>
+                    <span class="highlight-green"><i class="fas fa-check"></i> Incluido</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>CSS y funcionalidad idéntica</h3>
+                    <p>Todas las tiendas comparten el mismo diseño profesional y funcionalidad. El CSS y todas las características son <strong>exactamente iguales</strong> para todos los vendedores.</p>
+                    <span class="highlight"><i class="fas fa-check"></i> Estándar unificado</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-link"></i>
-                    <h3>Tu propio dominio</h3>
-                    <p>Los clientes son libres de vincular su nombre de dominio personalizado a su tienda.</p>
-                    <span class="highlight">Configuración flexible</span>
+                    <h3>Vincular dominio propio (opcional)</h3>
+                    <p>Si ya tienes un dominio (<strong>tudominio.com</strong>), puedes vincularlo a tu tienda. El diseño, CSS y funcionalidad se mantienen idénticos.</p>
+                    <span class="highlight"><i class="fas fa-arrow-right"></i> Opción adicional</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-envelope"></i>
                     <h3>Correo corporativo</h3>
-                    <p>Posibilidad de vincular correos corporativos con tu dominio para dar una imagen profesional.</p>
-                    <span class="highlight">Branding profesional</span>
+                    <p>Posibilidad de configurar correos corporativos (<strong>ventas@tudominio.com</strong>) para una imagen profesional. Requiere dominio propio.</p>
+                    <span class="highlight"><i class="fas fa-arrow-right"></i> Con dominio propio</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-hands-helping"></i>
                     <h3>Acompañamiento sin costo</h3>
-                    <p>Si deseas hacerlo tú mismo, te acompañamos sin costo en el proceso de configuración.</p>
-                    <span class="highlight">100% gratuito</span>
+                    <p>Si deseas vincular tu dominio o configurar correos, te acompañamos sin costo en el proceso. Tú tomas el control con nuestra guía.</p>
+                    <span class="highlight-green"><i class="fas fa-check"></i> Gratuito</span>
                 </div>
                 
                 <div class="domain-feature">
                     <i class="fas fa-user-cog"></i>
                     <h3>Configuración por nosotros</h3>
-                    <p>Si prefieres que nosotros lo configuremos, lo hacemos por un costo muy asequible para ti.</p>
-                    <span class="highlight">Costo bajo</span>
+                    <p>Si prefieres que nosotros configuremos tu dominio y correos, lo hacemos por un costo muy asequible y sin complicaciones.</p>
+                    <span class="highlight"><i class="fas fa-tag"></i> Costo bajo</span>
                 </div>
-                
-                <div class="domain-feature">
-                    <i class="fas fa-rocket"></i>
-                    <h3>Servidores Ubuntu</h3>
-                    <p>Nuestros servidores independientes garantizan excelente rendimiento y disponibilidad.</p>
-                    <span class="highlight">Alto rendimiento</span>
-                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: var(--color-negro); color: white; border-radius: 10px;">
+                <i class="fas fa-info-circle" style="color: var(--color-lightning);"></i>
+                <strong>Importante:</strong> El subdominio es la base de tu tienda. Si decides vincular un dominio propio, 
+                la experiencia de usuario, el diseño y el CSS serán <strong>exactamente los mismos</strong> que con el subdominio.
             </div>
         </div>
 
@@ -947,7 +1013,7 @@
             
             <ul class="feature-list">
                 <li><i class="fas fa-check-circle"></i> <strong>Tienda en línea profesional</strong> con carrito de compras para todo tipo de negocio: productos físicos, digitales, reservas (hoteles, hostales, vehículos, turismo), inmuebles y más.</li>
-                <li><i class="fas fa-user-tag"></i> <strong>Nombre de usuario único</strong> y <strong>URL única de tu tienda</strong> (ej: qrp2p.com/tu-nombre). Tú eliges tu nombre de usuario.</li>
+                <li><i class="fas fa-user-tag"></i> <strong>Subdominio único:</strong> tu tienda estará en <strong>tunegocio.qrp2p.com</strong> (tú eliges tu nombre de subdominio).</li>
                 <li><i class="fab fa-whatsapp"></i> <strong>Gestión 100% por WhatsApp</strong> - Sin panel de control complicado. Solo envías la información por WhatsApp y nosotros gestionamos tu catálogo.</li>
                 <li><i class="fas fa-coins"></i> <strong>Sistema de créditos:</strong> Cada producto que subes, bajas, editas o eliminas cuesta <strong>$500 COP</strong>. Pagas solo por lo que usas.</li>
                 <li><i class="fas fa-mobile-alt"></i> <strong>Adaptable a cualquier industria:</strong> tu catálogo se ajusta a productos con o sin envío, servicios, reservas y alquileres.</li>
@@ -1085,12 +1151,12 @@
                     </div>
                 </div>
 
-                <!-- NOMBRE DE USUARIO ÚNICO -->
+                <!-- NOMBRE DE SUBDOMINIO ÚNICO -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de usuario deseado (único)</label>
+                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
                         <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
-                        <small style="color: var(--color-gris-oscuro); font-size: 0.75rem;">Tu tienda estará en: qrp2p.com/<strong id="urlPreview">tu-usuario</strong></small>
+                        <small style="color: var(--color-gris-oscuro); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-oscuro);">.qrp2p.com</span></small>
                     </div>
                     <div class="form-group">
                         <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
@@ -1137,7 +1203,7 @@
                     <div class="step-number">1</div>
                     <i class="fas fa-clipboard-list"></i>
                     <h3>Envías el formulario</h3>
-                    <p>Completa tus datos comerciales y elige tu nombre de usuario único</p>
+                    <p>Completa tus datos comerciales y elige tu nombre de subdominio único</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -1287,7 +1353,7 @@
         <!-- CTA FINAL -->
         <div class="mid-section">
             <h2>¿Listo para vender en todo el mundo?</h2>
-            <p style="margin-bottom: 1.5rem;">Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye nombre de usuario único, URL única y acceso a la academia QRP2P.</p>
+            <p style="margin-bottom: 1.5rem;">Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye subdominio único, URL única y acceso a la academia QRP2P.</p>
             <div class="button-group">
                 <a href="#formulario" class="btn-primary btn-primary-large">
                     <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $100.000
@@ -1337,9 +1403,9 @@
     </footer>
 
     <script>
-        // Vista previa del nombre de usuario en tiempo real
+        // Vista previa del nombre de subdominio en tiempo real
         document.getElementById('usuario').addEventListener('input', function() {
-            const usuario = this.value.trim() || 'tu-usuario';
+            const usuario = this.value.trim() || 'tu-subdominio';
             document.getElementById('urlPreview').textContent = usuario;
         });
 
@@ -1389,9 +1455,9 @@
             
             mensaje += 
                 `Correo: ${email}%0A%0A` +
-                `*🔗 URL de tu tienda:*%0A` +
-                `Nombre de usuario: ${usuario}%0A` +
-                `URL: qrp2p.com/${usuario}%0A%0A` +
+                `*🔗 Subdominio de tu tienda:*%0A` +
+                `Nombre de subdominio: ${usuario}%0A` +
+                `URL: https://${usuario}.qrp2p.com%0A%0A` +
                 `*📂 Categoría del negocio:* ${categoria}%0A%0A` +
                 `*📝 Descripción:*%0A${descripcion || 'No especificada'}%0A%0A` +
                 `*💰 Sistema de Créditos:*%0A` +
@@ -1400,10 +1466,11 @@
                 `• Editar producto: $500 COP%0A` +
                 `• Eliminar producto: $500 COP%0A%0A` +
                 `*✅ Plan Anual: $100.000 COP (pago único)*%0A%0A` +
-                `*🌐 Dominio y Correo Corporativo:*%0A` +
-                `• Subdominio en servidores Ubuntu incluido%0A` +
-                `• Los clientes pueden vincular su propio dominio%0A` +
-                `• Correo corporativo disponible%0A` +
+                `*🌐 Subdominio y Correo Corporativo:*%0A` +
+                `• Subdominio único en servidores Ubuntu: ${usuario}.qrp2p.com%0A` +
+                `• CSS y funcionalidad idénticos para todos los vendedores%0A` +
+                `• Los vendedores pueden vincular su propio dominio (opcional)%0A` +
+                `• Correo corporativo disponible con dominio propio%0A` +
                 `• Acompañamiento sin costo si lo hacen ellos%0A` +
                 `• Configuración por nosotros a bajo costo%0A%0A` +
                 `*✅ Verificar negocio y enviar instrucciones de pago.*`;
@@ -1422,14 +1489,15 @@
 - Plan anual: $100.000 COP
 - Cada gestión de producto: $500 COP (subir, bajar, editar, eliminar)
 - Sin comisiones en ventas (0%)
-- Subdominio en servidores Ubuntu incluido
-- Vinculación de dominio y correo corporativo (acompañamiento sin costo o configuración a bajo costo)
+- Subdominio único: https://${usuario}.qrp2p.com
+- CSS y funcionalidad idénticos a todas las tiendas de la plataforma
+- Vinculación de dominio y correo corporativo (opcional, acompañamiento sin costo o configuración a bajo costo)
 
 ℹ️ Recuerda: Toda la gestión se hace por WhatsApp. Sin panel de control.`);
             
             // Resetear formulario
             document.getElementById('formWhatsApp').reset();
-            document.getElementById('urlPreview').textContent = 'tu-usuario';
+            document.getElementById('urlPreview').textContent = 'tu-subdominio';
         }
     </script>
 </body>
