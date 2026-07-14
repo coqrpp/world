@@ -1001,7 +1001,7 @@
             background: var(--color-blanco);
             padding: 2.5rem;
             border-radius: 20px;
-            margin: 2.5rem 0;
+            margin: 2.5rem 0 1.5rem 0;
             border: 2px solid var(--color-negro);
             box-shadow: 0 4px 30px rgba(0,0,0,0.04);
         }
@@ -1032,6 +1032,12 @@
             font-size: 0.85rem;
             color: var(--color-gris-70);
             letter-spacing: -0.2px;
+        }
+        
+        .form-group label .optional {
+            font-weight: 400;
+            color: var(--color-gris-50);
+            font-size: 0.75rem;
         }
         
         .form-group input,
@@ -1304,25 +1310,146 @@
         </div>
     </header>
 
-    <section class="hero">
-        <div class="price-badge-hero">
-            <i class="fas fa-tag"></i> Plan Anual $100.000 COP / año
-        </div>
-        <h1>Tu tienda en línea profesional <span>sin complicaciones</span></h1>
-        <p><strong>Tienda 100% funcional con carrito de compras</strong> para productos físicos, reservas de hostales, hoteles, alquiler de vehículos, agencias de turismo, servicios digitales, inmuebles y más. <strong>0% comisión</strong> en tus ventas.</p>
-        <div class="payment-methods">
-            <span><i class="fas fa-bolt"></i> Lightning Network</span>
-            <span><i class="fas fa-credit-card"></i> Tarjetas</span>
-            <span><i class="fas fa-mobile-alt"></i> Nequi / Daviplata</span>
-            <span><i class="fas fa-university"></i> Bancos</span>
-            <span><i class="fas fa-cash"></i> Efectivo</span>
-        </div>
-        <a href="#formulario" class="btn-primary btn-primary-large">
-            <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
-        </a>
-    </section>
-
+    <!-- ===== FORMULARIO ===== -->
     <div class="container">
+        <div id="formulario" class="form-section">
+            <h2><i class="fas fa-clipboard-list"></i> Activa tu Plan Anual</h2>
+            <p class="subtitle">Completa el formulario y envíanoslo por WhatsApp. Nosotros te contactamos para finalizar el proceso.</p>
+            
+            <form id="formWhatsApp" onsubmit="enviarWhatsApp(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombres"><i class="fas fa-user"></i> Nombres completos del representante legal</label>
+                        <input type="text" id="nombres" name="nombres" placeholder="Ej: María José Pérez Rodríguez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos"><i class="fas fa-user"></i> Apellidos completos</label>
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez Rodríguez" required>
+                    </div>
+                </div>
+                
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="tipo_id"><i class="fas fa-id-card"></i> Tipo de identificación</label>
+                        <select id="tipo_id" name="tipo_id" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                            <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="NIT">NIT</option>
+                            <option value="RUT">RUT</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="num_id"><i class="fas fa-hashtag"></i> Número de identificación</label>
+                        <input type="text" id="num_id" name="num_id" placeholder="Ej: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad"><i class="fas fa-city"></i> Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Bogotá" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="direccion"><i class="fas fa-map-pin"></i> Dirección física del negocio</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Ej: Cra 10 # 20-30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="barrio"><i class="fas fa-location-dot"></i> Barrio / Localidad</label>
+                        <input type="text" id="barrio" name="barrio" placeholder="Ej: Chapinero" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefono"><i class="fas fa-phone"></i> Teléfono del negocio</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6012345678" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp"><i class="fab fa-whatsapp"></i> Número de WhatsApp del negocio (opcional)</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 573041146297">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre_comercial"><i class="fas fa-store"></i> Nombre comercial del negocio</label>
+                        <input type="text" id="nombre_comercial" name="nombre_comercial" placeholder="Ej: Tienda de Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Correo electrónico <span class="optional">(opcional)</span></label>
+                        <input type="email" id="email" name="email" placeholder="Ej: tienda@correo.com">
+                    </div>
+                </div>
+
+                <!-- NUEVO CAMPO: Licencia o RNT -->
+                <div class="form-group">
+                    <label for="licencia_rnt"><i class="fas fa-certificate"></i> ¿Tiene licencia, RNT o algún registro especial? <span class="optional">(opcional)</span></label>
+                    <input type="text" id="licencia_rnt" name="licencia_rnt" placeholder="Ej: RNT 12345, Licencia de turismo, Registro Invima, etc.">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
+                        <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
+                        <small style="color: var(--color-gris-50); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-50);">.qrp2p.com</span></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
+                        <select id="categoria_negocio" name="categoria_negocio" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Hogar y Decoración">Hogar y Decoración</option>
+                            <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
+                            <option value="Salud y Belleza">Salud y Belleza</option>
+                            <option value="Deportes y Fitness">Deportes y Fitness</option>
+                            <option value="Hoteles y Hostales">Hoteles y Hostales</option>
+                            <option value="Alquiler de Vehículos">Alquiler de Vehículos</option>
+                            <option value="Turismo y Viajes">Turismo y Viajes</option>
+                            <option value="Inmuebles">Inmuebles</option>
+                            <option value="Servicios Digitales">Servicios Digitales</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion"><i class="fas fa-pen"></i> Breve descripción de tu negocio o productos</label>
+                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos qué vendes o qué servicios ofreces (ej: ropa, reservas, alquileres, etc.)"></textarea>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> ENVIAR POR WHATSAPP
+                    </button>
+                </div>
+                <p class="form-note">
+                    <i class="fas fa-info-circle"></i> Al enviar este formulario, nuestros asesores te contactarán por WhatsApp para continuar con el proceso de activación y darte las instrucciones de pago.
+                </p>
+            </form>
+        </div>
+
+        <section class="hero">
+            <div class="price-badge-hero">
+                <i class="fas fa-tag"></i> Plan Anual $100.000 COP / año
+            </div>
+            <h1>Tu tienda en línea profesional <span>sin complicaciones</span></h1>
+            <p><strong>Tienda 100% funcional con carrito de compras</strong> para productos físicos, reservas de hostales, hoteles, alquiler de vehículos, agencias de turismo, servicios digitales, inmuebles y más. <strong>0% comisión</strong> en tus ventas.</p>
+            <div class="payment-methods">
+                <span><i class="fas fa-bolt"></i> Lightning Network</span>
+                <span><i class="fas fa-credit-card"></i> Tarjetas</span>
+                <span><i class="fas fa-mobile-alt"></i> Nequi / Daviplata</span>
+                <span><i class="fas fa-university"></i> Bancos</span>
+                <span><i class="fas fa-cash"></i> Efectivo</span>
+            </div>
+            <a href="#formulario" class="btn-primary btn-primary-large">
+                <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
+            </a>
+        </section>
+
         <div class="stats-bar">
             <div class="stat-item">
                 <div class="stat-number">0%</div>
@@ -1529,121 +1656,6 @@
             <p style="margin-top: 1.2rem; font-size: 0.9rem;">
                 <i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +57 3041146297
             </p>
-        </div>
-
-        <!-- ===== FORMULARIO ===== -->
-        <div id="formulario" class="form-section">
-            <h2><i class="fas fa-clipboard-list"></i> Activa tu Plan Anual</h2>
-            <p class="subtitle">Completa el formulario y envíanoslo por WhatsApp. Nosotros te contactamos para finalizar el proceso.</p>
-            
-            <form id="formWhatsApp" onsubmit="enviarWhatsApp(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nombres"><i class="fas fa-user"></i> Nombres completos del representante legal</label>
-                        <input type="text" id="nombres" name="nombres" placeholder="Ej: María José Pérez Rodríguez" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos"><i class="fas fa-user"></i> Apellidos completos</label>
-                        <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez Rodríguez" required>
-                    </div>
-                </div>
-                
-                <div class="form-row-3">
-                    <div class="form-group">
-                        <label for="tipo_id"><i class="fas fa-id-card"></i> Tipo de identificación</label>
-                        <select id="tipo_id" name="tipo_id" required>
-                            <option value="">Selecciona...</option>
-                            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                            <option value="Cédula de Extranjería">Cédula de Extranjería</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="NIT">NIT</option>
-                            <option value="RUT">RUT</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="num_id"><i class="fas fa-hashtag"></i> Número de identificación</label>
-                        <input type="text" id="num_id" name="num_id" placeholder="Ej: 1234567890" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="ciudad"><i class="fas fa-city"></i> Ciudad</label>
-                        <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Bogotá" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="direccion"><i class="fas fa-map-pin"></i> Dirección física del negocio</label>
-                        <input type="text" id="direccion" name="direccion" placeholder="Ej: Cra 10 # 20-30" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="barrio"><i class="fas fa-location-dot"></i> Barrio / Localidad</label>
-                        <input type="text" id="barrio" name="barrio" placeholder="Ej: Chapinero" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="telefono"><i class="fas fa-phone"></i> Teléfono del negocio</label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6012345678" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="whatsapp"><i class="fab fa-whatsapp"></i> Número de WhatsApp del negocio (opcional)</label>
-                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 573041146297">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nombre_comercial"><i class="fas fa-store"></i> Nombre comercial del negocio</label>
-                        <input type="text" id="nombre_comercial" name="nombre_comercial" placeholder="Ej: Tienda de Juan" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-                        <input type="email" id="email" name="email" placeholder="Ej: tienda@correo.com" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
-                        <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
-                        <small style="color: var(--color-gris-50); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-50);">.qrp2p.com</span></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
-                        <select id="categoria_negocio" name="categoria_negocio" required>
-                            <option value="">Selecciona...</option>
-                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
-                            <option value="Tecnología">Tecnología</option>
-                            <option value="Hogar y Decoración">Hogar y Decoración</option>
-                            <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
-                            <option value="Salud y Belleza">Salud y Belleza</option>
-                            <option value="Deportes y Fitness">Deportes y Fitness</option>
-                            <option value="Hoteles y Hostales">Hoteles y Hostales</option>
-                            <option value="Alquiler de Vehículos">Alquiler de Vehículos</option>
-                            <option value="Turismo y Viajes">Turismo y Viajes</option>
-                            <option value="Inmuebles">Inmuebles</option>
-                            <option value="Servicios Digitales">Servicios Digitales</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="descripcion"><i class="fas fa-pen"></i> Breve descripción de tu negocio o productos</label>
-                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos qué vendes o qué servicios ofreces (ej: ropa, reservas, alquileres, etc.)"></textarea>
-                </div>
-                
-                <div class="form-submit">
-                    <button type="submit" class="btn-primary">
-                        <i class="fab fa-whatsapp"></i> ENVIAR POR WHATSAPP
-                    </button>
-                </div>
-                <p class="form-note">
-                    <i class="fas fa-info-circle"></i> Al enviar este formulario, nuestros asesores te contactarán por WhatsApp para continuar con el proceso de activación y darte las instrucciones de pago.
-                </p>
-            </form>
         </div>
 
         <!-- ¿CÓMO FUNCIONA? -->
@@ -1893,11 +1905,12 @@
             const whatsapp = document.getElementById('whatsapp').value.trim();
             const nombre_comercial = document.getElementById('nombre_comercial').value.trim();
             const email = document.getElementById('email').value.trim();
+            const licencia_rnt = document.getElementById('licencia_rnt').value.trim();
             const usuario = document.getElementById('usuario').value.trim();
             const categoria = document.getElementById('categoria_negocio').value;
             const descripcion = document.getElementById('descripcion').value.trim();
             
-            if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !nombre_comercial || !email || !usuario || !categoria) {
+            if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !nombre_comercial || !usuario || !categoria) {
                 alert('Por favor completa todos los campos obligatorios.');
                 return;
             }
@@ -1920,9 +1933,16 @@
                 mensaje += `WhatsApp: ${whatsapp}%0A`;
             }
             
+            if (email) {
+                mensaje += `Correo: ${email}%0A`;
+            }
+            
+            if (licencia_rnt) {
+                mensaje += `Licencia/RNT/Registro: ${licencia_rnt}%0A`;
+            }
+            
             mensaje += 
-                `Correo: ${email}%0A%0A` +
-                `*🔗 Subdominio de tu tienda:*%0A` +
+                `%0A*🔗 Subdominio de tu tienda:*%0A` +
                 `Nombre de subdominio: ${usuario}%0A` +
                 `URL: https://${usuario}.qrp2p.com%0A%0A` +
                 `*📂 Categoría del negocio:* ${categoria}%0A%0A` +
