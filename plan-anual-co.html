@@ -996,6 +996,64 @@
             font-weight: 600;
         }
         
+        /* ===== FLOW INFO BOX ===== */
+        .flow-info-box {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1.8rem 2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0 2rem 0;
+            text-align: center;
+            border: 2px solid var(--color-whatsapp);
+        }
+        
+        .flow-info-box i {
+            font-size: 2.2rem;
+            color: var(--color-whatsapp);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .flow-info-box h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-blanco);
+        }
+        
+        .flow-info-box p {
+            color: var(--color-gris-30);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .flow-info-box .step-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            margin-top: 0.8rem;
+        }
+        
+        .flow-info-box .step-flow span {
+            background: rgba(255,255,255,0.06);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid var(--color-gris-40);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .flow-info-box .step-flow .arrow {
+            color: var(--color-gris-40);
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 1.2rem;
+        }
+        
         footer {
             background: var(--color-negro);
             color: var(--color-blanco);
@@ -1123,6 +1181,9 @@
             .bonus-box { padding: 1.2rem; }
             .bonus-box .highlight-tag { font-size: 0.8rem; }
             .credit-pills span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .flow-info-box { padding: 1.2rem; }
+            .flow-info-box .step-flow span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .flow-info-box .step-flow .arrow { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
@@ -1167,6 +1228,11 @@
             .bonus-box p { font-size: 0.9rem; }
             .credit-system .credit-desc { font-size: 0.8rem; }
             .credit-pills span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
+            .flow-info-box { padding: 1rem; }
+            .flow-info-box h3 { font-size: 1rem; }
+            .flow-info-box p { font-size: 0.85rem; }
+            .flow-info-box .step-flow { gap: 0.3rem 0.8rem; }
+            .flow-info-box .step-flow span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
         }
 
         @media (max-width: 768px) {
@@ -1211,6 +1277,26 @@
                 <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
             </a>
         </section>
+
+        <!-- FLOW INFO BOX - Explicación del proceso -->
+        <div class="flow-info-box">
+            <i class="fas fa-rocket"></i>
+            <h3>🚀 Proceso de activación en 2 pasos</h3>
+            <p>
+                <strong>Paso 1:</strong> Realiza el pago único de <strong>$100.000 COP</strong> a través de nuestra pasarela segura Bold.<br>
+                <strong>Paso 2:</strong> Después de completar el pago, serás redirigido al <strong>formulario de registro</strong> donde completarás los datos de tu negocio y elegirás tu subdominio único.
+            </p>
+            <div class="step-flow">
+                <span><i class="fas fa-credit-card"></i> 1. Pago $100.000</span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                <span><i class="fas fa-clipboard-list"></i> 2. Formulario de registro</span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                <span><i class="fas fa-check-circle"></i> 3. ¡Cuenta activa!</span>
+            </div>
+            <p style="margin-top: 0.8rem; font-size: 0.85rem; color: var(--color-gris-40);">
+                <i class="fas fa-info-circle"></i> Una vez completado el registro, un asesor te contactará por WhatsApp para crear tu catálogo y subir <strong>hasta 100 productos sin costo</strong>.
+            </p>
+        </div>
 
         <div class="stats-bar">
             <div class="stat-item">
@@ -1426,15 +1512,15 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>Envías el formulario</h3>
-                    <p>Completa tus datos comerciales y elige tu nombre de subdominio único</p>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Realizas el pago</h3>
+                    <p>Paga los <strong>$100.000 COP</strong> a través de nuestra pasarela segura Bold</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <i class="fas fa-credit-card"></i>
-                    <h3>Pagas $100.000 COP</h3>
-                    <p>Te enviamos los datos para pagar el Plan Anual (pago único)</p>
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Completas el registro</h3>
+                    <p>Después del pago, serás redirigido al formulario para crear tu cuenta y elegir tu subdominio</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -1599,8 +1685,8 @@
                 </a>
             </div>
             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--color-gris-50);">
-                💬 Después de realizar el pago, un asesor te contacta por WhatsApp para verificar el negocio y activar tu plan. 
-                <strong>¡Recuerda! Al activar tu plan, el asesor sube hasta 100 productos sin costo adicional.</strong>
+                💬 <strong>Recuerda:</strong> Primero realizas el pago de <strong>$100.000 COP</strong> y luego serás redirigido al formulario de registro para completar la creación de tu cuenta. 
+                ¡Al activar tu plan, el asesor sube <strong>hasta 100 productos sin costo adicional</strong>!
             </p>
         </div>
     </div>
