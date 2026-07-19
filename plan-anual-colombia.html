@@ -995,164 +995,63 @@
         .domain-info-box strong {
             font-weight: 600;
         }
-
-        /* ===== FORMULARIO ===== */
-        .form-section {
-            background: var(--color-blanco);
-            padding: 2.5rem;
-            border-radius: 20px;
-            margin: 2.5rem 0 1.5rem 0;
-            border: 2px solid var(--color-negro);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+        
+        /* ===== FLOW INFO BOX ===== */
+        .flow-info-box {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1.8rem 2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0 2rem 0;
+            text-align: center;
+            border: 2px solid var(--color-whatsapp);
         }
         
-        .form-section h2 {
-            text-align: center;
+        .flow-info-box i {
+            font-size: 2.2rem;
+            color: var(--color-whatsapp);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .flow-info-box h3 {
+            font-size: 1.2rem;
             font-weight: 700;
-            font-size: 1.6rem;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.3rem;
-        }
-        
-        .form-section .subtitle {
-            text-align: center;
-            color: var(--color-gris-50);
-            margin-bottom: 2rem;
-            font-weight: 400;
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            font-size: 0.85rem;
-            color: var(--color-gris-70);
-            letter-spacing: -0.2px;
-        }
-        
-        .form-group label .optional {
-            font-weight: 400;
-            color: var(--color-gris-50);
-            font-size: 0.75rem;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--color-gris-20);
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-            font-size: 16px !important;
-            transition: border 0.3s;
-            background: var(--color-gris-10);
-            color: var(--color-gris-80);
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--color-negro);
-            background: var(--color-blanco);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .form-row-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .form-submit {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        .form-submit .btn-primary {
-            background: var(--color-whatsapp);
+            margin-bottom: 0.5rem;
             color: var(--color-blanco);
-            font-size: 1.1rem;
-            padding: 1rem 3rem;
-            border: none;
         }
         
-        .form-submit .btn-primary:hover {
-            background: #128C7E;
-            color: var(--color-blanco);
-            transform: translateY(-2px);
+        .flow-info-box p {
+            color: var(--color-gris-30);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
         }
         
-        .form-note {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: var(--color-gris-50);
-        }
-        
-        /* Estilos para el selector de tipo de cuenta */
-        .account-type-selector {
+        .flow-info-box .step-flow {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            margin-top: 0.8rem;
         }
-        .account-type-selector label {
-            flex: 1;
-            min-width: 160px;
-            padding: 1rem 1.2rem;
-            background: var(--color-gris-10);
-            border: 2px solid var(--color-gris-20);
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        
+        .flow-info-box .step-flow span {
+            background: rgba(255,255,255,0.06);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid var(--color-gris-40);
+            font-size: 0.8rem;
             font-weight: 500;
-            color: var(--color-gris-70);
         }
-        .account-type-selector label i {
-            display: block;
-            font-size: 1.6rem;
-            margin-bottom: 0.4rem;
+        
+        .flow-info-box .step-flow .arrow {
             color: var(--color-gris-40);
-        }
-        .account-type-selector label:hover {
-            border-color: var(--color-gris-40);
-        }
-        .account-type-selector input[type="radio"] {
-            display: none;
-        }
-        .account-type-selector input[type="radio"]:checked + label {
-            border-color: var(--color-negro);
-            background: var(--color-blanco);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .account-type-selector input[type="radio"]:checked + label i {
-            color: var(--color-negro);
-        }
-
-        /* Campos ocultos por defecto */
-        .form-group.hidden {
-            display: none;
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 1.2rem;
         }
         
         footer {
@@ -1268,8 +1167,6 @@
             .price { font-size: 2.5rem; }
             .steps { flex-direction: column; }
             .services-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .form-row-3 { grid-template-columns: 1fr; }
             .domain-features { grid-template-columns: 1fr; }
             .domain-highlight-box .url-example { font-size: 1.2rem; padding: 0.5rem 1rem; }
             .domain-section h2 { font-size: 1.3rem; }
@@ -1284,7 +1181,9 @@
             .bonus-box { padding: 1.2rem; }
             .bonus-box .highlight-tag { font-size: 0.8rem; }
             .credit-pills span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
-            .account-type-selector label { min-width: 120px; padding: 0.8rem; }
+            .flow-info-box { padding: 1.2rem; }
+            .flow-info-box .step-flow span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .flow-info-box .step-flow .arrow { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
@@ -1303,8 +1202,6 @@
             .benefit-card { padding: 1.2rem; }
             .benefit-card i { font-size: 1.5rem; }
             .step { padding: 1rem; min-width: unset; }
-            .form-section { padding: 1.2rem; }
-            .form-group input, .form-group select, .form-group textarea { padding: 0.6rem 0.8rem; font-size: 16px !important; }
             .domain-highlight-box { padding: 1.2rem; }
             .domain-highlight-box .url-example { font-size: 1rem; padding: 0.4rem 0.8rem; }
             .domain-highlight-box .icon-big { font-size: 2rem; }
@@ -1331,8 +1228,11 @@
             .bonus-box p { font-size: 0.9rem; }
             .credit-system .credit-desc { font-size: 0.8rem; }
             .credit-pills span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
-            .account-type-selector { flex-direction: column; }
-            .account-type-selector label { min-width: unset; }
+            .flow-info-box { padding: 1rem; }
+            .flow-info-box h3 { font-size: 1rem; }
+            .flow-info-box p { font-size: 0.85rem; }
+            .flow-info-box .step-flow { gap: 0.3rem 0.8rem; }
+            .flow-info-box .step-flow span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
         }
 
         @media (max-width: 768px) {
@@ -1353,184 +1253,13 @@
                 QRP2P COLOMBIA
                 <small>Tu negocio en línea</small>
             </div>
-            <a href="#formulario" class="btn-primary">
+            <a href="https://checkout.bold.co/payment/LNK_BSCZKCIN4I" class="btn-primary" target="_blank">
                 <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $100.000
             </a>
         </div>
     </header>
 
-    <!-- ===== FORMULARIO ===== -->
     <div class="container">
-        <div id="formulario" class="form-section">
-            <h2><i class="fas fa-clipboard-list"></i> Activa tu Plan Anual</h2>
-            <p class="subtitle">Completa el formulario y envíanoslo por WhatsApp. Nosotros te contactamos para finalizar el proceso.</p>
-            
-            <form id="formWhatsApp" onsubmit="enviarWhatsApp(event)">
-                <!-- Selector de tipo de cuenta -->
-                <div class="form-group">
-                    <label>Tipo de cuenta</label>
-                    <div class="account-type-selector" id="accountTypeSelector">
-                        <input type="radio" name="accountType" id="individual" value="individual" checked>
-                        <label for="individual">
-                            <i class="fas fa-user"></i>
-                            Persona Natural
-                            <small style="display:block; font-weight:400; color:var(--color-gris-50); font-size:0.7rem;">Cuenta individual</small>
-                        </label>
-                        <input type="radio" name="accountType" id="corporate" value="corporate">
-                        <label for="corporate">
-                            <i class="fas fa-building"></i>
-                            Persona Jurídica
-                            <small style="display:block; font-weight:400; color:var(--color-gris-50); font-size:0.7rem;">Cuenta corporativa</small>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Campos para PERSONA NATURAL (individual) - simplificados -->
-                <div id="individualFields">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ind_nombre"><i class="fas fa-user"></i> Nombre del dueño de la cuenta</label>
-                            <input type="text" id="ind_nombre" name="ind_nombre" placeholder="Ej: Juan Pérez">
-                        </div>
-                        <div class="form-group">
-                            <label for="ind_nombre_comercial"><i class="fas fa-store"></i> Nombre comercial</label>
-                            <input type="text" id="ind_nombre_comercial" name="ind_nombre_comercial" placeholder="Ej: Tienda de Juan">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ind_whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp para recibir órdenes</label>
-                            <input type="tel" id="ind_whatsapp" name="ind_whatsapp" placeholder="Ej: 573041146297">
-                        </div>
-                        <div class="form-group">
-                            <label for="ind_direccion"><i class="fas fa-map-pin"></i> Dirección física comercial <span class="optional">(para aparecer en el mapa)</span></label>
-                            <input type="text" id="ind_direccion" name="ind_direccion" placeholder="Ej: Cra 10 # 20-30">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ind_direccion_opcional"><i class="fas fa-map-pin"></i> Dirección adicional <span class="optional">(opcional)</span></label>
-                        <input type="text" id="ind_direccion_opcional" name="ind_direccion_opcional" placeholder="Ej: Referencia adicional, piso, oficina, etc.">
-                    </div>
-                </div>
-
-                <!-- Campos para PERSONA JURÍDICA / CORPORATIVO (formulario completo original) -->
-                <div id="corporateFields" style="display:none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombres"><i class="fas fa-user"></i> Nombres completos del representante legal</label>
-                            <input type="text" id="nombres" name="nombres" placeholder="Ej: María José Pérez Rodríguez" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="apellidos"><i class="fas fa-user"></i> Apellidos completos</label>
-                            <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez Rodríguez" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row-3">
-                        <div class="form-group">
-                            <label for="tipo_id"><i class="fas fa-id-card"></i> Tipo de identificación</label>
-                            <select id="tipo_id" name="tipo_id" required>
-                                <option value="">Selecciona...</option>
-                                <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                                <option value="Cédula de Extranjería">Cédula de Extranjería</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                                <option value="NIT">NIT</option>
-                                <option value="RUT">RUT</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="num_id"><i class="fas fa-hashtag"></i> Número de identificación</label>
-                            <input type="text" id="num_id" name="num_id" placeholder="Ej: 1234567890" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="ciudad"><i class="fas fa-city"></i> Ciudad</label>
-                            <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Bogotá" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="direccion"><i class="fas fa-map-pin"></i> Dirección física del negocio</label>
-                            <input type="text" id="direccion" name="direccion" placeholder="Ej: Cra 10 # 20-30" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="barrio"><i class="fas fa-location-dot"></i> Barrio / Localidad</label>
-                            <input type="text" id="barrio" name="barrio" placeholder="Ej: Chapinero" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="telefono"><i class="fas fa-phone"></i> Teléfono del negocio</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6012345678" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="whatsapp"><i class="fab fa-whatsapp"></i> Número de WhatsApp del negocio</label>
-                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 573041146297">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre_comercial"><i class="fas fa-store"></i> Nombre comercial del negocio</label>
-                            <input type="text" id="nombre_comercial" name="nombre_comercial" placeholder="Ej: Tienda de Juan" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="fas fa-envelope"></i> Correo electrónico <span class="optional">(opcional)</span></label>
-                            <input type="email" id="email" name="email" placeholder="Ej: tienda@correo.com">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="licencia_rnt"><i class="fas fa-certificate"></i> ¿Tiene licencia, RNT o algún registro especial? <span class="optional">(opcional)</span></label>
-                        <input type="text" id="licencia_rnt" name="licencia_rnt" placeholder="Ej: RNT 12345, Licencia de turismo, Registro Invima, etc.">
-                    </div>
-                </div>
-
-                <!-- Campos comunes para ambos tipos -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
-                        <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
-                        <small style="color: var(--color-gris-50); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-50);">.qrp2p.com</span></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
-                        <select id="categoria_negocio" name="categoria_negocio" required>
-                            <option value="">Selecciona...</option>
-                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
-                            <option value="Tecnología">Tecnología</option>
-                            <option value="Hogar y Decoración">Hogar y Decoración</option>
-                            <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
-                            <option value="Salud y Belleza">Salud y Belleza</option>
-                            <option value="Deportes y Fitness">Deportes y Fitness</option>
-                            <option value="Hoteles y Hostales">Hoteles y Hostales</option>
-                            <option value="Alquiler de Vehículos">Alquiler de Vehículos</option>
-                            <option value="Turismo y Viajes">Turismo y Viajes</option>
-                            <option value="Inmuebles">Inmuebles</option>
-                            <option value="Servicios Digitales">Servicios Digitales</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="descripcion"><i class="fas fa-pen"></i> Breve descripción de tu negocio o productos</label>
-                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos qué vendes o qué servicios ofreces (ej: ropa, reservas, alquileres, etc.)"></textarea>
-                </div>
-                
-                <div class="form-submit">
-                    <button type="submit" class="btn-primary">
-                        <i class="fab fa-whatsapp"></i> ENVIAR POR WHATSAPP
-                    </button>
-                </div>
-                <p class="form-note">
-                    <i class="fas fa-info-circle"></i> Al enviar este formulario, nuestros asesores te contactarán por WhatsApp para continuar con el proceso de activación y darte las instrucciones de pago.
-                </p>
-            </form>
-        </div>
-
         <section class="hero">
             <div class="price-badge-hero">
                 <i class="fas fa-tag"></i> Plan Anual $100.000 COP / año
@@ -1544,10 +1273,30 @@
                 <span><i class="fas fa-university"></i> Bancos</span>
                 <span><i class="fas fa-cash"></i> Efectivo</span>
             </div>
-            <a href="#formulario" class="btn-primary btn-primary-large">
+            <a href="https://checkout.bold.co/payment/LNK_BSCZKCIN4I" class="btn-primary btn-primary-large" target="_blank">
                 <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
             </a>
         </section>
+
+        <!-- FLOW INFO BOX - Explicación del proceso -->
+        <div class="flow-info-box">
+            <i class="fas fa-rocket"></i>
+            <h3>🚀 Proceso de activación en 2 pasos</h3>
+            <p>
+                <strong>Paso 1:</strong> Realiza el pago único de <strong>$100.000 COP</strong> a través de nuestra pasarela segura Bold.<br>
+                <strong>Paso 2:</strong> Después de completar el pago, serás redirigido al <strong>formulario de registro</strong> donde completarás los datos de tu negocio y elegirás tu subdominio único.
+            </p>
+            <div class="step-flow">
+                <span><i class="fas fa-credit-card"></i> 1. Pago $100.000</span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                <span><i class="fas fa-clipboard-list"></i> 2. Formulario de registro</span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+                <span><i class="fas fa-check-circle"></i> 3. ¡Cuenta activa!</span>
+            </div>
+            <p style="margin-top: 0.8rem; font-size: 0.85rem; color: var(--color-gris-40);">
+                <i class="fas fa-info-circle"></i> Una vez completado el registro, un asesor te contactará por WhatsApp para crear tu catálogo y subir <strong>hasta 100 productos sin costo</strong>.
+            </p>
+        </div>
 
         <div class="stats-bar">
             <div class="stat-item">
@@ -1694,7 +1443,7 @@
                 <li><i class="fas fa-handshake"></i> <strong>Acompañamiento constante</strong> a través de la academia QRP2P para que aprendas a gestionar tu negocio.</li>
                 <li><i class="fas fa-paint-brush"></i> <strong>Diseño personalizable:</strong> todas las tiendas inician con el mismo diseño estándar, pero cada cliente es libre de solicitar cambios de diseño según su imaginación y necesidades.</li>
             </ul>
-            <a href="#formulario" class="btn-primary">
+            <a href="https://checkout.bold.co/payment/LNK_BSCZKCIN4I" class="btn-primary" target="_blank">
                 <i class="fas fa-user-check"></i> CONTRATAR PLAN ANUAL
             </a>
         </div>
@@ -1763,15 +1512,15 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>Envías el formulario</h3>
-                    <p>Completa tus datos comerciales y elige tu nombre de subdominio único</p>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Realizas el pago</h3>
+                    <p>Paga los <strong>$100.000 COP</strong> a través de nuestra pasarela segura Bold</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <i class="fas fa-credit-card"></i>
-                    <h3>Pagas $100.000 COP</h3>
-                    <p>Te enviamos los datos para pagar el Plan Anual (pago único)</p>
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Completas el registro</h3>
+                    <p>Después del pago, serás redirigido al formulario para crear tu cuenta y elegir tu subdominio</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -1928,7 +1677,7 @@
             <h2>¿Listo para vender en todo el mundo?</h2>
             <p>Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye subdominio único, URL única, acceso a la academia QRP2P y <strong>hasta 100 productos gratis en tu primera gestión</strong>.</p>
             <div class="button-group">
-                <a href="#formulario" class="btn-primary btn-primary-large">
+                <a href="https://checkout.bold.co/payment/LNK_BSCZKCIN4I" class="btn-primary btn-primary-large" target="_blank">
                     <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $100.000
                 </a>
                 <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20adicionales%20del%20Plan%20Anual%20de%20QRP2P" class="btn-secondary" target="_blank">
@@ -1936,8 +1685,8 @@
                 </a>
             </div>
             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--color-gris-50);">
-                💬 Después de enviar el formulario, un asesor te contacta por WhatsApp para verificar el negocio y darte las instrucciones de pago. 
-                <strong>¡Recuerda! Al activar tu plan, el asesor sube hasta 100 productos sin costo adicional.</strong>
+                💬 <strong>Recuerda:</strong> Primero realizas el pago de <strong>$100.000 COP</strong> y luego serás redirigido al formulario de registro para completar la creación de tu cuenta. 
+                ¡Al activar tu plan, el asesor sube <strong>hasta 100 productos sin costo adicional</strong>!
             </p>
         </div>
     </div>
@@ -1967,7 +1716,7 @@
         </div>
         
         <div class="footer-register">
-            <a href="#formulario" class="btn-primary">
+            <a href="https://checkout.bold.co/payment/LNK_BSCZKCIN4I" class="btn-primary" target="_blank">
                 <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $100.000
             </a>
             <p>
@@ -1984,184 +1733,6 @@
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
         });
-
-        document.getElementById('usuario').addEventListener('input', function() {
-            const usuario = this.value.trim() || 'tu-subdominio';
-            document.getElementById('urlPreview').textContent = usuario;
-        });
-
-        // Lógica para mostrar/ocultar campos según tipo de cuenta
-        const accountRadios = document.querySelectorAll('input[name="accountType"]');
-        const individualFields = document.getElementById('individualFields');
-        const corporateFields = document.getElementById('corporateFields');
-
-        accountRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'individual') {
-                    individualFields.style.display = 'block';
-                    corporateFields.style.display = 'none';
-                    // Quitar required de campos corporativos
-                    document.querySelectorAll('#corporateFields input, #corporateFields select').forEach(el => {
-                        el.removeAttribute('required');
-                    });
-                    // Poner required en campos individuales
-                    document.querySelectorAll('#individualFields input').forEach(el => {
-                        if (el.id !== 'ind_direccion_opcional') {
-                            el.setAttribute('required', '');
-                        }
-                    });
-                } else {
-                    individualFields.style.display = 'none';
-                    corporateFields.style.display = 'block';
-                    // Quitar required de campos individuales
-                    document.querySelectorAll('#individualFields input').forEach(el => {
-                        el.removeAttribute('required');
-                    });
-                    // Poner required en campos corporativos
-                    document.querySelectorAll('#corporateFields input, #corporateFields select').forEach(el => {
-                        if (el.id !== 'email' && el.id !== 'licencia_rnt' && el.id !== 'whatsapp') {
-                            el.setAttribute('required', '');
-                        }
-                    });
-                }
-            });
-        });
-
-        // Inicializar: individual por defecto
-        document.querySelector('#individual').checked = true;
-        individualFields.style.display = 'block';
-        corporateFields.style.display = 'none';
-        document.querySelectorAll('#individualFields input').forEach(el => {
-            if (el.id !== 'ind_direccion_opcional') {
-                el.setAttribute('required', '');
-            }
-        });
-
-        function enviarWhatsApp(e) {
-            e.preventDefault();
-            
-            const accountType = document.querySelector('input[name="accountType"]:checked').value;
-            let mensaje = `*📋 NUEVA SOLICITUD PLAN ANUAL QRP2P*%0A%0A`;
-            mensaje += `*📌 Tipo de cuenta:* ${accountType === 'individual' ? 'Persona Natural (Individual)' : 'Persona Jurídica (Corporativo)'}%0A%0A`;
-
-            if (accountType === 'individual') {
-                // Campos individuales
-                const nombre = document.getElementById('ind_nombre').value.trim();
-                const nombre_comercial = document.getElementById('ind_nombre_comercial').value.trim();
-                const whatsapp = document.getElementById('ind_whatsapp').value.trim();
-                const direccion = document.getElementById('ind_direccion').value.trim();
-                const direccion_opcional = document.getElementById('ind_direccion_opcional').value.trim();
-
-                if (!nombre || !nombre_comercial || !whatsapp || !direccion) {
-                    alert('Por favor completa todos los campos obligatorios.');
-                    return;
-                }
-
-                mensaje += `*👤 Dueño de la cuenta:* ${nombre}%0A`;
-                mensaje += `*🏪 Nombre comercial:* ${nombre_comercial}%0A`;
-                mensaje += `*📱 WhatsApp para órdenes:* ${whatsapp}%0A`;
-                mensaje += `*📍 Dirección física comercial:* ${direccion}%0A`;
-                if (direccion_opcional) {
-                    mensaje += `*📍 Dirección adicional:* ${direccion_opcional}%0A`;
-                }
-                mensaje += `%0A`;
-
-            } else {
-                // Campos corporativos (igual que el original)
-                const nombres = document.getElementById('nombres').value.trim();
-                const apellidos = document.getElementById('apellidos').value.trim();
-                const tipo_id = document.getElementById('tipo_id').value;
-                const num_id = document.getElementById('num_id').value.trim();
-                const ciudad = document.getElementById('ciudad').value.trim();
-                const direccion = document.getElementById('direccion').value.trim();
-                const barrio = document.getElementById('barrio').value.trim();
-                const telefono = document.getElementById('telefono').value.trim();
-                const whatsapp = document.getElementById('whatsapp').value.trim();
-                const nombre_comercial = document.getElementById('nombre_comercial').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const licencia_rnt = document.getElementById('licencia_rnt').value.trim();
-
-                if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !nombre_comercial) {
-                    alert('Por favor completa todos los campos obligatorios.');
-                    return;
-                }
-
-                mensaje += `*👤 Representante Legal:*%0A`;
-                mensaje += `Nombres: ${nombres}%0A`;
-                mensaje += `Apellidos: ${apellidos}%0A`;
-                mensaje += `Tipo ID: ${tipo_id}%0A`;
-                mensaje += `Número ID: ${num_id}%0A%0A`;
-                mensaje += `*🏢 Datos del Negocio:*%0A`;
-                mensaje += `Nombre Comercial: ${nombre_comercial}%0A`;
-                mensaje += `Dirección: ${direccion}%0A`;
-                mensaje += `Barrio: ${barrio}%0A`;
-                mensaje += `Ciudad: ${ciudad}%0A`;
-                mensaje += `Teléfono: ${telefono}%0A`;
-                if (whatsapp) mensaje += `WhatsApp: ${whatsapp}%0A`;
-                if (email) mensaje += `Correo: ${email}%0A`;
-                if (licencia_rnt) mensaje += `Licencia/RNT/Registro: ${licencia_rnt}%0A`;
-                mensaje += `%0A`;
-            }
-
-            // Campos comunes
-            const usuario = document.getElementById('usuario').value.trim();
-            const categoria = document.getElementById('categoria_negocio').value;
-            const descripcion = document.getElementById('descripcion').value.trim();
-
-            if (!usuario || !categoria) {
-                alert('Por favor completa el nombre de subdominio y la categoría.');
-                return;
-            }
-
-            mensaje += `*🔗 Subdominio de tu tienda:*%0A`;
-            mensaje += `Nombre de subdominio: ${usuario}%0A`;
-            mensaje += `URL: https://${usuario}.qrp2p.com%0A%0A`;
-            mensaje += `*📂 Categoría del negocio:* ${categoria}%0A%0A`;
-            mensaje += `*📝 Descripción:*%0A${descripcion || 'No especificada'}%0A%0A`;
-            mensaje += `*🎁 BONO DE LANZAMIENTO:*%0A`;
-            mensaje += `• Hasta 100 productos sin costo en la primera gestión%0A`;
-            mensaje += `• El asesor crea tu catálogo y sube los productos%0A%0A`;
-            mensaje += `*💰 Sistema de Créditos (después de la primera gestión):*%0A`;
-            mensaje += `• Subir producto: $500 COP%0A`;
-            mensaje += `• Bajar producto: $500 COP%0A`;
-            mensaje += `• Editar producto: $500 COP%0A`;
-            mensaje += `• Eliminar producto: $500 COP%0A%0A`;
-            mensaje += `*✅ Plan Anual: $100.000 COP (pago único)*%0A%0A`;
-            mensaje += `*🌐 Subdominio y Correo Corporativo:*%0A`;
-            mensaje += `• Subdominio único en servidores: ${usuario}.qrp2p.com%0A`;
-            mensaje += `• Diseño estándar unificado para todos los vendedores%0A`;
-            mensaje += `• Los vendedores pueden vincular su propio dominio (opcional)%0A`;
-            mensaje += `• Correo corporativo disponible con dominio propio%0A`;
-            mensaje += `• Acompañamiento sin costo si lo hacen ellos%0A`;
-            mensaje += `• Configuración por nosotros a bajo costo%0A`;
-            mensaje += `• Diseño personalizable: inicia con diseño estándar, puedes solicitar cambios%0A%0A`;
-            mensaje += `*✅ Verificar negocio y enviar instrucciones de pago.*`;
-            
-            const numeroDestino = '573148304504';
-            const url = `https://wa.me/${numeroDestino}?text=${mensaje}`;
-            window.open(url, '_blank');
-            
-            alert(`✅ ¡Formulario enviado! Un asesor te contactará por WhatsApp para verificar tu negocio y darte las instrucciones de pago.
-
-🎁 RESUMEN DE TU PLAN:
-━━━━━━━━━━━━━━━━━━━━━━
-📌 Plan anual: $100.000 COP (pago único)
-🎁 BONO: Hasta 100 productos sin costo en la primera gestión
-💰 Después: $500 COP por cada gestión (subir, bajar, editar, eliminar)
-✅ 0% comisión en ventas
-🌐 Subdominio único: https://${usuario}.qrp2p.com
-🎨 Diseño personalizable: inicia con diseño estándar, puedes solicitar cambios
-📚 Academia QRP2P incluida
-
-ℹ️ Recuerda: Toda la gestión se hace por WhatsApp. Sin panel de control.`);
-            
-            document.getElementById('formWhatsApp').reset();
-            document.getElementById('urlPreview').textContent = 'tu-subdominio';
-            // Reiniciar selector de cuenta a individual
-            document.querySelector('#individual').checked = true;
-            individualFields.style.display = 'block';
-            corporateFields.style.display = 'none';
-        }
 
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U')) {
