@@ -1,343 +1,2181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>QRP2P GLOBAL | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSION</title>
-  <meta name="description" content="QRP2P Global. Direct marketplace between verified buyers and sellers around the world. Find businesses, properties and services. 0% lifetime commission.">
-  <meta name="keywords" content="QRP2P, global, worldwide, marketplace, buyer, seller, verified, 0% commission, businesses, properties">
-  <meta name="author" content="QRP2P">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#000000">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
-    body { font-family: 'Libre Baskerville', serif; background-color: #ffffff; color: #111111; line-height: 1.5; font-size: 16px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
-    #contenedor-mapa { width: 100%; height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-    #barra-superior { display: flex; gap: 0.8rem; padding: 0.8rem; background: #ffffff; width: 100%; z-index: 1000; justify-content: space-between; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eaeaea; flex-shrink: 0; }
-    .contenedor-buscador { position: relative; flex: 1; max-width: 400px; }
-    #buscador { width: 100%; padding: 0.6rem 1.2rem; border: 1.5px solid #e0e0e0; border-radius: 50px; font-size: 16px; font-family: 'Libre Baskerville', serif; transition: all 0.3s ease; background: #ffffff; user-select: text; }
-    #buscador:focus { outline: none; border-color: #000000; }
-    .btn-mapa { background: #000000; color: #ffffff; padding: 0.6rem 1.2rem; border-radius: 40px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; display: flex; gap: 5px; font-family: 'Libre Baskerville', serif; transition: all 0.2s ease; }
-    .btn-mapa:hover { background: #333333; }
-    .btn-centrar { background-color: #000000; }
-    .botones-izquierda { display: flex; gap: 0.8rem; align-items: center; }
-    .botones-derecha { display: flex; gap: 0.5rem; background: #f0f0f0; padding: 0.3rem; border-radius: 50px; }
-    .map-type-btn { padding: 0.5rem 1rem; border: none; border-radius: 40px; cursor: pointer; background: transparent; font-family: 'Libre Baskerville', serif; font-weight: 600; }
-    .map-type-btn.active { background: #000000; color: white; }
-    .lang-selector { display: flex; gap: 0.3rem; margin-left: 0.5rem; }
-    .lang-btn { background: transparent; border: 1px solid #ccc; border-radius: 20px; padding: 0.4rem 0.8rem; cursor: pointer; font-family: 'Libre Baskerville', serif; font-weight: 600; font-size: 0.8rem; }
-    .lang-btn.active { background: #000000; color: white; border-color: #000000; }
-    #mapa { flex: 1; background: #f0f0f0; width: 100%; min-height: 0; }
-    .leaflet-control-zoom { display: none !important; }
-    .sugerencias-busqueda { position: absolute; top: 100%; left: 0; right: 0; background: white; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000; max-height: 200px; overflow-y: auto; display: none; }
-    .sugerencia-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-    .sugerencia-item:hover { background-color: #f5f5f5; }
-    .sugerencia-texto { flex: 1; }
-    .sugerencia-boton { margin-left: 10px; padding: 6px 12px; background-color: #000000; color: white; border: none; border-radius: 20px; cursor: pointer; }
-    .cluster-marcadores { background: rgba(0,0,0,0.7); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-    .negocio-marker { background: transparent; border: none; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .user-location-marker { background: transparent; border: none; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>QRP2P Colombia | Plan Anual Catálogos Express - $100.000/año</title>
+    <meta name="description" content="Plan Anual para vendedores por solo $100.000 COP/año. Tienda en línea profesional con carrito de compras, 0% comisión. Sin panel de control, todo por WhatsApp. Cada gestión de producto cuesta $500 COP.">
+    <meta name="keywords" content="QRP2P Colombia, plan anual vendedor, tienda en línea, carrito de compras, marketplace global, 0% comisión, reservas, hostales, hoteles, alquileres, turismo, WhatsApp">
+    <meta name="author" content="QRP2P Colombia">
+    <meta name="robots" content="index, follow">
     
-    .popup-business-card {
-      background: #ffffff;
-      border-radius: 24px;
-      overflow: hidden;
-      width: 340px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    .popup-business-header {
-      background: #000000;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    .popup-business-header h3 {
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-      font-weight: 700;
-    }
-    .popup-business-category {
-      font-size: 0.7rem;
-      opacity: 0.8;
-      background: rgba(255,255,255,0.2);
-      display: inline-block;
-      padding: 0.2rem 0.8rem;
-      border-radius: 50px;
-    }
-    .popup-business-info {
-      padding: 1rem;
-    }
-    .popup-business-description {
-      font-size: 0.75rem;
-      color: #555;
-      margin-bottom: 0.8rem;
-      line-height: 1.4;
-    }
-    .popup-business-address {
-      font-size: 0.7rem;
-      color: #333;
-      margin-bottom: 0.8rem;
-      display: flex;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-    .popup-business-address i {
-      margin-top: 0.2rem;
-      color: #000;
-    }
-    .popup-business-contact {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-      border-top: 1px solid #f0f0f0;
-      padding-top: 0.8rem;
-    }
-    .contact-link {
-      font-size: 0.7rem;
-      background: #f5f5f5;
-      padding: 0.3rem 0.6rem;
-      border-radius: 20px;
-      text-decoration: none;
-      color: #000;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-weight: 600;
-    }
-    .contact-link i { font-size: 0.7rem; }
-    .btn-view-store {
-      display: block;
-      background: #000000;
-      color: white;
-      text-align: center;
-      padding: 0.7rem;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.8rem;
-      margin-top: 0.8rem;
-      transition: all 0.2s ease;
-    }
-    .btn-view-store:hover { background: #333333; transform: scale(0.98); }
+    <meta property="og:title" content="QRP2P Colombia | Plan Anual Catálogos Express - $100.000/año">
+    <meta property="og:description" content="Plan Anual. Tienda en línea profesional con carrito. Sin panel de control, todo por WhatsApp. Cada gestión de producto cuesta $500 COP.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:locale" content="es_CO">
     
-    @media (max-width: 680px) { .popup-business-card { width: 280px; } }
-  </style>
+    <link rel="canonical" href="https://qrp2p.com/plan-anual-colombia">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Plan Anual Catálogos Express QRP2P Colombia",
+        "description": "Plan Anual de $100.000 COP con tienda en línea profesional, carrito de compras, 0% comisión. Sin panel de control, todo por WhatsApp. Cada gestión de producto cuesta $500 COP.",
+        "brand": { "@type": "Brand", "name": "QRP2P" },
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "COP",
+            "price": "100000",
+            "availability": "https://schema.org/OnlineOnly"
+        }
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== PREVENCIÓN DE ZOOM, SELECCIÓN Y COPIA ===== */
+        html, body {
+            touch-action: pan-y pinch-zoom;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior: none;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        input, textarea, select, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+            -webkit-touch-callout: default !important;
+        }
+
+        img, a, button, .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        * {
+            -webkit-touch-callout: none;
+        }
+
+        img, a, .prevent-long-press {
+            -webkit-touch-callout: none !important;
+            touch-action: manipulation;
+        }
+
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        /* ===== RESTO DEL CSS ===== */
+        :root {
+            --color-blanco: #ffffff;
+            --color-negro: #000000;
+            --color-gris-10: #f7f7f7;
+            --color-gris-20: #e8e8e8;
+            --color-gris-30: #d0d0d0;
+            --color-gris-40: #a0a0a0;
+            --color-gris-50: #777777;
+            --color-gris-60: #555555;
+            --color-gris-70: #333333;
+            --color-gris-80: #1a1a1a;
+            --color-gris-90: #0d0d0d;
+            --color-whatsapp: #25D366;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-blanco);
+            color: var(--color-gris-80);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        header {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--color-blanco);
+        }
+        
+        .logo-text small {
+            font-size: 0.7rem;
+            letter-spacing: normal;
+            color: var(--color-gris-40);
+            font-weight: 400;
+            display: block;
+            margin-top: -2px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: var(--color-blanco);
+            color: var(--color-negro);
+            border: none;
+            padding: 0.7rem 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            letter-spacing: -0.3px;
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-gris-20);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary-large {
+            padding: 0.9rem 2.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: var(--color-gris-70);
+            color: var(--color-blanco);
+            border: 1px solid var(--color-gris-40);
+            padding: 0.6rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-negro);
+            border-color: var(--color-blanco);
+            transform: translateY(-2px);
+        }
+        
+        .btn-whatsapp {
+            background: var(--color-whatsapp);
+            border-color: var(--color-whatsapp);
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            border-color: #128C7E;
+            color: white;
+        }
+        
+        .hero {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 4rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            color: var(--color-gris-40);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .price-badge-hero {
+            display: inline-block;
+            background: var(--color-gris-80);
+            border: 1px solid var(--color-gris-40);
+            padding: 0.5rem 1.8rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: var(--color-gris-10);
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            margin: -2rem auto 2.5rem auto;
+            max-width: 1000px;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--color-negro);
+            letter-spacing: -0.5px;
+        }
+        
+        .stat-label {
+            color: var(--color-gris-50);
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .benefit-card {
+            background: var(--color-gris-10);
+            padding: 1.8rem;
+            border-radius: 16px;
+            transition: all 0.3s;
+            border: 1px solid var(--color-gris-20);
+            text-align: left;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+            background: var(--color-blanco);
+            border-color: var(--color-gris-30);
+        }
+        
+        .benefit-card i {
+            font-size: 2rem;
+            color: var(--color-negro);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .benefit-card h3 {
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .benefit-card p {
+            color: var(--color-gris-50);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        
+        .price-card {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .price-card h2 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+        }
+        
+        .price {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-blanco);
+            letter-spacing: -1px;
+        }
+        
+        .price small {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--color-gris-40);
+        }
+        
+        .price-card > p {
+            color: var(--color-gris-40);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .bonus-box {
+            background: var(--color-blanco);
+            color: var(--color-negro);
+            padding: 1.5rem;
+            border-radius: 14px;
+            margin: 1rem 0 1.5rem 0;
+            border: 2px solid var(--color-gris-30);
+        }
+        
+        .bonus-box i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bonus-box h3 {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .bonus-box p {
+            color: var(--color-gris-60);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+        
+        .bonus-box .highlight-tag {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 0.2rem 1.2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        
+        .credit-system {
+            background: var(--color-gris-80);
+            color: var(--color-blanco);
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            margin: 1rem 0;
+            border: 1px solid var(--color-gris-40);
+        }
+        
+        .credit-system i {
+            font-size: 2rem;
+            color: var(--color-blanco);
+        }
+        
+        .credit-system h3 {
+            color: var(--color-blanco);
+            margin-top: 0.3rem;
+            font-weight: 700;
+        }
+        
+        .credit-system .credit-highlight {
+            color: var(--color-blanco);
+            font-weight: 700;
+        }
+        
+        .credit-system .credit-desc {
+            color: var(--color-gris-40);
+            font-size: 0.9rem;
+        }
+        
+        .credit-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin: 0.8rem 0;
+        }
+        
+        .credit-pills span {
+            background: rgba(255,255,255,0.08);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--color-gris-40);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+            max-width: 700px;
+            margin: 1.5rem auto;
+        }
+        
+        .feature-list li {
+            margin: 0.7rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--color-gris-20);
+            line-height: 1.6;
+        }
+        
+        .feature-list li i {
+            color: var(--color-blanco);
+            width: 22px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .feature-list li strong {
+            color: var(--color-blanco);
+            font-weight: 600;
+        }
+        
+        .how-it-works {
+            background: var(--color-gris-10);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .how-it-works h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--color-blanco);
+            border-radius: 16px;
+            border: 1px solid var(--color-gris-20);
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .step i {
+            font-size: 2rem;
+            color: var(--color-negro);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        
+        .step h3 {
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .step p {
+            color: var(--color-gris-50);
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .whatsapp-note {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .whatsapp-note i {
+            color: var(--color-whatsapp);
+        }
+        
+        .services-section {
+            background: var(--color-gris-10);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .services-section h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .services-section > p {
+            text-align: center;
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .service-card {
+            background: var(--color-blanco);
+            padding: 1.8rem;
+            border-radius: 16px;
+            text-align: left;
+            border: 1px solid var(--color-gris-20);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+        
+        .service-card i {
+            font-size: 2rem;
+            color: var(--color-negro);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .service-card .price-tag {
+            display: inline-block;
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            margin: 0.6rem 0;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: var(--color-gris-50);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        
+        .testimonial-section {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            text-align: center;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .testimonial-card {
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        
+        .testimonial-card i {
+            font-size: 2rem;
+            color: var(--color-gris-40);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .testimonial-card p {
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--color-gris-30);
+        }
+        
+        .testimonial-card .author {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-style: normal;
+            color: var(--color-blanco);
+        }
+        
+        .mid-section {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: var(--color-gris-10);
+            border-radius: 20px;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .mid-section h2 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .mid-section p {
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+        
+        .payment-methods span {
+            background: var(--color-gris-80);
+            color: var(--color-gris-30);
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            border: 1px solid var(--color-gris-40);
+            font-weight: 400;
+        }
+
+        .product-management {
+            background: var(--color-gris-10);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .product-management h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .product-management > p {
+            text-align: center;
+            color: var(--color-gris-50);
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-management ul {
+            list-style: none;
+            padding: 0;
+            max-width: 700px;
+            margin: 1rem auto;
+        }
+        
+        .product-management ul li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--color-gris-20);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--color-gris-70);
+        }
+        
+        .product-management ul li i {
+            width: 28px;
+            color: var(--color-negro);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-management {
+            background: var(--color-whatsapp);
+            color: var(--color-blanco);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+        
+        .whatsapp-management h2 {
+            color: var(--color-blanco);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .whatsapp-management i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .whatsapp-management p {
+            font-weight: 400;
+            opacity: 0.95;
+        }
+        
+        .whatsapp-management .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .whatsapp-management .pill-group span {
+            background: rgba(255,255,255,0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .domain-section {
+            background: var(--color-gris-10);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            border: 1px solid var(--color-gris-20);
+        }
+        
+        .domain-section h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+        
+        .domain-section .subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            font-size: 1rem;
+            color: var(--color-gris-50);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        .domain-highlight-box {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 1.5rem 0;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .domain-highlight-box .icon-big {
+            font-size: 2.5rem;
+            color: var(--color-blanco);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .domain-highlight-box h3 {
+            color: var(--color-blanco);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .domain-highlight-box .url-example {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--color-blanco);
+            background: rgba(255,255,255,0.06);
+            padding: 0.6rem 2rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0.6rem 0;
+            border: 1px solid var(--color-gris-30);
+            word-break: break-all;
+            letter-spacing: -0.5px;
+        }
+        
+        .domain-highlight-box .note {
+            color: var(--color-gris-40);
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        
+        .domain-highlight-box .note i {
+            margin-right: 0.5rem;
+        }
+        
+        .domain-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .domain-feature {
+            background: var(--color-blanco);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--color-gris-20);
+            transition: all 0.3s;
+        }
+        
+        .domain-feature:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+        
+        .domain-feature i {
+            font-size: 2.2rem;
+            color: var(--color-negro);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        
+        .domain-feature h3 {
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        
+        .domain-feature p {
+            color: var(--color-gris-50);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .domain-feature .badge {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.6rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        
+        .badge-green {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+        }
+        
+        .badge-gray {
+            background: var(--color-gris-20);
+            color: var(--color-gris-60);
+        }
+        
+        .domain-info-box {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            border-radius: 12px;
+            border: 1px solid var(--color-gris-30);
+        }
+        
+        .domain-info-box i {
+            margin-right: 0.5rem;
+            color: var(--color-blanco);
+        }
+        
+        .domain-info-box strong {
+            font-weight: 600;
+        }
+
+        /* ===== FORMULARIO ===== */
+        .form-section {
+            background: var(--color-blanco);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0 1.5rem 0;
+            border: 2px solid var(--color-negro);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+        }
+        
+        .form-section h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+        }
+        
+        .form-section .subtitle {
+            text-align: center;
+            color: var(--color-gris-50);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            color: var(--color-gris-70);
+            letter-spacing: -0.2px;
+        }
+        
+        .form-group label .optional {
+            font-weight: 400;
+            color: var(--color-gris-50);
+            font-size: 0.75rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--color-gris-20);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px !important;
+            transition: border 0.3s;
+            background: var(--color-gris-10);
+            color: var(--color-gris-80);
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-negro);
+            background: var(--color-blanco);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-submit {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .form-submit .btn-primary {
+            background: var(--color-whatsapp);
+            color: var(--color-blanco);
+            font-size: 1.1rem;
+            padding: 1rem 3rem;
+            border: none;
+        }
+        
+        .form-submit .btn-primary:hover {
+            background: #128C7E;
+            color: var(--color-blanco);
+            transform: translateY(-2px);
+        }
+        
+        .form-note {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--color-gris-50);
+        }
+        
+        /* Estilos para el selector de tipo de cuenta */
+        .account-type-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .account-type-selector label {
+            flex: 1;
+            min-width: 160px;
+            padding: 1rem 1.2rem;
+            background: var(--color-gris-10);
+            border: 2px solid var(--color-gris-20);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: var(--color-gris-70);
+        }
+        .account-type-selector label i {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: var(--color-gris-40);
+        }
+        .account-type-selector label:hover {
+            border-color: var(--color-gris-40);
+        }
+        .account-type-selector input[type="radio"] {
+            display: none;
+        }
+        .account-type-selector input[type="radio"]:checked + label {
+            border-color: var(--color-negro);
+            background: var(--color-blanco);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .account-type-selector input[type="radio"]:checked + label i {
+            color: var(--color-negro);
+        }
+
+        /* Campos ocultos por defecto */
+        .form-group.hidden {
+            display: none;
+        }
+        
+        footer {
+            background: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 220px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 0.8rem;
+            color: var(--color-blanco);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .footer-section p {
+            color: var(--color-gris-40);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        
+        .footer-section a {
+            color: var(--color-gris-40);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--color-blanco);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+        
+        .social-icons a {
+            font-size: 1.3rem;
+            color: var(--color-gris-40);
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--color-blanco);
+        }
+        
+        .footer-register {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-register p {
+            color: var(--color-gris-40);
+            font-size: 0.8rem;
+            font-weight: 300;
+            margin-top: 0.8rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.75rem;
+            color: var(--color-gris-50);
+            font-weight: 300;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.4rem; }
+            .price { font-size: 3.2rem; }
+            .domain-features { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 3rem 1rem; }
+            .stats-bar { 
+                flex-direction: column; 
+                align-items: center;
+                padding: 1.5rem;
+                gap: 1.2rem;
+                margin-top: -1.5rem;
+            }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .logo-text { font-size: 1.2rem; }
+            .price { font-size: 2.5rem; }
+            .steps { flex-direction: column; }
+            .services-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-row-3 { grid-template-columns: 1fr; }
+            .domain-features { grid-template-columns: 1fr; }
+            .domain-highlight-box .url-example { font-size: 1.2rem; padding: 0.5rem 1rem; }
+            .domain-section h2 { font-size: 1.3rem; }
+            .btn-primary-large { font-size: 0.95rem; padding: 0.8rem 1.5rem; }
+            .feature-list li { font-size: 0.9rem; }
+            .price-card { padding: 1.5rem; }
+            .testimonial-section { padding: 2rem 1.5rem; }
+            .whatsapp-management { padding: 1.8rem; }
+            .whatsapp-management i { font-size: 2.2rem; }
+            .product-management { padding: 1.5rem; }
+            .product-management ul li { font-size: 0.9rem; }
+            .bonus-box { padding: 1.2rem; }
+            .bonus-box .highlight-tag { font-size: 0.8rem; }
+            .credit-pills span { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .account-type-selector label { min-width: 120px; padding: 0.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { font-size: 15px; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero p { font-size: 0.9rem; }
+            .price-badge-hero { font-size: 0.9rem; padding: 0.4rem 1.2rem; }
+            .logo-text { font-size: 1rem; }
+            .logo-text small { font-size: 0.6rem; }
+            .btn-primary { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+            .btn-primary-large { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+            .stat-number { font-size: 1.5rem; }
+            .price { font-size: 2rem; }
+            .price small { font-size: 0.9rem; }
+            .container { padding: 0 0.8rem 2rem; }
+            .benefit-card { padding: 1.2rem; }
+            .benefit-card i { font-size: 1.5rem; }
+            .step { padding: 1rem; min-width: unset; }
+            .form-section { padding: 1.2rem; }
+            .form-group input, .form-group select, .form-group textarea { padding: 0.6rem 0.8rem; font-size: 16px !important; }
+            .domain-highlight-box { padding: 1.2rem; }
+            .domain-highlight-box .url-example { font-size: 1rem; padding: 0.4rem 0.8rem; }
+            .domain-highlight-box .icon-big { font-size: 2rem; }
+            .domain-section h2 { font-size: 1.2rem; }
+            .domain-section .subtitle { font-size: 0.9rem; }
+            .credit-system { padding: 1rem; }
+            .credit-system .price-credit { font-size: 1.8rem; }
+            .whatsapp-management { padding: 1.2rem; }
+            .whatsapp-management i { font-size: 2rem; }
+            .whatsapp-management h2 { font-size: 1.2rem; }
+            .testimonial-section { padding: 1.5rem; }
+            .mid-section { padding: 1.5rem; }
+            .mid-section h2 { font-size: 1.2rem; }
+            .services-section { padding: 1.5rem; }
+            .services-section h2 { font-size: 1.2rem; }
+            .product-management h2 { font-size: 1.2rem; }
+            .how-it-works h2 { font-size: 1.2rem; }
+            .price-card h2 { font-size: 1.2rem; }
+            .domain-feature { padding: 1rem; }
+            .domain-feature i { font-size: 1.8rem; }
+            .service-card { padding: 1.2rem; }
+            .service-card i { font-size: 1.5rem; }
+            .bonus-box h3 { font-size: 1rem; }
+            .bonus-box p { font-size: 0.9rem; }
+            .credit-system .credit-desc { font-size: 0.8rem; }
+            .credit-pills span { font-size: 0.65rem; padding: 0.15rem 0.6rem; }
+            .account-type-selector { flex-direction: column; }
+            .account-type-selector label { min-width: unset; }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            .container, header, footer {
+                overflow-x: hidden;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="contenedor-mapa">
-    <div id="barra-superior">
-      <div class="botones-izquierda">
-        <div class="contenedor-buscador">
-          <input type="search" id="buscador" placeholder="Search businesses across the United States..." enterkeyhint="search">
-          <div id="sugerencias-busqueda" class="sugerencias-busqueda"></div>
+    <header>
+        <div class="header-container">
+            <div class="logo-text">
+                QRP2P COLOMBIA
+                <small>Tu negocio en línea</small>
+            </div>
+            <a href="#formulario" class="btn-primary">
+                <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL $100.000
+            </a>
         </div>
-        <button class="btn-mapa btn-centrar" id="centrar-btn"><i class="fas fa-location-dot"></i><span id="centrar-text">CENTER</span></button>
-      </div>
-      <div class="botones-derecha">
-        <button class="map-type-btn active" id="map-btn"><span id="map-text">Map</span></button>
-        <button class="map-type-btn" id="satellite-btn"><span id="satellite-text">Satellite</span></button>
-        <div class="lang-selector">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="es">ES</button>
-        </div>
-      </div>
-    </div>
-    <div id="mapa"></div>
-  </div>
+    </header>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script>
-    let currentLang = 'en';
-    let mapa, userMarker, marcadoresOriginales = [], currentLayer;
-    
-    // VERIFIED BUSINESSES - GLOBAL (60+ cities worldwide)
-    const verifiedBusinesses = [
-      // USA
-      { id: "NYC01", name_en: "QRP2P NEW YORK", name_es: "QRP2P NUEVA YORK", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.7128, -74.0060], address_en: "5th Avenue, New York, NY", address_es: "5ta Avenida, Nueva York, NY", description_en: "Global distribution hub in New York.", description_es: "Centro de distribución global en Nueva York.", phone: "+12124567890", email: "ny@qrp2p.com", website: "/new-york.html", whatsapp: "12124567890" },
-      { id: "LAX01", name_en: "QRP2P LOS ANGELES", name_es: "QRP2P LOS ÁNGELES", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.0522, -118.2437], address_en: "Hollywood Blvd, Los Angeles, CA", address_es: "Hollywood Blvd, Los Ángeles, CA", description_en: "West Coast distribution center.", description_es: "Centro de distribución en la Costa Oeste.", phone: "+12134567890", email: "la@qrp2p.com", website: "/los-angeles.html", whatsapp: "12134567890" },
-      { id: "CHI01", name_en: "QRP2P CHICAGO", name_es: "QRP2P CHICAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.8781, -87.6298], address_en: "Michigan Avenue, Chicago, IL", address_es: "Michigan Avenue, Chicago, IL", description_en: "Midwest distribution hub.", description_es: "Centro de distribución en el Medio Oeste.", phone: "+13124567890", email: "chicago@qrp2p.com", website: "/chicago.html", whatsapp: "13124567890" },
-      { id: "HOU01", name_en: "QRP2P HOUSTON", name_es: "QRP2P HOUSTON", category_en: "Distributor", category_es: "Distribuidor", latlng: [29.7604, -95.3698], address_en: "Texas Avenue, Houston, TX", address_es: "Texas Avenue, Houston, TX", description_en: "Southern distribution center.", description_es: "Centro de distribución en el Sur.", phone: "+17134567890", email: "houston@qrp2p.com", website: "/houston.html", whatsapp: "17134567890" },
-      { id: "MIA01", name_en: "QRP2P MIAMI", name_es: "QRP2P MIAMI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.7617, -80.1918], address_en: "Ocean Drive, Miami, FL", address_es: "Ocean Drive, Miami, FL", description_en: "Latin American gateway.", description_es: "Puerta a Latinoamérica.", phone: "+13054567890", email: "miami@qrp2p.com", website: "/miami.html", whatsapp: "13054567890" },
-      { id: "SFX01", name_en: "QRP2P SAN FRANCISCO", name_es: "QRP2P SAN FRANCISCO", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.7749, -122.4194], address_en: "Market Street, San Francisco, CA", address_es: "Market Street, San Francisco, CA", description_en: "Tech hub on the West Coast.", description_es: "Centro tecnológico en la Costa Oeste.", phone: "+14154567890", email: "sf@qrp2p.com", website: "/san-francisco.html", whatsapp: "14154567890" },
-      { id: "SEA01", name_en: "QRP2P SEATTLE", name_es: "QRP2P SEATTLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.6062, -122.3321], address_en: "Pike Street, Seattle, WA", address_es: "Pike Street, Seattle, WA", description_en: "Pacific Northwest hub.", description_es: "Centro del Noroeste Pacífico.", phone: "+12064567890", email: "seattle@qrp2p.com", website: "/seattle.html", whatsapp: "12064567890" },
-      { id: "DEN01", name_en: "QRP2P DENVER", name_es: "QRP2P DENVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.7392, -104.9903], address_en: "Colfax Avenue, Denver, CO", address_es: "Colfax Avenue, Denver, CO", description_en: "Mountain region distribution hub.", description_es: "Centro de distribución en la región montañosa.", phone: "+13034567890", email: "denver@qrp2p.com", website: "/denver.html", whatsapp: "13034567890" },
-      // Canada
-      { id: "TOR01", name_en: "QRP2P TORONTO", name_es: "QRP2P TORONTO", category_en: "Distributor", category_es: "Distribuidor", latlng: [43.6532, -79.3832], address_en: "Queen Street, Toronto, ON", address_es: "Queen Street, Toronto, ON", description_en: "Canadian distribution center.", description_es: "Centro de distribución canadiense.", phone: "+14164567890", email: "toronto@qrp2p.com", website: "/toronto.html", whatsapp: "14164567890" },
-      { id: "VAN01", name_en: "QRP2P VANCOUVER", name_es: "QRP2P VANCOUVER", category_en: "Distributor", category_es: "Distribuidor", latlng: [49.2827, -123.1207], address_en: "Granville Street, Vancouver, BC", address_es: "Granville Street, Vancouver, BC", description_en: "Western Canada distribution center.", description_es: "Centro de distribución del Oeste de Canadá.", phone: "+16044567890", email: "vancouver@qrp2p.com", website: "/vancouver.html", whatsapp: "16044567890" },
-      // Mexico & Central America
-      { id: "MEX01", name_en: "QRP2P CIUDAD DE MÉXICO", name_es: "QRP2P CIUDAD DE MÉXICO", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.4326, -99.1332], address_en: "Reforma 123, Ciudad de México", address_es: "Reforma 123, Ciudad de México", description_en: "Distribution center for Latin America.", description_es: "Centro de distribución para Latinoamérica.", phone: "+525512345678", email: "mexico@qrp2p.com", website: "/ciudad-de-mexico.html", whatsapp: "525512345678" },
-      { id: "GDL01", name_en: "QRP2P GUADALAJARA", name_es: "QRP2P GUADALAJARA", category_en: "Distributor", category_es: "Distribuidor", latlng: [20.6597, -103.3496], address_en: "Av. Chapultepec, Guadalajara", address_es: "Av. Chapultepec, Guadalajara", description_en: "Tech center in Mexico.", description_es: "Centro tecnológico en México.", phone: "+523312345678", email: "gdl@qrp2p.com", website: "/guadalajara.html", whatsapp: "523312345678" },
-      { id: "PTY01", name_en: "QRP2P CIUDAD DE PANAMÁ", name_es: "QRP2P CIUDAD DE PANAMÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [8.9824, -79.5199], address_en: "Calle 50, Panamá", address_es: "Calle 50, Panamá", description_en: "Regional logistics hub.", description_es: "Centro logístico regional.", phone: "+5072345678", email: "panama@qrp2p.com", website: "/ciudad-de-panama.html", whatsapp: "5072345678" },
-      // South America
-      { id: "BOG01", name_en: "QRP2P BOGOTÁ", name_es: "QRP2P BOGOTÁ", category_en: "Distributor", category_es: "Distribuidor", latlng: [4.7110, -74.0721], address_en: "Calle 100, Bogotá", address_es: "Calle 100, Bogotá", description_en: "Andean distribution center.", description_es: "Centro de distribución en los Andes.", phone: "+5712345678", email: "bogota@qrp2p.com", website: "/bogota.html", whatsapp: "5712345678" },
-      { id: "CALI01", name_en: "QRP2P CALI VALLE", name_es: "QRP2P CALI VALLE", category_en: "Distributor", category_es: "Distribuidor", latlng: [3.4516, -76.5320], address_en: "Calle 13, Cali, Valle", address_es: "Calle 13, Cali, Valle", description_en: "Distribution hub in Valle del Cauca.", description_es: "Centro de distribución en Valle del Cauca.", phone: "+5722345678", email: "cali@qrp2p.com", website: "/cali-valle.html", whatsapp: "5722345678" },
-      { id: "MED01", name_en: "QRP2P MEDELLÍN", name_es: "QRP2P MEDELLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.2442, -75.5812], address_en: "Poblado, Medellín", address_es: "Poblado, Medellín", description_en: "Innovation hub in Colombia.", description_es: "Centro de innovación en Colombia.", phone: "+5742345678", email: "medellin@qrp2p.com", website: "/medellin.html", whatsapp: "5742345678" },
-      { id: "LIM01", name_en: "QRP2P LIMA", name_es: "QRP2P LIMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-12.0464, -77.0428], address_en: "Miraflores, Lima", address_es: "Miraflores, Lima", description_en: "Pacific coast distribution center.", description_es: "Centro de distribución en la costa pacífica.", phone: "+5112345678", email: "lima@qrp2p.com", website: "/lima.html", whatsapp: "5112345678" },
-      { id: "BUE01", name_en: "QRP2P BUENOS AIRES", name_es: "QRP2P BUENOS AIRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [-34.6037, -58.3816], address_en: "Florida Street, Buenos Aires", address_es: "Florida Street, Buenos Aires", description_en: "Southern Cone distribution center.", description_es: "Centro de distribución en el Cono Sur.", phone: "+5411345678", email: "bsas@qrp2p.com", website: "/buenos-aires.html", whatsapp: "5411345678" },
-      { id: "RIO01", name_en: "QRP2P RIO DE JANEIRO", name_es: "QRP2P RIO DE JANEIRO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-22.9068, -43.1729], address_en: "Copacabana, Rio de Janeiro", address_es: "Copacabana, Rio de Janeiro", description_en: "Brazilian distribution center.", description_es: "Centro de distribución brasileño.", phone: "+5521345678", email: "rio@qrp2p.com", website: "/rio-de-janeiro.html", whatsapp: "5521345678" },
-      { id: "SAO01", name_en: "QRP2P SÃO PAULO", name_es: "QRP2P SÃO PAULO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-23.5505, -46.6333], address_en: "Paulista Avenue, São Paulo", address_es: "Paulista Avenue, São Paulo", description_en: "Business hub in Brazil.", description_es: "Centro de negocios en Brasil.", phone: "+5511345678", email: "sp@qrp2p.com", website: "/sao-paulo.html", whatsapp: "5511345678" },
-      { id: "SCL01", name_en: "QRP2P SANTIAGO", name_es: "QRP2P SANTIAGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.4489, -70.6693], address_en: "Providencia, Santiago", address_es: "Providencia, Santiago", description_en: "Chilean distribution center.", description_es: "Centro de distribución chileno.", phone: "+5622345678", email: "santiago@qrp2p.com", website: "/santiago.html", whatsapp: "5622345678" },
-      // Europe
-      { id: "LON01", name_en: "QRP2P LONDON", name_es: "QRP2P LONDRES", category_en: "Distributor", category_es: "Distribuidor", latlng: [51.5074, -0.1278], address_en: "Oxford Street, London", address_es: "Oxford Street, Londres", description_en: "European distribution center.", description_es: "Centro de distribución europeo.", phone: "+442012345678", email: "london@qrp2p.com", website: "/london.html", whatsapp: "442012345678" },
-      { id: "PAR01", name_en: "QRP2P PARIS", name_es: "QRP2P PARÍS", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.8566, 2.3522], address_en: "Champs-Élysées, Paris", address_es: "Champs-Élysées, París", description_en: "Distribution hub in France.", description_es: "Centro de distribución en Francia.", phone: "+33123456789", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "33123456789" },
-      { id: "BER01", name_en: "QRP2P BERLIN", name_es: "QRP2P BERLÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.5200, 13.4050], address_en: "Unter den Linden, Berlin", address_es: "Unter den Linden, Berlín", description_en: "German distribution center.", description_es: "Centro de distribución alemán.", phone: "+493012345678", email: "berlin@qrp2p.com", website: "/berlin.html", whatsapp: "493012345678" },
-      { id: "MAD01", name_en: "QRP2P MADRID", name_es: "QRP2P MADRID", category_en: "Distributor", category_es: "Distribuidor", latlng: [40.4168, -3.7038], address_en: "Gran Vía, Madrid", address_es: "Gran Vía, Madrid", description_en: "Spanish distribution center.", description_es: "Centro de distribución español.", phone: "+34912345678", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "34912345678" },
-      { id: "BCN01", name_en: "QRP2P BARCELONA", name_es: "QRP2P BARCELONA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.3851, 2.1734], address_en: "Rambla, Barcelona", address_es: "Rambla, Barcelona", description_en: "Mediterranean distribution center.", description_es: "Centro de distribución mediterráneo.", phone: "+34932345678", email: "bcn@qrp2p.com", website: "/barcelona.html", whatsapp: "34932345678" },
-      { id: "ROM01", name_en: "QRP2P ROME", name_es: "QRP2P ROMA", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.9028, 12.4964], address_en: "Via del Corso, Rome", address_es: "Via del Corso, Roma", description_en: "Italian distribution center.", description_es: "Centro de distribución italiano.", phone: "+390612345678", email: "rome@qrp2p.com", website: "/rome.html", whatsapp: "390612345678" },
-      { id: "AMS01", name_en: "QRP2P AMSTERDAM", name_es: "QRP2P AMSTERDAM", category_en: "Distributor", category_es: "Distribuidor", latlng: [52.3676, 4.9041], address_en: "Damrak, Amsterdam", address_es: "Damrak, Amsterdam", description_en: "Dutch distribution center.", description_es: "Centro de distribución holandés.", phone: "+312012345678", email: "ams@qrp2p.com", website: "/amsterdam.html", whatsapp: "312012345678" },
-      { id: "BRU01", name_en: "QRP2P BRUSSELS", name_es: "QRP2P BRUSELAS", category_en: "Distributor", category_es: "Distribuidor", latlng: [50.8503, 4.3517], address_en: "Grand Place, Brussels", address_es: "Grand Place, Bruselas", description_en: "EU distribution hub.", description_es: "Centro de distribución de la UE.", phone: "+32212345678", email: "brussels@qrp2p.com", website: "/brussels.html", whatsapp: "32212345678" },
-      { id: "VIE01", name_en: "QRP2P VIENNA", name_es: "QRP2P VIENA", category_en: "Distributor", category_es: "Distribuidor", latlng: [48.2082, 16.3738], address_en: "Ringstrasse, Vienna", address_es: "Ringstrasse, Viena", description_en: "Austrian distribution center.", description_es: "Centro de distribución austriaco.", phone: "+4312345678", email: "vienna@qrp2p.com", website: "/vienna.html", whatsapp: "4312345678" },
-      { id: "ZUR01", name_en: "QRP2P ZURICH", name_es: "QRP2P ZÚRICH", category_en: "Distributor", category_es: "Distribuidor", latlng: [47.3769, 8.5417], address_en: "Bahnhofstrasse, Zurich", address_es: "Bahnhofstrasse, Zúrich", description_en: "Swiss distribution center.", description_es: "Centro de distribución suizo.", phone: "+41412345678", email: "zurich@qrp2p.com", website: "/zurich.html", whatsapp: "41412345678" },
-      // Asia
-      { id: "TOK01", name_en: "QRP2P TOKYO", name_es: "QRP2P TOKIO", category_en: "Distributor", category_es: "Distribuidor", latlng: [35.6762, 139.6503], address_en: "Shibuya, Tokyo", address_es: "Shibuya, Tokio", description_en: "Asian distribution center.", description_es: "Centro de distribución asiático.", phone: "+81312345678", email: "tokyo@qrp2p.com", website: "/tokyo.html", whatsapp: "81312345678" },
-      { id: "OSA01", name_en: "QRP2P OSAKA", name_es: "QRP2P OSAKA", category_en: "Distributor", category_es: "Distribuidor", latlng: [34.6937, 135.5023], address_en: "Namba, Osaka", address_es: "Namba, Osaka", description_en: "Kansai region distribution center.", description_es: "Centro de distribución de la región Kansai.", phone: "+81612345678", email: "osaka@qrp2p.com", website: "/osaka.html", whatsapp: "81612345678" },
-      { id: "SEO01", name_en: "QRP2P SEOUL", name_es: "QRP2P SEÚL", category_en: "Distributor", category_es: "Distribuidor", latlng: [37.5665, 126.9780], address_en: "Gangnam, Seoul", address_es: "Gangnam, Seúl", description_en: "Korean distribution center.", description_es: "Centro de distribución coreano.", phone: "+82212345678", email: "seoul@qrp2p.com", website: "/seoul.html", whatsapp: "82212345678" },
-      { id: "SHA01", name_en: "QRP2P SHANGHAI", name_es: "QRP2P SHANGHAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [31.2304, 121.4737], address_en: "Nanjing Road, Shanghai", address_es: "Nanjing Road, Shanghai", description_en: "Chinese distribution center.", description_es: "Centro de distribución chino.", phone: "+862112345678", email: "shanghai@qrp2p.com", website: "/shanghai.html", whatsapp: "862112345678" },
-      { id: "PEK01", name_en: "QRP2P BEIJING", name_es: "QRP2P PEKÍN", category_en: "Distributor", category_es: "Distribuidor", latlng: [39.9042, 116.4074], address_en: "Wangfujing, Beijing", address_es: "Wangfujing, Pekín", description_en: "Northern China distribution center.", description_es: "Centro de distribución del norte de China.", phone: "+861012345678", email: "beijing@qrp2p.com", website: "/beijing.html", whatsapp: "861012345678" },
-      { id: "HKG01", name_en: "QRP2P HONG KONG", name_es: "QRP2P HONG KONG", category_en: "Distributor", category_es: "Distribuidor", latlng: [22.3193, 114.1694], address_en: "Nathan Road, Hong Kong", address_es: "Nathan Road, Hong Kong", description_en: "Financial distribution hub.", description_es: "Centro de distribución financiero.", phone: "+85212345678", email: "hk@qrp2p.com", website: "/hong-kong.html", whatsapp: "85212345678" },
-      { id: "SIN01", name_en: "QRP2P SINGAPORE", name_es: "QRP2P SINGAPUR", category_en: "Distributor", category_es: "Distribuidor", latlng: [1.3521, 103.8198], address_en: "Orchard Road, Singapore", address_es: "Orchard Road, Singapur", description_en: "Southeast Asia distribution hub.", description_es: "Centro de distribución del Sudeste Asiático.", phone: "+6512345678", email: "singapore@qrp2p.com", website: "/singapore.html", whatsapp: "6512345678" },
-      { id: "BKK01", name_en: "QRP2P BANGKOK", name_es: "QRP2P BANGKOK", category_en: "Distributor", category_es: "Distribuidor", latlng: [13.7563, 100.5018], address_en: "Sukhumvit, Bangkok", address_es: "Sukhumvit, Bangkok", description_en: "Thai distribution center.", description_es: "Centro de distribución tailandés.", phone: "+6621234567", email: "bangkok@qrp2p.com", website: "/bangkok.html", whatsapp: "6621234567" },
-      { id: "JKT01", name_en: "QRP2P JAKARTA", name_es: "QRP2P JAKARTA", category_en: "Distributor", category_es: "Distribuidor", latlng: [-6.2088, 106.8456], address_en: "Sudirman, Jakarta", address_es: "Sudirman, Jakarta", description_en: "Indonesian distribution center.", description_es: "Centro de distribución indonesio.", phone: "+62112345678", email: "jakarta@qrp2p.com", website: "/jakarta.html", whatsapp: "62112345678" },
-      { id: "MNL01", name_en: "QRP2P MANILA", name_es: "QRP2P MANILA", category_en: "Distributor", category_es: "Distribuidor", latlng: [14.5995, 120.9842], address_en: "Makati, Manila", address_es: "Makati, Manila", description_en: "Philippine distribution center.", description_es: "Centro de distribución filipino.", phone: "+6321234567", email: "manila@qrp2p.com", website: "/manila.html", whatsapp: "6321234567" },
-      { id: "MUM01", name_en: "QRP2P MUMBAI", name_es: "QRP2P MUMBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [19.0760, 72.8777], address_en: "Marine Drive, Mumbai", address_es: "Marine Drive, Mumbai", description_en: "Indian distribution center.", description_es: "Centro de distribución indio.", phone: "+912212345678", email: "mumbai@qrp2p.com", website: "/mumbai.html", whatsapp: "912212345678" },
-      { id: "DEL01", name_en: "QRP2P DELHI", name_es: "QRP2P DELHI", category_en: "Distributor", category_es: "Distribuidor", latlng: [28.6139, 77.2090], address_en: "Connaught Place, Delhi", address_es: "Connaught Place, Delhi", description_en: "Northern India distribution center.", description_es: "Centro de distribución del norte de India.", phone: "+911112345678", email: "delhi@qrp2p.com", website: "/delhi.html", whatsapp: "911112345678" },
-      // Middle East
-      { id: "DXB01", name_en: "QRP2P DUBAI", name_es: "QRP2P DUBAI", category_en: "Distributor", category_es: "Distribuidor", latlng: [25.2048, 55.2708], address_en: "Sheikh Zayed Road, Dubai", address_es: "Sheikh Zayed Road, Dubái", description_en: "Middle East distribution hub.", description_es: "Centro de distribución en Medio Oriente.", phone: "+97143456789", email: "dubai@qrp2p.com", website: "/dubai.html", whatsapp: "97143456789" },
-      { id: "ABU01", name_en: "QRP2P ABU DHABI", name_es: "QRP2P ABU DHABI", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.4539, 54.3773], address_en: "Corniche, Abu Dhabi", address_es: "Corniche, Abu Dhabi", description_en: "UAE capital distribution center.", description_es: "Centro de distribución capital de UAE.", phone: "+97121234567", email: "abudhabi@qrp2p.com", website: "/abu-dhabi.html", whatsapp: "97121234567" },
-      { id: "RYD01", name_en: "QRP2P RIYADH", name_es: "QRP2P RIYADH", category_en: "Distributor", category_es: "Distribuidor", latlng: [24.7136, 46.6753], address_en: "King Fahd Road, Riyadh", address_es: "King Fahd Road, Riad", description_en: "Saudi distribution center.", description_es: "Centro de distribución saudí.", phone: "+96611234567", email: "riyadh@qrp2p.com", website: "/riyadh.html", whatsapp: "96611234567" },
-      { id: "IST01", name_en: "QRP2P ISTANBUL", name_es: "QRP2P ESTAMBUL", category_en: "Distributor", category_es: "Distribuidor", latlng: [41.0082, 28.9784], address_en: "Istiklal Avenue, Istanbul", address_es: "Istiklal Avenue, Estambul", description_en: "Turkish distribution center.", description_es: "Centro de distribución turco.", phone: "+902121234567", email: "istanbul@qrp2p.com", website: "/istanbul.html", whatsapp: "902121234567" },
-      // Africa
-      { id: "JHB01", name_en: "QRP2P JOHANNESBURG", name_es: "QRP2P JOHANNESBURGO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-26.2041, 28.0473], address_en: "Sandton, Johannesburg", address_es: "Sandton, Johannesburgo", description_en: "African distribution center.", description_es: "Centro de distribución en África.", phone: "+2712345678", email: "jhb@qrp2p.com", website: "/johannesburg.html", whatsapp: "2712345678" },
-      { id: "CPT01", name_en: "QRP2P CAPE TOWN", name_es: "QRP2P CIUDAD DEL CABO", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.9249, 18.4241], address_en: "Long Street, Cape Town", address_es: "Long Street, Ciudad del Cabo", description_en: "Southern Africa distribution center.", description_es: "Centro de distribución del sur de África.", phone: "+27211234567", email: "capetown@qrp2p.com", website: "/cape-town.html", whatsapp: "27211234567" },
-      { id: "NAI01", name_en: "QRP2P NAIROBI", name_es: "QRP2P NAIROBI", category_en: "Distributor", category_es: "Distribuidor", latlng: [-1.2921, 36.8219], address_en: "Moi Avenue, Nairobi", address_es: "Moi Avenue, Nairobi", description_en: "East African distribution center.", description_es: "Centro de distribución del este de África.", phone: "+25420123456", email: "nairobi@qrp2p.com", website: "/nairobi.html", whatsapp: "25420123456" },
-      { id: "LAG01", name_en: "QRP2P LAGOS", name_es: "QRP2P LAGOS", category_en: "Distributor", category_es: "Distribuidor", latlng: [6.5244, 3.3792], address_en: "Victoria Island, Lagos", address_es: "Victoria Island, Lagos", description_en: "West African distribution center.", description_es: "Centro de distribución del oeste de África.", phone: "+2348012345678", email: "lagos@qrp2p.com", website: "/lagos.html", whatsapp: "2348012345678" },
-      // Oceania
-      { id: "SYD01", name_en: "QRP2P SYDNEY", name_es: "QRP2P SIDNEY", category_en: "Distributor", category_es: "Distribuidor", latlng: [-33.8688, 151.2093], address_en: "George Street, Sydney", address_es: "George Street, Sídney", description_en: "Oceania distribution center.", description_es: "Centro de distribución en Oceanía.", phone: "+61234567890", email: "sydney@qrp2p.com", website: "/sydney.html", whatsapp: "61234567890" },
-      { id: "MEL01", name_en: "QRP2P MELBOURNE", name_es: "QRP2P MELBOURNE", category_en: "Distributor", category_es: "Distribuidor", latlng: [-37.8136, 144.9631], address_en: "Collins Street, Melbourne", address_es: "Collins Street, Melbourne", description_en: "Australian distribution center.", description_es: "Centro de distribución australiano.", phone: "+61312345678", email: "melbourne@qrp2p.com", website: "/melbourne.html", whatsapp: "61312345678" },
-      { id: "AKL01", name_en: "QRP2P AUCKLAND", name_es: "QRP2P AUCKLAND", category_en: "Distributor", category_es: "Distribuidor", latlng: [-36.8485, 174.7633], address_en: "Queen Street, Auckland", address_es: "Queen Street, Auckland", description_en: "New Zealand distribution center.", description_es: "Centro de distribución de Nueva Zelanda.", phone: "+6491234567", email: "auckland@qrp2p.com", website: "/auckland.html", whatsapp: "6491234567" }
-    ];
-    
-    const translations = { 
-      en: { 
-        buscar_placeholder: "Search businesses around the world...", 
-        centrar: "CENTER", 
-        mapa: "Map", 
-        satelite: "Satellite", 
-        view_store: "VIEW STORE"
-      },
-      es: { 
-        buscar_placeholder: "Buscar negocios en todo el mundo...", 
-        centrar: "CENTRAR", 
-        mapa: "Mapa", 
-        satelite: "Satélite", 
-        view_store: "VER TIENDA"
-      }
-    };
-    
-    function t(key) { return translations[currentLang][key] || key; }
-    
-    function generarPopupHTML(business) { 
-      const name = currentLang === 'es' ? business.name_es : business.name_en;
-      const category = currentLang === 'es' ? business.category_es : business.category_en;
-      const description = currentLang === 'es' ? business.description_es : business.description_en;
-      const address = currentLang === 'es' ? business.address_es : business.address_en;
-      const storeText = t('view_store');
-      const websiteUrl = business.website || (business.whatsapp ? `https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}` : '#');
-      let contactButtons = '';
-      if(business.website) contactButtons += `<a href="${business.website}" target="_blank" class="contact-link"><i class="fas fa-globe"></i> Web</a>`;
-      if(business.whatsapp) contactButtons += `<a href="https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
-      if(business.phone) contactButtons += `<a href="tel:${business.phone}" class="contact-link"><i class="fas fa-phone"></i> Call</a>`;
-      if(business.email) contactButtons += `<a href="mailto:${business.email}" class="contact-link"><i class="fas fa-envelope"></i> Email</a>`;
-      return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${name}</h3><span class="popup-business-category">${category}</span></div><div class="popup-business-info"><div class="popup-business-description">${description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> ${storeText}</a></div></div>`; 
-    }
-    
-    function initMap() { 
-      const googleMapsLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
-      const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0','mt1','mt2','mt3'] });
-      
-      mapa = L.map('mapa', { center: [20, 0], zoom: 2, zoomControl: false });
-      currentLayer = googleMapsLayer;
-      currentLayer.addTo(mapa);
-      
-      let clusters = L.markerClusterGroup({ iconCreateFunction: cluster => L.divIcon({ html: `<div>${cluster.getChildCount()}</div>`, className: 'cluster-marcadores', iconSize: [40,40] }) }); 
-      let icono = L.divIcon({ className: 'negocio-marker', html: '⚡', iconSize: [32,32], popupAnchor: [0,-16] }); 
-      
-      verifiedBusinesses.forEach(business => { 
-        let popup = generarPopupHTML(business); 
-        let marker = L.marker(business.latlng, { icon: icono }).bindPopup(popup, { maxWidth: 380, className: 'custom-popup' }); 
-        marker.datosNegocio = business; 
-        marker.datosBusqueda = `${business.name_en} ${business.name_es} ${business.category_en} ${business.category_es} ${business.description_en} ${business.description_es}`.toLowerCase(); 
-        marcadoresOriginales.push(marker); 
-        clusters.addLayer(marker); 
-      }); 
-      mapa.addLayer(clusters); 
-      
-      mapa.googleMapsLayer = googleMapsLayer;
-      mapa.googleSatelliteLayer = googleSatelliteLayer;
-    }
-    
-    function centrarMapaRapido() {
-      if (navigator.geolocation) {
-        const btn = document.getElementById('centrar-btn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>LOCATING...</span>';
-        navigator.geolocation.getCurrentPosition(
-          pos => { const { latitude, longitude } = pos.coords; if (userMarker) mapa.removeLayer(userMarker); userMarker = L.marker([latitude, longitude], { icon: L.divIcon({ className: 'user-location-marker', html: '📍', iconSize: [28, 28] }) }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); mapa.setView([latitude, longitude], 12); btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; },
-          err => { btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; mapa.setView([20, 0], 2); alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando vista global.' : 'Could not get your location. Showing global view.'); }
-        );
-      } else { mapa.setView([20, 0], 2); }
-    }
-    
-    function updateUILanguage() {
-      document.getElementById('buscador').placeholder = t('buscar_placeholder');
-      document.getElementById('centrar-text').innerText = t('centrar');
-      document.getElementById('map-text').innerText = t('mapa');
-      document.getElementById('satellite-text').innerText = t('satelite');
-      marcadoresOriginales.forEach(marker => { marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); });
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => { 
-      initMap(); updateUILanguage();
-      
-      document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
-      
-      document.getElementById('map-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.googleMapsLayer; currentLayer.addTo(mapa); document.getElementById('map-btn').classList.add('active'); document.getElementById('satellite-btn').classList.remove('active'); }); 
-      document.getElementById('satellite-btn').addEventListener('click', () => { mapa.removeLayer(currentLayer); currentLayer = mapa.googleSatelliteLayer; currentLayer.addTo(mapa); document.getElementById('satellite-btn').classList.add('active'); document.getElementById('map-btn').classList.remove('active'); }); 
-      
-      document.querySelectorAll('.lang-btn').forEach(btn => { 
-        btn.addEventListener('click', () => { document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentLang = btn.getAttribute('data-lang'); updateUILanguage(); }); 
-      });
-      
-      let inputBuscar = document.getElementById('buscador'); let buscadorTimeout;
-      inputBuscar.addEventListener('input', (e) => { 
-        clearTimeout(buscadorTimeout); 
-        let term = e.target.value.trim(); 
-        let sugDiv = document.getElementById('sugerencias-busqueda'); 
-        if(term.length < 2) { sugDiv.style.display = 'none'; return; } 
-        sugDiv.innerHTML = `<div class="sugerencia-item">🔍 ${currentLang === 'es' ? 'Buscando...' : 'Searching...'}</div>`; 
-        sugDiv.style.display = 'block'; 
-        buscadorTimeout = setTimeout(() => { 
-          let resultados = marcadoresOriginales.filter(m => m.datosBusqueda.includes(term.toLowerCase())); 
-          sugDiv.innerHTML = ''; 
-          resultados.forEach(m => { 
-            let name = currentLang === 'es' ? m.datosNegocio.name_es : m.datosNegocio.name_en; 
-            let item = document.createElement('div'); 
-            item.className = 'sugerencia-item'; 
-            item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">${currentLang === 'es' ? 'Ver' : 'View'}</button>`; 
-            item.querySelector('.sugerencia-boton').addEventListener('click', () => { m.openPopup(); mapa.setView(m.getLatLng(), 12); sugDiv.style.display = 'none'; }); 
-            sugDiv.appendChild(item); 
-          }); 
-          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ ${currentLang === 'es' ? 'No se encontraron resultados en el mundo' : 'No results found worldwide'}</div>`; 
-        }, 300); 
-      }); 
-      document.addEventListener('click', (e) => { if(!e.target.closest('.contenedor-buscador')) document.getElementById('sugerencias-busqueda').style.display = 'none'; });
-    });
-  </script>
+    <!-- ===== FORMULARIO ===== -->
+    <div class="container">
+        <div id="formulario" class="form-section">
+            <h2><i class="fas fa-clipboard-list"></i> Activa tu Plan Anual</h2>
+            <p class="subtitle">Completa el formulario y envíanoslo por WhatsApp. Nosotros te contactamos para finalizar el proceso.</p>
+            
+            <form id="formWhatsApp" onsubmit="enviarWhatsApp(event)">
+                <!-- Selector de tipo de cuenta -->
+                <div class="form-group">
+                    <label>Tipo de cuenta</label>
+                    <div class="account-type-selector" id="accountTypeSelector">
+                        <input type="radio" name="accountType" id="individual" value="individual" checked>
+                        <label for="individual">
+                            <i class="fas fa-user"></i>
+                            Persona Natural
+                            <small style="display:block; font-weight:400; color:var(--color-gris-50); font-size:0.7rem;">Cuenta individual</small>
+                        </label>
+                        <input type="radio" name="accountType" id="corporate" value="corporate">
+                        <label for="corporate">
+                            <i class="fas fa-building"></i>
+                            Persona Jurídica
+                            <small style="display:block; font-weight:400; color:var(--color-gris-50); font-size:0.7rem;">Cuenta corporativa</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Campos para PERSONA NATURAL (individual) - simplificados -->
+                <div id="individualFields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ind_nombre"><i class="fas fa-user"></i> Nombre del dueño de la cuenta</label>
+                            <input type="text" id="ind_nombre" name="ind_nombre" placeholder="Ej: Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="ind_nombre_comercial"><i class="fas fa-store"></i> Nombre comercial</label>
+                            <input type="text" id="ind_nombre_comercial" name="ind_nombre_comercial" placeholder="Ej: Tienda de Juan">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ind_whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp para recibir órdenes</label>
+                            <input type="tel" id="ind_whatsapp" name="ind_whatsapp" placeholder="Ej: 573041146297">
+                        </div>
+                        <div class="form-group">
+                            <label for="ind_direccion"><i class="fas fa-map-pin"></i> Dirección física comercial <span class="optional">(para aparecer en el mapa)</span></label>
+                            <input type="text" id="ind_direccion" name="ind_direccion" placeholder="Ej: Cra 10 # 20-30">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ind_direccion_opcional"><i class="fas fa-map-pin"></i> Dirección adicional <span class="optional">(opcional)</span></label>
+                        <input type="text" id="ind_direccion_opcional" name="ind_direccion_opcional" placeholder="Ej: Referencia adicional, piso, oficina, etc.">
+                    </div>
+                </div>
+
+                <!-- Campos para PERSONA JURÍDICA / CORPORATIVO (formulario completo original) -->
+                <div id="corporateFields" style="display:none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombres"><i class="fas fa-user"></i> Nombres completos del representante legal</label>
+                            <input type="text" id="nombres" name="nombres" placeholder="Ej: María José Pérez Rodríguez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos"><i class="fas fa-user"></i> Apellidos completos</label>
+                            <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Pérez Rodríguez" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label for="tipo_id"><i class="fas fa-id-card"></i> Tipo de identificación</label>
+                            <select id="tipo_id" name="tipo_id" required>
+                                <option value="">Selecciona...</option>
+                                <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                                <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                                <option value="NIT">NIT</option>
+                                <option value="RUT">RUT</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="num_id"><i class="fas fa-hashtag"></i> Número de identificación</label>
+                            <input type="text" id="num_id" name="num_id" placeholder="Ej: 1234567890" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ciudad"><i class="fas fa-city"></i> Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Bogotá" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion"><i class="fas fa-map-pin"></i> Dirección física del negocio</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Ej: Cra 10 # 20-30" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="barrio"><i class="fas fa-location-dot"></i> Barrio / Localidad</label>
+                            <input type="text" id="barrio" name="barrio" placeholder="Ej: Chapinero" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefono"><i class="fas fa-phone"></i> Teléfono del negocio</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6012345678" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp"><i class="fab fa-whatsapp"></i> Número de WhatsApp del negocio</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 573041146297">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre_comercial"><i class="fas fa-store"></i> Nombre comercial del negocio</label>
+                            <input type="text" id="nombre_comercial" name="nombre_comercial" placeholder="Ej: Tienda de Juan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Correo electrónico <span class="optional">(opcional)</span></label>
+                            <input type="email" id="email" name="email" placeholder="Ej: tienda@correo.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="licencia_rnt"><i class="fas fa-certificate"></i> ¿Tiene licencia, RNT o algún registro especial? <span class="optional">(opcional)</span></label>
+                        <input type="text" id="licencia_rnt" name="licencia_rnt" placeholder="Ej: RNT 12345, Licencia de turismo, Registro Invima, etc.">
+                    </div>
+                </div>
+
+                <!-- Campos comunes para ambos tipos -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="usuario"><i class="fas fa-user-tag"></i> Nombre de subdominio deseado (único)</label>
+                        <input type="text" id="usuario" name="usuario" placeholder="Ej: tiendadejuan" required>
+                        <small style="color: var(--color-gris-50); font-size: 0.75rem;">Tu tienda estará en: <strong id="urlPreview">tu-subdominio</strong><span style="color: var(--color-gris-50);">.qrp2p.com</span></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria_negocio"><i class="fas fa-tag"></i> Categoría de tu negocio</label>
+                        <select id="categoria_negocio" name="categoria_negocio" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Hogar y Decoración">Hogar y Decoración</option>
+                            <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
+                            <option value="Salud y Belleza">Salud y Belleza</option>
+                            <option value="Deportes y Fitness">Deportes y Fitness</option>
+                            <option value="Hoteles y Hostales">Hoteles y Hostales</option>
+                            <option value="Alquiler de Vehículos">Alquiler de Vehículos</option>
+                            <option value="Turismo y Viajes">Turismo y Viajes</option>
+                            <option value="Inmuebles">Inmuebles</option>
+                            <option value="Servicios Digitales">Servicios Digitales</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion"><i class="fas fa-pen"></i> Breve descripción de tu negocio o productos</label>
+                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos qué vendes o qué servicios ofreces (ej: ropa, reservas, alquileres, etc.)"></textarea>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> ENVIAR POR WHATSAPP
+                    </button>
+                </div>
+                <p class="form-note">
+                    <i class="fas fa-info-circle"></i> Al enviar este formulario, nuestros asesores te contactarán por WhatsApp para continuar con el proceso de activación y darte las instrucciones de pago.
+                </p>
+            </form>
+        </div>
+
+        <section class="hero">
+            <div class="price-badge-hero">
+                <i class="fas fa-tag"></i> Plan Anual $100.000 COP / año
+            </div>
+            <h1>Tu tienda en línea profesional <span>sin complicaciones</span></h1>
+            <p><strong>Tienda 100% funcional con carrito de compras</strong> para productos físicos, reservas de hostales, hoteles, alquiler de vehículos, agencias de turismo, servicios digitales, inmuebles y más. <strong>0% comisión</strong> en tus ventas.</p>
+            <div class="payment-methods">
+                <span><i class="fas fa-bolt"></i> Lightning Network</span>
+                <span><i class="fas fa-credit-card"></i> Tarjetas</span>
+                <span><i class="fas fa-mobile-alt"></i> Nequi / Daviplata</span>
+                <span><i class="fas fa-university"></i> Bancos</span>
+                <span><i class="fas fa-cash"></i> Efectivo</span>
+            </div>
+            <a href="#formulario" class="btn-primary btn-primary-large">
+                <i class="fas fa-shopping-cart"></i> ACTIVAR MI PLAN ANUAL
+            </a>
+        </section>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">0%</div>
+                <div class="stat-label">Comisión en ventas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">$500</div>
+                <div class="stat-label">Por gestión de producto</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">190+</div>
+                <div class="stat-label">Países con visibilidad</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Única</div>
+                <div class="stat-label">URL de tu tienda</div>
+            </div>
+        </div>
+
+        <!-- DOMINIO Y CORREO CORPORATIVO -->
+        <div class="domain-section">
+            <h2><i class="fas fa-globe"></i> Tu subdominio y correo corporativo</h2>
+            <p class="subtitle">
+                <strong>Cada vendedor recibe un subdominio único</strong> en nuestros servidores de alto rendimiento. 
+                Tu tienda estará disponible en <strong>tunegocio.qrp2p.com</strong> con el mismo diseño y funcionalidad que todas las demás tiendas de la plataforma.
+            </p>
+
+            <div class="domain-highlight-box">
+                <span class="icon-big"><i class="fas fa-link"></i></span>
+                <h3>Tu subdominio único</h3>
+                <div class="url-example">
+                    <i class="fas fa-store"></i> tunegocio.qrp2p.com
+                </div>
+                <p class="note">
+                    <i class="fas fa-check-circle"></i> 
+                    <strong>No es una ruta (qrp2p.com/tunegocio)</strong> — es un subdominio independiente 
+                    con el mismo rendimiento para todas las tiendas.
+                </p>
+            </div>
+            
+            <div class="domain-features">
+                <div class="domain-feature">
+                    <i class="fas fa-server"></i>
+                    <h3>Subdominio incluido</h3>
+                    <p>Recibes un subdominio único en nuestros servidores de alto rendimiento. La URL de tu tienda será <strong>tunegocio.qrp2p.com</strong>.</p>
+                    <span class="badge badge-green"><i class="fas fa-check"></i> Incluido</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Diseño estándar unificado</h3>
+                    <p>Todas las tiendas inician con el mismo diseño profesional. Eres libre de solicitar cambios de diseño según tu imaginación y necesidades.</p>
+                    <span class="badge badge-green"><i class="fas fa-check"></i> Personalizable</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-link"></i>
+                    <h3>Vincular dominio propio</h3>
+                    <p>Si ya tienes un dominio (<strong>tudominio.com</strong>), puedes vincularlo a tu tienda. El diseño se mantiene idéntico.</p>
+                    <span class="badge badge-gray"><i class="fas fa-arrow-right"></i> Opcional</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Correo corporativo</h3>
+                    <p>Posibilidad de configurar correos corporativos (<strong>ventas@tudominio.com</strong>) para una imagen profesional. Requiere dominio propio.</p>
+                    <span class="badge badge-gray"><i class="fas fa-arrow-right"></i> Opcional</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Acompañamiento sin costo</h3>
+                    <p>Si deseas vincular tu dominio o configurar correos, te acompañamos sin costo en el proceso. Tú tomas el control con nuestra guía.</p>
+                    <span class="badge badge-green"><i class="fas fa-check"></i> Gratuito</span>
+                </div>
+                
+                <div class="domain-feature">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Configuración por nosotros</h3>
+                    <p>Si prefieres que nosotros configuremos tu dominio y correos, lo hacemos por un costo muy asequible y sin complicaciones.</p>
+                    <span class="badge badge-gray"><i class="fas fa-tag"></i> Costo bajo</span>
+                </div>
+            </div>
+            
+            <div class="domain-info-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Importante:</strong> El subdominio es la base de tu tienda. Si decides vincular un dominio propio, 
+                la experiencia de usuario y el diseño serán <strong>exactamente los mismos</strong> que con el subdominio.
+            </div>
+        </div>
+
+        <!-- PRICE CARD -->
+        <div class="price-card">
+            <h2>Plan Anual · Vendedor Verificado</h2>
+            <div class="price">$100.000 <small>COP</small></div>
+            <p>Pago único anual • 0% comisión • Tienda profesional con carrito de compras</p>
+            
+            <div class="bonus-box">
+                <i class="fas fa-gift"></i>
+                <h3>🎁 BONO DE LANZAMIENTO</h3>
+                <p>
+                    ¡Incluye <span class="highlight-tag">HASTA 100 PRODUCTOS</span> sin costo adicional!
+                </p>
+                <p style="font-weight: 400; font-size: 0.9rem; color: var(--color-gris-60);">
+                    Al activar tu plan, el asesor QRP2P crea tu catálogo y puede subir <strong>hasta 100 publicaciones</strong> sin ningún costo extra. 
+                    <strong>¡Solo pagas los $100.000 del plan anual!</strong>
+                </p>
+            </div>
+            
+            <div class="credit-system">
+                <i class="fas fa-coins"></i>
+                <h3>💰 Sistema de Créditos</h3>
+                <p class="credit-desc">
+                    <span class="credit-highlight">Primera gestión: HASTA 100 PRODUCTOS GRATIS</span>
+                </p>
+                <p class="credit-desc" style="margin-top: 0.2rem;">
+                    Después de la primera gestión, cada acción sobre un producto cuesta <strong>$500 COP</strong>
+                </p>
+                <div class="credit-pills">
+                    <span>⬆️ Subir: $500</span>
+                    <span>⬇️ Bajar: $500</span>
+                    <span>✏️ Editar: $500</span>
+                    <span>🗑️ Eliminar: $500</span>
+                </div>
+                <p class="credit-desc" style="font-size: 0.8rem; margin-top: 0.6rem;">
+                    <i class="fas fa-info-circle"></i> Cada vez que subes, bajas, editas o eliminas un producto después de la primera gestión, consumes 1 crédito de $500 COP
+                </p>
+            </div>
+            
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> <strong>Tienda en línea profesional</strong> con carrito de compras para todo tipo de negocio: productos físicos, digitales, reservas (hoteles, hostales, vehículos, turismo), inmuebles y más.</li>
+                <li><i class="fas fa-user-tag"></i> <strong>Subdominio único:</strong> tu tienda estará en <strong>tunegocio.qrp2p.com</strong> (tú eliges tu nombre de subdominio).</li>
+                <li><i class="fab fa-whatsapp"></i> <strong>Gestión 100% por WhatsApp</strong> - Sin panel de control complicado. Solo envías la información por WhatsApp y nosotros gestionamos tu catálogo.</li>
+                <li><i class="fas fa-gift"></i> <strong>Bono de lanzamiento:</strong> <strong>hasta 100 productos sin costo</strong> en la primera gestión al activar tu plan anual.</li>
+                <li><i class="fas fa-coins"></i> <strong>Sistema de créditos:</strong> Después de la primera gestión, cada producto que subes, bajas, editas o eliminas cuesta <strong>$500 COP</strong>. Pagas solo por lo que usas.</li>
+                <li><i class="fas fa-mobile-alt"></i> <strong>Adaptable a cualquier industria:</strong> tu catálogo se ajusta a productos con o sin envío, servicios, reservas y alquileres.</li>
+                <li><i class="fas fa-globe-americas"></i> <strong>Visibilidad global:</strong> presencia en más de 190 países con acceso a una audiencia potencial de más de 50 mil millones de personas.</li>
+                <li><i class="fas fa-qrcode"></i> <strong>QR dinámico:</strong> los productos no caducan, solo hay que mantener el QR activo con la renovación anual.</li>
+                <li><i class="fas fa-link"></i> <strong>Link público de tu tienda</strong> para compartir en redes, WhatsApp y todos tus canales.</li>
+                <li><i class="fas fa-users"></i> <strong>Comunidad global P2P</strong> de vendedores verificados con cultura emprendedora y red de apoyo.</li>
+                <li><i class="fas fa-credit-card"></i> <strong>Múltiples medios de pago:</strong> Bold, procesadores de pago, Lightning Network, efectivo, logística QRP2P y pagos a cuotas sin intereses.</li>
+                <li><i class="fas fa-graduation-cap"></i> <strong>Academia activa QRP2P</strong> que enseña el uso de la web, configuración de anuncios en plataformas digitales y físicas, contabilidad, tecnología, logística, finanzas, marketing pre y post ventas, dropshipping y modelos de negocio.</li>
+                <li><i class="fas fa-handshake"></i> <strong>Acompañamiento constante</strong> a través de la academia QRP2P para que aprendas a gestionar tu negocio.</li>
+                <li><i class="fas fa-paint-brush"></i> <strong>Diseño personalizable:</strong> todas las tiendas inician con el mismo diseño estándar, pero cada cliente es libre de solicitar cambios de diseño según su imaginación y necesidades.</li>
+            </ul>
+            <a href="#formulario" class="btn-primary">
+                <i class="fas fa-user-check"></i> CONTRATAR PLAN ANUAL
+            </a>
+        </div>
+
+        <!-- GESTIÓN DE PRODUCTOS -->
+        <div class="product-management">
+            <h2><i class="fas fa-boxes"></i> Gestión de tu catálogo</h2>
+            <p><strong>Sin panel de control.</strong> Toda la gestión se hace por WhatsApp.</p>
+            
+            <div class="bonus-box" style="margin: 1rem 0; background: var(--color-gris-10); border: 2px solid var(--color-negro);">
+                <i class="fas fa-gift"></i>
+                <h3 style="color: var(--color-negro);">🎁 PRIMERA GESTIÓN: HASTA 100 PRODUCTOS GRATIS</h3>
+                <p style="color: var(--color-gris-60); font-weight: 500;">
+                    Al activar tu plan anual, el asesor crea tu catálogo y sube <strong>hasta 100 productos sin costo adicional</strong>.
+                </p>
+                <p style="color: var(--color-gris-50); font-size: 0.9rem; font-weight: 400;">
+                    ¡Solo pagas los $100.000 del plan anual!
+                </p>
+            </div>
+            
+            <div style="background: var(--color-negro); color: var(--color-blanco); padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem; border: 1px solid var(--color-gris-30);">
+                <i class="fas fa-coins" style="color: var(--color-blanco); font-size: 1.3rem;"></i>
+                <strong>Después de la primera gestión: Cada acción = $500 COP</strong>
+                <p style="color: var(--color-gris-40); font-size: 0.85rem; margin-top: 0.2rem; font-weight: 300;">Subir, bajar, editar o eliminar un producto cuesta $500 COP por producto</p>
+            </div>
+            
+            <ul>
+                <li><i class="fab fa-whatsapp" style="color: var(--color-whatsapp);"></i> <strong>Envías la solicitud por WhatsApp</strong> y nosotros la ejecutamos</li>
+                <li><i class="fas fa-gift"></i> <strong>Primera gestión:</strong> hasta 100 productos sin costo</li>
+                <li><i class="fas fa-arrow-up"></i> <strong>Subir producto:</strong> $500 COP por producto (después de la primera gestión)</li>
+                <li><i class="fas fa-arrow-down"></i> <strong>Bajar producto</strong> (ocultar): $500 COP por producto</li>
+                <li><i class="fas fa-trash-alt"></i> <strong>Eliminar producto:</strong> $500 COP por producto</li>
+                <li><i class="fas fa-edit"></i> <strong>Editar producto:</strong> $500 COP por producto</li>
+                <li><i class="fas fa-tags"></i> <strong>Categorías y etiquetas</strong> para organizar tu catálogo</li>
+                <li><i class="fas fa-headset"></i> <strong>Atención personalizada</strong> - Un asesor QRP2P te atiende por WhatsApp</li>
+            </ul>
+            
+            <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: var(--color-negro); color: var(--color-blanco); border-radius: 12px; border: 1px solid var(--color-gris-30);">
+                <i class="fas fa-info-circle"></i> <strong>Ejemplo:</strong> Activas tu plan anual ($100.000 COP) y el asesor te sube 50 productos sin costo. Luego, si quieres subir 5 productos más, pagas 5 × $500 = <strong>$2.500 COP</strong>.
+            </div>
+        </div>
+
+        <!-- SECCIÓN DESTACADA: GESTIÓN POR WHATSAPP -->
+        <div class="whatsapp-management">
+            <i class="fab fa-whatsapp"></i>
+            <h2>📱 Todo se gestiona por WhatsApp</h2>
+            <p style="font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+                <strong>Sin panel de control, sin complicaciones.</strong><br>
+                Solo nos envías la solicitud por WhatsApp y nosotros gestionamos tu catálogo.
+            </p>
+            <div class="pill-group">
+                <span>🎁 Hasta 100 gratis</span>
+                <span>⬆️ Subir: $500</span>
+                <span>⬇️ Bajar: $500</span>
+                <span>✏️ Editar: $500</span>
+                <span>🗑️ Eliminar: $500</span>
+            </div>
+            <p style="margin-top: 1.2rem; font-size: 0.9rem;">
+                <i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +57 3041146297
+            </p>
+        </div>
+
+        <!-- ¿CÓMO FUNCIONA? -->
+        <div class="how-it-works">
+            <h2>📋 ¿Cómo funciona? Es muy sencillo</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Envías el formulario</h3>
+                    <p>Completa tus datos comerciales y elige tu nombre de subdominio único</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Pagas $100.000 COP</h3>
+                    <p>Te enviamos los datos para pagar el Plan Anual (pago único)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-gift"></i>
+                    <h3>¡Bono de lanzamiento!</h3>
+                    <p>El asesor crea tu catálogo y sube <strong>hasta 100 productos sin costo</strong> en la primera gestión</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Gestiones posteriores</h3>
+                    <p>Cada acción (subir, editar, bajar, eliminar) cuesta <strong>$500 COP</strong> por producto</p>
+                </div>
+            </div>
+            <div class="whatsapp-note">
+                <i class="fab fa-whatsapp"></i> <strong>Importante:</strong> No necesitas panel de control. Toda la gestión de tu catálogo la hacemos nosotros por WhatsApp. 
+                <strong>¡Primera gestión: hasta 100 productos gratis!</strong> Después, cada acción cuesta $500 COP por producto.
+            </div>
+        </div>
+
+        <!-- BENEFICIOS -->
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-gift"></i>
+                <h3>100 productos gratis</h3>
+                <p>Al activar tu plan anual, el asesor sube hasta 100 productos sin costo adicional. ¡Solo pagas el plan!</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3>0% comisión</h3>
+                <p>El cliente paga directo a tu cuenta. QRP2P nunca toca tu dinero. Tú decides el método de pago.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-globe-americas"></i>
+                <h3>Visibilidad global</h3>
+                <p>Tu tienda aparece en aplicaciones móviles, mapas del marketplace y medios digitales en más de 190 países.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-cart-shopping"></i>
+                <h3>Carrito de compras</h3>
+                <p>Los clientes pueden agregar productos al carrito y finalizar la compra directamente en tu tienda.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-building"></i>
+                <h3>Adaptable a todo negocio</h3>
+                <p>Productos físicos, digitales, reservas de hoteles/hostales, alquiler de vehículos, inmuebles, turismo y más.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Academia QRP2P</h3>
+                <p>Aprendizaje continuo sobre configuración de anuncios, contabilidad, tecnología, logística, finanzas y mucho más.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Diseño personalizable</h3>
+                <p>Todas las tiendas inician con el mismo diseño estándar, pero eres libre de solicitar cambios de diseño según tu imaginación.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-coins"></i>
+                <h3>Paga solo por lo que usas</h3>
+                <p>Después de la primera gestión, cada producto que subes, editas, bajas o eliminas cuesta $500 COP. Sin suscripciones mensuales.</p>
+            </div>
+        </div>
+
+        <!-- SERVICIOS ADICIONALES -->
+        <div class="services-section">
+            <h2><i class="fas fa-concierge-bell"></i> Servicios adicionales para vendedores</h2>
+            <p>Si prefieres que nosotros gestionemos tu tienda por completo, ofrecemos servicios profesionales mensuales.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Gestión completa de tienda</h3>
+                    <div class="price-tag">Desde $50.000 COP/mes</div>
+                    <p>Nosotros administramos toda tu tienda: subimos productos, gestionamos inventario, actualizamos precios y mantenemos tu catálogo siempre actualizado. Todo por WhatsApp.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20GESTI%C3%93N%20COMPLETA%20DE%20TIENDA" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Administración y Atención al Cliente</h3>
+                    <div class="price-tag">Desde $30.000 COP/mes</div>
+                    <p>Nosotros atendemos a tus clientes por WhatsApp, respondemos preguntas, gestionamos pedidos, filtramos consultas y manejamos el servicio al cliente. Tú solo vendes.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ADMINISTRACI%C3%93N%20Y%20ATENCI%C3%93N%20AL%20CLIENTE" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Recaudo y Desembolso</h3>
+                    <div class="price-tag">5% del valor de la venta</div>
+                    <p>Recibimos el pago del cliente (Nequi, Daviplata, bancos, efectivo) y te transferimos a tu cuenta. Tú no tocas el dinero.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20RECAUDO%20Y%20DESEMBOLSO" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-boxes"></i>
+                    <h3>Almacenamiento y Logística</h3>
+                    <div class="price-tag">Desde $50.000 COP/mes</div>
+                    <p>Guardamos tus productos en nuestro centro de operaciones. Llevamos control de inventario, gestión de garantías, devoluciones y preparamos pedidos.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ALMACENAMIENTO%20Y%20LOG%C3%8DSTICA" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Envíos y Guías</h3>
+                    <div class="price-tag">Según zona / $8.000 - $25.000 por envío</div>
+                    <p>Generación de guías, coordinación con mensajeros locales y nacionales. Recogemos, empacamos y entregamos los pedidos.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20ENV%C3%8DOS%20Y%20GU%C3%8DAS" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-crown"></i>
+                    <h3>Paquete Completo · Todo incluido</h3>
+                    <div class="price-tag">Desde $150.000 COP/mes</div>
+                    <p>Gestionamos: atención por WhatsApp, recaudo de pagos, inventario, almacenamiento, garantías y logística. Tú solo cobras tus ventas mensuales.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20PAQUETE%20COMPLETO" class="btn-primary" target="_blank" style="background: var(--color-negro); border: 1px solid var(--color-gris-30); color: var(--color-blanco);">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Contabilidad e Impuestos</h3>
+                    <div class="price-tag">Consulta</div>
+                    <p>Asesoría contable, gestión de facturación, declaración de impuestos y cumplimiento fiscal para tu negocio.</p>
+                    <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20cotizar%20el%20servicio%20de%20CONTABILIDAD%20E%20IMPUESTOS" class="btn-secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Cotizar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TESTIMONIO -->
+        <div class="testimonial-section">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left"></i>
+                <p>"Con QRP2P tengo mi tienda en línea con carrito de compras y mis productos aparecen en toda Colombia y el mundo. La academia me ha enseñado a gestionar mi negocio y las ventas han aumentado significativamente. Lo mejor es que no pago comisión, me dieron 100 productos gratis al inicio y solo pago $500 por cada producto que gestiono después."</p>
+                <p class="author">— Carlos R., Emprendedor de productos naturales</p>
+            </div>
+        </div>
+
+        <!-- CTA FINAL -->
+        <div class="mid-section">
+            <h2>¿Listo para vender en todo el mundo?</h2>
+            <p>Únete a la red P2P más grande del mundo. Visible en más de 190 países con acceso a una audiencia de más de 50 mil millones de personas. Incluye subdominio único, URL única, acceso a la academia QRP2P y <strong>hasta 100 productos gratis en tu primera gestión</strong>.</p>
+            <div class="button-group">
+                <a href="#formulario" class="btn-primary btn-primary-large">
+                    <i class="fas fa-user-plus"></i> ACTIVAR PLAN ANUAL · $100.000
+                </a>
+                <a href="https://wa.me/573041146297?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20adicionales%20del%20Plan%20Anual%20de%20QRP2P" class="btn-secondary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> CONSULTAR SERVICIOS ADICIONALES
+                </a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--color-gris-50);">
+                💬 Después de enviar el formulario, un asesor te contacta por WhatsApp para verificar el negocio y darte las instrucciones de pago. 
+                <strong>¡Recuerda! Al activar tu plan, el asesor sube hasta 100 productos sin costo adicional.</strong>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>QRP2P Colombia</h3>
+                <p>Marketplace descentralizado P2P con presencia en más de 190 países. Tiendas en línea profesionales con carrito de compras, 0% comisión y acompañamiento a través de nuestra academia. <strong>Primera gestión: hasta 100 productos gratis.</strong> Después, cada gestión de producto: $500 COP.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fab fa-whatsapp"></i> +57 3041146297</p>
+                <p><i class="fas fa-envelope"></i> plananual@qrp2p.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces</h3>
+                <a href="/co">Inicio</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Soporte</a>
+            </div>
+        </div>
+        
+        <div class="footer-register">
+            <a href="#formulario" class="btn-primary">
+                <i class="fas fa-user-check"></i> ACTIVAR PLAN ANUAL · $100.000
+            </a>
+            <p>
+                Plan Anual $100.000 COP • <strong>Primera gestión: hasta 100 productos gratis</strong> • Después: $500 COP por gestión de producto • 0% comisión • Academia QRP2P incluida • Gestión por WhatsApp
+            </p>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; QRP2P Colombia - Marketplace Descentralizado Global | Plan Anual Catálogos Express | 0% comisión | Primera gestión: 100 productos gratis | $500 por gestión posterior | Academia QRP2P</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.getElementById('usuario').addEventListener('input', function() {
+            const usuario = this.value.trim() || 'tu-subdominio';
+            document.getElementById('urlPreview').textContent = usuario;
+        });
+
+        // Lógica para mostrar/ocultar campos según tipo de cuenta
+        const accountRadios = document.querySelectorAll('input[name="accountType"]');
+        const individualFields = document.getElementById('individualFields');
+        const corporateFields = document.getElementById('corporateFields');
+
+        accountRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'individual') {
+                    individualFields.style.display = 'block';
+                    corporateFields.style.display = 'none';
+                    // Quitar required de campos corporativos
+                    document.querySelectorAll('#corporateFields input, #corporateFields select').forEach(el => {
+                        el.removeAttribute('required');
+                    });
+                    // Poner required en campos individuales
+                    document.querySelectorAll('#individualFields input').forEach(el => {
+                        if (el.id !== 'ind_direccion_opcional') {
+                            el.setAttribute('required', '');
+                        }
+                    });
+                } else {
+                    individualFields.style.display = 'none';
+                    corporateFields.style.display = 'block';
+                    // Quitar required de campos individuales
+                    document.querySelectorAll('#individualFields input').forEach(el => {
+                        el.removeAttribute('required');
+                    });
+                    // Poner required en campos corporativos
+                    document.querySelectorAll('#corporateFields input, #corporateFields select').forEach(el => {
+                        if (el.id !== 'email' && el.id !== 'licencia_rnt' && el.id !== 'whatsapp') {
+                            el.setAttribute('required', '');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Inicializar: individual por defecto
+        document.querySelector('#individual').checked = true;
+        individualFields.style.display = 'block';
+        corporateFields.style.display = 'none';
+        document.querySelectorAll('#individualFields input').forEach(el => {
+            if (el.id !== 'ind_direccion_opcional') {
+                el.setAttribute('required', '');
+            }
+        });
+
+        function enviarWhatsApp(e) {
+            e.preventDefault();
+            
+            const accountType = document.querySelector('input[name="accountType"]:checked').value;
+            let mensaje = `*📋 NUEVA SOLICITUD PLAN ANUAL QRP2P*%0A%0A`;
+            mensaje += `*📌 Tipo de cuenta:* ${accountType === 'individual' ? 'Persona Natural (Individual)' : 'Persona Jurídica (Corporativo)'}%0A%0A`;
+
+            if (accountType === 'individual') {
+                // Campos individuales
+                const nombre = document.getElementById('ind_nombre').value.trim();
+                const nombre_comercial = document.getElementById('ind_nombre_comercial').value.trim();
+                const whatsapp = document.getElementById('ind_whatsapp').value.trim();
+                const direccion = document.getElementById('ind_direccion').value.trim();
+                const direccion_opcional = document.getElementById('ind_direccion_opcional').value.trim();
+
+                if (!nombre || !nombre_comercial || !whatsapp || !direccion) {
+                    alert('Por favor completa todos los campos obligatorios.');
+                    return;
+                }
+
+                mensaje += `*👤 Dueño de la cuenta:* ${nombre}%0A`;
+                mensaje += `*🏪 Nombre comercial:* ${nombre_comercial}%0A`;
+                mensaje += `*📱 WhatsApp para órdenes:* ${whatsapp}%0A`;
+                mensaje += `*📍 Dirección física comercial:* ${direccion}%0A`;
+                if (direccion_opcional) {
+                    mensaje += `*📍 Dirección adicional:* ${direccion_opcional}%0A`;
+                }
+                mensaje += `%0A`;
+
+            } else {
+                // Campos corporativos (igual que el original)
+                const nombres = document.getElementById('nombres').value.trim();
+                const apellidos = document.getElementById('apellidos').value.trim();
+                const tipo_id = document.getElementById('tipo_id').value;
+                const num_id = document.getElementById('num_id').value.trim();
+                const ciudad = document.getElementById('ciudad').value.trim();
+                const direccion = document.getElementById('direccion').value.trim();
+                const barrio = document.getElementById('barrio').value.trim();
+                const telefono = document.getElementById('telefono').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const nombre_comercial = document.getElementById('nombre_comercial').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const licencia_rnt = document.getElementById('licencia_rnt').value.trim();
+
+                if (!nombres || !apellidos || !tipo_id || !num_id || !ciudad || !direccion || !barrio || !telefono || !nombre_comercial) {
+                    alert('Por favor completa todos los campos obligatorios.');
+                    return;
+                }
+
+                mensaje += `*👤 Representante Legal:*%0A`;
+                mensaje += `Nombres: ${nombres}%0A`;
+                mensaje += `Apellidos: ${apellidos}%0A`;
+                mensaje += `Tipo ID: ${tipo_id}%0A`;
+                mensaje += `Número ID: ${num_id}%0A%0A`;
+                mensaje += `*🏢 Datos del Negocio:*%0A`;
+                mensaje += `Nombre Comercial: ${nombre_comercial}%0A`;
+                mensaje += `Dirección: ${direccion}%0A`;
+                mensaje += `Barrio: ${barrio}%0A`;
+                mensaje += `Ciudad: ${ciudad}%0A`;
+                mensaje += `Teléfono: ${telefono}%0A`;
+                if (whatsapp) mensaje += `WhatsApp: ${whatsapp}%0A`;
+                if (email) mensaje += `Correo: ${email}%0A`;
+                if (licencia_rnt) mensaje += `Licencia/RNT/Registro: ${licencia_rnt}%0A`;
+                mensaje += `%0A`;
+            }
+
+            // Campos comunes
+            const usuario = document.getElementById('usuario').value.trim();
+            const categoria = document.getElementById('categoria_negocio').value;
+            const descripcion = document.getElementById('descripcion').value.trim();
+
+            if (!usuario || !categoria) {
+                alert('Por favor completa el nombre de subdominio y la categoría.');
+                return;
+            }
+
+            mensaje += `*🔗 Subdominio de tu tienda:*%0A`;
+            mensaje += `Nombre de subdominio: ${usuario}%0A`;
+            mensaje += `URL: https://${usuario}.qrp2p.com%0A%0A`;
+            mensaje += `*📂 Categoría del negocio:* ${categoria}%0A%0A`;
+            mensaje += `*📝 Descripción:*%0A${descripcion || 'No especificada'}%0A%0A`;
+            mensaje += `*🎁 BONO DE LANZAMIENTO:*%0A`;
+            mensaje += `• Hasta 100 productos sin costo en la primera gestión%0A`;
+            mensaje += `• El asesor crea tu catálogo y sube los productos%0A%0A`;
+            mensaje += `*💰 Sistema de Créditos (después de la primera gestión):*%0A`;
+            mensaje += `• Subir producto: $500 COP%0A`;
+            mensaje += `• Bajar producto: $500 COP%0A`;
+            mensaje += `• Editar producto: $500 COP%0A`;
+            mensaje += `• Eliminar producto: $500 COP%0A%0A`;
+            mensaje += `*✅ Plan Anual: $100.000 COP (pago único)*%0A%0A`;
+            mensaje += `*🌐 Subdominio y Correo Corporativo:*%0A`;
+            mensaje += `• Subdominio único en servidores: ${usuario}.qrp2p.com%0A`;
+            mensaje += `• Diseño estándar unificado para todos los vendedores%0A`;
+            mensaje += `• Los vendedores pueden vincular su propio dominio (opcional)%0A`;
+            mensaje += `• Correo corporativo disponible con dominio propio%0A`;
+            mensaje += `• Acompañamiento sin costo si lo hacen ellos%0A`;
+            mensaje += `• Configuración por nosotros a bajo costo%0A`;
+            mensaje += `• Diseño personalizable: inicia con diseño estándar, puedes solicitar cambios%0A%0A`;
+            mensaje += `*✅ Verificar negocio y enviar instrucciones de pago.*`;
+            
+            const numeroDestino = '573148304504';
+            const url = `https://wa.me/${numeroDestino}?text=${mensaje}`;
+            window.open(url, '_blank');
+            
+            alert(`✅ ¡Formulario enviado! Un asesor te contactará por WhatsApp para verificar tu negocio y darte las instrucciones de pago.
+
+🎁 RESUMEN DE TU PLAN:
+━━━━━━━━━━━━━━━━━━━━━━
+📌 Plan anual: $100.000 COP (pago único)
+🎁 BONO: Hasta 100 productos sin costo en la primera gestión
+💰 Después: $500 COP por cada gestión (subir, bajar, editar, eliminar)
+✅ 0% comisión en ventas
+🌐 Subdominio único: https://${usuario}.qrp2p.com
+🎨 Diseño personalizable: inicia con diseño estándar, puedes solicitar cambios
+📚 Academia QRP2P incluida
+
+ℹ️ Recuerda: Toda la gestión se hace por WhatsApp. Sin panel de control.`);
+            
+            document.getElementById('formWhatsApp').reset();
+            document.getElementById('urlPreview').textContent = 'tu-subdominio';
+            // Reiniciar selector de cuenta a individual
+            document.querySelector('#individual').checked = true;
+            individualFields.style.display = 'block';
+            corporateFields.style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U')) {
+                if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        document.addEventListener('contextmenu', function(e) {
+            if (!e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('[contenteditable="true"]')) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
