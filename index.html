@@ -414,6 +414,7 @@
     }
     .btn-view-store:hover { background: #333333; transform: scale(0.98); }
     
+    /* Mejora visual de calidad */
     .leaflet-tile-pane {
       filter: brightness(1.03) contrast(1.03) saturate(1.05);
     }
@@ -429,7 +430,7 @@
     <header id="barra-superior" role="banner" aria-label="Barra de control del mapa">
       <div class="botones-izquierda">
         <div class="contenedor-buscador" role="search" aria-label="Búsqueda global de negocios">
-          <input type="search" id="buscador" placeholder="Search businesses around the world..." enterkeyhint="search" aria-label="Buscar negocios en todo el mundo">
+          <input type="search" id="buscador" placeholder="Search " enterkeyhint="search" aria-label="Buscar negocios en todo el mundo">
           <div id="sugerencias-busqueda" class="sugerencias-busqueda" role="listbox" aria-label="Sugerencias de búsqueda"></div>
         </div>
         <button class="btn-mapa btn-centrar" id="centrar-btn" aria-label="Centrar mapa en tu ubicación">
@@ -437,6 +438,10 @@
           <span id="centrar-text">CENTER</span>
         </button>
       </div>
+      <nav class="botones-derecha" aria-label="Controles del mapa">
+        <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
+        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
+      </nav>
     </header>
     
     <section id="mapa" role="application" aria-label="Mapa interactivo con negocios verificados en todo el mundo"></section>
@@ -490,7 +495,7 @@
       { id: "LON01", name: "QRP2P LONDON", category: "@london", latlng: [51.5074, -0.1278], address: "Oxford Street, London", description: "QRP2P multi-service point", phone: "+573041146297", email: "london@qrp2p.com", website: "/london.html", whatsapp: "573041146297" },
       // España - Español
       { id: "MAD01", name: "QRP2P MADRID", category: "@madrid", latlng: [40.4168, -3.7038], address: "Gran Vía, Madrid", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "573041146297" },
-      // Francia - Inglés
+      // Francia - Inglés (nombre en inglés para consistencia internacional)
       { id: "PAR01", name: "QRP2P PARIS", category: "@paris", latlng: [48.8566, 2.3522], address: "Champs-Élysées, Paris", description: "QRP2P multi-service point", phone: "+573041146297", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "573041146297" },
       // Alemania - Inglés
       { id: "BER01", name: "QRP2P BERLIN", category: "@berlin", latlng: [52.5200, 13.4050], address: "Unter den Linden, Berlin", description: "QRP2P multi-service point", phone: "+573041146297", email: "berlin@qrp2p.com", website: "https://berlin.qrp2p.com", whatsapp: "573041146297" },
@@ -519,10 +524,17 @@
     }
     
     function initMap() { 
-      // CAPA MAPA: SOLO OpenStreetMap
+      // CAPA MAPA: OpenStreetMap
       const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
+      });
+      
+      // CAPA SATÉLITE MAXAR (via Google Satellite)
+      const maxarSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 22,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://www.maxar.com/" target="_blank">Maxar Technologies</a>'
       });
       
       mapa = L.map('mapa', { 
@@ -531,7 +543,7 @@
         zoomControl: false,
         fadeAnimation: true,
         zoomAnimation: true,
-        maxZoom: 19,
+        maxZoom: 22,
         minZoom: 2
       });
       
@@ -568,6 +580,7 @@
       mapa.addLayer(clusters); 
       
       mapa.osmLayer = osmLayer;
+      mapa.maxarSatellite = maxarSatellite;
     }
     
     function centrarMapaRapido() {
@@ -601,6 +614,22 @@
       initMap(); 
       
       document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
+      
+      document.getElementById('map-btn').addEventListener('click', () => { 
+        mapa.removeLayer(currentLayer); 
+        currentLayer = mapa.osmLayer; 
+        currentLayer.addTo(mapa); 
+        document.getElementById('map-btn').classList.add('active'); 
+        document.getElementById('satellite-btn').classList.remove('active');
+      }); 
+      
+      document.getElementById('satellite-btn').addEventListener('click', () => { 
+        mapa.removeLayer(currentLayer); 
+        currentLayer = mapa.maxarSatellite; 
+        currentLayer.addTo(mapa); 
+        document.getElementById('satellite-btn').classList.add('active'); 
+        document.getElementById('map-btn').classList.remove('active');
+      });
       
       // BÚSQUEDA
       let inputBuscar = document.getElementById('buscador'); 
