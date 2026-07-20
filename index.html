@@ -247,28 +247,6 @@
       background: #000000;
       color: white;
     }
-    .lang-selector {
-      display: flex;
-      gap: 0.3rem;
-      margin-left: 0.5rem;
-    }
-    .lang-btn {
-      background: transparent;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      user-select: none !important;
-      -webkit-user-select: none !important;
-    }
-    .lang-btn.active {
-      background: #000000;
-      color: white;
-      border-color: #000000;
-    }
     #mapa {
       flex: 1;
       background: #f0f0f0;
@@ -452,7 +430,7 @@
     <header id="barra-superior" role="banner" aria-label="Barra de control del mapa">
       <div class="botones-izquierda">
         <div class="contenedor-buscador" role="search" aria-label="Búsqueda global de negocios">
-          <input type="search" id="buscador" placeholder="Search businesses across the United States..." enterkeyhint="search" aria-label="Buscar negocios en todo el mundo">
+          <input type="search" id="buscador" placeholder="Search businesses around the world..." enterkeyhint="search" aria-label="Buscar negocios en todo el mundo">
           <div id="sugerencias-busqueda" class="sugerencias-busqueda" role="listbox" aria-label="Sugerencias de búsqueda"></div>
         </div>
         <button class="btn-mapa btn-centrar" id="centrar-btn" aria-label="Centrar mapa en tu ubicación">
@@ -463,10 +441,6 @@
       <nav class="botones-derecha" aria-label="Controles del mapa">
         <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
         <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
-        <div class="lang-selector" role="group" aria-label="Selector de idioma">
-          <button class="lang-btn active" data-lang="en" aria-label="Idioma Inglés">EN</button>
-          <button class="lang-btn" data-lang="es" aria-label="Idioma Español">ES</button>
-        </div>
       </nav>
     </header>
     
@@ -496,76 +470,57 @@
       el.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
     });
 
-    let currentLang = 'en';
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
     
-    // ========== NEGOCIOS VERIFICADOS (incluyendo Cali Valle, Medellín, Bogotá) ==========
+    // ========== NEGOCIOS VERIFICADOS (UN SOLO IDIOMA POR NEGOCIO) ==========
     const verifiedBusinesses = [
-      // USA
-      { id: "NYC01", name_en: "QRP2P NEW YORK", name_es: "QRP2P NUEVA YORK", category_en: "@newyork", category_es: "@newyork", latlng: [40.7128, -74.0060], address_en: "5th Avenue, New York, NY", address_es: "5ta Avenida, Nueva York, NY", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "newyork@qrp2p.com", website: "/newyork.html", whatsapp: "573041146297" },
-      { id: "LAX01", name_en: "QRP2P LOS ANGELES", name_es: "QRP2P LOS ÁNGELES", category_en: "@losangeles", category_es: "@losangeles", latlng: [34.0522, -118.2437], address_en: "Hollywood Blvd, Los Angeles, CA", address_es: "Hollywood Blvd, Los Ángeles, CA", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "la@qrp2p.com", website: "/losangeles.html", whatsapp: "573041146297" },
-      { id: "CHI01", name_en: "QRP2P CHICAGO", name_es: "QRP2P CHICAGO", category_en: "@chicago", category_es: "@chicago", latlng: [41.8781, -87.6298], address_en: "Michigan Avenue, Chicago, IL", address_es: "Michigan Avenue, Chicago, IL", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "chicago@qrp2p.com", website: "/chicago.html", whatsapp: "573041146297" },
-      { id: "MIA01", name_en: "QRP2P MIAMI", name_es: "QRP2P MIAMI", category_en: "@miami", category_es: "@miami", latlng: [25.7617, -80.1918], address_en: "Ocean Drive, Miami, FL", address_es: "Ocean Drive, Miami, FL", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "miami@qrp2p.com", website: "/miami.html", whatsapp: "573041146297" },
-      // Canada
-      { id: "TOR01", name_en: "QRP2P TORONTO", name_es: "QRP2P TORONTO", category_en: "@toronto", category_es: "@toronto", latlng: [43.6532, -79.3832], address_en: "Queen Street, Toronto, ON", address_es: "Queen Street, Toronto, ON", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "toronto@qrp2p.com", website: "/toronto.html", whatsapp: "573041146297" },
-      // Mexico
-      { id: "MEX01", name_en: "QRP2P CIUDAD DE MÉXICO", name_es: "QRP2P CIUDAD DE MÉXICO", category_en: "@cdmx", category_es: "@cdmx", latlng: [19.4326, -99.1332], address_en: "Reforma 123, Ciudad de México", address_es: "Reforma 123, Ciudad de México", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "cdmx@qrp2p.com", website: "https://cdmx.qrp2p.com", whatsapp: "573041146297" },
-      // Colombia (Cali Valle, Medellín, Bogotá)
-      { id: "BOG01", name_en: "QRP2P BOGOTÁ", name_es: "QRP2P BOGOTÁ", category_en: "@bogota", category_es: "@bogota", latlng: [4.7110, -74.0721], address_en: "Calle 100, Bogotá", address_es: "Calle 100, Bogotá", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "bogota@qrp2p.com", website: "/bogota.html", whatsapp: "573041146297" },
-      { id: "cali", name_en: "QRP2P CALI VALLE", name_es: "QRP2P CALI VALLE", category_en: "cali.qrp2p.com", category_es: "cali.qrp2p.com", latlng: [3.4516, -76.5320], address_en: "Calle 13, Cali, Valle", address_es: "Calle 13, Cali, Valle", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "cali@qrp2p.com", website: "https://cali.qrp2p.com", whatsapp: "573041146297" },
-      { id: "MED01", name_en: "QRP2P MEDELLÍN", name_es: "QRP2P MEDELLÍN", category_en: "@medellin", category_es: "@medellin", latlng: [6.2442, -75.5812], address_en: "Poblado, Medellín", address_es: "Poblado, Medellín", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "medellin@qrp2p.com", website: "https://medellin.qrp2p.com", whatsapp: "573041146297" },
-      // South America
-      { id: "LIM01", name_en: "QRP2P LIMA", name_es: "QRP2P LIMA", category_en: "@lima", category_es: "@lima", latlng: [-12.0464, -77.0428], address_en: "Miraflores, Lima", address_es: "Miraflores, Lima", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "lima@qrp2p.com", website: "https://lima.qrp2p.com", whatsapp: "573041146297" },
-      { id: "BUE01", name_en: "QRP2P BUENOS AIRES", name_es: "QRP2P BUENOS AIRES", category_en: "@buenosaires", category_es: "@buenosaires", latlng: [-34.6037, -58.3816], address_en: "Florida Street, Buenos Aires", address_es: "QRP2P multi-service point", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "bsas@qrp2p.com", website: "https://buenosaires.qrp2p.com", whatsapp: "573041146297" },
-      // Europe
-      { id: "LON01", name_en: "QRP2P LONDON", name_es: "QRP2P LONDRES", category_en: "@london", category_es: "@london", latlng: [51.5074, -0.1278], address_en: "Oxford Street, London", address_es: "Oxford Street, Londres", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "london@qrp2p.com", website: "/london.html", whatsapp: "573041146297" },
-      { id: "MAD01", name_en: "QRP2P MADRID", name_es: "QRP2P MADRID", category_en: "@madrid", category_es: "@madrid", latlng: [40.4168, -3.7038], address_en: "Gran Vía, Madrid", address_es: "Gran Vía, Madrid", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "573041146297" },
-      { id: "PAR01", name_en: "QRP2P PARIS", name_es: "QRP2P PARÍS", category_en: "@paris", category_es: "@paris", latlng: [48.8566, 2.3522], address_en: "Champs-Élysées, Paris", address_es: "Champs-Élysées, París", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "573041146297" },
-      { id: "BER01", name_en: "QRP2P BERLIN", name_es: "QRP2P BERLÍN", category_en: "@berlin", category_es: "@berlin", latlng: [52.5200, 13.4050], address_en: "Unter den Linden, Berlin", address_es: "Unter den Linden, Berlín", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "berlin@qrp2p.com", website: "https://berlin.qrp2p.com", whatsapp: "573041146297" },
-      { id: "ROM01", name_en: "QRP2P ROME", name_es: "QRP2P ROMA", category_en: "@rome", category_es: "@rome", latlng: [41.9028, 12.4964], address_en: "Via del Corso, Rome", address_es: "Via del Corso, Roma", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "rome@qrp2p.com", website: "https://rome.qrp2p.com", whatsapp: "573041146297" },
-      // Middle East
-      { id: "DXB01", name_en: "QRP2P DUBAI", name_es: "QRP2P DUBAI", category_en: "@dubai", category_es: "@dubai", latlng: [25.2048, 55.2708], address_en: "Sheikh Zayed Road, Dubai", address_es: "Sheikh Zayed Road, Dubái", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "dubai@qrp2p.com", website: "https://dubai.qrp2p.com", whatsapp: "573041146297" },
-      // Africa
-      { id: "JHB01", name_en: "QRP2P JOHANNESBURG", name_es: "QRP2P JOHANNESBURGO", category_en: "@johannesburg", category_es: "@johannesburg", latlng: [-26.2041, 28.0473], address_en: "Sandton, Johannesburg", address_es: "Sandton, Johannesburgo", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "jhb@qrp2p.com", website: "https://johannesburg.qrp2p.com", whatsapp: "573041146297" },
-      // Oceania
-      { id: "SYD01", name_en: "QRP2P SYDNEY", name_es: "QRP2P SIDNEY", category_en: "@sydney", category_es: "@sydney", latlng: [-33.8688, 151.2093], address_en: "George Street, Sydney", address_es: "George Street, Sídney", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "sydney@qrp2p.com", website: "https://sydney.qrp2p.com", whatsapp: "573041146297" },
-      // Asia
-      { id: "TOK01", name_en: "QRP2P TOKYO", name_es: "QRP2P TOKIO", category_en: "@tokyo", category_es: "@tokyo", latlng: [35.6762, 139.6503], address_en: "Shibuya, Tokyo", address_es: "Shibuya, Tokio", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "tokyo@qrp2p.com", website: "https://tokyo.qrp2p.com", whatsapp: "573041146297" },
-      { id: "SEO01", name_en: "QRP2P SEOUL", name_es: "QRP2P SEÚL", category_en: "@seoul", category_es: "@seoul", latlng: [37.5665, 126.9780], address_en: "Gangnam, Seoul", address_es: "Gangnam, Seúl", description_en: "QRP2P multi-service point", description_es: "Punto multiservicios QRP2P", phone: "+573041146297", email: "seoul@qrp2p.com", website: "https://seoul.qrp2p.com", whatsapp: "573041146297" }
+      // USA - Inglés
+      { id: "NYC01", name: "QRP2P NEW YORK", category: "@newyork", latlng: [40.7128, -74.0060], address: "5th Avenue, New York, NY", description: "QRP2P multi-service point", phone: "+573041146297", email: "newyork@qrp2p.com", website: "/newyork.html", whatsapp: "573041146297" },
+      { id: "LAX01", name: "QRP2P LOS ANGELES", category: "@losangeles", latlng: [34.0522, -118.2437], address: "Hollywood Blvd, Los Angeles, CA", description: "QRP2P multi-service point", phone: "+573041146297", email: "la@qrp2p.com", website: "/losangeles.html", whatsapp: "573041146297" },
+      { id: "CHI01", name: "QRP2P CHICAGO", category: "@chicago", latlng: [41.8781, -87.6298], address: "Michigan Avenue, Chicago, IL", description: "QRP2P multi-service point", phone: "+573041146297", email: "chicago@qrp2p.com", website: "/chicago.html", whatsapp: "573041146297" },
+      { id: "MIA01", name: "QRP2P MIAMI", category: "@miami", latlng: [25.7617, -80.1918], address: "Ocean Drive, Miami, FL", description: "QRP2P multi-service point", phone: "+573041146297", email: "miami@qrp2p.com", website: "/miami.html", whatsapp: "573041146297" },
+      // Canada - Inglés
+      { id: "TOR01", name: "QRP2P TORONTO", category: "@toronto", latlng: [43.6532, -79.3832], address: "Queen Street, Toronto, ON", description: "QRP2P multi-service point", phone: "+573041146297", email: "toronto@qrp2p.com", website: "/toronto.html", whatsapp: "573041146297" },
+      // México - Español
+      { id: "MEX01", name: "QRP2P CIUDAD DE MÉXICO", category: "@cdmx", latlng: [19.4326, -99.1332], address: "Reforma 123, Ciudad de México", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "cdmx@qrp2p.com", website: "https://cdmx.qrp2p.com", whatsapp: "573041146297" },
+      // Colombia - Español (Cali Valle, Medellín, Bogotá)
+      { id: "BOG01", name: "QRP2P BOGOTÁ", category: "@bogota", latlng: [4.7110, -74.0721], address: "Calle 100, Bogotá", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "bogota@qrp2p.com", website: "/bogota.html", whatsapp: "573041146297" },
+      { id: "cali", name: "QRP2P CALI VALLE", category: "cali.qrp2p.com", latlng: [3.4516, -76.5320], address: "Calle 13, Cali, Valle", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "cali@qrp2p.com", website: "https://cali.qrp2p.com", whatsapp: "573041146297" },
+      { id: "MED01", name: "QRP2P MEDELLÍN", category: "@medellin", latlng: [6.2442, -75.5812], address: "Poblado, Medellín", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "medellin@qrp2p.com", website: "https://medellin.qrp2p.com", whatsapp: "573041146297" },
+      // Perú - Español
+      { id: "LIM01", name: "QRP2P LIMA", category: "@lima", latlng: [-12.0464, -77.0428], address: "Miraflores, Lima", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "lima@qrp2p.com", website: "https://lima.qrp2p.com", whatsapp: "573041146297" },
+      // Argentina - Español
+      { id: "BUE01", name: "QRP2P BUENOS AIRES", category: "@buenosaires", latlng: [-34.6037, -58.3816], address: "Florida Street, Buenos Aires", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "bsas@qrp2p.com", website: "https://buenosaires.qrp2p.com", whatsapp: "573041146297" },
+      // Reino Unido - Inglés
+      { id: "LON01", name: "QRP2P LONDON", category: "@london", latlng: [51.5074, -0.1278], address: "Oxford Street, London", description: "QRP2P multi-service point", phone: "+573041146297", email: "london@qrp2p.com", website: "/london.html", whatsapp: "573041146297" },
+      // España - Español
+      { id: "MAD01", name: "QRP2P MADRID", category: "@madrid", latlng: [40.4168, -3.7038], address: "Gran Vía, Madrid", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "573041146297" },
+      // Francia - Inglés (nombre en inglés para consistencia internacional)
+      { id: "PAR01", name: "QRP2P PARIS", category: "@paris", latlng: [48.8566, 2.3522], address: "Champs-Élysées, Paris", description: "QRP2P multi-service point", phone: "+573041146297", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "573041146297" },
+      // Alemania - Inglés
+      { id: "BER01", name: "QRP2P BERLIN", category: "@berlin", latlng: [52.5200, 13.4050], address: "Unter den Linden, Berlin", description: "QRP2P multi-service point", phone: "+573041146297", email: "berlin@qrp2p.com", website: "https://berlin.qrp2p.com", whatsapp: "573041146297" },
+      // Italia - Inglés
+      { id: "ROM01", name: "QRP2P ROME", category: "@rome", latlng: [41.9028, 12.4964], address: "Via del Corso, Rome", description: "QRP2P multi-service point", phone: "+573041146297", email: "rome@qrp2p.com", website: "https://rome.qrp2p.com", whatsapp: "573041146297" },
+      // Emiratos Árabes - Inglés
+      { id: "DXB01", name: "QRP2P DUBAI", category: "@dubai", latlng: [25.2048, 55.2708], address: "Sheikh Zayed Road, Dubai", description: "QRP2P multi-service point", phone: "+573041146297", email: "dubai@qrp2p.com", website: "https://dubai.qrp2p.com", whatsapp: "573041146297" },
+      // Sudáfrica - Inglés
+      { id: "JHB01", name: "QRP2P JOHANNESBURG", category: "@johannesburg", latlng: [-26.2041, 28.0473], address: "Sandton, Johannesburg", description: "QRP2P multi-service point", phone: "+573041146297", email: "jhb@qrp2p.com", website: "https://johannesburg.qrp2p.com", whatsapp: "573041146297" },
+      // Australia - Inglés
+      { id: "SYD01", name: "QRP2P SYDNEY", category: "@sydney", latlng: [-33.8688, 151.2093], address: "George Street, Sydney", description: "QRP2P multi-service point", phone: "+573041146297", email: "sydney@qrp2p.com", website: "https://sydney.qrp2p.com", whatsapp: "573041146297" },
+      // Japón - Inglés
+      { id: "TOK01", name: "QRP2P TOKYO", category: "@tokyo", latlng: [35.6762, 139.6503], address: "Shibuya, Tokyo", description: "QRP2P multi-service point", phone: "+573041146297", email: "tokyo@qrp2p.com", website: "https://tokyo.qrp2p.com", whatsapp: "573041146297" },
+      // Corea del Sur - Inglés
+      { id: "SEO01", name: "QRP2P SEOUL", category: "@seoul", latlng: [37.5665, 126.9780], address: "Gangnam, Seoul", description: "QRP2P multi-service point", phone: "+573041146297", email: "seoul@qrp2p.com", website: "https://seoul.qrp2p.com", whatsapp: "573041146297" }
     ];
     
-    const translations = { 
-      en: { 
-        buscar_placeholder: "Search businesses around the world...", 
-        centrar: "CENTER", 
-        mapa: "Map", 
-        satelite: "Satellite",
-        view_store: "VIEW STORE"
-      },
-      es: { 
-        buscar_placeholder: "Buscar negocios en todo el mundo...", 
-        centrar: "CENTRAR", 
-        mapa: "Mapa", 
-        satelite: "Satélite",
-        view_store: "VER TIENDA"
-      }
-    };
-    
-    function t(key) { return translations[currentLang][key] || key; }
-    
     function generarPopupHTML(business) { 
-      const name = currentLang === 'es' ? business.name_es : business.name_en;
-      const category = currentLang === 'es' ? business.category_es : business.category_en;
-      const description = currentLang === 'es' ? business.description_es : business.description_en;
-      const address = currentLang === 'es' ? business.address_es : business.address_en;
-      const storeText = t('view_store');
       const websiteUrl = business.website || (business.whatsapp ? `https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}` : '#');
       let contactButtons = '';
       if(business.website) contactButtons += `<a href="${business.website}" target="_blank" class="contact-link"><i class="fas fa-globe"></i> Web</a>`;
       if(business.whatsapp) contactButtons += `<a href="https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
       if(business.phone) contactButtons += `<a href="tel:${business.phone}" class="contact-link"><i class="fas fa-phone"></i> Call</a>`;
       if(business.email) contactButtons += `<a href="mailto:${business.email}" class="contact-link"><i class="fas fa-envelope"></i> Email</a>`;
-      return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${name}</h3><span class="popup-business-category">${category}</span></div><div class="popup-business-info"><div class="popup-business-description">${description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> ${storeText}</a></div></div>`; 
+      return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${business.name}</h3><span class="popup-business-category">${business.category}</span></div><div class="popup-business-info"><div class="popup-business-description">${business.description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${business.address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> VIEW STORE</a></div></div>`; 
     }
     
     function initMap() { 
@@ -618,7 +573,7 @@
         let popup = generarPopupHTML(business); 
         let marker = L.marker(business.latlng, { icon: icono }).bindPopup(popup, { maxWidth: 380, className: 'custom-popup' }); 
         marker.datosNegocio = business; 
-        marker.datosBusqueda = `${business.name_en} ${business.name_es} ${business.category_en} ${business.category_es} ${business.description_en} ${business.description_es}`.toLowerCase(); 
+        marker.datosBusqueda = `${business.name} ${business.category} ${business.description}`.toLowerCase(); 
         marcadoresOriginales.push(marker); 
         clusters.addLayer(marker); 
       }); 
@@ -642,32 +597,21 @@
                 html: '📍', 
                 iconSize: [28, 28] 
               }) 
-            }).addTo(mapa).bindPopup(currentLang === 'es' ? 'Tu ubicación actual' : 'Your current location'); 
+            }).addTo(mapa).bindPopup('Your current location'); 
             mapa.setView([latitude, longitude], 16); 
-            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; 
+            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>CENTER</span>'; 
           },
           err => { 
-            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>'+t('centrar')+'</span>'; 
+            btn.innerHTML = '<i class="fas fa-location-dot"></i><span>CENTER</span>'; 
             mapa.setView([20, 0], 2); 
-            alert(currentLang === 'es' ? 'No se pudo obtener tu ubicación. Mostrando vista global.' : 'Could not get your location. Showing global view.'); 
+            alert('Could not get your location. Showing global view.'); 
           }
         );
       } else { mapa.setView([20, 0], 2); }
     }
     
-    function updateUILanguage() {
-      document.getElementById('buscador').placeholder = t('buscar_placeholder');
-      document.getElementById('centrar-text').innerText = t('centrar');
-      document.getElementById('map-text').innerText = t('mapa');
-      document.getElementById('satellite-text').innerText = t('satelite');
-      marcadoresOriginales.forEach(marker => { 
-        marker.bindPopup(generarPopupHTML(marker.datosNegocio), { maxWidth: 380, className: 'custom-popup' }); 
-      });
-    }
-    
     document.addEventListener('DOMContentLoaded', () => { 
       initMap(); 
-      updateUILanguage();
       
       document.getElementById('centrar-btn').addEventListener('click', centrarMapaRapido);
       
@@ -687,15 +631,6 @@
         document.getElementById('map-btn').classList.remove('active');
       });
       
-      document.querySelectorAll('.lang-btn').forEach(btn => { 
-        btn.addEventListener('click', () => { 
-          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); 
-          btn.classList.add('active'); 
-          currentLang = btn.getAttribute('data-lang'); 
-          updateUILanguage(); 
-        }); 
-      });
-      
       // BÚSQUEDA
       let inputBuscar = document.getElementById('buscador'); 
       let buscadorTimeout;
@@ -704,16 +639,16 @@
         let term = e.target.value.trim(); 
         let sugDiv = document.getElementById('sugerencias-busqueda'); 
         if(term.length < 2) { sugDiv.style.display = 'none'; return; } 
-        sugDiv.innerHTML = `<div class="sugerencia-item">🔍 ${currentLang === 'es' ? 'Buscando...' : 'Searching...'}</div>`; 
+        sugDiv.innerHTML = `<div class="sugerencia-item">🔍 Searching...</div>`; 
         sugDiv.style.display = 'block'; 
         buscadorTimeout = setTimeout(() => { 
           let resultados = marcadoresOriginales.filter(m => m.datosBusqueda.includes(term.toLowerCase())); 
           sugDiv.innerHTML = ''; 
           resultados.forEach(m => { 
-            let name = currentLang === 'es' ? m.datosNegocio.name_es : m.datosNegocio.name_en; 
+            let name = m.datosNegocio.name; 
             let item = document.createElement('div'); 
             item.className = 'sugerencia-item'; 
-            item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">${currentLang === 'es' ? 'Ver' : 'View'}</button>`; 
+            item.innerHTML = `<div class="sugerencia-texto"><strong>⚡ ${name}</strong></div><button class="sugerencia-boton">View</button>`; 
             item.querySelector('.sugerencia-boton').addEventListener('click', () => { 
               m.openPopup(); 
               mapa.setView(m.getLatLng(), 16); 
@@ -721,7 +656,7 @@
             }); 
             sugDiv.appendChild(item); 
           }); 
-          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ ${currentLang === 'es' ? 'No se encontraron resultados en el mundo' : 'No results found worldwide'}</div>`; 
+          if(resultados.length===0) sugDiv.innerHTML = `<div class="sugerencia-item">❌ No results found worldwide</div>`; 
         }, 300); 
       }); 
       
