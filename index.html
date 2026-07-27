@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0">
   
   <!-- ==================== SEO ORIGINAL ==================== -->
-  <title>QRP2P GLOBAL | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSION</title>
+  <title>QRP2P | VERIFIED BUSINESSES | P2P MARKETPLACE | 0% COMMISSION</title>
   <meta name="description" content="QRP2P Global. Direct marketplace between verified buyers and sellers around the world. Find businesses, properties and services. 0% lifetime commission.">
   <meta name="keywords" content="QRP2P, global, worldwide, marketplace, buyer, seller, verified, 0% commission, businesses, properties">
   <meta name="author" content="QRP2P">
@@ -474,43 +474,7 @@
     
     // ========== NEGOCIOS VERIFICADOS (UN SOLO IDIOMA POR NEGOCIO) ==========
     const verifiedBusinesses = [
-      // USA - Inglés
-      { id: "NYC01", name: "QRP2P NEW YORK", category: "newyork.qrp2p.com", latlng: [40.7128, -74.0060], address: "5th Avenue, New York, NY", description: "Marketplace", phone: "+573041146297", email: "newyork@qrp2p.com", website: "/newyork.html", whatsapp: "573041146297" },
-      { id: "LAX01", name: "QRP2P LOS ANGELES", category: "losangeles.qrp2p.com", latlng: [34.0522, -118.2437], address: "Hollywood Blvd, Los Angeles, CA", description: "Marketplace", phone: "+573041146297", email: "la@qrp2p.com", website: "/losangeles.html", whatsapp: "573041146297" },
-      { id: "CHI01", name: "QRP2P CHICAGO", category: "chicago.qrp2p.com", latlng: [41.8781, -87.6298], address: "Michigan Avenue, Chicago, IL", description: "Marketplace", phone: "+573041146297", email: "chicago@qrp2p.com", website: "/chicago.html", whatsapp: "573041146297" },
-      { id: "MIA01", name: "QRP2P MIAMI", category: "miami.qrp2p.com", latlng: [25.7617, -80.1918], address: "Ocean Drive, Miami, FL", description: "Marketplace", phone: "+573041146297", email: "miami@qrp2p.com", website: "/miami.html", whatsapp: "573041146297" },
-      // Canada - Inglés
-      { id: "TOR01", name: "QRP2P TORONTO", category: "@toronto", latlng: [43.6532, -79.3832], address: "Queen Street, Toronto, ON", description: "Marketplace", phone: "+573041146297", email: "toronto@qrp2p.com", website: "/toronto.html", whatsapp: "573041146297" },
-      // México - Español
-      { id: "MEX01", name: "QRP2P CIUDAD DE MÉXICO", category: "@cdmx", latlng: [19.4326, -99.1332], address: "Reforma 123, Ciudad de México", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "cdmx@qrp2p.com", website: "https://cdmx.qrp2p.com", whatsapp: "573041146297" },
-      // Colombia - Español (Cali Valle, Medellín, Bogotá)
-      { id: "BOG01", name: "QRP2P BOGOTÁ", category: "bogota.qrp2p.com", latlng: [4.7110, -74.0721], address: "Calle 100, Bogotá", description: "Marketplace", phone: "+573041146297", email: "bogota@qrp2p.com", website: "/bogota.html", whatsapp: "573041146297" },
       { id: "cali", name: "QRP2P CALI VALLE", category: "cali.qrp2p.com", latlng: [3.4516, -76.5320], address: "Calle 13, Cali, Valle", description: "Marketplace", phone: "+573041146297", email: "cali@qrp2p.com", website: "https://cali.qrp2p.com", whatsapp: "573041146297" },
-      { id: "MED01", name: "QRP2P MEDELLÍN", category: "medellin.qrp2p.com", latlng: [6.2442, -75.5812], address: "Poblado, Medellín", description: "Marketplace", phone: "+573041146297", email: "medellin@qrp2p.com", website: "https://medellin.qrp2p.com", whatsapp: "573041146297" },
-      // Perú - Español
-      { id: "LIM01", name: "QRP2P LIMA", category: "@lima", latlng: [-12.0464, -77.0428], address: "Miraflores, Lima", description: "Marketplace", phone: "+573041146297", email: "lima@qrp2p.com", website: "https://lima.qrp2p.com", whatsapp: "573041146297" },
-      // Argentina - Español
-      { id: "BUE01", name: "QRP2P BUENOS AIRES", category: "@buenosaires", latlng: [-34.6037, -58.3816], address: "Florida Street, Buenos Aires", description: "Marketplace", phone: "+573041146297", email: "bsas@qrp2p.com", website: "https://buenosaires.qrp2p.com", whatsapp: "573041146297" },
-      // Reino Unido - Inglés
-      { id: "LON01", name: "QRP2P LONDON", category: "@london", latlng: [51.5074, -0.1278], address: "Oxford Street, London", description: "QRP2P multi-service point", phone: "+573041146297", email: "london@qrp2p.com", website: "/london.html", whatsapp: "573041146297" },
-      // España - Español
-      { id: "MAD01", name: "QRP2P MADRID", category: "@madrid", latlng: [40.4168, -3.7038], address: "Gran Vía, Madrid", description: "Punto multiservicios QRP2P", phone: "+573041146297", email: "madrid@qrp2p.com", website: "/madrid.html", whatsapp: "573041146297" },
-      // Francia - Inglés (nombre en inglés para consistencia internacional)
-      { id: "PAR01", name: "QRP2P PARIS", category: "@paris", latlng: [48.8566, 2.3522], address: "Champs-Élysées, Paris", description: "QRP2P multi-service point", phone: "+573041146297", email: "paris@qrp2p.com", website: "/paris.html", whatsapp: "573041146297" },
-      // Alemania - Inglés
-      { id: "BER01", name: "QRP2P BERLIN", category: "@berlin", latlng: [52.5200, 13.4050], address: "Unter den Linden, Berlin", description: "QRP2P multi-service point", phone: "+573041146297", email: "berlin@qrp2p.com", website: "https://berlin.qrp2p.com", whatsapp: "573041146297" },
-      // Italia - Inglés
-      { id: "ROM01", name: "QRP2P ROME", category: "@rome", latlng: [41.9028, 12.4964], address: "Via del Corso, Rome", description: "QRP2P multi-service point", phone: "+573041146297", email: "rome@qrp2p.com", website: "https://rome.qrp2p.com", whatsapp: "573041146297" },
-      // Emiratos Árabes - Inglés
-      { id: "DXB01", name: "QRP2P DUBAI", category: "@dubai", latlng: [25.2048, 55.2708], address: "Sheikh Zayed Road, Dubai", description: "QRP2P multi-service point", phone: "+573041146297", email: "dubai@qrp2p.com", website: "https://dubai.qrp2p.com", whatsapp: "573041146297" },
-      // Sudáfrica - Inglés
-      { id: "JHB01", name: "QRP2P JOHANNESBURG", category: "@johannesburg", latlng: [-26.2041, 28.0473], address: "Sandton, Johannesburg", description: "QRP2P multi-service point", phone: "+573041146297", email: "jhb@qrp2p.com", website: "https://johannesburg.qrp2p.com", whatsapp: "573041146297" },
-      // Australia - Inglés
-      { id: "SYD01", name: "QRP2P SYDNEY", category: "@sydney", latlng: [-33.8688, 151.2093], address: "George Street, Sydney", description: "QRP2P multi-service point", phone: "+573041146297", email: "sydney@qrp2p.com", website: "https://sydney.qrp2p.com", whatsapp: "573041146297" },
-      // Japón - Inglés
-      { id: "TOK01", name: "QRP2P TOKYO", category: "@tokyo", latlng: [35.6762, 139.6503], address: "Shibuya, Tokyo", description: "QRP2P multi-service point", phone: "+573041146297", email: "tokyo@qrp2p.com", website: "https://tokyo.qrp2p.com", whatsapp: "573041146297" },
-      // Corea del Sur - Inglés
-      { id: "SEO01", name: "QRP2P SEOUL", category: "@seoul", latlng: [37.5665, 126.9780], address: "Gangnam, Seoul", description: "QRP2P multi-service point", phone: "+573041146297", email: "seoul@qrp2p.com", website: "https://seoul.qrp2p.com", whatsapp: "573041146297" }
     ];
     
     function generarPopupHTML(business) { 
