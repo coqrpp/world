@@ -1100,6 +1100,135 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
+
+        .booking-dates {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+        .booking-dates h4 { margin-bottom: 0.8rem; font-size: 1rem; }
+        .booking-dates .date-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .booking-dates .date-group label {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 140px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .booking-dates .date-group input {
+            padding: 0.5rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+            margin-top: 0.3rem;
+        }
+
+        .visit-schedule {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-gris-medio);
+        }
+        .visit-schedule h4 { margin-bottom: 0.8rem; font-size: 1rem; }
+        .visit-schedule .visit-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .visit-schedule .visit-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+        .visit-schedule .visit-option input[type="radio"] { width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; }
+        .visit-schedule .visit-option label { font-size: 0.9rem; cursor: pointer; }
+        .visit-schedule .visit-date-time {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background-color: var(--color-gris-claro);
+            border-radius: 6px;
+        }
+        .visit-schedule .visit-date-time.active { display: block; }
+        .visit-schedule .visit-date-time label {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .visit-schedule .visit-date-time input {
+            padding: 0.6rem;
+            border: 1px solid var(--color-gris-medio);
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14px;
+            margin-top: 0.3rem;
+            width: 100%;
+        }
+
+        .credit-info {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f5f0;
+            border-radius: 8px;
+            border: 2px solid var(--color-negro);
+        }
+        .credit-info h4 { margin-bottom: 0.5rem; font-size: 1rem; color: var(--color-negro); }
+        .credit-info p { font-size: 0.85rem; color: var(--color-gris-oscuro); margin-bottom: 0.3rem; }
+        .credit-info .credit-badge {
+            display: inline-block;
+            background-color: var(--color-negro);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+        }
+        .downpayment-fields {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background-color: var(--color-blanco);
+            border-radius: 8px;
+            border: 2px solid var(--color-negro);
+            width: 100%;
+        }
+        .downpayment-fields.active { display: block; }
+        .downpayment-fields .form-group { margin-bottom: 0.5rem; }
+        .downpayment-fields .form-group:last-child { margin-bottom: 0; }
+        .downpayment-fields label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-negro);
+        }
+        .downpayment-fields input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--color-gris-medio);
+            border-radius: 8px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2rem;
+            transition: border-color 0.3s;
+            background-color: #fafafa;
+        }
+        .downpayment-fields input:focus {
+            border-color: var(--color-negro);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+        .downpayment-fields .input-hint {
+            font-size: 0.8rem;
+            color: var(--color-gris-oscuro);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -1268,6 +1397,39 @@
                 <h3>Método de Pago</h3>
             </div>
             
+            <div class="booking-dates" id="bookingDatesContainer" style="display:none;">
+                <h4><i class="fas fa-calendar-alt" aria-hidden="true"></i> Fechas de Reserva</h4>
+                <div class="date-group">
+                    <label>Check-in <input type="datetime-local" id="checkinDate" aria-label="Fecha de check-in"></label>
+                    <label>Check-out <input type="datetime-local" id="checkoutDate" aria-label="Fecha de check-out"></label>
+                </div>
+            </div>
+
+            <div class="visit-schedule" id="visitScheduleContainer" style="display:none;">
+                <h4><i class="fas fa-calendar-check" aria-hidden="true"></i> ¿Deseas agendar una visita previa?</h4>
+                <div class="visit-options">
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitNo" value="no" checked>
+                        <label for="visitNo">No, deseo comprar directamente</label>
+                    </div>
+                    <div class="visit-option">
+                        <input type="radio" name="visitOption" id="visitYes" value="yes">
+                        <label for="visitYes">Sí, quiero agendar una visita</label>
+                    </div>
+                    <div class="visit-date-time" id="visitDateTime">
+                        <label>Fecha y hora de visita <input type="datetime-local" id="visitDateTimeInput" aria-label="Fecha y hora de visita"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="credit-info" id="creditInfoContainer" style="display:none;">
+                <h4><i class="fas fa-handshake" aria-hidden="true"></i> Opciones de Financiamiento</h4>
+                <p>Puedes adquirir este inmueble/vehículo con:</p>
+                <p><strong>🏦 Pago de contado</strong> - Aprovecha descuentos especiales</p>
+                <p><strong>📋 Cuota inicial + Crédito</strong> - Si ya cuentas con preaprobación bancaria o nosotros te ayudamos a gestionar el mejor crédito sin complicaciones.</p>
+                <span class="credit-badge"><i class="fas fa-star" aria-hidden="true"></i> Asesoría financiera incluida</span>
+            </div>
+            
             <div class="customer-info">
                 <h3>Información de Contacto</h3>
                 <div class="form-group">
@@ -1329,7 +1491,7 @@
 
     <script>
         // ============================================================
-        // PRODUCTOS (sin vendedor ni logística)
+        // PRODUCTOS - SIN VENDEDOR NI LOGÍSTICA
         // ============================================================
         const products = [
             {
@@ -1343,6 +1505,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-07-10T09:00:00",
                 "whatsapp": "573148304504"
@@ -1358,6 +1522,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-07-01T08:15:00",
                 "whatsapp": "573041146297"
@@ -1373,6 +1539,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-06-28T16:30:00",
                 "whatsapp": "573148304504"
@@ -1388,6 +1556,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-06-25T11:30:00",
                 "whatsapp": "573148304504"
@@ -1403,6 +1573,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-06-30T11:00:00",
                 "whatsapp": "573148304504"
@@ -1418,6 +1590,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-07-12T07:20:00",
                 "whatsapp": "573148304504"
@@ -1433,6 +1607,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-06-20T13:10:00",
                 "whatsapp": "573148304504"
@@ -1448,6 +1624,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-07-02T12:00:00",
                 "whatsapp": "573148304504"
@@ -1463,6 +1641,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-06-18T09:45:00",
                 "whatsapp": "573148304504"
@@ -1478,6 +1658,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": false,
                 "isPhysical": true,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "fisico",
                 "publishedDate": "2026-07-08T14:50:00",
                 "whatsapp": "573148304504"
@@ -1493,6 +1675,8 @@
                 "images": ["https://drive.google.com/thumbnail?id=1CRCYhdnU2ZC16ze2dPqoCPREq6Sh5VVD&sz=w1000"],
                 "isReserva": true,
                 "isPhysical": false,
+                "isInmueble": false,
+                "isCarro": false,
                 "paymentType": "reserva",
                 "publishedDate": "2026-07-05T11:45:00",
                 "whatsapp": "573148304504"
@@ -1549,7 +1733,6 @@
             return 'COP $' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        // ====== FUNCIÓN DE TIEMPO DINÁMICO EN TIEMPO REAL ======
         function getTimeSincePublished(publishedDate) {
             const now = new Date();
             const colombiaTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) - (5 * 3600000));
@@ -1579,7 +1762,6 @@
             `;
         }
 
-        // ====== ACTUALIZAR TIEMPOS EN TIEMPO REAL ======
         function updateAllTimes() {
             document.querySelectorAll('.time-text').forEach(el => {
                 const publishedDate = el.getAttribute('data-published');
@@ -1612,7 +1794,6 @@
             document.getElementById('cartBadge').textContent = cart.length;
         }
 
-        // ====== RENDERIZAR CARRITO ======
         function renderCart() {
             const container = document.getElementById('cartItems');
             const totalPriceEl = document.getElementById('cartTotalPrice');
@@ -1676,7 +1857,6 @@
             document.getElementById('cartCheckoutBtn').disabled = !(hasName && hasPhone && hasAddress && hasCity && hasItems);
         }
 
-        // ====== RENDERIZAR PRODUCTOS ======
         function renderProducts(productsToRender) {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
@@ -1787,7 +1967,6 @@
             renderProducts(filtered);
         }
 
-        // ====== DIRECT PURCHASE ======
         function openDirectPurchase(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -1810,7 +1989,6 @@
             
             renderPaymentOptions(product.paymentType);
             
-            // Mostrar/ocultar según tipo
             document.getElementById('bookingDatesContainer').style.display = product.isReserva ? 'block' : 'none';
             document.getElementById('visitScheduleContainer').style.display = (product.isInmueble || product.isCarro) ? 'block' : 'none';
             document.getElementById('creditInfoContainer').style.display = (product.isInmueble || product.isCarro) ? 'block' : 'none';
@@ -1835,7 +2013,6 @@
             document.getElementById('directPurchaseModal').style.display = 'flex';
         }
 
-        // ====== PAYMENT OPTIONS DIRECT ======
         function renderPaymentOptions(paymentType) {
             let html = '<h3>Método de Pago</h3>';
             
@@ -2193,7 +2370,6 @@
             }
         });
 
-        // ====== CARRITO EVENTOS ======
         document.getElementById('cartToggle').addEventListener('click', () => {
             renderCart();
             document.getElementById('cartModal').style.display = 'flex';
