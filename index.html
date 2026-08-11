@@ -407,7 +407,7 @@
     .btn-web-popup {
       flex: 1;
       background: #000000;
-      color: #ffffff;
+      color: #ffffff !important;
       text-align: center;
       padding: 0.7rem;
       border-radius: 12px;
@@ -424,11 +424,15 @@
     .btn-web-popup:hover {
       background: #333333;
       transform: scale(0.98);
+      color: #ffffff !important;
+    }
+    .btn-web-popup:visited {
+      color: #ffffff !important;
     }
     .btn-tor-popup {
       flex: 1;
       background: #7B1FA2;
-      color: #ffffff;
+      color: #ffffff !important;
       text-align: center;
       padding: 0.7rem;
       border-radius: 12px;
@@ -445,6 +449,10 @@
     .btn-tor-popup:hover {
       background: #9C27B0;
       transform: scale(0.98);
+      color: #ffffff !important;
+    }
+    .btn-tor-popup:visited {
+      color: #ffffff !important;
     }
     
     /* Mejora visual de calidad */
@@ -505,9 +513,38 @@
 
     let mapa, userMarker, marcadoresOriginales = [], currentLayer;
     
-    // ========== NEGOCIOS VERIFICADOS (UN SOLO IDIOMA POR NEGOCIO) ==========
+    // ========== NEGOCIOS VERIFICADOS CON URLs WEB Y TOR POR NEGOCIO ==========
     const verifiedBusinesses = [
-      { id: "nutricionhd", name: "NUTRICION HD CALI", category: "nutricionhd.qrp2p.com", latlng: [3.4516, -76.5320], address: "Calle 13, Cali, Valle", description: "Marketplace", website: "https://cali.qrp2p.com" },
+      { 
+        id: "cali", 
+        name: "QRP2P CALI VALLE", 
+        category: "cali.qrp2p.com", 
+        latlng: [3.4516, -76.5320], 
+        address: "Calle 13, Cali, Valle", 
+        description: "Marketplace", 
+        webUrl: "https://cali.qrp2p.com",
+        torUrl: "https://cali.qrp2p.onion"
+      },
+      { 
+        id: "bogota", 
+        name: "QRP2P BOGOTÁ", 
+        category: "bogota.qrp2p.com", 
+        latlng: [4.7110, -74.0721], 
+        address: "Carrera 7, Bogotá, Colombia", 
+        description: "Marketplace", 
+        webUrl: "https://bogota.qrp2p.com",
+        torUrl: "https://bogota.qrp2p.onion"
+      },
+      { 
+        id: "medellin", 
+        name: "QRP2P MEDELLÍN", 
+        category: "medellin.qrp2p.com", 
+        latlng: [6.2476, -75.5658], 
+        address: "Avenida El Poblado, Medellín, Colombia", 
+        description: "Marketplace", 
+        webUrl: "https://medellin.qrp2p.com",
+        torUrl: "https://medellin.qrp2p.onion"
+      }
     ];
     
     function generarPopupHTML(business) { 
@@ -533,8 +570,8 @@
           </div>
           ${contactSection}
           <div class="popup-buttons-container">
-            <a href="https://qrp2p.com" target="_blank" class="btn-web-popup">WEB</a>
-            <a href="https://qrp2p.onion" target="_blank" class="btn-tor-popup">TOR</a>
+            <a href="${business.webUrl}" target="_blank" class="btn-web-popup">WEB</a>
+            <a href="${business.torUrl}" target="_blank" class="btn-tor-popup">TOR</a>
           </div>
         </div>
       </div>`; 
