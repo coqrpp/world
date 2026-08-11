@@ -397,8 +397,15 @@
       -webkit-user-select: none !important;
     }
     .contact-link i { font-size: 0.7rem; }
-    .btn-view-store {
-      display: block;
+    
+    /* Botones WEB y TOR en el popup */
+    .popup-buttons-container {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+    .btn-web-popup {
+      flex: 1;
       background: #000000;
       color: white;
       text-align: center;
@@ -407,49 +414,37 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 0.8rem;
-      margin-top: 0.8rem;
       transition: all 0.2s ease;
       user-select: none !important;
       -webkit-user-select: none !important;
-    }
-    .btn-view-store:hover { background: #333333; transform: scale(0.98); }
-    
-    /* Botones WEB y TOR */
-    .btn-web {
-      background: #000000;
-      color: #ffffff;
-      padding: 0.6rem 1.2rem;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 600;
       border: none;
       cursor: pointer;
-      white-space: nowrap;
       font-family: 'Libre Baskerville', serif;
-      transition: all 0.2s ease;
-      user-select: none !important;
-      -webkit-user-select: none !important;
     }
-    .btn-web:hover {
+    .btn-web-popup:hover {
       background: #333333;
+      transform: scale(0.98);
     }
-    .btn-tor {
+    .btn-tor-popup {
+      flex: 1;
       background: #7B1FA2;
-      color: #ffffff;
-      padding: 0.6rem 1.2rem;
-      border-radius: 40px;
+      color: white;
+      text-align: center;
+      padding: 0.7rem;
+      border-radius: 12px;
       text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 0.8rem;
       transition: all 0.2s ease;
       user-select: none !important;
       -webkit-user-select: none !important;
+      border: none;
+      cursor: pointer;
+      font-family: 'Libre Baskerville', serif;
     }
-    .btn-tor:hover {
+    .btn-tor-popup:hover {
       background: #9C27B0;
+      transform: scale(0.98);
     }
     
     /* Mejora visual de calidad */
@@ -477,12 +472,8 @@
         </button>
       </div>
       <nav class="botones-derecha" aria-label="Controles del mapa">
-        <button class="btn-web" id="web-btn" aria-label="Acceso WEB">
-          <span>WEB</span>
-        </button>
-        <button class="btn-tor" id="tor-btn" aria-label="Acceso TOR">
-          <span>TOR</span>
-        </button>
+        <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
+        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
       </nav>
     </header>
     
@@ -520,13 +511,33 @@
     ];
     
     function generarPopupHTML(business) { 
-      const websiteUrl = business.website || (business.whatsapp ? `https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}` : '#');
       let contactButtons = '';
-      if(business.website) contactButtons += `<a href="${business.website}" target="_blank" class="contact-link"><i class="fas fa-globe"></i> Web</a>`;
       if(business.whatsapp) contactButtons += `<a href="https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>`;
       if(business.phone) contactButtons += `<a href="tel:${business.phone}" class="contact-link"><i class="fas fa-phone"></i> Call</a>`;
       if(business.email) contactButtons += `<a href="mailto:${business.email}" class="contact-link"><i class="fas fa-envelope"></i> Email</a>`;
-      return `<div class="popup-business-card"><div class="popup-business-header"><h3>⚡ ${business.name}</h3><span class="popup-business-category">${business.category}</span></div><div class="popup-business-info"><div class="popup-business-description">${business.description}</div><div class="popup-business-address"><i class="fas fa-map-pin"></i> ${business.address}</div><div class="popup-business-contact">${contactButtons}</div><a href="${websiteUrl}" target="_blank" class="btn-view-store"><i class="fas fa-store"></i> VIEW STORE</a></div></div>`; 
+      
+      let contactSection = '';
+      if(contactButtons) {
+        contactSection = `<div class="popup-business-contact">${contactButtons}</div>`;
+      }
+      
+      return `<div class="popup-business-card">
+        <div class="popup-business-header">
+          <h3>⚡ ${business.name}</h3>
+          <span class="popup-business-category">${business.category}</span>
+        </div>
+        <div class="popup-business-info">
+          <div class="popup-business-description">${business.description}</div>
+          <div class="popup-business-address">
+            <i class="fas fa-map-pin"></i> ${business.address}
+          </div>
+          ${contactSection}
+          <div class="popup-buttons-container">
+            <a href="https://qrp2p.com" target="_blank" class="btn-web-popup">WEB</a>
+            <a href="https://qrp2p.onion" target="_blank" class="btn-tor-popup">TOR</a>
+          </div>
+        </div>
+      </div>`; 
     }
     
     function initMap() { 
@@ -635,15 +646,6 @@
         currentLayer.addTo(mapa); 
         document.getElementById('satellite-btn').classList.add('active'); 
         document.getElementById('map-btn').classList.remove('active');
-      });
-      
-      // Botones WEB y TOR
-      document.getElementById('web-btn').addEventListener('click', () => {
-        window.open('https://qrp2p.com', '_blank');
-      });
-      
-      document.getElementById('tor-btn').addEventListener('click', () => {
-        window.open('https://qrp2p.onion', '_blank');
       });
       
       // BÚSQUEDA
