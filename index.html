@@ -414,6 +414,44 @@
     }
     .btn-view-store:hover { background: #333333; transform: scale(0.98); }
     
+    /* Botones WEB y TOR */
+    .btn-web {
+      background: #000000;
+      color: #ffffff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Libre Baskerville', serif;
+      transition: all 0.2s ease;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+    }
+    .btn-web:hover {
+      background: #333333;
+    }
+    .btn-tor {
+      background: #7B1FA2;
+      color: #ffffff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Libre Baskerville', serif;
+      transition: all 0.2s ease;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+    }
+    .btn-tor:hover {
+      background: #9C27B0;
+    }
+    
     /* Mejora visual de calidad */
     .leaflet-tile-pane {
       filter: brightness(1.03) contrast(1.03) saturate(1.05);
@@ -439,8 +477,12 @@
         </button>
       </div>
       <nav class="botones-derecha" aria-label="Controles del mapa">
-        <button class="map-type-btn active" id="map-btn" aria-label="Vista de mapa"><span id="map-text">Map</span></button>
-        <button class="map-type-btn" id="satellite-btn" aria-label="Vista de satélite"><span id="satellite-text">Satellite</span></button>
+        <button class="btn-web" id="web-btn" aria-label="Acceso WEB">
+          <span>WEB</span>
+        </button>
+        <button class="btn-tor" id="tor-btn" aria-label="Acceso TOR">
+          <span>TOR</span>
+        </button>
       </nav>
     </header>
     
@@ -593,6 +635,15 @@
         currentLayer.addTo(mapa); 
         document.getElementById('satellite-btn').classList.add('active'); 
         document.getElementById('map-btn').classList.remove('active');
+      });
+      
+      // Botones WEB y TOR
+      document.getElementById('web-btn').addEventListener('click', () => {
+        window.open('https://qrp2p.com', '_blank');
+      });
+      
+      document.getElementById('tor-btn').addEventListener('click', () => {
+        window.open('https://qrp2p.onion', '_blank');
       });
       
       // BÚSQUEDA
