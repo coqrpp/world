@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": 12,
+      "title": "APARTAMENTO EN VENTA - NORTE DE CALI",
+      "price": 450000000,
+      "description": "Hermoso apartamento de 120m² en el norte de Cali. 3 habitaciones, 2 baños, garaje y zona social.",
+      "category": "@18mlscali",
+      "warehousePrice": 400000000,
+      "productUrl": "12.html",
+      "image": "images/prop_12_apartamento.jpg",
+      "images": ["images/prop_12_apartamento.jpg"],
+      "isReserva": false,
+      "isPhysical": true,
+      "isInmueble": true,
+      "isCarro": false,
+      "paymentType": "inmueble_carro",
+      "publishedDate": "2026-08-12T10:00:00",
+      "whatsapp": "573148304504"
+    }
+  ]
+}
